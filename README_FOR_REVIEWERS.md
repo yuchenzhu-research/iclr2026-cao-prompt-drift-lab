@@ -1,6 +1,6 @@
-# Prompt Drift Lab
+# Prompt Drift Lab — Audit-Oriented Evaluation of Prompt Drift under Small Prompt Perturbations
 
-> **Reviewer entry:** start from `README_FOR_REVIEWERS.md`.
+> **Reviewer entry (single entry point):** start from `README_FOR_REVIEWERS.md`.
 
 ## Overview
 
@@ -10,7 +10,7 @@ The focus is audit-oriented: failures are made explicit, traceable, and inspecta
 
 ---
 
-## Evidence chain (one-way, auditable)
+## Evidence chain
 
 **inputs → raw outputs (PDF) → judge artifacts (JSON) → summary tables (CSV)**
 
@@ -18,9 +18,17 @@ All numbers reported in the CSV tables are traceable to stored per-file record J
 
 ---
 
+## Authority
+
+- **Normative evaluation rules:** `supplement/03_evaluation_rules/eval_protocol.md`
+- **Normative reported numbers:** `supplement/04_results/03_processed_evaluations/<judge_version>/summary_tables/*.csv`
+- Other READMEs / notes are **explanatory only** and must not override the two items above.
+
+---
+
 ## Quickstart (2–5 minutes)
 
-### 1) Fix the judge version (single source)
+### 1) Specify the judge version
 
 Judge versions live under:
 - `supplement/04_results/03_processed_evaluations/`
@@ -29,13 +37,14 @@ This artifact pack includes:
 - `v0_baseline_judge/`
 - `v1_paraphrase_judge/`
 - `v2_schema_strict_judge/`
+- `readme.md`
 
-Set `<judge_version>` to the version referenced by the submission and keep it fixed when citing tables.
+Set `<judge_version>` to the version you cite and keep it fixed when reading tables.
 
 Example:
 - `supplement/04_results/03_processed_evaluations/v1_paraphrase_judge/summary_tables/`
 
-### 2) Open the cited result tables
+### 2) Open the cited result tables (no code required)
 
 - `supplement/04_results/03_processed_evaluations/<judge_version>/summary_tables/scores_grouped.csv`
 - `supplement/04_results/03_processed_evaluations/<judge_version>/summary_tables/scores_long.csv`
@@ -48,84 +57,61 @@ Example:
 
 ## Repository structure
 
-- `supplement/01_experiment_design/` — questions, splits, execution notes
-- `supplement/02_prompt_variants/` — prompt variants and manifests
-- `supplement/03_evaluation_rules/` — evaluation contracts (protocol, schema, scoring, validity)
-- `supplement/04_results/` — frozen evidence and derived outputs (PDF/JSON/CSV)
-- `supplement/05_methodological_addenda_and_controls/` — boundaries, controls, notes
-- `tools/` — optional offline utilities (not required for audit)
+- `supplement/` — all materials needed for audit covering design, rules, controls and results
+  - `supplement/README.md` — index of the supplement; does not override the **Authority** section above
+  - `supplement/01_experiment_design/` — prompt sets, question sets and output schemas
+  - `supplement/02/prompt_variants/` - alternative prompt wordings used for robustness comparision; non-normative
+  - `supplement/03_evaluation_rules/` — evaluation protocol defining the normative rules
+  - `supplement/04_results/` — raw outputs and processed evaluation results used to produce reported numbers
+  - `supplement/05_methodological_addenda_and_controls` - methodological notes and control analyses supporting interpretation
+  - `supplement/tools/` — reproducible scripts that transform raw outputs into evaluation tables
 
 ---
 
-## One-way data flow
+## Traceability (table row → record JSON → raw PDF)
 
-```
-supplement/01_experiment_design/      →  supplement/02_prompt_variants/
-                                     →  supplement/04_results/01_raw_model_outputs/      (PDF)
-                                     →  supplement/04_results/02_raw_judge_evaluations/  (JSON bundles)
-                                     →  supplement/04_results/03_processed_evaluations/  (record_*.json + summary_tables/*.csv)
-```
+### A) From a CSV row to its record JSON
+
+Each CSV row corresponds to a per-file record stored in:
+
+- `supplement/04_results/02_cross_model_evaluation/valid_evaluations/*.json`
+
+Use the `record_id` / `file` / `pdf_name` fields (as present) to locate the exact record.
+
+### B) From record JSON to raw PDF
+
+Raw model outputs are stored under:
+
+- `supplement/04_results/01_raw_model_outputs/<raw_model_dir>/<pdf_name>`
+
+Where `<raw_model_dir>` is the model bucket directory (e.g., `chatgpt-5.2-thinking/`, `google_gemini-3-pro/`, `claude-3.x/`) and `<pdf_name>` is the PDF file name referenced by the record.
+
+If a record field is:
+- `pdf_name: q3_baseline_explicit.pdf`
+
+Then the corresponding raw PDF is found by:
+- locating the model bucket directory for that record, then
+- opening `supplement/04_results/01_raw_model_outputs/<raw_model_dir>/q3_baseline_explicit.pdf`
+
+> Note: record fields may not include the model bucket prefix; the authoritative raw PDF location is the two-level path above.
 
 ---
 
-## Traceability recipe (csv → json → pdf)
+## Optional local check
 
-Target chain:
+If you want to sanity-check file presence locally, these are optional:
 
-**scores_grouped.csv → scores_long.csv → record_*.json → raw PDF**
-
-1) Choose a row in:
-- `supplement/04_results/03_processed_evaluations/<judge_version>/summary_tables/scores_grouped.csv`
-
-2) Locate its supporting per-file row(s) in:
-- `supplement/04_results/03_processed_evaluations/<judge_version>/summary_tables/scores_long.csv`
-
-3) From the selected `scores_long.csv` row, copy:
-- `file`
-- `generator_model`
-- `prompt_variant`
-
-4) Locate the corresponding `record_*.json` under:
-- `supplement/04_results/03_processed_evaluations/<judge_version>/valid_evaluations/`
-
-Option A: `jq`
 ```bash
-FILE="...from scores_long.csv..."
-MODEL="...from scores_long.csv..."
-VARIANT="...from scores_long.csv..."
+# show the normative summary tables
+ls supplement/04_results/03_processed_evaluations/*/summary_tables/
 
-BASE="./supplement/04_results/03_processed_evaluations/<judge_version>/valid_evaluations"
-find "$BASE" -type f -name 'record_*.json' -print0 \
-  | xargs -0 jq -r --arg file "$FILE" --arg model "$MODEL" --arg variant "$VARIANT" \
-    'select(.file==$file and .generator_model==$model and .prompt_variant==$variant) | input_filename'
+# find a specific raw pdf name anywhere under raw outputs
+find supplement/04_results/01_raw_model_outputs -name "q3_baseline_explicit.pdf"
 ```
-
-Option B: `grep` fallback
-```bash
-FILE="...from scores_long.csv..."
-MODEL="...from scores_long.csv..."
-VARIANT="...from scores_long.csv..."
-
-BASE="./supplement/04_results/03_processed_evaluations/<judge_version>/valid_evaluations"
-
-find "$BASE" -type f -name 'record_*.json' -print0 \
-  | xargs -0 grep -l "\"file\": \"$FILE\"" \
-  | xargs grep -l "\"generator_model\": \"$MODEL\"" \
-  | xargs grep -l "\"prompt_variant\": \"$VARIANT\""
-```
-
-5) Open the raw PDF using the `file` field from the matched record:
-- `supplement/04_results/01_raw_model_outputs/<record.file>`
 
 ---
 
-## Reproducibility scope
+## Privacy / anonymization
 
-Two layers of reproducibility are distinguished:
-
-- **Model generation** (prompt → output), which is inherently non-deterministic under web-based interfaces.
-- **Evaluation and analysis** (output → scores → tables), which is fully inspectable and logically reproducible from stored artifacts.
-
-Accordingly, this repository supports analysis-level reproducibility rather than end-to-end re-execution of model inference.
-
-This pack is self-contained for audit: cited CSV tables are backed by stored per-file record JSON and raw PDFs. Exact reproduction of LLM judging by re-running a judge model is not claimed.
+- `ANONYMIZATION_CHECKLIST.md` is provided as a **suggested** reviewer-facing checklist.
+- The artifact aims to avoid personal identifiers in file contents and paths.
