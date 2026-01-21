@@ -1,50 +1,59 @@
-# supplement/04_results — Evaluation results and derived artifacts
+# supplement/04_results
 
-This directory contains all **evaluation evidence and derived results** used in the paper.  
-It is organized to support **direct inspection**, **deterministic regeneration**, and **one-way traceability** from summary tables back to raw artifacts.
+> This directory is the paper evidence store. It contains preserved outputs and the canonical tables used for every reported number.
 
----
+## Authority
 
-## Directory overview
+- Normative evaluation rules live at `supplement/03_evaluation_rules/eval_protocol.md`.
+- Normative reported numbers live at `supplement/04_results/03_processed_evaluations/<judge_version>/summary_tables/*.csv`.
+- This file is an index and must not override the two items above.
 
-- `01_raw_model_outputs/`  
-  Frozen model outputs evaluated in this study (PDF files). These files are not modified or re-parsed.
+## Layout
 
-- `02_raw_judge_evaluations/`  
-  Preserved judge outputs (JSON bundles) produced directly from evaluating the raw model outputs.
+- `01_raw_model_outputs/` holds frozen generator outputs in PDF format.
+- `02_raw_judge_evaluations/` holds preserved judge bundles in JSON format produced from those PDFs.
+- `03_processed_evaluations/` holds canonical processed records and summary tables organized by judge version.
+- `04_results_analysis.md` specifies how paper numbers are derived and traced.
 
-- `03_processed_evaluations/`  
-  Deterministic, derived artifacts generated from raw judge bundles, including:
-  - per-file audit records (`record_*.json`)
-  - paper-cited summary tables (`scores_long.csv`, `scores_grouped.csv`)
-
-- `04_results_analysis.md`  
-  Aggregated observations and analysis notes derived strictly from the summary tables.
-
----
-
-## One-way data flow
+## One way data flow
 
 ```
 01_raw_model_outputs (PDF)
-        ↓
-02_raw_judge_evaluations (JSON bundles)
-        ↓
-03_processed_evaluations (records + summary_tables)
-        ↓
-04_results_analysis.md
+→ 02_raw_judge_evaluations (JSON bundles)
+→ 03_processed_evaluations (record_*.json + summary_tables/*.csv)
+→ 04_results_analysis.md
 ```
+Later stages never modify earlier stages.
 
-This flow is strictly one-directional. No later stage feeds back into an earlier stage.
+## Paper numeric sources
 
----
+All numeric claims in the paper must cite files under `supplement/04_results/03_processed_evaluations/<judge_version>/summary_tables/`.
+- Use `scores_grouped.csv` for grouped means.
+- Use `scores_long.csv` for row level evidence.
+No merge rule. Do not pool results across different judge versions.
 
-## Scope and guarantees
+## Inclusion and exclusion
 
-- All artifacts under this directory are frozen and versioned.
-- No evaluation rules are defined here (see `/supplement/03_evaluation_rules/`).
-- All reported results in the paper cite files under `03_processed_evaluations/<judge_version>/summary_tables/`.
-- Reproduction scripts are provided in `/supplement/tools/`, but execution is **not required** to audit the results.
-- Processed evaluation records are regenerated only when input artifacts or validity conditions change; otherwise, previously validated records are preserved.
+Validity criteria are defined under `supplement/03_evaluation_rules/`.
+Excluded records and reasons are listed at `03_processed_evaluations/<judge_version>/summary_tables/excluded_records.jsonl`.
+Canonical summaries include only valid records.
 
-This structure ensures that reviewers can verify reported numbers without executing code.
+## Figures
+
+Figures are not stored under `04_results/`.
+- Figure generation scripts live at `supplement/tools/figures/`.
+- Figure files for LaTeX compilation live at `paper/figures/`.
+
+## Traceability recipe
+
+Target chain is `scores_grouped.csv → scores_long.csv → record_*.json → raw PDF`.
+1) Choose a row in `scores_grouped.csv` under the cited judge version.
+2) Locate supporting per file row(s) in `scores_long.csv`.
+3) From the selected `scores_long.csv` row, copy `file`, `generator_model`, and `prompt_variant`.
+4) Locate the matching `record_*.json` under `03_processed_evaluations/<judge_version>/valid_evaluations/`.
+5) Open the raw PDF under `01_raw_model_outputs/` using the `record.file` resolution rule documented in `04_results_analysis.md`.
+
+## Guarantees
+
+- Raw artifacts are preserved.
+- Processed
