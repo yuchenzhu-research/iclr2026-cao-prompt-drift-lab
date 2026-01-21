@@ -1,77 +1,56 @@
 # Tools
 
-## Scope
-
-This directory contains **offline reproduction and audit utilities**.
-
-- No script in this directory calls external APIs or invokes any LLM.
-- All scripts operate only on **stored judge JSON artifacts**.
-- No script re-parses or recomputes results from raw model-output PDFs.
+This folder contains **offline** utilities for reproducing tables and generating figures from the saved judge artifacts.
 
 ---
 
-## Authoritative reproduction entry
+## Main reproduction script
 
 ### `reproduce_valid_evaluations.py`
-This is the **primary reproduction entry point** used to regenerate the reported result tables from stored judge JSON artifacts.
+Regenerates the summary tables from the stored per-file judge records.
 
-**Inputs (read-only):**
+**Reads**
 ```
 supplement/04_results/03_processed_evaluations/*/valid_evaluations/
 ```
 
-**Outputs (materialized):**
+**Writes**
 ```
 supplement/04_results/03_processed_evaluations/*/summary_tables/
 ```
 
-**Guarantees**
-- Deterministic execution (same inputs → same outputs)
-- Consumes per-file record JSONs only (does not read raw judge bundles or PDFs)
-- File names are preserved verbatim as identifiers; any parsing (if present) is used **only** to materialize grouping keys and **never** affects validity or scoring
-
-**Materialized products**
-- Aggregated tables under `*/summary_tables/` (e.g., `scores_long.csv`, `scores_grouped.csv`)
+Notes:
+- Deterministic: same inputs → same tables.
+- Offline: no API calls, no LLM invocation.
 
 ---
 
-## Relation to evaluation rules (`supplement/03_evaluation_rules/`)
+## Figures
 
-Evaluation authority is defined **upstream** under:
+Scripts under `figures/` are only for plotting from the processed outputs; they don’t change validity/scoring and aren’t needed if you only want the tables.
+
+- `figures/make_figure1_schema_failure_cliff.py`
+- `figures/make_figure2_implicit_heatmap.py`
+- `figures/make_figure3_judge_sensitivity.py`
+
+Run these after the summary tables exist (i.e., after `reproduce_valid_evaluations.py`).
+
+---
+
+## Other utilities
+
+- `validation_utils/` — helpers for schema checks (diagnostics)
+- `scoring_utils/` — helpers for mapping labels → rubric scores (diagnostics)
+- `analysis_utils/` — small analysis helpers (diagnostics)
+- `examples/` — example files only
+- `legacy/` — archived scripts kept for reference
+
+---
+
+## Where the rules live
+
+Evaluation rules / schemas are defined upstream under:
 
 ```
 supplement/03_evaluation_rules/
 ```
-
-- Rule documents and schemas define validity, structure, and scoring fields.
-- This `tools/` directory does **not** define or override evaluation rules.
-
----
-
-## Non-authoritative utilities
-
-The remaining scripts are retained for inspection and local diagnostics only.
-They are **not part of the authoritative reproduction path** and are **not required**
-to reproduce the reported result tables.
-
-- `validation_utils/schema_checker.py` — auxiliary schema validation utility
-  (offline; **non-authoritative and not invoked by the reproduction script**)
-- `scoring_utils/rubric_scorer.py` — failure-label → rubric-score mapper
-  (offline; **non-authoritative and not invoked by the reproduction script**)
-- `analysis_utils/drift_analyzer.py` — derived, descriptive analysis helpers
-  (offline; **non-authoritative and not invoked by the reproduction script**)
-- `examples/` contains illustrative input/output examples only
-  (**example-only, non-authoritative, and not used in reproduction or scoring**).
-- `legacy/` contains archived scripts retained for historical reference only
-  (**non-authoritative and not used in the current reproduction path**). In particular,
-  `legacy/reproduce_from_pdfs_legacy.py` is an archived script and requires an explicit
-  acknowledgement flag to run.
-
----
-
-## Reproducibility statement
-
-Given identical per-file record JSONs under
-` supplement/04_results/03_processed_evaluations/*/valid_evaluations/ `,
-running `reproduce_valid_evaluations.py` regenerates
-`*/summary_tables/` deterministically and does **not** modify any input records.
