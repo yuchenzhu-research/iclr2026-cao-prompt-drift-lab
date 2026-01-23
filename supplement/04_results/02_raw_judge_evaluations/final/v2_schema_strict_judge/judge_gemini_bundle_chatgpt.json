@@ -6,7 +6,7 @@
   },
   "per_file_scores": [
     {
-      "file_name": "q3_conflict_implicit.pdf",
+      "file": "q3_conflict_implicit.pdf",
       "scores": {
         "A_structure": 2,
         "B_snapshot_constraint": 2,
@@ -25,7 +25,7 @@
       "status": "Success"
     },
     {
-      "file_name": "q4_baseline_implicit.pdf",
+      "file": "q4_baseline_implicit.pdf",
       "scores": {
         "A_structure": 0,
         "B_snapshot_constraint": 0,
@@ -44,7 +44,7 @@
       "status": "Schema Failure"
     },
     {
-      "file_name": "q3_conflict_explicit.pdf",
+      "file": "q3_conflict_explicit.pdf",
       "scores": {
         "A_structure": 2,
         "B_snapshot_constraint": 2,
@@ -63,7 +63,7 @@
       "status": "Success"
     },
     {
-      "file_name": "q3_long_implicit.pdf",
+      "file": "q3_long_implicit.pdf",
       "scores": {
         "A_structure": 2,
         "B_snapshot_constraint": 2,
@@ -82,7 +82,7 @@
       "status": "Success"
     },
     {
-      "file_name": "q3_weak_implicit.pdf",
+      "file": "q3_weak_implicit.pdf",
       "scores": {
         "A_structure": 2,
         "B_snapshot_constraint": 2,
@@ -101,7 +101,7 @@
       "status": "Success"
     },
     {
-      "file_name": "q4_baseline_explicit.pdf",
+      "file": "q4_baseline_explicit.pdf",
       "scores": {
         "A_structure": 2,
         "B_snapshot_constraint": 2,
@@ -120,7 +120,7 @@
       "status": "Success"
     },
     {
-      "file_name": "q3_baseline_implicit.pdf",
+      "file": "q3_baseline_implicit.pdf",
       "scores": {
         "A_structure": 0,
         "B_snapshot_constraint": 0,
@@ -139,7 +139,7 @@
       "status": "Schema Failure"
     },
     {
-      "file_name": "q3_baseline_explicit.pdf",
+      "file": "q3_baseline_explicit.pdf",
       "scores": {
         "A_structure": 2,
         "B_snapshot_constraint": 2,
@@ -158,7 +158,7 @@
       "status": "Success"
     },
     {
-      "file_name": "q3_weak_explicit.pdf",
+      "file": "q3_weak_explicit.pdf",
       "scores": {
         "A_structure": 2,
         "B_snapshot_constraint": 2,
@@ -177,7 +177,7 @@
       "status": "Success"
     },
     {
-      "file_name": "q3_long_explicit.pdf",
+      "file": "q3_long_explicit.pdf",
       "scores": {
         "A_structure": 2,
         "B_snapshot_constraint": 2,
@@ -196,7 +196,7 @@
       "status": "Success"
     },
     {
-      "file_name": "q4_long_explicit.pdf",
+      "file": "q4_long_explicit.pdf",
       "scores": {
         "A_structure": 2,
         "B_snapshot_constraint": 2,
@@ -215,7 +215,7 @@
       "status": "Success"
     },
     {
-      "file_name": "q4_weak_explicit.pdf",
+      "file": "q4_weak_explicit.pdf",
       "scores": {
         "A_structure": 2,
         "B_snapshot_constraint": 2,
@@ -234,7 +234,7 @@
       "status": "Success"
     },
     {
-      "file_name": "q4_conflict_implicit.pdf",
+      "file": "q4_conflict_implicit.pdf",
       "scores": {
         "A_structure": 2,
         "B_snapshot_constraint": 2,
@@ -253,7 +253,7 @@
       "status": "Success"
     },
     {
-      "file_name": "q4_conflict_explicit.pdf",
+      "file": "q4_conflict_explicit.pdf",
       "scores": {
         "A_structure": 2,
         "B_snapshot_constraint": 2,
@@ -272,7 +272,7 @@
       "status": "Success"
     },
     {
-      "file_name": "q4_weak_implicit.pdf",
+      "file": "q4_weak_implicit.pdf",
       "scores": {
         "A_structure": 2,
         "B_snapshot_constraint": 2,
@@ -291,7 +291,7 @@
       "status": "Success"
     },
     {
-      "file_name": "q4_long_implicit.pdf",
+      "file": "q4_long_implicit.pdf",
       "scores": {
         "A_structure": 2,
         "B_snapshot_constraint": 2,

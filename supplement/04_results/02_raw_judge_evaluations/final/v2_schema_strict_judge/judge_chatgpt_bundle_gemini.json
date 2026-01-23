@@ -7,7 +7,7 @@
   },
   "per_file_scores": [
     {
-      "file": "google_gemini-3-pro/q3_baseline_explicit.pdf",
+      "file": "q3_baseline_explicit.pdf",
       "scores": {"A_structure":2,"B_snapshot_constraint":2,"C_actionability":2,"D_completeness":2,"E_drift_failure":2},
       "total": 10,
       "evidence": {
@@ -19,7 +19,7 @@
       }
     },
     {
-      "file": "google_gemini-3-pro/q3_baseline_implicit.pdf",
+      "file": "q3_baseline_implicit.pdf",
       "scores": {"A_structure":2,"B_snapshot_constraint":2,"C_actionability":2,"D_completeness":2,"E_drift_failure":2},
       "total": 10,
       "evidence": {
@@ -31,7 +31,7 @@
       }
     },
     {
-      "file": "google_gemini-3-pro/q3_conflict_explicit.pdf",
+      "file": "q3_conflict_explicit.pdf",
       "scores": {"A_structure":2,"B_snapshot_constraint":2,"C_actionability":2,"D_completeness":2,"E_drift_failure":2},
       "total": 10,
       "evidence": {
@@ -43,7 +43,7 @@
       }
     },
     {
-      "file": "google_gemini-3-pro/q3_conflict_implicit.pdf",
+      "file": "q3_conflict_implicit.pdf",
       "scores": {"A_structure":2,"B_snapshot_constraint":2,"C_actionability":2,"D_completeness":2,"E_drift_failure":2},
       "total": 10,
       "evidence": {
@@ -55,7 +55,7 @@
       }
     },
     {
-      "file": "google_gemini-3-pro/q3_long_explicit.pdf",
+      "file": "q3_long_explicit.pdf",
       "scores": {"A_structure":2,"B_snapshot_constraint":2,"C_actionability":2,"D_completeness":2,"E_drift_failure":2},
       "total": 10,
       "evidence": {
@@ -67,7 +67,7 @@
       }
     },
     {
-      "file": "google_gemini-3-pro/q3_long_implicit.pdf",
+      "file": "q3_long_implicit.pdf",
       "scores": {"A_structure":2,"B_snapshot_constraint":2,"C_actionability":2,"D_completeness":2,"E_drift_failure":2},
       "total": 10,
       "evidence": {
@@ -79,7 +79,7 @@
       }
     },
     {
-      "file": "google_gemini-3-pro/q3_weak_explicit.pdf",
+      "file": "q3_weak_explicit.pdf",
       "scores": {"A_structure":2,"B_snapshot_constraint":2,"C_actionability":2,"D_completeness":2,"E_drift_failure":2},
       "total": 10,
       "evidence": {
@@ -91,7 +91,7 @@
       }
     },
     {
-      "file": "google_gemini-3-pro/q3_weak_implicit.pdf",
+      "file": "q3_weak_implicit.pdf",
       "scores": {"A_structure":2,"B_snapshot_constraint":2,"C_actionability":2,"D_completeness":2,"E_drift_failure":2},
       "total": 10,
       "evidence": {
@@ -103,7 +103,7 @@
       }
     },
     {
-      "file": "google_gemini-3-pro/q4_baseline_explicit.pdf",
+      "file": "q4_baseline_explicit.pdf",
       "scores": {"A_structure":2,"B_snapshot_constraint":2,"C_actionability":2,"D_completeness":2,"E_drift_failure":2},
       "total": 10,
       "evidence": {
@@ -115,7 +115,7 @@
       }
     },
     {
-      "file": "google_gemini-3-pro/q4_baseline_implicit.pdf",
+      "file": "q4_baseline_implicit.pdf",
       "scores": {"A_structure":2,"B_snapshot_constraint":2,"C_actionability":2,"D_completeness":2,"E_drift_failure":2},
       "total": 10,
       "evidence": {
@@ -127,7 +127,7 @@
       }
     },
     {
-      "file": "google_gemini-3-pro/q4_conflict_explicit.pdf",
+      "file": "q4_conflict_explicit.pdf",
       "scores": {"A_structure":2,"B_snapshot_constraint":2,"C_actionability":2,"D_completeness":2,"E_drift_failure":2},
       "total": 10,
       "evidence": {
@@ -139,7 +139,7 @@
       }
     },
     {
-      "file": "google_gemini-3-pro/q4_conflict_implicit.pdf",
+      "file": "q4_conflict_implicit.pdf",
       "scores": {"A_structure":2,"B_snapshot_constraint":2,"C_actionability":2,"D_completeness":2,"E_drift_failure":2},
       "total": 10,
       "evidence": {
@@ -151,7 +151,7 @@
       }
     },
     {
-      "file": "google_gemini-3-pro/q4_long_explicit.pdf",
+      "file": "q4_long_explicit.pdf",
       "scores": {"A_structure":2,"B_snapshot_constraint":2,"C_actionability":2,"D_completeness":2,"E_drift_failure":2},
       "total": 10,
       "evidence": {
@@ -163,7 +163,7 @@
       }
     },
     {
-      "file": "google_gemini-3-pro/q4_long_implicit.pdf",
+      "file": "q4_long_implicit.pdf",
       "scores": {"A_structure":2,"B_snapshot_constraint":2,"C_actionability":2,"D_completeness":2,"E_drift_failure":2},
       "total": 10,
       "evidence": {
@@ -175,7 +175,7 @@
       }
     },
     {
-      "file": "google_gemini-3-pro/q4_weak_explicit.pdf",
+      "file": "q4_weak_explicit.pdf",
       "scores": {"A_structure":2,"B_snapshot_constraint":2,"C_actionability":2,"D_completeness":2,"E_drift_failure":2},
       "total": 10,
       "evidence": {
@@ -187,7 +187,7 @@
       }
     },
     {
-      "file": "google_gemini-3-pro/q4_weak_implicit.pdf",
+      "file": "q4_weak_implicit.pdf",
       "scores": {"A_structure":2,"B_snapshot_constraint":2,"C_actionability":2,"D_completeness":2,"E_drift_failure":2},
       "total": 10,
       "evidence": {
