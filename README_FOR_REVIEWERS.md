@@ -1,117 +1,130 @@
-# Prompt Drift Lab — Audit-Oriented Evaluation of Prompt Drift under Small Prompt Perturbations
+# README_FOR_REVIEWERS.md
 
-> **Reviewer entry (single entry point):** start from `README_FOR_REVIEWERS.md`.
+# Prompt Drift Lab — Frozen Artifact for Auditable Prompt-Drift Evaluation
 
-## Overview
+This repository is a frozen artifact pack for studying **prompt drift**: small prompt perturbations that trigger failures in instruction following, schema compliance, and semantic alignment.
 
-This repository is a frozen artifact pack for studying **prompt drift** in large language models: how small, localized changes in prompt structure, wording, or formatting can lead to failures in instruction following, output schema compliance, and semantic alignment.
+**What is frozen.** All raw outputs, judge bundles, rules, and derived tables shipped here are fixed. Tools are deterministic file transforms.
 
-The focus is audit-oriented: failures are made explicit, traceable, and inspectable under controlled prompt variations.
+**Single source of truth.**
+- Evaluation rules and validity criteria: `supplement/03_evaluation_rules/`
+- Paper-citable numbers: `supplement/04_results/03_processed_evaluations/<judge_version>/summary_tables/`
 
----
-
-## Evidence chain
-
-**inputs → raw outputs (PDF) → judge artifacts (JSON) → summary tables (CSV)**
-
-All numbers reported in the CSV tables are traceable to stored per-file record JSON and the original raw PDF outputs.
+Everything else is explanatory.
 
 ---
 
-## Authority
+## Repository entry points
 
-- **Normative evaluation rules:** `supplement/03_evaluation_rules/eval_protocol.md`
-- **Normative reported numbers:** `supplement/04_results/03_processed_evaluations/<judge_version>/summary_tables/*.csv`
-- Other READMEs / notes are **explanatory only** and must not override the two items above.
+- Reviewer entry: this file (`README_FOR_REVIEWERS.md`)
+- Supplement index (directory map): `supplement/README.md`
+- Canonical results store: `supplement/04_results/`
+
+Top-level layout:
+- `paper/` — LaTeX source (figures are read from `paper/figures/`)
+- `supplement/` — design, rules, results, and tools
 
 ---
 
-## Quickstart (2–5 minutes)
+## 30-second check (no code)
 
-### 1) Specify the judge version
+1) Choose a judge version under:
+`\supplement/04_results/03_processed_evaluations/`
 
-Judge versions live under:
-- `supplement/04_results/03_processed_evaluations/`
-
-This artifact pack includes:
+This artifact includes:
 - `v0_baseline_judge/`
 - `v1_paraphrase_judge/`
 - `v2_schema_strict_judge/`
-- `readme.md`
 
-Set `<judge_version>` to the version you cite and keep it fixed when reading tables.
-
-Example:
-- `supplement/04_results/03_processed_evaluations/v1_paraphrase_judge/summary_tables/`
-
-### 2) Open the cited result tables (no code required)
-
+2) Open the per-judge tables (paper-citable):
 - `supplement/04_results/03_processed_evaluations/<judge_version>/summary_tables/scores_grouped.csv`
 - `supplement/04_results/03_processed_evaluations/<judge_version>/summary_tables/scores_long.csv`
 
-### 3) Open the normative evaluation protocol
-
+3) Open the protocol:
 - `supplement/03_evaluation_rules/eval_protocol.md`
 
----
-
-## Repository structure
-
-- `supplement/` — all materials needed for audit covering design, rules, controls and results
-  - `supplement/README.md` — index of the supplement; does not override the **Authority** section above
-  - `supplement/01_experiment_design/` — prompt sets, question sets and output schemas
-  - `supplement/02/prompt_variants/` - alternative prompt wordings used for robustness comparision; non-normative
-  - `supplement/03_evaluation_rules/` — evaluation protocol defining the normative rules
-  - `supplement/04_results/` — raw outputs and processed evaluation results used to produce reported numbers
-  - `supplement/05_methodological_addenda_and_controls` - methodological notes and control analyses supporting interpretation
-  - `supplement/tools/` — reproducible scripts that transform raw outputs into evaluation tables
+Interpret tables only under the cited `<judge_version>` (no merging across judge versions).
 
 ---
 
-## Traceability (table row → record JSON → raw PDF)
+## Traceability (table row → record JSON → raw evidence)
 
-### A) From a CSV row to its record JSON
+A) From `scores_long.csv` to `record_*.json`
 
-Each CSV row corresponds to a per-file record stored in:
+Each row in `scores_long.csv` corresponds to one processed record:
+- `supplement/04_results/03_processed_evaluations/<judge_version>/valid_evaluations/**/record_*.json`
 
-- `supplement/04_results/02_cross_model_evaluation/valid_evaluations/*.json`
+Join keys are the columns present in the tables (e.g., `file`, `generator_model`, `question_id`, `prompt_variant`, `trigger_type`). Use the row’s identifiers to locate the matching record file.
 
-Use the `record_id` / `file` / `pdf_name` fields (as present) to locate the exact record.
+B) From `record_*.json` to raw PDFs
 
-### B) From record JSON to raw PDF
+Raw model outputs are preserved under:
+- `supplement/04_results/01_raw_model_outputs/`
 
-Raw model outputs are stored under:
+Use record-level identifiers (e.g., `file` and/or the table join keys) to locate the corresponding PDF within the appropriate model bucket directory.
 
-- `supplement/04_results/01_raw_model_outputs/<raw_model_dir>/<pdf_name>`
-
-Where `<raw_model_dir>` is the model bucket directory (e.g., `chatgpt-5.2-thinking/`, `google_gemini-3-pro/`, `claude-3.x/`) and `<pdf_name>` is the PDF file name referenced by the record.
-
-If a record field is:
-- `pdf_name: q3_baseline_explicit.pdf`
-
-Then the corresponding raw PDF is found by:
-- locating the model bucket directory for that record, then
-- opening `supplement/04_results/01_raw_model_outputs/<raw_model_dir>/q3_baseline_explicit.pdf`
-
-> Note: record fields may not include the model bucket prefix; the authoritative raw PDF location is the two-level path above.
+Notes:
+- `file` is the canonical identifier in judge bundles and processed records.
+- If `excluded_records.jsonl` is absent under `summary_tables/`, treat it as zero exclusions for that judge version.
 
 ---
 
-## Optional local check
+## Optional reproducibility (local; deterministic)
 
-If you want to sanity-check file presence locally, these are optional:
+The shipped tables are sufficient for inspection. The commands below are a local sanity check that tables can be regenerated from preserved judge bundles.
+
+Run from the repository root:
 
 ```bash
-# show the normative summary tables
-ls supplement/04_results/03_processed_evaluations/*/summary_tables/
+python -m pip install -r supplement/tools/requirements.txt
 
-# find a specific raw pdf name anywhere under raw outputs
-find supplement/04_results/01_raw_model_outputs -name "q3_baseline_explicit.pdf"
+# 1) materialize per-file records (valid_evaluations/record_*.json)
+python supplement/tools/ingest/reproduce_valid_evaluations.py \
+  --runs v0_baseline_judge v1_paraphrase_judge v2_schema_strict_judge \
+  --overwrite
+
+# 2) regenerate per-judge summary tables (scores_long.csv, scores_grouped.csv)
+python -u supplement/tools/ingest/materialize_records.py \
+  --ack-legacy --overwrite \
+  --runs v0_baseline_judge v1_paraphrase_judge v2_schema_strict_judge
 ```
+
+Expected outputs (for each judge version):
+- `supplement/04_results/03_processed_evaluations/<judge_version>/summary_tables/scores_long.csv`
+- `supplement/04_results/03_processed_evaluations/<judge_version>/summary_tables/scores_grouped.csv`
+- `supplement/04_results/03_processed_evaluations/<judge_version>/summary_tables/run_meta.json`
+
+Optional figure regeneration:
+
+```bash
+python supplement/tools/figures/make_figure1_schema_failure_cliff.py
+python supplement/tools/figures/make_figure6_judge_comparison.py
+```
+
+Figures are written under `paper/figures/`.
 
 ---
 
-## Privacy / anonymization
+## Anonymization
 
-- `ANONYMIZATION_CHECKLIST.md` is provided as a **suggested** reviewer-facing checklist.
-- The artifact aims to avoid personal identifiers in file contents and paths.
+See `ANONYMIZATION_CHECKLIST.md`.
+
+
+
+# supplement/README.md
+
+# Supplement index
+
+This directory is an index over frozen study materials. It does not override the normative rules or the canonical numeric sources.
+
+Authority
+- Rules and validity criteria: `supplement/03_evaluation_rules/`
+- Paper-citable numbers: `supplement/04_results/03_processed_evaluations/<judge_version>/summary_tables/`
+
+Directory map
+- `01_experiment_design/` — experimental design notes and frozen study framing
+- `02_prompt_variants/` — prompt variants used in controlled perturbations
+- `03_evaluation_rules/` — evaluation protocol, schema constraints, validity criteria
+- `04_results/` — preserved artifacts and canonical processed tables
+- `05_methodological_addenda_and_controls/` — non-authoritative methodological notes and comparison boundaries
+- `tools/` — deterministic utilities for regenerating records/tables/figures from preserved artifacts
