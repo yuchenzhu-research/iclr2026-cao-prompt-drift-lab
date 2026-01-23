@@ -1,33 +1,34 @@
 # supplement/ — Index and evidence bundle
 
-This `supplement/` directory is an **index + evidence bundle**. If you are reviewing the whole repository, the single entry point is the repo-root `README_FOR_REVIEWERS.md`.
+This `supplement/` directory is an **index + evidence bundle**.
+If you are reviewing the whole repository, the single entry point is the repo-root **`README_FOR_REVIEWERS.md`**.
 
-This artifact evaluates **prompt drift** under small prompt perturbations (instruction following, schema/format compliance, semantic deviation). Evidence is organized as a one-way chain:
+This artifact studies **prompt drift** under small prompt perturbations (instruction following, schema/format compliance, semantic deviation). Evidence is organized as a one-way chain:
 
-inputs → raw outputs (PDF) → judge bundles (JSON) → processed records (JSON) → summary tables (CSV)
+`prompt variants → raw outputs (PDF) → judge bundles (JSON) → processed records (JSON) → summary tables (CSV)`
 
-Reported numbers in the CSV tables are traceable to stored per-file record JSON and the original PDF outputs.
+All paper-citable numbers are backed by stored artifacts and are traceable to preserved raw evidence.
 
 ---
 
 ## Authority
 
-Normative sources of truth:
+**Normative sources of truth (must override everything else):**
 
-- Evaluation rules and validity criteria:
-  `supplement/03_evaluation_rules/eval_protocol.md`
+1) **Rules / validity / scoring protocol**
+- `supplement/03_evaluation_rules/eval_protocol.md`
 
-- Paper-citable numeric sources (per judge version):
-  `supplement/04_results/03_processed_evaluations/<judge_version>/summary_tables/`
+2) **Paper-citable numeric sources (per judge version)**
+- `supplement/04_results/03_processed_evaluations/<judge_version>/summary_tables/`
 
-This file is an index/explainer only and must not override the two items above.
+This `supplement/README.md` is **non-normative** (index/explainer only). It must not override the two items above.
 
 ---
 
-## Quickstart (no code)
+## 30-second navigation (no code)
 
-1) Fix a judge version under:
-`/supplement/04_results/03_processed_evaluations/`
+1) Pick a judge version under:
+- `supplement/04_results/03_processed_evaluations/`
 
 This artifact includes:
 - `v0_baseline_judge/`
@@ -41,7 +42,7 @@ This artifact includes:
 3) Open the normative protocol:
 - `supplement/03_evaluation_rules/eval_protocol.md`
 
-Interpret tables only within the cited `<judge_version>` (no merging across judge versions).
+**No-merge rule:** interpret tables only within the selected `<judge_version>` (no pooling across judge versions).
 
 ---
 
@@ -51,58 +52,82 @@ Interpret tables only within the cited `<judge_version>` (no merging across judg
 - `02_prompt_variants/` — generator-side prompt variants and manifests
 - `03_evaluation_rules/` — protocol, schema, scoring, validity
 - `04_results/` — frozen evidence and derived outputs (PDF/JSON/CSV)
-- `05_methodological_addenda_and_controls/` — non-authoritative addenda and interpretation boundaries
+- `05_methodological_addenda_and_controls/` — **non-authoritative** addenda and interpretation boundaries
 - `tools/` — optional offline utilities (deterministic; not required for audit)
 
 ---
 
 ## One-way data flow
 
-```
+All paths are relative to the repository root.
+
+```text
 02_prompt_variants/
 → 04_results/01_raw_model_outputs/      (PDF)
 → 04_results/02_raw_judge_evaluations/  (JSON bundles)
-→ 04_results/03_processed_evaluations/  (record_*.json + summary_tables/*.csv)
+→ 04_results/03_processed_evaluations/  (records: **/*.json; tables: summary_tables/*.csv)
 ```
 
 Later stages must not modify earlier stages.
 
 ---
 
-## Traceability (CSV → record JSON → raw PDF)
+## 04_results numeric authority (what the paper is allowed to cite)
+
+For each `<judge_version>`, the following directory is the **only** numeric source for paper-citable values:
+
+- `supplement/04_results/03_processed_evaluations/<judge_version>/summary_tables/`
+
+Typical files:
+- `scores_long.csv`
+- `scores_grouped.csv`
+- `run_meta.json`
+
+**Exclusions (audit):**
+- `excluded_records.jsonl` is **optional** and only present when exclusions are non-empty.
+- If `excluded_records.jsonl` is absent for a judge version, interpret this as **0 exclusions**.
+
+---
+
+## Traceability (CSV → JSON → raw PDF)
 
 Target chain:
 
-scores_grouped.csv → scores_long.csv → record_*.json → raw PDF
+`scores_grouped.csv → scores_long.csv → valid_evaluations/**/*.json → 01_raw_model_outputs/*.pdf`
 
 1) Choose a row in:
-`.../<judge_version>/summary_tables/scores_grouped.csv`
+- `.../<judge_version>/summary_tables/scores_grouped.csv`
 
-2) Locate supporting row(s) in:
-`.../<judge_version>/summary_tables/scores_long.csv`
+2) Locate the supporting row(s) in:
+- `.../<judge_version>/summary_tables/scores_long.csv`
 
-3) Use identifiers from the selected `scores_long.csv` row (columns such as `file`, `generator_model`, `question_id`, `prompt_variant`, `trigger_type`) to locate the matching record:
+3) Locate the corresponding processed record JSON under:
+- `.../<judge_version>/valid_evaluations/**/*.json`
 
-`.../<judge_version>/valid_evaluations/**/record_*.json`
+**Important notes:**
+- Processed record JSON filenames are **not a contract** and may be hash-based.
+- Locate records by matching JSON fields (e.g., `file`, `generator_model`, `judge_model`, `question_id`) rather than filename patterns.
+- `prompt_variant` / `trigger_type` are reliably populated in v0, but may be empty for v1/v2; do not assume they are required join keys.
 
 4) Open the raw PDF under:
-`04_results/01_raw_model_outputs/`
+- `supplement/04_results/01_raw_model_outputs/`
 
-Identifier conventions:
-- `file` is the canonical file identifier in judge bundles and processed records.
+`file` semantics:
+- `file` is the canonical file identifier carried through judge bundles and processed records.
 - `record.file` may be path-like (contains `/`) or filename-only. If it is filename-only, locate the PDF by searching within `01_raw_model_outputs/`.
 
 Optional helper (filename-only lookup):
+
 ```bash
 cd supplement/04_results/01_raw_model_outputs
-PDF_NAME="q4_conflict_explicit.pdf"  # from record.file or inferred from table join keys
+PDF_NAME="q4_conflict_explicit.pdf"  # from record.file or inferred from the CSV row
 find . -type f -name "$PDF_NAME" -print
 ```
 
 ---
 
-## Reproducibility scope
+## Tools and reproducibility boundary
 
-- This pack is self-contained for audit: the shipped CSV tables are backed by stored record JSON and raw PDFs.
-- Deterministic re-materialization of records/tables from preserved judge bundles is supported via `supplement/tools/`.
-- Re-running LLM judging is not claimed as reproducible (judge models are stochastic and version-sensitive).
+- This pack is self-contained for audit: shipped CSV tables are backed by stored record JSON and raw PDFs.
+- Deterministic re-materialization of **records / tables / figures** from preserved bundles is supported via `supplement/tools/`.
+- Re-running LLM judging is **not** claimed as reproducible (judge models are stochastic and version-sensitive).

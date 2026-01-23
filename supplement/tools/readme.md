@@ -1,13 +1,15 @@
 # Tools
 
-This directory contains deterministic, offline utilities for reproducing the paper/supplement artifacts from saved judge outputs. The code is intended to be auditable: given fixed inputs, it produces identical outputs.
+This directory contains deterministic, offline utilities for reproducing **record- and figure-level artifacts** from saved judge outputs. The code is intended to be auditable: given fixed inputs, it produces identical outputs.
 
 **Scope constraints**
 - No API calls; no model execution.
 - No randomness or sampling.
 - Tools operate on files already stored in the repository.
 
-**Route** Summary tables are precomputed and shipped under judge-specific `summary_tables/` directories. Reviewers are not expected to re-run aggregation/scoring to reproduce reported plots and tables.
+**Review boundary**
+- Summary tables are **precomputed and shipped** under judge-specific `summary_tables/` directories.
+- Reviewers are **not expected** to re-run aggregation/scoring to reproduce reported plots and tables.
 
 ---
 
@@ -17,8 +19,8 @@ Paths are relative to the repository root.
 
 ```text
 supplement/tools/
-  ingest/              # raw judge bundles → processed records (record_*.json)
-  aggregate/           # Route A documentation; optional dev utilities
+  ingest/              # raw judge bundles → processed records (**/*.json)
+  aggregate/           # optional dev utilities (records → summary tables)
   figures/             # records/tables → figures
   validation_utils/    # schema validation / consistency checks
   scoring_utils/       # score key conventions (A–E) and helper utilities
@@ -34,7 +36,7 @@ supplement/tools/
 
 Run commands from the repository root so relative paths are stable.
 
-### 1) Ingest (authoritative): raw bundles → processed records
+### 1) Ingest (optional): raw bundles → processed records
 
 Entry point:
 - `supplement/tools/ingest/materialize_records.py`
@@ -45,26 +47,28 @@ Inputs:
   - `final/v1_paraphrase_judge/*.json`
   - `final/v2_schema_strict_judge/*.json`
 
-Outputs:
-- `supplement/04_results/03_processed_evaluations/<judge_version>/valid_evaluations/**/record_*.json`
+Outputs (record-level JSON; filenames are not a contract and may be hash-based):
+- `supplement/04_results/03_processed_evaluations/<judge_version>/valid_evaluations/**/*.json`
 
 Optional logs (audit only):
 - `supplement/04_results/03_processed_evaluations/<judge_version>/summary_tables/run_meta.json`
 - `supplement/04_results/03_processed_evaluations/<judge_version>/summary_tables/excluded_records.jsonl`
-  - Present only when exclusions are non-empty; should be removed when exclusions are empty.
+  - Optional; present only when exclusions are non-empty.
+  - If absent, interpret as **0 exclusions**.
 
 Example:
 ```bash
 python supplement/tools/ingest/materialize_records.py \
+  --ack-legacy \
   --runs v0_baseline_judge v1_paraphrase_judge v2_schema_strict_judge \
   --overwrite
 ```
 
 ---
 
-### 2) Aggregate : processed records → summary tables
+### 2) Aggregate (not required for review): processed records → summary tables
 
-Route A ships precomputed tables under:
+Precomputed tables are shipped under:
 
 - `supplement/04_results/03_processed_evaluations/v0_baseline_judge/summary_tables/`
 - `supplement/04_results/03_processed_evaluations/v1_paraphrase_judge/summary_tables/`
@@ -85,7 +89,7 @@ If you re-generate tables for development/debugging (optional), see:
 Figure scripts under `supplement/tools/figures/` render plots from existing artifacts.
 
 Reads (depending on the script):
-- `supplement/04_results/03_processed_evaluations/<judge_version>/valid_evaluations/record_*.json`
+- `supplement/04_results/03_processed_evaluations/<judge_version>/valid_evaluations/**/*.json`
 - `supplement/04_results/03_processed_evaluations/<judge_version>/summary_tables/`
 
 Writes (default):

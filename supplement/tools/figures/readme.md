@@ -1,12 +1,12 @@
-# Figures: Regenerate Paper Plots
+# Figures: Render Plots from Frozen Artifacts
 
-This directory contains **figure-generation scripts** that regenerate the paper/supplement plots from:
+This directory contains **figure-generation scripts** that render the paper/supplement plots from **already-provided artifacts**:
 
-- processed evaluation records (`record_*.json`), and
-- precomputed summary tables (`summary_tables/`).
+- processed evaluation records (`**/*.json`, filenames are not a contract), and
+- precomputed summary tables (`summary_tables/*.csv`, paper-citable numeric source).
 
-> Route A policy: aggregation/scoring outputs are **frozen** and already provided.
-> Figure scripts should **not** recompute aggregation/scoring; they only read artifacts and render plots.
+> Aggregation/scoring outputs are **frozen** and already provided.
+> Figure scripts must **not** recompute aggregation/scoring; they only read artifacts and render plots.
 
 ---
 
@@ -14,9 +14,13 @@ This directory contains **figure-generation scripts** that regenerate the paper/
 
 ### Processed records
 
-All figure scripts may read standardized record files from:
+Figure scripts may read processed record files from:
 
-- `supplement/04_results/03_processed_evaluations/<judge_version>/valid_evaluations/record_*.json`
+- `supplement/04_results/03_processed_evaluations/<judge_version>/valid_evaluations/**/*.json`
+
+**Notes**:
+- Record JSON filenames are **not a contract** and may be hash-based.
+- Scripts should locate records via JSON fields (e.g., `file`, `generator_model`, `judge_model`) rather than filename patterns.
 
 ### Precomputed summary tables
 
@@ -35,7 +39,7 @@ Typical files include:
 
 ## Outputs
 
-By default, scripts should write figures to:
+By default, scripts write figures to:
 
 - `paper/figures/`
 
@@ -72,17 +76,13 @@ The following scripts correspond to paper/supplement figures (names may map to f
 - `make_figure5_dimension_failure_rate.py`
 - `make_figure6_judge_comparison.py`
 
-Common helpers:
-
-- `utils.py`
-
 ---
 
 ## Repro checklist
 
 - [ ] Run from repo root.
 - [ ] Confirm processed records exist:
-  - `supplement/04_results/03_processed_evaluations/<judge_version>/valid_evaluations/record_*.json`
+  - `supplement/04_results/03_processed_evaluations/<judge_version>/valid_evaluations/**/*.json`
 - [ ] Confirm precomputed tables exist:
   - `supplement/04_results/03_processed_evaluations/<judge_version>/summary_tables/`
 - [ ] Run the desired figure script.
@@ -98,4 +98,4 @@ Figure scripts must be:
 - **deterministic** (no randomness)
 - **side-effect free** except writing image files
 
-Any change in figure appearance should be attributable to changes in the input artifacts, not implicit recomputation.
+Any change in figure appearance must be attributable to changes in the input artifacts, not implicit recomputation.

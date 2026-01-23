@@ -15,16 +15,18 @@ Non-goals:
 
 1. `01_raw_model_outputs/` — preserved generator outputs (PDF)
 2. `02_raw_judge_evaluations/` — preserved judge bundles (JSON)
-3. `03_processed_evaluations/` — canonical per-file records and summary tables
+3. `03_processed_evaluations/` — canonical processed records and summary tables
 
-Only `03_processed_evaluations/**/summary_tables/` is used as the paper-citable numeric source.
+**Numeric authority**
+- Paper-citable numbers come **only** from:
+  - `supplement/04_results/03_processed_evaluations/**/summary_tables/*.csv`
 
 ---
 
 ## Inputs used for aggregation
 
-Canonical per-file records:
-- `supplement/04_results/03_processed_evaluations/<judge_version>/valid_evaluations/**/record_*.json`
+Canonical processed records (record-level JSON):
+- `supplement/04_results/03_processed_evaluations/<judge_version>/valid_evaluations/**/*.json`
 
 Preserved upstream evidence:
 - `supplement/04_results/02_raw_judge_evaluations/`
@@ -40,20 +42,24 @@ Inclusion is determined by validity criteria defined under:
 If exclusions exist, they are recorded at:
 - `supplement/04_results/03_processed_evaluations/<judge_version>/summary_tables/excluded_records.jsonl`
 
-If `excluded_records.jsonl` is absent, treat it as zero exclusions for that judge version.
+If `excluded_records.jsonl` is absent, interpret it as **0 exclusions** for that judge version.
 
 ---
 
 ## Grouping keys and the no-merge rule
 
-All aggregations are computed using explicit fields present in `scores_long.csv`, including:
+No-merge rule: results from different `judge_version` values are never pooled.
+
+Aggregations are computed using explicit fields present in `scores_long.csv`.
+Common fields include:
 - `generator_model`
-- `prompt_variant`
 - `question_id`
-- `trigger_type`
 - `judge_version`
 
-No-merge rule: results from different `judge_version` values are never pooled.
+Some fields may be setting-dependent:
+- `prompt_variant` and `trigger_type` are reliably populated in v0, but may be empty for v1/v2.
+
+When a field is empty for a judge version, aggregation/tracing must not assume it as a required join key.
 
 ---
 
@@ -74,11 +80,13 @@ Contents:
 
 `total` is computed deterministically as:
 
+```
 total = A_structure
       + B_snapshot_constraint
       + C_actionability
       + D_completeness
       + E_drift_failure
+```
 
 No reweighting, smoothing, normalization, or manual adjustment is applied.
 
@@ -86,23 +94,33 @@ No reweighting, smoothing, normalization, or manual adjustment is applied.
 
 ## Traceability (row → record → raw)
 
-Each row in `scores_long.csv` corresponds to exactly one processed record:
-- `supplement/04_results/03_processed_evaluations/<judge_version>/valid_evaluations/**/record_*.json`
+### Row → processed record JSON
 
-Join keys (canonical):
-- `generator_model`
-- `question_id`
-- `prompt_variant`
-- `trigger_type`
+Each row in `scores_long.csv` corresponds to exactly one processed record JSON stored under:
+- `supplement/04_results/03_processed_evaluations/<judge_version>/valid_evaluations/**/*.json`
+
+**Do not assume any record filename pattern** (filenames may be hash-based). Locate records by matching JSON fields.
+
+Recommended match strategy:
+
+- **Primary key (preferred when present):** `record.file`
+  - If `record.file` is repo-relative (common in v1/v2), it can directly identify the raw PDF under `01_raw_model_outputs/`.
+
+- **Fallback keys:** fields that are present in both `scores_long.csv` and the record JSON, typically:
+  - `generator_model`
+  - `question_id`
+  - (optionally) `judge_model` / bundle metadata fields
+  - `prompt_variant` / `trigger_type` **only when populated for that judge version**
+
+### Processed record JSON → raw PDF
 
 Raw PDFs are stored under:
-- `supplement/04_results/01_raw_model_outputs/<generator_model_dir>/`
-
-and follow the naming template:
-- `q{question_id}_{prompt_variant}_{trigger_type}.pdf`
+- `supplement/04_results/01_raw_model_outputs/`
 
 `record.file` semantics:
-- v0: may be a bundle identifier (not a repo path).
-- v1/v2: repo-relative pointer under `01_raw_model_outputs/`.
+- **v1/v2:** `record.file` is intended to be a repo-relative pointer under `01_raw_model_outputs/`.
+- **v0:** `record.file` may be a bundle identifier (not a repo path). In this case, locate the raw PDF by using the available row-level fields (e.g., `question_id`, and any populated variant/trigger fields) and searching under the appropriate `01_raw_model_outputs/` subdirectory.
 
-If `record.file` is not repo-relative (v0), locate the raw PDF using join keys and the naming template.
+**Naming conventions**
+- Where a naming template is used (e.g., `q{question_id}_...pdf`), treat it as a convenience for navigation, not as a hard contract.
+- If a template lookup fails, use directory search within `01_raw_model_outputs/` for the matching question/model context.

@@ -1,10 +1,10 @@
 # Aggregate: Processed Records → Summary Tables
 
 This directory documents (and may optionally contain) **deterministic aggregation utilities** that transform
-**processed evaluation records** (`record_*.json`) into analysis-ready summary tables
+**processed evaluation records** (`**/*.json`, filenames are not a contract) into analysis-ready summary tables
 (e.g., `scores_long.csv`, `scores_grouped.csv`) used by the paper/supplement.
 
-> **Route A policy (artifact reproduction):** Aggregation outputs are **already provided** in this repository.
+> Aggregation outputs are **already provided** in this repository.
 > Reviewers do **not** need to run any aggregation script to reproduce the reported results/figures.
 
 ---
@@ -23,20 +23,24 @@ Typical files include:
 - `scores_grouped.csv` — grouped/aggregated table used for most plots and summaries.
 - `run_meta.json` — lightweight metadata (counts/scope) for auditability.
 
+Optional audit artifact:
+- `excluded_records.jsonl` (if present): records excluded from aggregation with reasons.
+  If absent, interpret as **0 exclusions**.
+
 ---
 
 ## Scope and responsibilities
 
 The aggregation stage assumes all inputs satisfy:
 
-- Records are **schema-normalized** and stored as individual `record_*.json` files.
+- Records are **schema-normalized** and stored as individual JSON files under `valid_evaluations/`.
 - Each record corresponds to exactly one judged (generator output, prompt variant) instance.
 - All schema validation and raw ingestion have already been completed upstream.
 
 This stage is responsible **only** for:
 
 - Reading processed records from:
-  - `supplement/04_results/03_processed_evaluations/<judge_version>/valid_evaluations/`
+  - `supplement/04_results/03_processed_evaluations/<judge_version>/valid_evaluations/**/*.json`
 - Grouping, averaging, and reshaping scores
 - Producing summary tables written to:
   - `supplement/04_results/03_processed_evaluations/<judge_version>/summary_tables/`
@@ -52,13 +56,13 @@ This stage is **not** responsible for:
 
 ## Determinism and reproducibility
 
-If you choose to re-run aggregation (not required for Route A reproduction), the aggregation utilities are intended to be:
+If you choose to re-run aggregation (not required for artifact review), the aggregation utilities are intended to be:
 
 - **Purely deterministic**
 - **Stateless**
 - **Order-invariant** with respect to input records
 
-Given the same set of input `record_*.json` files, aggregation results (`scores_long.csv`, `scores_grouped.csv`, and any derived figures)
+Given the same set of input JSON files, aggregation results (`scores_long.csv`, `scores_grouped.csv`, and any derived figures)
 should be identical across runs.
 
 No randomness, sampling, or heuristic filtering should occur at this stage.
@@ -80,7 +84,7 @@ not by branching in aggregation code paths.
 
 ## Entry point (optional)
 
-**Route A:** No entry point is required for reproduction (tables are precomputed).
+No entry point is required for review (tables are precomputed).
 
 If you are regenerating tables for development/debugging, run the script(s) in this directory as documented in their file headers.
 

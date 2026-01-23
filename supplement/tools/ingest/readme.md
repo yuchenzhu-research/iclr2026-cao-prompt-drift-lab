@@ -1,14 +1,10 @@
 # Ingest: Materialize Processed Evaluation Records
 
-This directory contains the **authoritative ingestion utilities** used to materialize
-**standardized processed records** (`record_*.json`) from **raw judge evaluation bundles**.
+This directory contains the ingestion utilities used to materialize **standardized processed records**
+(`**/*.json`, filenames are not a contract) from **raw judge evaluation bundles**.
 
-> Route A policy: **Aggregation/scoring outputs are frozen** and provided under judge-specific directories:
-> - `supplement/04_results/03_processed_evaluations/v0_baseline_judge/summary_tables/`
-> - `supplement/04_results/03_processed_evaluations/v1_paraphrase_judge/summary_tables/`
-> - `supplement/04_results/03_processed_evaluations/v2_schema_strict_judge/summary_tables/`
->
-> Ingest only produces **record-level** artifacts.
+> Summary tables (`scores_long.csv`, `scores_grouped.csv`) are **already provided** under judge-specific
+> `summary_tables/` directories. Ingest produces **record-level** artifacts only.
 
 ---
 
@@ -18,27 +14,30 @@ This directory contains the **authoritative ingestion utilities** used to materi
   - `supplement/04_results/02_raw_judge_evaluations/`
 - Applies consistent parsing + validation + filtering to produce standardized records.
 - Writes record-level outputs under:
-  - `supplement/04_results/03_processed_evaluations/**/valid_evaluations/record_*.json`
+  - `supplement/04_results/03_processed_evaluations/<judge_version>/valid_evaluations/**/*.json`
 
-These `record_*.json` files are the **audit anchor** for all downstream figures.
+These JSON files are the **audit anchor** for all downstream tables and figures.
 
 ---
 
 ## Entry points
 
-### 1) `materialize_records.py` (authoritative)
+### 1) `materialize_records.py`
 
 Canonical script for materializing processed records.
 
 **Recommended run (from repo root):**
 
 ```bash
-python supplement/tools/ingest/materialize_records.py
+python supplement/tools/ingest/materialize_records.py --ack-legacy
 ```
+
+> Note: this script is treated as a legacy-compatible entry in this repository.
+> It is offline and deterministic. It does not execute any model inference.
 
 ### 2) `reproduce_valid_evaluations.py` (optional helper)
 
-Helper script that may perform additional filtering/selection but **still only outputs** `record_*.json`.
+Helper script that may perform additional filtering/selection but **still only outputs** record-level JSON.
 
 **Run (from repo root):**
 
@@ -46,7 +45,7 @@ Helper script that may perform additional filtering/selection but **still only o
 python supplement/tools/ingest/reproduce_valid_evaluations.py
 ```
 
-> Note: This script is **record-level only**. It does **not** generate `scores_long.csv` / `scores_grouped.csv`.
+> Note: This script is record-level only. It does **not** generate `scores_long.csv` / `scores_grouped.csv`.
 
 ---
 
@@ -65,15 +64,20 @@ Raw judge bundles are organized by setting:
 
 Processed records are written to:
 
-- `supplement/04_results/03_processed_evaluations/**/valid_evaluations/record_*.json`
+- `supplement/04_results/03_processed_evaluations/<judge_version>/valid_evaluations/**/*.json`
 
-If your run produces exclusions, they should be stored alongside records (e.g., `excluded_records.jsonl`) in the same `valid_evaluations/` directory.
+Exclusions (audit):
+- `excluded_records.jsonl` is **optional** and only present when exclusions are non-empty.
+- If `excluded_records.jsonl` is absent for a judge version, treat this as **0 exclusions**.
+- If present, store it under:
+  - `supplement/04_results/03_processed_evaluations/<judge_version>/summary_tables/excluded_records.jsonl`
 
 ---
 
 ## Judge versions and input protocols
 
-Differences between judge versions are encoded **in the raw input bundles** (directory layout + bundle metadata), not by changing ingestion logic.
+Differences between judge versions are encoded **in the raw input bundles** (directory layout + bundle metadata),
+not by changing ingestion logic.
 
 - `v0_baseline_judge`
   - Diagnostic setting
@@ -90,28 +94,23 @@ Differences between judge versions are encoded **in the raw input bundles** (dir
   - Strict schema enforcement
   - Input path: `supplement/04_results/02_raw_judge_evaluations/final/...`
 
-The ingestion code path is intended to be identical across versions; the version-specific behavior should be driven by the bundle contents.
+The ingestion code path is intended to be identical across versions; version-specific behavior should be driven by
+bundle contents.
 
 ---
 
 ## Repro checklist
 
-- [ ] **Run from repo root** (recommended) so relative paths are stable.
-- [ ] **Execute the authoritative entry**:
-  - `python supplement/tools/ingest/materialize_records.py`
-- [ ] **Verify outputs exist**:
-  - Check that `supplement/04_results/03_processed_evaluations/**/valid_evaluations/record_*.json` files were created/updated.
-- [ ] **Spot-check record integrity**:
-  - Open one `record_*.json` and confirm it contains the expected task identifiers + model/judge metadata.
-- [ ] **Check exclusions (if any)**:
-  - If the run produces an exclusion list (e.g., `excluded_records.jsonl`), ensure it is saved next to `record_*.json` under the same `valid_evaluations/` directory.
-- [ ] **Confirm Route A boundary**:
-  - No aggregation/scoring needs to be run; tables are already under:
-    - `supplement/04_results/03_processed_evaluations/v0_baseline_judge/summary_tables/`
-    - `supplement/04_results/03_processed_evaluations/v1_paraphrase_judge/summary_tables/`
-    - `supplement/04_results/03_processed_evaluations/v2_schema_strict_judge/summary_tables/`
-- [ ] **Downstream compatibility**:
-  - Figure scripts should only read `record_*.json` and the judge-specific `summary_tables/` directories under:
-    - `supplement/04_results/03_processed_evaluations/v0_baseline_judge/summary_tables/`
-    - `supplement/04_results/03_processed_evaluations/v1_paraphrase_judge/summary_tables/`
-    - `supplement/04_results/03_processed_evaluations/v2_schema_strict_judge/summary_tables/`
+- [ ] Run from repo root so relative paths are stable.
+- [ ] Execute the entry point:
+  - `python supplement/tools/ingest/materialize_records.py --ack-legacy`
+- [ ] Verify outputs exist:
+  - `supplement/04_results/03_processed_evaluations/<judge_version>/valid_evaluations/**/*.json`
+- [ ] Spot-check record integrity:
+  - Open one JSON and confirm it contains `file` + model/judge metadata.
+- [ ] Exclusions (if any):
+  - If `excluded_records.jsonl` exists, it must be under `summary_tables/` and explain exclusions.
+- [ ] Confirm you are not recomputing tables:
+  - `scores_long.csv` / `scores_grouped.csv` are already provided under each judge version’s `summary_tables/`.
+- [ ] Downstream compatibility:
+  - Figure scripts read record JSON + `summary_tables/` and render plots without recomputation.
