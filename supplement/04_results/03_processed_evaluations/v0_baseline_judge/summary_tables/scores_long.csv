@@ -1,97 +1,97 @@
 judge_version,snapshot_contract_id,judge_model,generator_model,bundle_file,file,question_id,prompt_variant,trigger_type,A_structure,B_snapshot_constraint,C_actionability,D_completeness,E_drift_failure,total
-v0_baseline_judge,SC_50_NOEXT,chatgpt,unknown,judge_chatgpt_bundle_claude.json,q3_baseline_explicit.pdf,q3,baseline,explicit,2,1,2,1,2,8
-v0_baseline_judge,SC_50_NOEXT,chatgpt,unknown,judge_chatgpt_bundle_claude.json,q3_baseline_implicit.pdf,q3,baseline,implicit,0,0,0,0,0,0
-v0_baseline_judge,SC_50_NOEXT,chatgpt,unknown,judge_chatgpt_bundle_claude.json,q3_conflict_explicit.pdf,q3,conflict,explicit,2,2,2,1,2,9
-v0_baseline_judge,SC_50_NOEXT,chatgpt,unknown,judge_chatgpt_bundle_claude.json,q3_conflict_implicit.pdf,q3,conflict,implicit,0,0,0,0,0,0
-v0_baseline_judge,SC_50_NOEXT,chatgpt,unknown,judge_chatgpt_bundle_claude.json,q3_long_explicit.pdf,q3,long,explicit,2,1,2,1,2,8
-v0_baseline_judge,SC_50_NOEXT,chatgpt,unknown,judge_chatgpt_bundle_claude.json,q3_long_implicit.pdf,q3,long,implicit,0,0,0,0,0,0
-v0_baseline_judge,SC_50_NOEXT,chatgpt,unknown,judge_chatgpt_bundle_claude.json,q3_weak_explicit.pdf,q3,weak,explicit,2,2,2,1,2,9
-v0_baseline_judge,SC_50_NOEXT,chatgpt,unknown,judge_chatgpt_bundle_claude.json,q3_weak_implicit.pdf,q3,weak,implicit,0,0,0,0,0,0
-v0_baseline_judge,SC_50_NOEXT,chatgpt,unknown,judge_chatgpt_bundle_claude.json,q4_baseline_explicit.pdf,q4,baseline,explicit,0,0,0,0,0,0
-v0_baseline_judge,SC_50_NOEXT,chatgpt,unknown,judge_chatgpt_bundle_claude.json,q4_baseline_implicit.pdf,q4,baseline,implicit,0,0,0,0,0,0
-v0_baseline_judge,SC_50_NOEXT,chatgpt,unknown,judge_chatgpt_bundle_claude.json,q4_conflict_explicit.pdf,q4,conflict,explicit,0,0,0,0,0,0
-v0_baseline_judge,SC_50_NOEXT,chatgpt,unknown,judge_chatgpt_bundle_claude.json,q4_conflict_implicit.pdf,q4,conflict,implicit,0,0,0,0,0,0
-v0_baseline_judge,SC_50_NOEXT,chatgpt,unknown,judge_chatgpt_bundle_claude.json,q4_long_explicit.pdf,q4,long,explicit,0,0,0,0,0,0
-v0_baseline_judge,SC_50_NOEXT,chatgpt,unknown,judge_chatgpt_bundle_claude.json,q4_long_implicit.pdf,q4,long,implicit,0,0,0,0,0,0
-v0_baseline_judge,SC_50_NOEXT,chatgpt,unknown,judge_chatgpt_bundle_claude.json,q4_weak_explicit.pdf,q4,weak,explicit,0,0,0,0,0,0
-v0_baseline_judge,SC_50_NOEXT,chatgpt,unknown,judge_chatgpt_bundle_claude.json,q4_weak_implicit.pdf,q4,weak,implicit,0,0,0,0,0,0
-v0_baseline_judge,SC_50_NOEXT,chatgpt,unknown,judge_chatgpt_bundle_gemini.json,q3_baseline_explicit.pdf,q3,baseline,explicit,2,1,2,2,2,9
-v0_baseline_judge,SC_50_NOEXT,chatgpt,unknown,judge_chatgpt_bundle_gemini.json,q3 baseline implicit.pdf,q3,baseline,implicit,0,0,0,0,0,0
-v0_baseline_judge,SC_50_NOEXT,chatgpt,unknown,judge_chatgpt_bundle_gemini.json,q3 long explicit.pdf,q3,long,explicit,2,1,2,2,2,9
-v0_baseline_judge,SC_50_NOEXT,chatgpt,unknown,judge_chatgpt_bundle_gemini.json,q3 long implicit.pdf,q3,long,implicit,0,0,0,0,0,0
-v0_baseline_judge,SC_50_NOEXT,chatgpt,unknown,judge_chatgpt_bundle_gemini.json,q3 weak explicit.pdf,q3,weak,explicit,2,1,2,2,2,9
-v0_baseline_judge,SC_50_NOEXT,chatgpt,unknown,judge_chatgpt_bundle_gemini.json,q3 weak implicit.pdf,q3,weak,implicit,0,0,0,0,0,0
-v0_baseline_judge,SC_50_NOEXT,chatgpt,unknown,judge_chatgpt_bundle_gemini.json,q3 conflict explicit.pdf,q3,conflict,explicit,2,1,2,2,2,9
-v0_baseline_judge,SC_50_NOEXT,chatgpt,unknown,judge_chatgpt_bundle_gemini.json,q3 conflict implicit.pdf,q3,conflict,implicit,0,0,0,0,0,0
-v0_baseline_judge,SC_50_NOEXT,chatgpt,unknown,judge_chatgpt_bundle_gemini.json,q4 baseline explicit.pdf,q4,baseline,explicit,2,1,2,2,2,9
-v0_baseline_judge,SC_50_NOEXT,chatgpt,unknown,judge_chatgpt_bundle_gemini.json,q4 baseline implicit.pdf,q4,baseline,implicit,0,0,0,0,0,0
-v0_baseline_judge,SC_50_NOEXT,chatgpt,unknown,judge_chatgpt_bundle_gemini.json,q4 long explicit.pdf,q4,long,explicit,2,1,2,2,2,9
-v0_baseline_judge,SC_50_NOEXT,chatgpt,unknown,judge_chatgpt_bundle_gemini.json,q4 long implicit.pdf,q4,long,implicit,0,0,0,0,0,0
-v0_baseline_judge,SC_50_NOEXT,chatgpt,unknown,judge_chatgpt_bundle_gemini.json,q4 weak explicit.pdf,q4,weak,explicit,2,1,2,2,2,9
-v0_baseline_judge,SC_50_NOEXT,chatgpt,unknown,judge_chatgpt_bundle_gemini.json,q4 weak implicit.pdf,q4,weak,implicit,0,0,0,0,0,0
-v0_baseline_judge,SC_50_NOEXT,chatgpt,unknown,judge_chatgpt_bundle_gemini.json,q4 conflict explicit.pdf,q4,conflict,explicit,2,1,2,2,2,9
-v0_baseline_judge,SC_50_NOEXT,chatgpt,unknown,judge_chatgpt_bundle_gemini.json,q4 conflict implicit.pdf,q4,conflict,implicit,0,0,0,0,0,0
-v0_baseline_judge,SC_50_NOEXT,claude,claude,judge_claude_bundle_chatgpt.json,q3 baseline explicit.pdf,q3,baseline,explicit,2,2,2,2,2,10
-v0_baseline_judge,SC_50_NOEXT,claude,claude,judge_claude_bundle_chatgpt.json,q3 baseline implicit.pdf,q3,baseline,implicit,0,0,0,0,0,0
-v0_baseline_judge,SC_50_NOEXT,claude,claude,judge_claude_bundle_chatgpt.json,q3 conflict explicit.pdf,q3,conflict,explicit,2,2,2,2,2,10
-v0_baseline_judge,SC_50_NOEXT,claude,claude,judge_claude_bundle_chatgpt.json,q3 conflict implicit.pdf,q3,conflict,implicit,2,2,2,2,2,10
-v0_baseline_judge,SC_50_NOEXT,claude,claude,judge_claude_bundle_chatgpt.json,q3 long explicit.pdf,q3,long,explicit,2,2,2,2,2,10
-v0_baseline_judge,SC_50_NOEXT,claude,claude,judge_claude_bundle_chatgpt.json,q3 long implicit.pdf,q3,long,implicit,2,2,2,2,2,10
-v0_baseline_judge,SC_50_NOEXT,claude,claude,judge_claude_bundle_chatgpt.json,q3 weak explicit.pdf,q3,weak,explicit,2,2,2,2,2,10
-v0_baseline_judge,SC_50_NOEXT,claude,claude,judge_claude_bundle_chatgpt.json,q3 weak implicit.pdf,q3,weak,implicit,2,2,2,2,2,10
-v0_baseline_judge,SC_50_NOEXT,claude,claude,judge_claude_bundle_chatgpt.json,q4 baseline explicit.pdf,q4,baseline,explicit,2,2,2,2,2,10
-v0_baseline_judge,SC_50_NOEXT,claude,claude,judge_claude_bundle_chatgpt.json,q4 baseline implicit.pdf,q4,baseline,implicit,0,0,0,0,0,0
-v0_baseline_judge,SC_50_NOEXT,claude,claude,judge_claude_bundle_chatgpt.json,q4 conflict explicit.pdf,q4,conflict,explicit,2,2,2,2,2,10
-v0_baseline_judge,SC_50_NOEXT,claude,claude,judge_claude_bundle_chatgpt.json,q4 conflict implicit.pdf,q4,conflict,implicit,2,2,2,2,2,10
-v0_baseline_judge,SC_50_NOEXT,claude,claude,judge_claude_bundle_chatgpt.json,q4 long explicit.pdf,q4,long,explicit,2,1,2,2,2,9
-v0_baseline_judge,SC_50_NOEXT,claude,claude,judge_claude_bundle_chatgpt.json,q4 long implicit.pdf,q4,long,implicit,2,1,2,2,2,9
-v0_baseline_judge,SC_50_NOEXT,claude,claude,judge_claude_bundle_chatgpt.json,q4 weak explicit.pdf,q4,weak,explicit,2,0,2,2,2,8
-v0_baseline_judge,SC_50_NOEXT,claude,claude,judge_claude_bundle_chatgpt.json,q4 weak implicit.pdf,q4,weak,implicit,2,2,2,2,2,10
-v0_baseline_judge,SC_50_NOEXT,claude,claude,judge_claude_bundle_gemini.json,q3 baseline explicit.pdf,q3,baseline,explicit,2,1,2,2,0,7
-v0_baseline_judge,SC_50_NOEXT,claude,claude,judge_claude_bundle_gemini.json,q3 baseline implicit.pdf,q3,baseline,implicit,0,0,0,0,0,0
-v0_baseline_judge,SC_50_NOEXT,claude,claude,judge_claude_bundle_gemini.json,q3 conflict explicit.pdf,q3,conflict,explicit,2,2,2,2,2,10
-v0_baseline_judge,SC_50_NOEXT,claude,claude,judge_claude_bundle_gemini.json,q3 conflict implicit.pdf,q3,conflict,implicit,0,0,0,0,0,0
-v0_baseline_judge,SC_50_NOEXT,claude,claude,judge_claude_bundle_gemini.json,q3 long explicit.pdf,q3,long,explicit,2,2,2,2,2,10
-v0_baseline_judge,SC_50_NOEXT,claude,claude,judge_claude_bundle_gemini.json,q3 long implicit.pdf,q3,long,implicit,0,0,0,0,0,0
-v0_baseline_judge,SC_50_NOEXT,claude,claude,judge_claude_bundle_gemini.json,q3 weak explicit.pdf,q3,weak,explicit,2,2,2,2,2,10
-v0_baseline_judge,SC_50_NOEXT,claude,claude,judge_claude_bundle_gemini.json,q3 weak implicit.pdf,q3,weak,implicit,0,0,0,0,0,0
-v0_baseline_judge,SC_50_NOEXT,claude,claude,judge_claude_bundle_gemini.json,q4 baseline explicit.pdf,q4,baseline,explicit,2,2,2,2,2,10
-v0_baseline_judge,SC_50_NOEXT,claude,claude,judge_claude_bundle_gemini.json,q4 baseline implicit.pdf,q4,baseline,implicit,2,2,2,2,0,8
-v0_baseline_judge,SC_50_NOEXT,claude,claude,judge_claude_bundle_gemini.json,q4 conflict explicit.pdf,q4,conflict,explicit,2,2,2,2,2,10
-v0_baseline_judge,SC_50_NOEXT,claude,claude,judge_claude_bundle_gemini.json,q4 conflict implicit.pdf,q4,conflict,implicit,0,0,0,0,0,0
-v0_baseline_judge,SC_50_NOEXT,claude,claude,judge_claude_bundle_gemini.json,q4 long explicit.pdf,q4,long,explicit,2,2,2,2,2,10
-v0_baseline_judge,SC_50_NOEXT,claude,claude,judge_claude_bundle_gemini.json,q4 long implicit.pdf,q4,long,implicit,0,0,0,0,0,0
-v0_baseline_judge,SC_50_NOEXT,claude,claude,judge_claude_bundle_gemini.json,q4 weak explicit.pdf,q4,weak,explicit,2,2,2,2,2,10
-v0_baseline_judge,SC_50_NOEXT,claude,claude,judge_claude_bundle_gemini.json,q4 weak implicit.pdf,q4,weak,implicit,0,0,0,0,0,0
-v0_baseline_judge,SC_50_NOEXT,gemini,gemini-3-flash,judge_gemini_bundle_chatgpt.json,q3 baseline implicit.pdf,q3,baseline,implicit,2,2,2,2,2,10
-v0_baseline_judge,SC_50_NOEXT,gemini,gemini-3-flash,judge_gemini_bundle_chatgpt.json,q3 baseline explicit.pdf,q3,baseline,explicit,2,2,2,2,2,10
-v0_baseline_judge,SC_50_NOEXT,gemini,gemini-3-flash,judge_gemini_bundle_chatgpt.json,q3 long implicit.pdf,q3,long,implicit,2,2,2,2,2,10
-v0_baseline_judge,SC_50_NOEXT,gemini,gemini-3-flash,judge_gemini_bundle_chatgpt.json,q3 long explicit.pdf,q3,long,explicit,2,1,2,2,1,8
-v0_baseline_judge,SC_50_NOEXT,gemini,gemini-3-flash,judge_gemini_bundle_chatgpt.json,q3 weak implicit.pdf,q3,weak,implicit,2,2,2,2,1,9
-v0_baseline_judge,SC_50_NOEXT,gemini,gemini-3-flash,judge_gemini_bundle_chatgpt.json,q3 weak explicit.pdf,q3,weak,explicit,2,2,2,2,1,9
-v0_baseline_judge,SC_50_NOEXT,gemini,gemini-3-flash,judge_gemini_bundle_chatgpt.json,q3 conflict implicit.pdf,q3,conflict,implicit,2,2,2,2,1,9
-v0_baseline_judge,SC_50_NOEXT,gemini,gemini-3-flash,judge_gemini_bundle_chatgpt.json,q3 conflict explicit.pdf,q3,conflict,explicit,2,2,2,2,2,10
-v0_baseline_judge,SC_50_NOEXT,gemini,gemini-3-flash,judge_gemini_bundle_chatgpt.json,q4 baseline implicit.pdf,q4,baseline,implicit,0,0,0,0,0,0
-v0_baseline_judge,SC_50_NOEXT,gemini,gemini-3-flash,judge_gemini_bundle_chatgpt.json,q4 baseline explicit.pdf,q4,baseline,explicit,2,2,2,2,1,9
-v0_baseline_judge,SC_50_NOEXT,gemini,gemini-3-flash,judge_gemini_bundle_chatgpt.json,q4 long implicit.pdf,q4,long,implicit,2,2,2,2,1,9
-v0_baseline_judge,SC_50_NOEXT,gemini,gemini-3-flash,judge_gemini_bundle_chatgpt.json,q4 long explicit.pdf,q4,long,explicit,2,2,2,2,2,10
-v0_baseline_judge,SC_50_NOEXT,gemini,gemini-3-flash,judge_gemini_bundle_chatgpt.json,q4 weak implicit.pdf,q4,weak,implicit,2,2,2,2,1,9
-v0_baseline_judge,SC_50_NOEXT,gemini,gemini-3-flash,judge_gemini_bundle_chatgpt.json,q4 weak explicit.pdf,q4,weak,explicit,2,1,2,2,1,8
-v0_baseline_judge,SC_50_NOEXT,gemini,gemini-3-flash,judge_gemini_bundle_chatgpt.json,q4 conflict implicit.pdf,q4,conflict,implicit,2,2,2,2,1,9
-v0_baseline_judge,SC_50_NOEXT,gemini,gemini-3-flash,judge_gemini_bundle_chatgpt.json,q4 conflict explicit.pdf,q4,conflict,explicit,2,2,2,2,1,9
-v0_baseline_judge,SC_50_NOEXT,gemini,claude-3-opus-20240229 (inferring from behavior),judge_gemini_bundle_claude.json,q3 baseline implicit.pdf,q3,baseline,implicit,0,0,0,0,0,0
-v0_baseline_judge,SC_50_NOEXT,gemini,claude-3-opus-20240229 (inferring from behavior),judge_gemini_bundle_claude.json,q3 baseline explicit.pdf,q3,baseline,explicit,2,1,2,2,2,9
-v0_baseline_judge,SC_50_NOEXT,gemini,claude-3-opus-20240229 (inferring from behavior),judge_gemini_bundle_claude.json,q3 long implicit.pdf,q3,long,implicit,0,0,0,0,0,0
-v0_baseline_judge,SC_50_NOEXT,gemini,claude-3-opus-20240229 (inferring from behavior),judge_gemini_bundle_claude.json,q3 long explicit.pdf,q3,long,explicit,2,1,2,2,2,9
-v0_baseline_judge,SC_50_NOEXT,gemini,claude-3-opus-20240229 (inferring from behavior),judge_gemini_bundle_claude.json,q3 weak implicit.pdf,q3,weak,implicit,0,0,0,0,0,0
-v0_baseline_judge,SC_50_NOEXT,gemini,claude-3-opus-20240229 (inferring from behavior),judge_gemini_bundle_claude.json,q3 weak explicit.pdf,q3,weak,explicit,2,1,2,2,2,9
-v0_baseline_judge,SC_50_NOEXT,gemini,claude-3-opus-20240229 (inferring from behavior),judge_gemini_bundle_claude.json,q3 conflict implicit.pdf,q3,conflict,implicit,0,0,0,0,0,0
-v0_baseline_judge,SC_50_NOEXT,gemini,claude-3-opus-20240229 (inferring from behavior),judge_gemini_bundle_claude.json,q3 conflict explicit.pdf,q3,conflict,explicit,2,1,2,2,2,9
-v0_baseline_judge,SC_50_NOEXT,gemini,claude-3-opus-20240229 (inferring from behavior),judge_gemini_bundle_claude.json,q4 baseline implicit.pdf,q4,baseline,implicit,0,0,0,0,0,0
-v0_baseline_judge,SC_50_NOEXT,gemini,claude-3-opus-20240229 (inferring from behavior),judge_gemini_bundle_claude.json,q4 baseline explicit.pdf,q4,baseline,explicit,0,0,0,0,0,0
-v0_baseline_judge,SC_50_NOEXT,gemini,claude-3-opus-20240229 (inferring from behavior),judge_gemini_bundle_claude.json,q4 long implicit.pdf,q4,long,implicit,0,0,0,0,0,0
-v0_baseline_judge,SC_50_NOEXT,gemini,claude-3-opus-20240229 (inferring from behavior),judge_gemini_bundle_claude.json,q4 long explicit.pdf,q4,long,explicit,0,0,0,0,0,0
-v0_baseline_judge,SC_50_NOEXT,gemini,claude-3-opus-20240229 (inferring from behavior),judge_gemini_bundle_claude.json,q4 weak implicit.pdf,q4,weak,implicit,0,0,0,0,0,0
-v0_baseline_judge,SC_50_NOEXT,gemini,claude-3-opus-20240229 (inferring from behavior),judge_gemini_bundle_claude.json,q4 weak explicit.pdf,q4,weak,explicit,0,0,0,0,0,0
-v0_baseline_judge,SC_50_NOEXT,gemini,claude-3-opus-20240229 (inferring from behavior),judge_gemini_bundle_claude.json,q4 conflict implicit.pdf,q4,conflict,implicit,0,0,0,0,0,0
-v0_baseline_judge,SC_50_NOEXT,gemini,claude-3-opus-20240229 (inferring from behavior),judge_gemini_bundle_claude.json,q4 conflict explicit.pdf,q4,conflict,explicit,0,0,0,0,0,0
+v0_baseline_judge,SC_50_NOEXT,chatgpt,ChatGPT,judge_chatgpt_bundle_claude.json,q3_baseline_explicit.pdf,q3,baseline,explicit,2,1,2,1,2,8
+v0_baseline_judge,SC_50_NOEXT,chatgpt,ChatGPT,judge_chatgpt_bundle_claude.json,q3_baseline_implicit.pdf,q3,baseline,implicit,0,0,0,0,0,0
+v0_baseline_judge,SC_50_NOEXT,chatgpt,ChatGPT,judge_chatgpt_bundle_claude.json,q3_conflict_explicit.pdf,q3,conflict,explicit,2,2,2,1,2,9
+v0_baseline_judge,SC_50_NOEXT,chatgpt,ChatGPT,judge_chatgpt_bundle_claude.json,q3_conflict_implicit.pdf,q3,conflict,implicit,0,0,0,0,0,0
+v0_baseline_judge,SC_50_NOEXT,chatgpt,ChatGPT,judge_chatgpt_bundle_claude.json,q3_long_explicit.pdf,q3,long,explicit,2,1,2,1,2,8
+v0_baseline_judge,SC_50_NOEXT,chatgpt,ChatGPT,judge_chatgpt_bundle_claude.json,q3_long_implicit.pdf,q3,long,implicit,0,0,0,0,0,0
+v0_baseline_judge,SC_50_NOEXT,chatgpt,ChatGPT,judge_chatgpt_bundle_claude.json,q3_weak_explicit.pdf,q3,weak,explicit,2,2,2,1,2,9
+v0_baseline_judge,SC_50_NOEXT,chatgpt,ChatGPT,judge_chatgpt_bundle_claude.json,q3_weak_implicit.pdf,q3,weak,implicit,0,0,0,0,0,0
+v0_baseline_judge,SC_50_NOEXT,chatgpt,ChatGPT,judge_chatgpt_bundle_claude.json,q4_baseline_explicit.pdf,q4,baseline,explicit,0,0,0,0,0,0
+v0_baseline_judge,SC_50_NOEXT,chatgpt,ChatGPT,judge_chatgpt_bundle_claude.json,q4_baseline_implicit.pdf,q4,baseline,implicit,0,0,0,0,0,0
+v0_baseline_judge,SC_50_NOEXT,chatgpt,ChatGPT,judge_chatgpt_bundle_claude.json,q4_conflict_explicit.pdf,q4,conflict,explicit,0,0,0,0,0,0
+v0_baseline_judge,SC_50_NOEXT,chatgpt,ChatGPT,judge_chatgpt_bundle_claude.json,q4_conflict_implicit.pdf,q4,conflict,implicit,0,0,0,0,0,0
+v0_baseline_judge,SC_50_NOEXT,chatgpt,ChatGPT,judge_chatgpt_bundle_claude.json,q4_long_explicit.pdf,q4,long,explicit,0,0,0,0,0,0
+v0_baseline_judge,SC_50_NOEXT,chatgpt,ChatGPT,judge_chatgpt_bundle_claude.json,q4_long_implicit.pdf,q4,long,implicit,0,0,0,0,0,0
+v0_baseline_judge,SC_50_NOEXT,chatgpt,ChatGPT,judge_chatgpt_bundle_claude.json,q4_weak_explicit.pdf,q4,weak,explicit,0,0,0,0,0,0
+v0_baseline_judge,SC_50_NOEXT,chatgpt,ChatGPT,judge_chatgpt_bundle_claude.json,q4_weak_implicit.pdf,q4,weak,implicit,0,0,0,0,0,0
+v0_baseline_judge,SC_50_NOEXT,chatgpt,ChatGPT,judge_chatgpt_bundle_gemini.json,q3_baseline_explicit.pdf,q3,baseline,explicit,2,1,2,2,2,9
+v0_baseline_judge,SC_50_NOEXT,chatgpt,ChatGPT,judge_chatgpt_bundle_gemini.json,q3 baseline implicit.pdf,q3,baseline,implicit,0,0,0,0,0,0
+v0_baseline_judge,SC_50_NOEXT,chatgpt,ChatGPT,judge_chatgpt_bundle_gemini.json,q3 long explicit.pdf,q3,long,explicit,2,1,2,2,2,9
+v0_baseline_judge,SC_50_NOEXT,chatgpt,ChatGPT,judge_chatgpt_bundle_gemini.json,q3 long implicit.pdf,q3,long,implicit,0,0,0,0,0,0
+v0_baseline_judge,SC_50_NOEXT,chatgpt,ChatGPT,judge_chatgpt_bundle_gemini.json,q3 weak explicit.pdf,q3,weak,explicit,2,1,2,2,2,9
+v0_baseline_judge,SC_50_NOEXT,chatgpt,ChatGPT,judge_chatgpt_bundle_gemini.json,q3 weak implicit.pdf,q3,weak,implicit,0,0,0,0,0,0
+v0_baseline_judge,SC_50_NOEXT,chatgpt,ChatGPT,judge_chatgpt_bundle_gemini.json,q3 conflict explicit.pdf,q3,conflict,explicit,2,1,2,2,2,9
+v0_baseline_judge,SC_50_NOEXT,chatgpt,ChatGPT,judge_chatgpt_bundle_gemini.json,q3 conflict implicit.pdf,q3,conflict,implicit,0,0,0,0,0,0
+v0_baseline_judge,SC_50_NOEXT,chatgpt,ChatGPT,judge_chatgpt_bundle_gemini.json,q4 baseline explicit.pdf,q4,baseline,explicit,2,1,2,2,2,9
+v0_baseline_judge,SC_50_NOEXT,chatgpt,ChatGPT,judge_chatgpt_bundle_gemini.json,q4 baseline implicit.pdf,q4,baseline,implicit,0,0,0,0,0,0
+v0_baseline_judge,SC_50_NOEXT,chatgpt,ChatGPT,judge_chatgpt_bundle_gemini.json,q4 long explicit.pdf,q4,long,explicit,2,1,2,2,2,9
+v0_baseline_judge,SC_50_NOEXT,chatgpt,ChatGPT,judge_chatgpt_bundle_gemini.json,q4 long implicit.pdf,q4,long,implicit,0,0,0,0,0,0
+v0_baseline_judge,SC_50_NOEXT,chatgpt,ChatGPT,judge_chatgpt_bundle_gemini.json,q4 weak explicit.pdf,q4,weak,explicit,2,1,2,2,2,9
+v0_baseline_judge,SC_50_NOEXT,chatgpt,ChatGPT,judge_chatgpt_bundle_gemini.json,q4 weak implicit.pdf,q4,weak,implicit,0,0,0,0,0,0
+v0_baseline_judge,SC_50_NOEXT,chatgpt,ChatGPT,judge_chatgpt_bundle_gemini.json,q4 conflict explicit.pdf,q4,conflict,explicit,2,1,2,2,2,9
+v0_baseline_judge,SC_50_NOEXT,chatgpt,ChatGPT,judge_chatgpt_bundle_gemini.json,q4 conflict implicit.pdf,q4,conflict,implicit,0,0,0,0,0,0
+v0_baseline_judge,SC_50_NOEXT,claude,Claude,judge_claude_bundle_chatgpt.json,q3 baseline explicit.pdf,q3,baseline,explicit,2,2,2,2,2,10
+v0_baseline_judge,SC_50_NOEXT,claude,Claude,judge_claude_bundle_chatgpt.json,q3 baseline implicit.pdf,q3,baseline,implicit,0,0,0,0,0,0
+v0_baseline_judge,SC_50_NOEXT,claude,Claude,judge_claude_bundle_chatgpt.json,q3 conflict explicit.pdf,q3,conflict,explicit,2,2,2,2,2,10
+v0_baseline_judge,SC_50_NOEXT,claude,Claude,judge_claude_bundle_chatgpt.json,q3 conflict implicit.pdf,q3,conflict,implicit,2,2,2,2,2,10
+v0_baseline_judge,SC_50_NOEXT,claude,Claude,judge_claude_bundle_chatgpt.json,q3 long explicit.pdf,q3,long,explicit,2,2,2,2,2,10
+v0_baseline_judge,SC_50_NOEXT,claude,Claude,judge_claude_bundle_chatgpt.json,q3 long implicit.pdf,q3,long,implicit,2,2,2,2,2,10
+v0_baseline_judge,SC_50_NOEXT,claude,Claude,judge_claude_bundle_chatgpt.json,q3 weak explicit.pdf,q3,weak,explicit,2,2,2,2,2,10
+v0_baseline_judge,SC_50_NOEXT,claude,Claude,judge_claude_bundle_chatgpt.json,q3 weak implicit.pdf,q3,weak,implicit,2,2,2,2,2,10
+v0_baseline_judge,SC_50_NOEXT,claude,Claude,judge_claude_bundle_chatgpt.json,q4 baseline explicit.pdf,q4,baseline,explicit,2,2,2,2,2,10
+v0_baseline_judge,SC_50_NOEXT,claude,Claude,judge_claude_bundle_chatgpt.json,q4 baseline implicit.pdf,q4,baseline,implicit,0,0,0,0,0,0
+v0_baseline_judge,SC_50_NOEXT,claude,Claude,judge_claude_bundle_chatgpt.json,q4 conflict explicit.pdf,q4,conflict,explicit,2,2,2,2,2,10
+v0_baseline_judge,SC_50_NOEXT,claude,Claude,judge_claude_bundle_chatgpt.json,q4 conflict implicit.pdf,q4,conflict,implicit,2,2,2,2,2,10
+v0_baseline_judge,SC_50_NOEXT,claude,Claude,judge_claude_bundle_chatgpt.json,q4 long explicit.pdf,q4,long,explicit,2,1,2,2,2,9
+v0_baseline_judge,SC_50_NOEXT,claude,Claude,judge_claude_bundle_chatgpt.json,q4 long implicit.pdf,q4,long,implicit,2,1,2,2,2,9
+v0_baseline_judge,SC_50_NOEXT,claude,Claude,judge_claude_bundle_chatgpt.json,q4 weak explicit.pdf,q4,weak,explicit,2,0,2,2,2,8
+v0_baseline_judge,SC_50_NOEXT,claude,Claude,judge_claude_bundle_chatgpt.json,q4 weak implicit.pdf,q4,weak,implicit,2,2,2,2,2,10
+v0_baseline_judge,SC_50_NOEXT,claude,Claude,judge_claude_bundle_gemini.json,q3 baseline explicit.pdf,q3,baseline,explicit,2,1,2,2,0,7
+v0_baseline_judge,SC_50_NOEXT,claude,Claude,judge_claude_bundle_gemini.json,q3 baseline implicit.pdf,q3,baseline,implicit,0,0,0,0,0,0
+v0_baseline_judge,SC_50_NOEXT,claude,Claude,judge_claude_bundle_gemini.json,q3 conflict explicit.pdf,q3,conflict,explicit,2,2,2,2,2,10
+v0_baseline_judge,SC_50_NOEXT,claude,Claude,judge_claude_bundle_gemini.json,q3 conflict implicit.pdf,q3,conflict,implicit,0,0,0,0,0,0
+v0_baseline_judge,SC_50_NOEXT,claude,Claude,judge_claude_bundle_gemini.json,q3 long explicit.pdf,q3,long,explicit,2,2,2,2,2,10
+v0_baseline_judge,SC_50_NOEXT,claude,Claude,judge_claude_bundle_gemini.json,q3 long implicit.pdf,q3,long,implicit,0,0,0,0,0,0
+v0_baseline_judge,SC_50_NOEXT,claude,Claude,judge_claude_bundle_gemini.json,q3 weak explicit.pdf,q3,weak,explicit,2,2,2,2,2,10
+v0_baseline_judge,SC_50_NOEXT,claude,Claude,judge_claude_bundle_gemini.json,q3 weak implicit.pdf,q3,weak,implicit,0,0,0,0,0,0
+v0_baseline_judge,SC_50_NOEXT,claude,Claude,judge_claude_bundle_gemini.json,q4 baseline explicit.pdf,q4,baseline,explicit,2,2,2,2,2,10
+v0_baseline_judge,SC_50_NOEXT,claude,Claude,judge_claude_bundle_gemini.json,q4 baseline implicit.pdf,q4,baseline,implicit,2,2,2,2,0,8
+v0_baseline_judge,SC_50_NOEXT,claude,Claude,judge_claude_bundle_gemini.json,q4 conflict explicit.pdf,q4,conflict,explicit,2,2,2,2,2,10
+v0_baseline_judge,SC_50_NOEXT,claude,Claude,judge_claude_bundle_gemini.json,q4 conflict implicit.pdf,q4,conflict,implicit,0,0,0,0,0,0
+v0_baseline_judge,SC_50_NOEXT,claude,Claude,judge_claude_bundle_gemini.json,q4 long explicit.pdf,q4,long,explicit,2,2,2,2,2,10
+v0_baseline_judge,SC_50_NOEXT,claude,Claude,judge_claude_bundle_gemini.json,q4 long implicit.pdf,q4,long,implicit,0,0,0,0,0,0
+v0_baseline_judge,SC_50_NOEXT,claude,Claude,judge_claude_bundle_gemini.json,q4 weak explicit.pdf,q4,weak,explicit,2,2,2,2,2,10
+v0_baseline_judge,SC_50_NOEXT,claude,Claude,judge_claude_bundle_gemini.json,q4 weak implicit.pdf,q4,weak,implicit,0,0,0,0,0,0
+v0_baseline_judge,SC_50_NOEXT,gemini,Gemini,judge_gemini_bundle_chatgpt.json,q3 baseline implicit.pdf,q3,baseline,implicit,2,2,2,2,2,10
+v0_baseline_judge,SC_50_NOEXT,gemini,Gemini,judge_gemini_bundle_chatgpt.json,q3 baseline explicit.pdf,q3,baseline,explicit,2,2,2,2,2,10
+v0_baseline_judge,SC_50_NOEXT,gemini,Gemini,judge_gemini_bundle_chatgpt.json,q3 long implicit.pdf,q3,long,implicit,2,2,2,2,2,10
+v0_baseline_judge,SC_50_NOEXT,gemini,Gemini,judge_gemini_bundle_chatgpt.json,q3 long explicit.pdf,q3,long,explicit,2,1,2,2,1,8
+v0_baseline_judge,SC_50_NOEXT,gemini,Gemini,judge_gemini_bundle_chatgpt.json,q3 weak implicit.pdf,q3,weak,implicit,2,2,2,2,1,9
+v0_baseline_judge,SC_50_NOEXT,gemini,Gemini,judge_gemini_bundle_chatgpt.json,q3 weak explicit.pdf,q3,weak,explicit,2,2,2,2,1,9
+v0_baseline_judge,SC_50_NOEXT,gemini,Gemini,judge_gemini_bundle_chatgpt.json,q3 conflict implicit.pdf,q3,conflict,implicit,2,2,2,2,1,9
+v0_baseline_judge,SC_50_NOEXT,gemini,Gemini,judge_gemini_bundle_chatgpt.json,q3 conflict explicit.pdf,q3,conflict,explicit,2,2,2,2,2,10
+v0_baseline_judge,SC_50_NOEXT,gemini,Gemini,judge_gemini_bundle_chatgpt.json,q4 baseline implicit.pdf,q4,baseline,implicit,0,0,0,0,0,0
+v0_baseline_judge,SC_50_NOEXT,gemini,Gemini,judge_gemini_bundle_chatgpt.json,q4 baseline explicit.pdf,q4,baseline,explicit,2,2,2,2,1,9
+v0_baseline_judge,SC_50_NOEXT,gemini,Gemini,judge_gemini_bundle_chatgpt.json,q4 long implicit.pdf,q4,long,implicit,2,2,2,2,1,9
+v0_baseline_judge,SC_50_NOEXT,gemini,Gemini,judge_gemini_bundle_chatgpt.json,q4 long explicit.pdf,q4,long,explicit,2,2,2,2,2,10
+v0_baseline_judge,SC_50_NOEXT,gemini,Gemini,judge_gemini_bundle_chatgpt.json,q4 weak implicit.pdf,q4,weak,implicit,2,2,2,2,1,9
+v0_baseline_judge,SC_50_NOEXT,gemini,Gemini,judge_gemini_bundle_chatgpt.json,q4 weak explicit.pdf,q4,weak,explicit,2,1,2,2,1,8
+v0_baseline_judge,SC_50_NOEXT,gemini,Gemini,judge_gemini_bundle_chatgpt.json,q4 conflict implicit.pdf,q4,conflict,implicit,2,2,2,2,1,9
+v0_baseline_judge,SC_50_NOEXT,gemini,Gemini,judge_gemini_bundle_chatgpt.json,q4 conflict explicit.pdf,q4,conflict,explicit,2,2,2,2,1,9
+v0_baseline_judge,SC_50_NOEXT,gemini,Claude,judge_gemini_bundle_claude.json,q3 baseline implicit.pdf,q3,baseline,implicit,0,0,0,0,0,0
+v0_baseline_judge,SC_50_NOEXT,gemini,Claude,judge_gemini_bundle_claude.json,q3 baseline explicit.pdf,q3,baseline,explicit,2,1,2,2,2,9
+v0_baseline_judge,SC_50_NOEXT,gemini,Claude,judge_gemini_bundle_claude.json,q3 long implicit.pdf,q3,long,implicit,0,0,0,0,0,0
+v0_baseline_judge,SC_50_NOEXT,gemini,Claude,judge_gemini_bundle_claude.json,q3 long explicit.pdf,q3,long,explicit,2,1,2,2,2,9
+v0_baseline_judge,SC_50_NOEXT,gemini,Claude,judge_gemini_bundle_claude.json,q3 weak implicit.pdf,q3,weak,implicit,0,0,0,0,0,0
+v0_baseline_judge,SC_50_NOEXT,gemini,Claude,judge_gemini_bundle_claude.json,q3 weak explicit.pdf,q3,weak,explicit,2,1,2,2,2,9
+v0_baseline_judge,SC_50_NOEXT,gemini,Claude,judge_gemini_bundle_claude.json,q3 conflict implicit.pdf,q3,conflict,implicit,0,0,0,0,0,0
+v0_baseline_judge,SC_50_NOEXT,gemini,Claude,judge_gemini_bundle_claude.json,q3 conflict explicit.pdf,q3,conflict,explicit,2,1,2,2,2,9
+v0_baseline_judge,SC_50_NOEXT,gemini,Claude,judge_gemini_bundle_claude.json,q4 baseline implicit.pdf,q4,baseline,implicit,0,0,0,0,0,0
+v0_baseline_judge,SC_50_NOEXT,gemini,Claude,judge_gemini_bundle_claude.json,q4 baseline explicit.pdf,q4,baseline,explicit,0,0,0,0,0,0
+v0_baseline_judge,SC_50_NOEXT,gemini,Claude,judge_gemini_bundle_claude.json,q4 long implicit.pdf,q4,long,implicit,0,0,0,0,0,0
+v0_baseline_judge,SC_50_NOEXT,gemini,Claude,judge_gemini_bundle_claude.json,q4 long explicit.pdf,q4,long,explicit,0,0,0,0,0,0
+v0_baseline_judge,SC_50_NOEXT,gemini,Claude,judge_gemini_bundle_claude.json,q4 weak implicit.pdf,q4,weak,implicit,0,0,0,0,0,0
+v0_baseline_judge,SC_50_NOEXT,gemini,Claude,judge_gemini_bundle_claude.json,q4 weak explicit.pdf,q4,weak,explicit,0,0,0,0,0,0
+v0_baseline_judge,SC_50_NOEXT,gemini,Claude,judge_gemini_bundle_claude.json,q4 conflict implicit.pdf,q4,conflict,implicit,0,0,0,0,0,0
+v0_baseline_judge,SC_50_NOEXT,gemini,Claude,judge_gemini_bundle_claude.json,q4 conflict explicit.pdf,q4,conflict,explicit,0,0,0,0,0,0
