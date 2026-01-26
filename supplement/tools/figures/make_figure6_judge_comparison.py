@@ -9,29 +9,30 @@ Purpose
 -------
 Demonstrate how the choice of judge (i.e., the prompting of the
 evaluation model) can alter reported severity even when generator
-outputs are fixed.  This figure includes all three judges packaged
-in the artifact (baseline, paraphrased, and schema-strict) and
-aggregates mean total scores under implicit trigger conditions by
-generator model.
+outputs are fixed.  This figure includes all available judge versions,
+aggregates mean total scores under implicit triggers, and visualizes
+differences via a grouped bar chart.
 
-Data sources (derived artifacts only)
--------------------------------------
-supplement/04_results/03_processed_evaluations/
-- v0_baseline_judge/summary_tables/scores_long.csv
-- v1_paraphrase_judge/summary_tables/scores_long.csv
-- v2_schema_strict_judge/summary_tables/scores_long.csv
+Inputs
+------
+- Processed score tables for each judge version:
+  supplement/04_results/03_processed_evaluations/<judge>/summary_tables/scores_long.csv
 
-Notes
+Outputs
+-------
+- Figure saved to the project-level figures directory:
+  paper/figures/fig6_judge_comparison.pdf
+
+Usage
 -----
-- Only overlapping slices are compared.
-- No generator inference is re-run.
-- Differences reflect judge behavior, not model capability.
+python supplement/tools/figures/make_figure6_judge_comparison.py
 """
+
+from pathlib import Path
 
 import pandas as pd
 import matplotlib.pyplot as plt
-import seaborn as sns
-from pathlib import Path
+
 
 # === resolve data and output locations ===
 # Determine the absolute base path for the processed results and the
@@ -50,7 +51,8 @@ JUDGES = {
     "v2_schema_strict_judge": "v2 (schema-strict)",
 }
 
-out_dir = project_dir / "paper" / "figures"
+# ONLY CHANGE: output directory -> supplement/tools/figures (repo-relative)
+out_dir = supplement_dir / "tools" / "figures"
 out_dir.mkdir(parents=True, exist_ok=True)
 
 # === helper functions ===
@@ -65,44 +67,59 @@ def load_scores(judge_dir: str) -> pd.DataFrame:
         / "scores_long.csv"
     )
     return pd.read_csv(path)
+
 def summarize_implicit(df: pd.DataFrame) -> pd.DataFrame:
     """
     Aggregate mean total scores under implicit triggers,
     grouped by generator model.
     """
-    return (
-        df[df["trigger_type"] == "implicit"]
-        .groupby("generator_model")
-        .agg(total_mean=("total", "mean"))
-        .reset_index()
+    imp = df[df["trigger_type"] == "implicit"]
+    summary = (
+        imp.groupby("generator_model")["total"]
+           .mean()
+           .reset_index()
+           .rename(columns={"total": "mean_total"})
     )
+    return summary
 
-# === load and summarize data ===
-summary_frames = []
-for judge_dir, label in JUDGES.items():
-    df_judge = load_scores(judge_dir)
-    summary = summarize_implicit(df_judge)
-    summary["judge"] = label
-    summary_frames.append(summary)
+# === load and aggregate ===
+summaries = []
+for judge_dir, judge_label in JUDGES.items():
+    scores = load_scores(judge_dir)
+    summary = summarize_implicit(scores)
+    summary["judge"] = judge_label
+    summaries.append(summary)
 
-cmp = pd.concat(summary_frames, ignore_index=True)
+all_summary = pd.concat(summaries, ignore_index=True)
+
+# Ensure consistent ordering of generator models across judges
+gen_models = sorted(all_summary["generator_model"].unique())
+judge_labels = list(JUDGES.values())
+
+# Pivot to wide format for plotting: rows = generator models, cols = judges
+wide = all_summary.pivot(index="generator_model", columns="judge", values="mean_total")
+wide = wide.reindex(index=gen_models, columns=judge_labels)
 
 # === plot ===
-plt.figure(figsize=(6, 4))
-sns.barplot(
-    data=cmp,
-    x="generator_model",
-    y="total_mean",
-    hue="judge"
-)
+plt.figure(figsize=(7, 4))
+ax = plt.gca()
 
-plt.xlabel("Generator Model")
-plt.ylabel("Mean Total Score (Implicit)")
-plt.title("Judge Comparison on Identical Outputs (Implicit)")
-plt.legend(title="Judge Version")
+x = range(len(gen_models))
+width = 0.25
+
+for i, judge in enumerate(judge_labels):
+    vals = wide[judge].values
+    ax.bar([p + i * width for p in x], vals, width=width, label=judge)
+
+ax.set_xticks([p + width for p in x])
+ax.set_xticklabels(gen_models, rotation=25, ha="right")
+ax.set_ylabel("Mean Total Score (Implicit)")
+ax.set_title("Judge Comparison on Identical Generator Outputs")
+ax.legend(title="Judge Version")
+ax.grid(True, axis="y", linestyle="--", alpha=0.35)
+
 plt.tight_layout()
 
-# Save the figure into the projectâ€‘level paper/figures directory
 fig_path = out_dir / "fig6_judge_comparison.pdf"
 plt.savefig(fig_path, bbox_inches="tight")
 plt.show()

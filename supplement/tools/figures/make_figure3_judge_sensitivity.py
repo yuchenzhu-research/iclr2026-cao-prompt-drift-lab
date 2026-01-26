@@ -76,7 +76,7 @@ sns.barplot(
 plt.xlabel("Generator Model")
 plt.ylabel("Mean Total Score (Implicit)")
 plt.title("Judge Sensitivity on Identical Outputs")
-OUT_DIR = "paper/figures"
+OUT_DIR = "supplement/tools/figures"
 
 plt.tight_layout()
 plt.savefig(

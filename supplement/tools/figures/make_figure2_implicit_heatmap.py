@@ -51,7 +51,7 @@ sns.heatmap(
 plt.title("Implicit Trigger: Score Collapse by Prompt Variant and Model")
 plt.xlabel("Generator Model")
 plt.ylabel("Prompt Variant")
-OUT_DIR = "paper/figures"
+OUT_DIR = "supplement/tools/figures"
 
 plt.tight_layout()
 plt.savefig(

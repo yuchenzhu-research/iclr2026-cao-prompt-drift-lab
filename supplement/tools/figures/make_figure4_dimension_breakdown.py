@@ -1,7 +1,8 @@
 import re
+from pathlib import Path
+
 import pandas as pd
 import matplotlib.pyplot as plt
-from pathlib import Path
 
 DIMENSIONS = [
     "A_structure",
@@ -12,13 +13,29 @@ DIMENSIONS = [
 ]
 TRIGGERS = ["explicit", "implicit"]
 
+
 def nice_dim_label(d: str) -> str:
-    return d.replace("_", "\n").replace("E_drift_failure", "E_drift\nfailure")
+    if d == "E_drift_failure":
+        return "E_drift\nfailure"
+    return d.replace("_", "\n")
+
+
+def repo_root_from_here() -> Path:
+    """
+    Find repo root by walking up until we see 'supplement' directory.
+    Assumption: this script lives under <repo>/supplement/tools/.
+    """
+    curr = Path(__file__).resolve()
+    for p in [curr.parent] + list(curr.parents):
+        if (p / "supplement").is_dir():
+            return p
+    # Fallback: two levels up (should still work if layout is unchanged)
+    return curr.parent.parent
+
 
 def main():
-    curr_dir = Path(__file__).resolve().parent
-    supplement_dir = curr_dir.parent.parent
-    project_dir = supplement_dir.parent
+    repo_root = repo_root_from_here()
+    supplement_dir = repo_root / "supplement"
 
     data_path = (
         supplement_dir
@@ -29,53 +46,56 @@ def main():
         / "scores_long.csv"
     )
 
-    out_dir = project_dir / "paper" / "figures"
+    # === relative output dir for reviewers ===
+    out_dir = supplement_dir / "tools" / "figures"
     out_dir.mkdir(parents=True, exist_ok=True)
 
     df = pd.read_csv(data_path)
 
+    # Infer generator family from bundle_file suffix, e.g. *_bundle_claude.json
     def infer_gen(bundle_file: str) -> str:
         m = re.search(r"_bundle_(chatgpt|claude|gemini)\.json$", str(bundle_file))
         return m.group(1) if m else "unknown"
 
     df["generator_family"] = df["bundle_file"].map(infer_gen)
 
+    # Average dimension scores by generator + trigger
     grouped = (
         df.groupby(["generator_family", "trigger_type"])[DIMENSIONS]
         .mean()
         .reset_index()
     )
 
-    y_min, y_max = 0.0, 2.05
-    bar_width = 0.35
+    bar_width = 0.38
     x = list(range(len(DIMENSIONS)))
+    x_labels = [nice_dim_label(d) for d in DIMENSIONS]
 
+    # Plot one figure per generator family
     for gen in ["chatgpt", "claude", "gemini"]:
         sub = grouped[grouped["generator_family"] == gen].set_index("trigger_type")
-        sub = sub.loc[TRIGGERS].reset_index()
 
-        exp_vals = sub[sub["trigger_type"] == "explicit"][DIMENSIONS].values[0]
-        imp_vals = sub[sub["trigger_type"] == "implicit"][DIMENSIONS].values[0]
+        # Ensure both triggers exist; if not, fill with NaNs (still reproducible)
+        exp_vals = sub.loc["explicit"][DIMENSIONS].values if "explicit" in sub.index else [float("nan")] * len(DIMENSIONS)
+        imp_vals = sub.loc["implicit"][DIMENSIONS].values if "implicit" in sub.index else [float("nan")] * len(DIMENSIONS)
 
-        fig = plt.figure(figsize=(6, 4))
+        plt.figure(figsize=(7.0, 4.2))
         ax = plt.gca()
 
         ax.bar([p - bar_width / 2 for p in x], exp_vals, width=bar_width, label="Explicit")
         ax.bar([p + bar_width / 2 for p in x], imp_vals, width=bar_width, label="Implicit")
 
         ax.set_xticks(x)
-        ax.set_xticklabels([nice_dim_label(d) for d in DIMENSIONS])
-        ax.set_ylim(y_min, y_max)
+        ax.set_xticklabels(x_labels)
         ax.set_ylabel("Mean Dimension Score")
-        ax.set_title(f"Dimension Breakdown ({gen})")
-        ax.grid(True, axis="y", linestyle="--", alpha=0.4)
-        ax.legend(loc="upper right")
+        ax.set_ylim(0.0, 2.05)
+        ax.set_title(f"Dimension Breakdown (Explicit vs Implicit) — {gen.capitalize()}")
+        ax.legend()
+        ax.grid(True, axis="y", linestyle="--", alpha=0.35)
 
-        fig.subplots_adjust(left=0.12, right=0.98, bottom=0.25, top=0.88)
+        plt.tight_layout()
+        plt.savefig(out_dir / f"fig4_dimension_breakdown_{gen}.pdf", bbox_inches="tight")
+        plt.close()
 
-        out_path = out_dir / f"fig4_dimension_breakdown_{gen}.pdf"
-        fig.savefig(out_path)
-        plt.close(fig)
 
 if __name__ == "__main__":
     main()

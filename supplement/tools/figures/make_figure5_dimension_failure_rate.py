@@ -47,7 +47,7 @@ data_path = (
     / "scores_long.csv"
 )
 
-out_dir = project_dir / "paper" / "figures"
+out_dir = supplement_dir / "tools" / "figures"
 out_dir.mkdir(parents=True, exist_ok=True)
 
 # === load data ===
@@ -111,7 +111,8 @@ plt.title("Dimension Failure Rate by Trigger Type")
 plt.legend()
 plt.grid(True, axis="y", linestyle="--", alpha=0.4)
 plt.tight_layout()
-# write to projectâ€‘level paper/figures directory
+
+# write to supplement/tools/figures directory
 fig_path = out_dir / "fig5_dimension_failure_rate.pdf"
 plt.savefig(fig_path, bbox_inches="tight")
 plt.show()

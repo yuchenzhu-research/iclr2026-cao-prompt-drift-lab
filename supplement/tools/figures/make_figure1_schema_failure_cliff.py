@@ -70,7 +70,7 @@ plt.title("Schema Failure Cliff under Reduced Contract Salience")
 plt.ylim(0, 1.05)
 plt.legend(title="Generator Model")
 plt.grid(True, linestyle="--", alpha=0.4)
-OUT_DIR = "paper/figures"
+OUT_DIR = "supplement/tools/figures"
 
 plt.tight_layout()
 plt.savefig(
