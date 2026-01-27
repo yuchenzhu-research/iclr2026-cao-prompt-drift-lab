@@ -1,104 +1,69 @@
-# Aggregate: Processed Records → Summary Tables
+# Aggregate (Deprecated)
 
-This directory documents (and may optionally contain) **deterministic aggregation utilities** that transform
-**processed evaluation records** (`**/*.json`, filenames are not a contract) into analysis-ready summary tables
-(e.g., `scores_long.csv`, `scores_grouped.csv`) used by the paper/supplement.
-
-> Aggregation outputs are **already provided** in this repository.
-> Reviewers do **not** need to run any aggregation script to reproduce the reported results/figures.
-
----
-
-## Where the precomputed tables live
-
-Precomputed summary tables are stored under judge-specific directories:
-
-- `supplement/04_results/03_processed_evaluations/v0_baseline_judge/summary_tables/`
-- `supplement/04_results/03_processed_evaluations/v1_paraphrase_judge/summary_tables/`
-- `supplement/04_results/03_processed_evaluations/v2_schema_strict_judge/summary_tables/`
-
-Typical files include:
-
-- `scores_long.csv` — long-format, per-record table with dimensions + metadata.
-- `scores_grouped.csv` — grouped/aggregated table used for most plots and summaries.
-- `run_meta.json` — lightweight metadata (counts/scope) for auditability.
-
-Optional audit artifact:
-- `excluded_records.jsonl` (if present): records excluded from aggregation with reasons.
-  If absent, interpret as **0 exclusions**.
+> **Status: DEPRECATED / HISTORICAL.**
+>
+> This directory is kept for documentation only.
+>
+> **Reproduction for this artifact starts from the shipped summary tables (`scores_long.csv`).**
+> We do **not** support regenerating these CSV tables from upstream raw bundles / intermediate records.
 
 ---
 
-## Scope and responsibilities
+## Reproducibility boundary
 
-The aggregation stage assumes all inputs satisfy:
+**The only authoritative evaluation tables are the shipped `scores_long.csv` files (manually audited/fixed by the authors):**
 
-- Records are **schema-normalized** and stored as individual JSON files under `valid_evaluations/`.
-- Each record corresponds to exactly one judged (generator output, prompt variant) instance.
-- All schema validation and raw ingestion have already been completed upstream.
+- `supplement/04_results/03_processed_evaluations/v0_baseline_judge/summary_tables/scores_long.csv`
+- `supplement/04_results/03_processed_evaluations/v1_paraphrase_judge/summary_tables/scores_long.csv`
+- `supplement/04_results/03_processed_evaluations/v2_schema_strict_judge/summary_tables/scores_long.csv`
 
-This stage is responsible **only** for:
+All paper figures are reproducible from these CSVs.
 
-- Reading processed records from:
-  - `supplement/04_results/03_processed_evaluations/<judge_version>/valid_evaluations/**/*.json`
-- Grouping, averaging, and reshaping scores
-- Producing summary tables written to:
-  - `supplement/04_results/03_processed_evaluations/<judge_version>/summary_tables/`
+### What is *not* reproducible in this submission
 
-This stage is **not** responsible for:
+We do **not** claim reproducibility for the upstream step that would regenerate `scores_long.csv` from:
 
-- Parsing raw judge bundles
-- Validity filtering of raw judge outputs
-- Schema enforcement or normalization
-- Any form of model execution or re-evaluation
+- raw judge bundles (e.g., `04_results/02_raw_judge_evaluations/...`)
+- intermediate `valid_evaluations/record_*.json`
+
+This upstream aggregation step was used during early development and is **out of scope** for artifact reproduction.
 
 ---
 
-## Determinism and reproducibility
+## How reviewers should reproduce figures
 
-If you choose to re-run aggregation (not required for artifact review), the aggregation utilities are intended to be:
+Reproduction is limited to the following deterministic pipeline:
 
-- **Purely deterministic**
-- **Stateless**
-- **Order-invariant** with respect to input records
+```
+(scores_long.csv tables; v0/v1/v2)  →  figure scripts  →  PDF figures
+```
 
-Given the same set of input JSON files, aggregation results (`scores_long.csv`, `scores_grouped.csv`, and any derived figures)
-should be identical across runs.
-
-No randomness, sampling, or heuristic filtering should occur at this stage.
+See `supplement/tools/figures/README.md` for the script-to-figure mapping and one-command reproduction instructions.
 
 ---
 
-## Judge version independence
+## Rationale
 
-Aggregation logic should be identical across judge versions, including:
+During development, the aggregation step (raw bundles/records → `scores_long.csv`) involved evolving conventions:
 
-- `v0_baseline_judge`
-- `v1_paraphrase_judge`
-- `v2_schema_strict_judge`
+- generator model naming normalization
+- column completion (`prompt_variant`, `trigger_type`)
+- `total` score aggregation consistency
 
-Differences between judge versions (diagnostic vs. final settings, schema strictness, prompt robustness) are encoded in the **input records**,
-not by branching in aggregation code paths.
+The shipped `scores_long.csv` tables are treated as **frozen artifacts** because they were manually audited and corrected to ensure:
 
----
-
-## Entry point (optional)
-
-No entry point is required for review (tables are precomputed).
-
-If you are regenerating tables for development/debugging, run the script(s) in this directory as documented in their file headers.
+- consistent columns and types
+- correct `total` computation
+- correct inclusion of non-zero ChatGPT data
 
 ---
 
-## Interpretation boundary
+## Non-goals
 
-Results produced at this stage reflect **point estimates over a fixed set of records**.
-They do not estimate variance, statistical significance, or distributional robustness.
+- This directory does **not** provide a supported entry point to regenerate CSV tables.
+- Reviewers are **not expected** to run any aggregation scripts.
 
----
+If you are looking for reproduction steps, start from:
 
-## Design principle
-
-> Aggregation is treated as a transparent accounting operation, not an experimental manipulation.
-
-Any change in aggregation outputs must be attributable to changes in input records, never to hidden logic at this stage.
+- `supplement/04_results/03_processed_evaluations/*/summary_tables/scores_long.csv`
+- and run `supplement/tools/figures/*.py`.
