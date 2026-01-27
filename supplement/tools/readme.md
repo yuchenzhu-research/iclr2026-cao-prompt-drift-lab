@@ -1,34 +1,41 @@
-# Tools
+# Tools readme
 
-This directory contains deterministic, offline utilities for reproducing **record- and figure-level artifacts** from saved judge outputs. The code is intended to be auditable: given fixed inputs, it produces identical outputs.
+This directory contains deterministic, offline utilities used to **audit** and **render figures** from shipped artifacts.
+No API calls, no model execution, no randomness.
 
-## Scope constraints
-- No API calls; no model execution.
-- No randomness or sampling.
-- Tools operate on files already stored in the repository.
+## Reproducibility boundary (IMPORTANT！！！)
 
-## Reproducibility boundary (important)
-- **v1_paraphrase_judge** and **v2_schema_strict_judge** are the **reproducible** pipelines supported by this artifact (record materialization → shipped tables → figures).
-- **v0_baseline_judge is legacy and not claimed as reproducible** due to historical model-name canonicalization and earlier bundle/version conventions that cannot be reconstructed reliably from the archived raw files.
-  - v0 artifacts may still exist in the repository for reference/debugging, but they are **out of scope for reproduction** and **not used for primary results**.
+**Reproduction for this submission starts from the shipped evaluation tables (`scores_long.csv`).**
 
-## Review boundary
-- Summary tables are **precomputed and shipped** under judge-specific `summary_tables/` directories for **v1/v2**.
-- Reviewers are **not expected** to re-run aggregation/scoring to reproduce reported plots and tables.
+Authoritative CSV tables:
+
+- `supplement/04_results/03_processed_evaluations/v0_baseline_judge/summary_tables/scores_long.csv`
+- `supplement/04_results/03_processed_evaluations/v1_paraphrase_judge/summary_tables/scores_long.csv`
+- `supplement/04_results/03_processed_evaluations/v2_schema_strict_judge/summary_tables/scores_long.csv`
+
+All paper figures are reproducible from these CSVs (**CSV → Figures**).
+
+### What is out of scope
+
+Regenerating `scores_long.csv` from upstream raw judge bundles / intermediate records is **not supported** for this submission.
+See `supplement/tools/aggregate/README.md` for the deprecated aggregation note.
+
+## v0 / v1 / v2 meaning
+
+- `v0_baseline_judge`, `v1_paraphrase_judge`, `v2_schema_strict_judge` are **judge prompt versions** (instrumentation).
+- `v0` is **not legacy** in this submission: it is included as a **comparison condition** via the shipped CSV table above.
 
 ---
 
 ## Directory layout
 
-Paths are relative to the repository root.
-
 ```text
 supplement/tools/
-  ingest/              # raw judge bundles → processed records (**/*.json)
-  aggregate/           # optional dev utilities (records → summary tables)
-  figures/             # records/tables → figures
+  figures/             # scores_long.csv → PDF figures (reproducible)
+  ingest/              # optional audit utilities (raw bundles → record JSON)
+  aggregate/           # deprecated/historical notes (no supported CSV regen)
   validation_utils/    # schema validation / consistency checks
-  scoring_utils/       # score key conventions (A–E) and helper utilities
+  scoring_utils/       # rubric scoring helpers (deterministic)
   analysis_utils/      # lightweight analysis helpers (grouping, pivots)
   examples/            # minimal examples / smoke tests
   LICENSE
@@ -39,81 +46,34 @@ supplement/tools/
 
 ## Reproduction workflow
 
-Run commands from the repository root so relative paths are stable.
+Run from repository root:
 
-### 1) Ingest (optional): raw bundles → processed records
+### 1) Figures (reproducible): CSV → PDF
 
-Entry point:
-- `supplement/tools/ingest/materialize_records.py`
+All figure scripts read directly from the shipped `scores_long.csv` tables and write PDFs under:
 
-Inputs:
-- `supplement/04_results/02_raw_judge_evaluations/`
-  - `final/v1_paraphrase_judge/*.json`
-  - `final/v2_schema_strict_judge/*.json`
-  - `diagnostic/v0_baseline_judge/*.json` (**legacy; not reproducible**)
-
-Outputs (record-level JSON; filenames are not a contract and may be hash-based):
-- `supplement/04_results/03_processed_evaluations/<judge_version>/valid_evaluations/**/*.json`
-
-Optional logs (audit only):
-- `supplement/04_results/03_processed_evaluations/<judge_version>/summary_tables/run_meta.json`
-- `supplement/04_results/03_processed_evaluations/<judge_version>/summary_tables/excluded_records.jsonl`
-  - Optional; present only when exclusions are non-empty.
-  - If absent, interpret as **0 exclusions**.
-
-Example (recommended; reproducible v1/v2 only):
-```bash
-python supplement/tools/ingest/materialize_records.py   --overwrite
-```
-
-Legacy escape hatch (not required for review; not claimed reproducible):
-```bash
-python supplement/tools/ingest/materialize_records.py   --include-v0   --ack-legacy   --overwrite
-```
-
----
-
-### 2) Aggregate (not required for review): processed records → summary tables
-
-Precomputed tables are shipped under:
-
-- `supplement/04_results/03_processed_evaluations/v1_paraphrase_judge/summary_tables/`
-- `supplement/04_results/03_processed_evaluations/v2_schema_strict_judge/summary_tables/`
-
-Typical files (v1/v2):
-- `scores_long.csv`
-- `scores_grouped.csv`
-- `run_meta.json`
-
-Notes:
-- v0 summary tables are **not part of the reproducibility claim** and are intentionally excluded from the supported pipeline.
-
-If you re-generate tables for development/debugging (optional), see:
-- `supplement/tools/aggregate/README.md`
-
----
-
-### 3) Figures: records/tables → paper figures
-
-Figure scripts under `supplement/tools/figures/` render plots from existing artifacts.
-
-Reads (depending on the script):
-- `supplement/04_results/03_processed_evaluations/<judge_version>/valid_evaluations/**/*.json`
-- `supplement/04_results/03_processed_evaluations/<judge_version>/summary_tables/` (v1/v2)
-
-Writes (default):
-- `paper/figures/`
+- `supplement/tools/figures/`
 
 Example:
 ```bash
-python supplement/tools/figures/make_figure1_schema_failure_cliff.py
+python supplement/tools/figures/make_fig2_heatmap_v0_implicit_collapse.py
 ```
+
+See `supplement/tools/figures/README.md` for the script → input CSV → output PDF mapping.
+
+### 2) Ingest (optional audit only)
+
+The ingest utilities materialize record-level JSON from raw bundles for auditing/debugging.
+They are **not required** for reproducing figures or paper numbers.
+
+Entry point:
+- `supplement/tools/ingest/materialize_records.py`
 
 ---
 
 ## Related materials
 
-Evaluation rules and schemas are defined in:
+Evaluation rules and schemas:
 - `supplement/03_evaluation_rules/`
 
-The tools consume these rules through stored artifacts and do not redefine them.
+These tools consume stored artifacts and do not redefine the evaluation rules.
