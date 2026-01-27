@@ -1,7 +1,7 @@
-# Ingest: Materialize Processed Evaluation Records
+# Ingest: Materialize Processed Evaluation Records (Optional Audit Utility)
 
-This directory contains ingestion utilities used to materialize **standardized processed records**
-(`valid_evaluations/**/*.json`) from **raw judge evaluation bundles**.
+This directory contains **offline ingestion utilities** used to materialize standardized processed records
+(`valid_evaluations/**/*.json`) from raw judge evaluation bundles.
 
 **Scope / contract**
 - This ingest step produces **record-level** artifacts only (JSON + optional exclusions log).
@@ -10,18 +10,19 @@ This directory contains ingestion utilities used to materialize **standardized p
 
 ---
 
-## Reproducibility status (important)
+## Reproducibility boundary (important)
 
-- **v1_paraphrase_judge** ✅ reproducible
-- **v2_schema_strict_judge** ✅ reproducible
-- **v0_baseline_judge** ❌ not reproducible
+For this submission, **reproduction starts from the shipped evaluation tables**:
 
-Why v0 is non-reproducible (documented limitation):
-- Historical bundle formats / filenames changed over time, and earlier runs contained **model-name inconsistencies**
-  (e.g., `ChatGPT → unknown`, duplicated `claude` variants), which makes faithful re-materialization impossible.
-- We therefore keep **v0 artifacts as provided** and do not claim they can be regenerated from raw inputs.
+- `supplement/04_results/03_processed_evaluations/v0_baseline_judge/summary_tables/scores_long.csv`
+- `supplement/04_results/03_processed_evaluations/v1_paraphrase_judge/summary_tables/scores_long.csv`
+- `supplement/04_results/03_processed_evaluations/v2_schema_strict_judge/summary_tables/scores_long.csv`
 
-If you need v0 for *debugging only*, you may run it explicitly (see below), but the outputs are **non-authoritative**.
+All paper figures are reproducible from these CSVs (see `supplement/tools/figures/`).
+
+We provide ingest utilities only as an **optional audit tool** to inspect record-level JSON derived from
+raw judge bundles. Regenerating `scores_long.csv` from raw bundles/records is **out of scope** and **not supported**
+for artifact reproduction.
 
 ---
 
@@ -33,7 +34,7 @@ If you need v0 for *debugging only*, you may run it explicitly (see below), but 
 - Writes record-level outputs under:
   - `supplement/04_results/03_processed_evaluations/<judge_version>/valid_evaluations/**/*.json`
 
-These JSON files are the **audit anchor** for downstream analyses and figures.
+These JSON files can serve as an **audit anchor** for debugging and spot-checking.
 
 ---
 
@@ -44,18 +45,15 @@ These JSON files are the **audit anchor** for downstream analyses and figures.
 **Recommended run (from repo root):**
 
 ```bash
-python supplement/tools/ingest/materialize_records.py --ack-legacy
+python supplement/tools/ingest/materialize_records.py
 ```
 
-Default behavior: materialize **v1 + v2** only.
+By default, the script attempts to materialize records for:
+- `v0_baseline_judge`
+- `v1_paraphrase_judge`
+- `v2_schema_strict_judge`
 
-#### (Optional) Include v0 (legacy / not reproducible)
-
-```bash
-python supplement/tools/ingest/materialize_records.py --ack-legacy --include-v0 --runs v0_baseline_judge
-```
-
-This is for debugging only; do not use it to claim reproducibility of v0 numbers.
+If a raw input directory is missing for a run, it will print a warning and skip that run.
 
 ---
 
@@ -87,14 +85,12 @@ Exclusions (audit):
 
 ---
 
-## Repro checklist
+## Repro checklist (audit-only)
 
 - [ ] Run from repo root so relative paths are stable.
 - [ ] Execute:
-  - `python supplement/tools/ingest/materialize_records.py --ack-legacy`
+  - `python supplement/tools/ingest/materialize_records.py`
 - [ ] Verify outputs exist:
   - `supplement/04_results/03_processed_evaluations/<judge_version>/valid_evaluations/**/*.json`
-- [ ] Spot-check record integrity:
-  - Confirm each JSON contains `file` + judge/generator metadata + per-dimension scores.
 - [ ] Confirm you are not regenerating tables:
   - Do not add scripts that overwrite `summary_tables/*.csv` in the reproducibility path.

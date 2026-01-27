@@ -1,16 +1,22 @@
 #!/usr/bin/env python3
 
 """
-Authoritative ingest script.
+Ingest utility: materialize processed evaluation records (record-level JSON)
+from raw judge evaluation bundles.
 
-This script materializes processed evaluation records
-from raw evaluation bundles.
+This is an OPTIONAL audit utility.
+- It does NOT run any model inference.
+- It does NOT generate summary CSV tables (e.g., scores_long.csv).
 
-This is the canonical entry point used for all reported results.
+Reproducibility boundary for this submission:
+- Authoritative evaluation tables are the shipped scores_long.csv files under:
+  supplement/04_results/03_processed_evaluations/*/summary_tables/scores_long.csv
+- Figures are reproducible from these shipped CSV tables.
+- Regenerating scores_long.csv from raw bundles/records is out of scope for artifact reproduction.
 """
 
+
 import argparse
-import csv
 import hashlib
 import json
 import re
@@ -24,18 +30,19 @@ from typing import Dict, List, Optional, Tuple
 # -----------------------------
 RUNS = {
     "v0_baseline_judge": {
-        "in_rel": "supplement/04_results/02_raw_judge_evaluations/diagnostic/v0_baseline_judge",
-        "out_rel": "supplement/04_results/03_processed_evaluations/v0_baseline_judge",
+        "in_rel": "04_results/02_raw_judge_evaluations/diagnostic/v0_baseline_judge",
+        "out_rel": "04_results/03_processed_evaluations/v0_baseline_judge",
     },
     "v1_paraphrase_judge": {
-        "in_rel": "supplement/04_results/02_raw_judge_evaluations/final/v1_paraphrase_judge",
-        "out_rel": "supplement/04_results/03_processed_evaluations/v1_paraphrase_judge",
+        "in_rel": "04_results/02_raw_judge_evaluations/final/v1_paraphrase_judge",
+        "out_rel": "04_results/03_processed_evaluations/v1_paraphrase_judge",
     },
     "v2_schema_strict_judge": {
-        "in_rel": "supplement/04_results/02_raw_judge_evaluations/final/v2_schema_strict_judge",
-        "out_rel": "supplement/04_results/03_processed_evaluations/v2_schema_strict_judge",
+        "in_rel": "04_results/02_raw_judge_evaluations/final/v2_schema_strict_judge",
+        "out_rel": "04_results/03_processed_evaluations/v2_schema_strict_judge",
     },
 }
+
 
 
 # -----------------------------
@@ -110,10 +117,6 @@ def safe_record_filename(generator_model: str, judge_model: str, parsed: Dict, f
     h = stable_hash(f"{judge_model}|{generator_model}|{file_label}")
     return f"{generator_model}__judged_by__{judge_model}__{q}_{v}_{t}__{h}.json"
 
-
-def mean(xs: List[float]) -> float:
-    xs = [x for x in xs if isinstance(x, (int, float))]
-    return round(sum(xs) / len(xs), 6) if xs else 0.0
 
 
 # -----------------------------
@@ -242,47 +245,12 @@ def process_one_run(repo_root: Path, run_name: str, overwrite: bool) -> None:
             for r in excluded:
                 f.write(json.dumps(r, ensure_ascii=False) + "\n")
 
-    # write long table
-    long_csv = summary_dir / "scores_long.csv"
-    if rows:
-        fieldnames = list(rows[0].keys())
-        with open(long_csv, "w", newline="", encoding="utf-8") as f:
-            w = csv.DictWriter(f, fieldnames=fieldnames)
-            w.writeheader()
-            w.writerows(rows)
-
-    # grouped means (minimal, reviewer-friendly)
-    grouped_csv = summary_dir / "scores_grouped.csv"
-    if rows:
-        key_fields = ["judge_version", "judge_model", "generator_model", "question_id", "prompt_variant", "trigger_type"]
-        score_fields = ["A_structure", "B_snapshot_constraint", "C_actionability", "D_completeness", "E_drift_failure", "total"]
-
-        buckets: Dict[Tuple, List[Dict]] = {}
-        for r in rows:
-            key = tuple(r.get(k) for k in key_fields)
-            buckets.setdefault(key, []).append(r)
-
-        out_rows = []
-        for key, rs in buckets.items():
-            out = dict(zip(key_fields, key))
-            out["n"] = len(rs)
-            for sf in score_fields:
-                out[f"{sf}_mean"] = mean([x.get(sf) for x in rs])  # type: ignore
-            out_rows.append(out)
-
-        with open(grouped_csv, "w", newline="", encoding="utf-8") as f:
-            w = csv.DictWriter(f, fieldnames=list(out_rows[0].keys()))
-            w.writeheader()
-            w.writerows(out_rows)
-
+    # NOTE: We intentionally do NOT generate summary tables here.
+    # Summary tables (if provided) live under each judge_version's summary_tables/ directory.
+    # This script only materializes record-level JSON + optional excluded_records.jsonl for auditability.
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--ack-legacy",
-        action="store_true",
-        help="Acknowledge this is a legacy/non-authoritative script (required to run).",
-    )
     parser.add_argument("--overwrite", action="store_true", help="overwrite generated outputs under 03_processed_evaluations/")
     parser.add_argument(
         "--runs",
@@ -293,17 +261,10 @@ def main():
     )
     args = parser.parse_args()
 
-    if not args.ack_legacy:
-        import sys
-        print(
-            "LEGACY script (non-authoritative). Refusing to run without --ack-legacy.",
-            file=sys.stderr,
-        )
-        raise SystemExit(2)
-
-    repo_root = Path(__file__).resolve().parents[3]
-
+    supplement_root = Path(__file__).resolve().parents[2]
     for r in args.runs:
+        if r == "v0_baseline_judge":
+            print("[WARN] Running v0_baseline_judge (legacy / not reproducible). Outputs are non-authoritative.")
         process_one_run(repo_root, r, overwrite=args.overwrite)
 
 
