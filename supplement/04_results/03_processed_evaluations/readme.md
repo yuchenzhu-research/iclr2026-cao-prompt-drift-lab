@@ -1,41 +1,77 @@
-# supplement/04_results/03_processed_evaluations — Processed Evaluations 
+# 03_processed_evaluations — Processed Evaluations
 
-This directory stores **deterministic derived artifacts** produced from preserved judge outputs.
-It is the canonical home for:
-
-- processed record JSON (`valid_evaluations/**/*.json`), and
-- paper-citable numeric tables (`summary_tables/*.csv`).
-
-**Source inputs**
-- Raw judge bundles: `supplement/04_results/02_raw_judge_evaluations/`
-
-**Scope constraints**
-- Processing operates only on judge JSON bundles + recorded metadata.
-- No model inference is executed.
+This directory stores **deterministic, derived artifacts** produced from preserved judge outputs.
+It is the canonical source for **paper-citable numeric tables** and **audit-only record traces**.
 
 ---
 
-## Layout
+## Reproducibility boundary
 
-Each judge run is written to its own subdirectory:
+**All reproducible results and figures start from:**
 
-- `supplement/04_results/03_processed_evaluations/<judge_version>/`
+```
+*/summary_tables/scores_long.csv
+```
 
-Within a `<judge_version>` directory:
+No figure script reads record-level JSON files directly.
 
-- **Valid processed records (audit anchor):**
-  - `valid_evaluations/**/*.json`
-- Optional invalid records (if produced by the pipeline):
-  - `invalid_evaluations/**/*.json`
-- **Derived summary tables (paper-citable numeric source):**
-  - `summary_tables/scores_long.csv`
-  - `summary_tables/scores_grouped.csv`
-  - `summary_tables/run_meta.json`
-  - `summary_tables/excluded_records.jsonl` (optional; only when exclusions are non-empty)
+---
 
-**Filename contract**
-- Processed record JSON filenames are **not a contract** and may be hash-based.
-- Consumers should locate records via JSON fields (e.g., `file`, `generator_model`, `judge_model`) rather than filename patterns.
+## Directory layout
+
+Each judge configuration is written to its own subdirectory:
+
+```
+v0_baseline_judge/
+v1_paraphrase_judge/
+v2_schema_strict_judge/
+```
+
+Within each judge directory:
+
+- `summary_tables/`  
+  Authoritative, paper-citable numeric tables (CSV/JSON). **This is the only normative source for analysis.**
+
+- `valid_evaluations/`  
+  Record-level processed evaluations. **Audit-only; not used for reproduction.**
+
+- `invalid_evaluations/` (optional)  
+  Records excluded by evaluation rules, when applicable.
+
+---
+
+## Important note on v0_baseline_judge
+
+The `v0_baseline_judge` directory reflects an **earlier iteration of the evaluation pipeline**.
+
+As a result:
+
+- Record-level files under `v0_baseline_judge/valid_evaluations/` may contain:
+  - historical or inferred model identifiers (e.g., `unknown_*`, legacy Gemini variants)
+  - intermediate naming conventions that are no longer used in later versions
+
+These artifacts are preserved **for auditability only**.
+
+> **They are NOT used for computing any paper numbers or figures.**
+
+For authoritative v0 results, consumers **must** use:
+
+```
+v0_baseline_judge/summary_tables/scores_long.csv
+```
+
+Model usage is normalized and finalized at the summary-table level.
+
+---
+
+## v1 / v2 judge runs
+
+`v1_paraphrase_judge` and `v2_schema_strict_judge` were produced after the evaluation contract
+was stabilized.
+
+- Record-level naming is consistent
+- Generator model identifiers are canonical
+- No special handling is required beyond reading `summary_tables/`
 
 ---
 
@@ -43,35 +79,25 @@ Within a `<judge_version>` directory:
 
 Paper-citable numbers come **only** from:
 
-- `supplement/04_results/03_processed_evaluations/**/summary_tables/*.csv`
+```
+supplement/04_results/03_processed_evaluations/**/summary_tables/*.csv
+```
+
+Any other files in this directory should be treated as **non-normative supporting evidence**.
 
 ---
 
-## Exclusions (audit)
+## Provenance
 
-- `excluded_records.jsonl` is **optional** and only present when exclusions are non-empty.
-- If `excluded_records.jsonl` is absent for a judge version, interpret this as **0 exclusions**.
-
----
-
-## Provenance and regeneration rules
-
-- Every processed record JSON is generated from raw judge bundles under:
-  - `supplement/04_results/02_raw_judge_evaluations/`
-- Each processed record corresponds to exactly one evaluated file instance.
-- `record.file` preserves the evaluated file identifier from the raw judge bundle.
-  - v0: may be a bundle-side identifier (not necessarily a repo-relative path).
-  - v1/v2: intended to be a repo-relative pointer under `supplement/04_results/01_raw_model_outputs/` for direct lookup.
-
-Derived artifacts in this directory are produced by scripts under:
-- `supplement/tools/`
-
-Tools may support overwrite flags (e.g., `--overwrite`). Absent explicit overwrite, existing derived artifacts are treated as immutable.
+- Source inputs: `supplement/04_results/02_raw_judge_evaluations/`
+- Processing scripts: `supplement/tools/`
+- No model inference is executed in this stage
 
 ---
 
-## What this directory does not contain
+## What this directory does NOT contain
 
-- Evaluation rules and validity definitions → `supplement/03_evaluation_rules/`
+- Prompt variants → `supplement/02_prompt_variants/`
+- Evaluation rules → `supplement/03_evaluation_rules/`
 - Raw model outputs (PDFs) → `supplement/04_results/01_raw_model_outputs/`
-- Raw judge bundles → `supplement/04_results/02_raw_judge_evaluations/`
+- Reproduction scripts → `supplement/tools/`
