@@ -39,53 +39,51 @@ Typical files include:
 
 ## Outputs
 
-By default, scripts write figures to:
+Figure scripts support configurable output directories via `--out_dir`:
 
-- `paper/figures/`
+- **Default**: `reproducibility/tools/figures/` (tool-reproducibility mode)
+- **Paper mode**: `paper_anon_submission/figures/` (for LaTeX compilation)
 
-If a script supports an output directory argument, use `--out_dir`.
+### Usage
 
----
-
-## How to run
-
-Recommended: run from **repo root** so relative paths are stable.
-
-Example:
-
+**Default (outputs to `reproducibility/tools/figures/`):**
 ```bash
-python reproducibility/tools/figures/<SCRIPT_NAME>.py
+python reproducibility/tools/figures/make_fig1_heatmap_v1_schema_failure_cliff.py
 ```
 
-If the script supports output selection:
-
+**Custom output directory:**
 ```bash
-python reproducibility/tools/figures/<SCRIPT_NAME>.py --out_dir paper/figures
+python reproducibility/tools/figures/make_fig1_heatmap_v1_schema_failure_cliff.py --out_dir paper_anon_submission/figures
+```
+
+**Generate all figures to paper directory:**
+```bash
+for f in reproducibility/tools/figures/make_fig*.py; do python "$f" --out_dir paper_anon_submission/figures; done
 ```
 
 ---
 
 ## Script inventory
 
-The following scripts correspond to paper/reproducibility figures (names may map to figure numbers in the manuscript):
-
-- `make_figure1_schema_failure_cliff.py`
-- `make_figure2_implicit_heatmap.py`
-- `make_figure3_dimension_breakdown.py`
-- `make_figure4_dimension_failure_rate.py`
-- `make_figure5_judge_comparison.py`
+| Script | Description | Data Source |
+|--------|-------------|-------------|
+| `make_fig1_heatmap_v1_schema_failure_cliff.py` | Figure 1: Heatmap of mean total scores under implicit triggers (v1) | `v1_paraphrase_judge` |
+| `make_fig2_heatmap_v0_implicit_collapse.py` | Figure 2: Heatmap showing implicit trigger collapse (v0) | `v0_baseline_judge` |
+| `make_fig3_dimension_breakdown_v0.py` | Figure 3: Dimension breakdown by generator (explicit vs implicit, v0) | `v0_baseline_judge` |
+| `make_fig4_dimension_failure_rate_v0.py` | Figure 4: Dimension failure rates by trigger type (v0) | `v0_baseline_judge` |
+| `make_fig5_judge_comparison_v0_v1_v2.py` | Figure 5: Judge version comparison (v0/v1/v2) | All judge versions |
 
 ---
 
 ## Repro checklist
 
-- [ ] Run from repo root.
-- [ ] Confirm processed records exist:
-  - `reproducibility/04_results/03_processed_evaluations/<judge_version>/valid_evaluations/**/*.json`
+- [ ] Run from repository root (so relative paths resolve correctly).
 - [ ] Confirm precomputed tables exist:
   - `reproducibility/04_results/03_processed_evaluations/<judge_version>/summary_tables/`
-- [ ] Run the desired figure script.
-- [ ] Verify outputs were written under `paper/figures/` (or `--out_dir`).
+- [ ] Run the desired figure script:
+  - Default: outputs to `reproducibility/tools/figures/`
+  - Custom: `python <script>.py --out_dir paper_anon_submission/figures`
+- [ ] Verify outputs were written to the specified directory.
 
 ---
 
@@ -98,3 +96,13 @@ Figure scripts must be:
 - **side-effect free** except writing image files
 
 Any change in figure appearance must be attributable to changes in the input artifacts, not implicit recomputation.
+
+---
+
+## Relationship to paper
+
+Paper figures (`paper_anon_submission/figures/*.pdf`) are **frozen snapshots** of the generated outputs. If you modify code and regenerate figures, the outputs in `reproducibility/tools/figures/` will reflect your changes. For paper compilation, either:
+1. Use the frozen figures in `paper_anon_submission/figures/`, or
+2. Run scripts with `--out_dir paper_anon_submission/figures` to regenerate.
+
+Do not mix outputs from different script versions when compiling the paper.

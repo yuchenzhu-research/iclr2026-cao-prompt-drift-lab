@@ -1,6 +1,7 @@
 from pathlib import Path
 import pandas as pd
 import matplotlib.pyplot as plt
+import argparse
 
 curr_dir = Path(__file__).resolve().parent          # .../figures
 reproducibility_dir = curr_dir.parent.parent             # .../reproducibility
@@ -13,8 +14,20 @@ JUDGES = {
     "v2_schema_strict_judge": "v2 (schema-strict)",
 }
 
-# output directory -> reproducibility/tools/figures (repo-relative)
-out_dir = reproducibility_dir / "tools" / "figures"
+# --------------------------------------------------
+# Arguments
+# --------------------------------------------------
+parser = argparse.ArgumentParser(description="Generate Fig5: judge version comparison (v0/v1/v2)")
+parser.add_argument(
+    "--out_dir",
+    type=Path,
+    default=reproducibility_dir / "tools" / "figures",
+    help="Output directory for figures (default: reproducibility/tools/figures)"
+)
+args = parser.parse_args()
+
+# output directory
+out_dir = args.out_dir
 out_dir.mkdir(parents=True, exist_ok=True)
 
 # === helper functions ===

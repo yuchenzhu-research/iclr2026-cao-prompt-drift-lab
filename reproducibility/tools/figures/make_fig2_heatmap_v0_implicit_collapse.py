@@ -2,6 +2,7 @@ from pathlib import Path
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import argparse
 
 
 def _canon_series(s: pd.Series) -> pd.Series:
@@ -20,6 +21,18 @@ if repo_root is None:
     repo_root = curr_path.parent.parent.parent
 
 reproducibility_dir = repo_root / "reproducibility"
+
+# --------------------------------------------------
+# Arguments
+# --------------------------------------------------
+parser = argparse.ArgumentParser(description="Generate Fig2: v0 heatmap for implicit triggers")
+parser.add_argument(
+    "--out_dir",
+    type=Path,
+    default=reproducibility_dir / "tools" / "figures",
+    help="Output directory for figures (default: reproducibility/tools/figures)"
+)
+args = parser.parse_args()
 
 DATA_PATH = (
     reproducibility_dir
@@ -97,7 +110,7 @@ plt.title("Implicit Trigger: Mean Total by Prompt Variant × Generator (v0 basel
 plt.xlabel("Generator Model")
 plt.ylabel("Prompt Variant")
 
-out_dir = reproducibility_dir / "tools" / "figures"
+out_dir = args.out_dir
 out_dir.mkdir(parents=True, exist_ok=True)
 out_path = out_dir / "fig2_heatmap_v0.pdf"
 

@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
+import argparse
 
 # --------------------------------------------------
 # Resolve paths relative to this script (reviewer-safe)
@@ -16,6 +17,18 @@ for p in [curr_path.parent] + list(curr_path.parents):
 if repo_root is None:
     repo_root = curr_path.parent.parent.parent
 reproducibility_dir = repo_root / "reproducibility"
+
+# --------------------------------------------------
+# Arguments
+# --------------------------------------------------
+parser = argparse.ArgumentParser(description="Generate Fig1: v1 heatmap for implicit triggers")
+parser.add_argument(
+    "--out_dir",
+    type=Path,
+    default=reproducibility_dir / "tools" / "figures",
+    help="Output directory for figures (default: reproducibility/tools/figures)"
+)
+args = parser.parse_args()
 
 # --------------------------------------------------
 # Input data (v1 only)
@@ -33,7 +46,7 @@ DATA_PATH = (
 # --------------------------------------------------
 # Output figures
 # --------------------------------------------------
-out_dir = reproducibility_dir / "tools" / "figures"
+out_dir = args.out_dir
 out_dir.mkdir(parents=True, exist_ok=True)
 OUT_FIG = out_dir / "fig1_heatmap_v1.pdf"
 
@@ -86,7 +99,7 @@ heatmap_df = (
 # Force column order and ensure all 2 exist (missing stays NaN, NOT 0)
 for col in ["ChatGPT", "Gemini"]:
     if col not in heatmap_df.columns:
-        heatmap_df[col] = np.nan 
+        heatmap_df[col] = np.nan
 
 heatmap_df = heatmap_df[["ChatGPT", "Gemini"]].astype(float)
 

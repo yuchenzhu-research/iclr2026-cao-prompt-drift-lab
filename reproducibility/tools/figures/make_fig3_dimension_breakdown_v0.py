@@ -1,6 +1,7 @@
 from pathlib import Path
 import pandas as pd
 import matplotlib.pyplot as plt
+import argparse
 
 DIMENSIONS = [
     "A_structure",
@@ -23,6 +24,18 @@ def main():
     curr_dir = Path(__file__).resolve().parent          # .../reproducibility/tools/figures
     reproducibility_dir = curr_dir.parent.parent             # .../reproducibility
 
+    # --------------------------------------------------
+    # Arguments
+    # --------------------------------------------------
+    parser = argparse.ArgumentParser(description="Generate Fig3: dimension breakdown by generator (v0)")
+    parser.add_argument(
+        "--out_dir",
+        type=Path,
+        default=reproducibility_dir / "tools" / "figures",
+        help="Output directory for figures (default: reproducibility/tools/figures)"
+    )
+    args = parser.parse_args()
+
     # === authoritative v0 input (NO fixed) ===
     data_path = (
         reproducibility_dir
@@ -35,8 +48,8 @@ def main():
     if not data_path.exists():
         raise FileNotFoundError(f"Expected input file not found:\n{data_path}")
 
-    # === relative output dir (same as fig5) ===
-    out_dir = reproducibility_dir / "tools" / "figures"
+    # === output dir ===
+    out_dir = args.out_dir
     out_dir.mkdir(parents=True, exist_ok=True)
 
     df = pd.read_csv(data_path)

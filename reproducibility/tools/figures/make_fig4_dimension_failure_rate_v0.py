@@ -1,10 +1,23 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 from pathlib import Path
+import argparse
 
 curr_dir = Path(__file__).resolve().parent
 reproducibility_dir = curr_dir.parent.parent
 project_dir = reproducibility_dir.parent
+
+# --------------------------------------------------
+# Arguments
+# --------------------------------------------------
+parser = argparse.ArgumentParser(description="Generate Fig4: dimension failure rate by trigger type (v0)")
+parser.add_argument(
+    "--out_dir",
+    type=Path,
+    default=reproducibility_dir / "tools" / "figures",
+    help="Output directory for figures (default: reproducibility/tools/figures)"
+)
+args = parser.parse_args()
 
 # === authoritative v0 input ===
 data_path = (
@@ -19,8 +32,8 @@ data_path = (
 if not data_path.exists():
     raise FileNotFoundError(f"Expected input file not found:\n{data_path}")
 
-# output directory -> reproducibility/tools/figures
-out_dir = reproducibility_dir / "tools" / "figures"
+# output directory
+out_dir = args.out_dir
 out_dir.mkdir(parents=True, exist_ok=True)
 
 # === load data ===
@@ -92,7 +105,7 @@ plt.legend()
 plt.grid(True, axis="y", linestyle="--", alpha=0.4)
 plt.tight_layout()
 
-# write to reproducibility/tools/figures directory
+# write to output directory
 fig_path = out_dir / "fig4_dimension_failure_rate.pdf"
 plt.savefig(fig_path, bbox_inches="tight")
 plt.show()
