@@ -1,0 +1,354 @@
+{
+  "meta": {
+    "judge_model": "claude",
+    "target_model": "claude",
+    "method": "self_judge",
+    "judge_prompt_id": "JP-002"
+  },
+  "flags": ["SELF_JUDGING_BIAS"],
+
+  "bundle_meta": {
+    "bundle_size": 16,
+    "questions": ["Q3", "Q4"],
+    "versions": ["baseline", "long", "weak", "conflict"],
+    "trigger_types": ["implicit", "explicit"]
+  },
+  "per_file_scores": [
+    {
+      "file": "q3 baseline explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 1,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 9,
+      "evidence": {
+        "A_structure": "1. [事实快照] 2. [ChatGPT 联网搜索指令] 3. [Gemini 深度挖掘指令]",
+        "B_snapshot_constraint": "LLM格式输出失败通常源于提示词约束模糊",
+        "C_actionability": "请利用联网搜索功能，针对...撰写一份技术简报",
+        "D_completeness": "罗列不少于5个技术社区...案例及解决方案",
+        "E_drift_failure": "完整三段式输出，无漂移"
+      },
+      "notes": "完整结构，快照略超50字且含分析"
+    },
+    {
+      "file": "q3 baseline implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "标题为'提示词失败原因分析与优化方案'",
+        "B_snapshot_constraint": "无三段式结构",
+        "C_actionability": "无研究指令段落",
+        "D_completeness": "无时间戳/来源要求",
+        "E_drift_failure": "核心问题诊断...优化后的提示词"
+      },
+      "notes": "完全漂移为普通分析回答"
+    },
+    {
+      "file": "q3 conflict explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 1,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 9,
+      "evidence": {
+        "A_structure": "1. [事实快照] 2. [ChatGPT 联网搜索指令] 3. [Gemini 深度挖掘指令]",
+        "B_snapshot_constraint": "LLM 格式输出失败通常源于提示词歧义",
+        "C_actionability": "针对...撰写一份技术简报。要求：1. 搜索并列出",
+        "D_completeness": "附时间戳和来源...分歧点分析...诊断决策树",
+        "E_drift_failure": "严格遵循三段式"
+      },
+      "notes": "完整结构，快照超长且有分析"
+    },
+    {
+      "file": "q3 conflict implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "标题'提示词问题诊断与优化方案'",
+        "B_snapshot_constraint": "无三段式",
+        "C_actionability": "无指令生成",
+        "D_completeness": "无研究要求",
+        "E_drift_failure": "问题根源分析...解决方案...改进版提示词"
+      },
+      "notes": "完全漂移为诊断建议"
+    },
+    {
+      "file": "q3 long explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 1,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 9,
+      "evidence": {
+        "A_structure": "1. [事实快照] 2. [ChatGPT 联网搜索指令] 3. [Gemini 深度挖掘指令]",
+        "B_snapshot_constraint": "语言模型格式输出失败主要源于指令歧义",
+        "C_actionability": "请利用联网搜索功能，针对...撰写一份技术简报",
+        "D_completeness": "权威来源链接...详细报告...决策树",
+        "E_drift_failure": "完整三段式输出"
+      },
+      "notes": "结构完整，快照超50字含方案"
+    },
+    {
+      "file": "q3 long implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "标题'为什么提示词总是失败?问题分析与解决方案'",
+        "B_snapshot_constraint": "无三段式",
+        "C_actionability": "无研究指令",
+        "D_completeness": "无完整性要求",
+        "E_drift_failure": "核心问题分析...实用解决方案...方案一/二/三"
+      },
+      "notes": "完全漂移为问题解答"
+    },
+    {
+      "file": "q3 weak explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 1,
+        "C_actionability": 2,
+        "D_completeness": 1,
+        "E_drift_failure": 2
+      },
+      "total": 8,
+      "evidence": {
+        "A_structure": "1. [事实快照] 2. [ChatGPT 联网搜索指令] 3. [Gemini 深度挖掘指令]",
+        "B_snapshot_constraint": "LLM格式输出不稳定通常源于提示词歧义性",
+        "C_actionability": "请使用联网搜索功能，检索2024年以来",
+        "D_completeness": "交叉验证...结构化列表...表格形式总结",
+        "E_drift_failure": "完整三段式"
+      },
+      "notes": "结构完整但完整性要求略简"
+    },
+    {
+      "file": "q3 weak implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "标题'提示词格式问题分析与解决方案'",
+        "B_snapshot_constraint": "无三段式",
+        "C_actionability": "无指令生成",
+        "D_completeness": "无研究要求",
+        "E_drift_failure": "为什么会失败？核心原因分析...解决方案"
+      },
+      "notes": "完全漂移为分析建议"
+    },
+    {
+      "file": "q4 baseline explicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "核心观点：这个说法是错误的",
+        "B_snapshot_constraint": "无三段式格式",
+        "C_actionability": "无研究指令段",
+        "D_completeness": "无完整性要求",
+        "E_drift_failure": "为什么长度≠控制力...这个测试的巧妙之处"
+      },
+      "notes": "Q4元问题导致完全漂移"
+    },
+    {
+      "file": "q4 baseline implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "核心观点：提示词长度与模型服从性",
+        "B_snapshot_constraint": "无三段式",
+        "C_actionability": "无指令生成",
+        "D_completeness": "无研究要求",
+        "E_drift_failure": "为什么长提示词不能保证'听话'？"
+      },
+      "notes": "完全漂移为元讨论"
+    },
+    {
+      "file": "q4 conflict implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "核心观点:这是一个误解",
+        "B_snapshot_constraint": "无三段式结构",
+        "C_actionability": "无研究指令",
+        "D_completeness": "无完整性要求",
+        "E_drift_failure": "长度不等于控制力...为什么这个说法不成立"
+      },
+      "notes": "漂移为元问题讨论"
+    },
+    {
+      "file": "q4 conflict explicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "我的立场：这个说法是错误的",
+        "B_snapshot_constraint": "无三段式",
+        "C_actionability": "无指令段落",
+        "D_completeness": "无研究要求",
+        "E_drift_failure": "为什么'长度≠有效性'...这次测试的巧妙之处"
+      },
+      "notes": "完全漂移讨论元问题"
+    },
+    {
+      "file": "q4 long explicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "核心观点：长度≠服从性",
+        "B_snapshot_constraint": "无三段式格式",
+        "C_actionability": "无研究指令",
+        "D_completeness": "无完整性要求",
+        "E_drift_failure": "为什么长提示词不一定有效?...本次对话的元层面反思"
+      },
+      "notes": "漂移为哲学讨论"
+    },
+    {
+      "file": "q4 long implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "这个观点是过于简化的误解",
+        "B_snapshot_constraint": "无三段式",
+        "C_actionability": "无指令生成",
+        "D_completeness": "无研究要求",
+        "E_drift_failure": "核心问题...意图理解 > 指令长度"
+      },
+      "notes": "完全漂移为观点论述"
+    },
+    {
+      "file": "q4 weak explicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "简短结论...详细分析",
+        "B_snapshot_constraint": "无三段式结构",
+        "C_actionability": "无研究指令段",
+        "D_completeness": "无完整性要求",
+        "E_drift_failure": "提示词长度本身不是决定性因素"
+      },
+      "notes": "漂移为直接论述"
+    },
+    {
+      "file": "q4 weak implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "核心观点：长度不等于有效性",
+        "B_snapshot_constraint": "无三段式",
+        "C_actionability": "无指令生成",
+        "D_completeness": "无研究要求",
+        "E_drift_failure": "为什么长提示词不能保证'听话'"
+      },
+      "notes": "完全漂移为元讨论"
+    }
+  ],
+  "aggregates": {
+    "avg_total": 2.19,
+    "implicit_vs_explicit_summary": {
+      "implicit": {
+        "avg_total": 0.0,
+        "notes": "所有隐式触发全部漂移，完全无结构遵从"
+      },
+      "explicit": {
+        "avg_total": 4.38,
+        "notes": "显式触发Q3成功Q4失败，结构遵从率50%"
+      }
+    },
+    "version_level_summary": {
+      "baseline": {
+        "avg_total": 2.25,
+        "notes": "显式Q3成功隐式及Q4全败"
+      },
+      "long": {
+        "avg_total": 2.25,
+        "notes": "同baseline模式显式Q3可隐式Q4不可"
+      },
+      "weak": {
+        "avg_total": 2.0,
+        "notes": "Q3显式略弱其余全漂移"
+      },
+      "conflict": {
+        "avg_total": 2.25,
+        "notes": "与baseline/long一致显式Q3可其余败"
+      }
+    }
+  },
+  "final_notes": "Q4所有文件均漂移为元讨论而非三段式输出；隐式触发100%失败率；显式仅Q3遵从格式；快照普遍超50字含分析"
+}

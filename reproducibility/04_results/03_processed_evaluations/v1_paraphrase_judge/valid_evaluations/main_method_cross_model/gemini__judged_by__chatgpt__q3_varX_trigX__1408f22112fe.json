@@ -1,0 +1,36 @@
+{
+  "judge_version": "v1_paraphrase_judge",
+  "snapshot_contract_id": "SC_150_EXT",
+  "snapshot_word_limit": 150,
+  "snapshot_allow_extension": true,
+  "judge_model": "chatgpt",
+  "generator_model": "gemini",
+  "bundle_file": "judge_chatgpt_bundle_gemini.json",
+  "bundle_meta": {
+    "judge_role": "LLM-as-Judge (realigned to analysis-allowed snapshot)",
+    "n_files": 16,
+    "evaluation_note": "150字内分析性摘要允许；仍严格三段式",
+    "file_name_usage": "alignment only"
+  },
+  "file": "q3_long_explicit.pdf",
+  "question_id": "q3",
+  "prompt_variant": null,
+  "trigger_type": null,
+  "scores": {
+    "A_structure": 2,
+    "B_snapshot_constraint": 1,
+    "C_actionability": 2,
+    "D_completeness": 2,
+    "E_drift_failure": 1
+  },
+  "total": 8,
+  "evidence": {
+    "A_structure": "一、 现象",
+    "B_snapshot_constraint": "提示词越长",
+    "C_actionability": "要求：",
+    "D_completeness": "三个维度分类",
+    "E_drift_failure": "展开"
+  },
+  "notes": "摘要膨胀",
+  "method": "cross_model"
+}

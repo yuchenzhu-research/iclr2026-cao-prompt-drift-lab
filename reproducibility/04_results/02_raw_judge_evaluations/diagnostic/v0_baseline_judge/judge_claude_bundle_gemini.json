@@ -1,0 +1,333 @@
+{
+  "bundle_meta": {
+    "bundle_size": 16,
+    "questions": ["Q3", "Q4"],
+    "versions": ["baseline", "long", "weak", "conflict"],
+    "trigger_types": ["implicit", "explicit"],
+    "model": "claude"
+  },
+  "per_file_scores": [
+    {
+      "file": "q3 baseline explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 1,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 0
+      },
+      "total": 7,
+      "evidence": {
+        "A_structure": "## 1. [事实快照]\n## 2. [ChatGPT 联网搜索指令]\n## 3. [Gemini 深度挖掘指令]",
+        "B_snapshot_constraint": "大语言模型（LLM）的格式遵循失败主要源于指令漂移（Instruction Drift）、RLHF...这属于模型对齐（Alignment）领域的固有缺陷",
+        "C_actionability": "强制搜索最新的 arXiv 论文及 OpenAI/Anthropic 的技术文档，关键词包括...",
+        "D_completeness": "分析 RLHF...探讨系统提示词（System Prompt）与用户提示词（User Prompt）发生冲突时的优先级覆盖机制",
+        "E_drift_failure": "附录：故障诊断与分析（针对你的困惑）\n你之前尝试失败，大概率是因为..."
+      },
+      "notes": "三段式完整，但事实快照包含分析性表述，且存在大段附录诊断内容"
+    },
+    {
+      "file": "q3 baseline implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "1. 用户遇到的问题\n2. 为什么会失败？（原因分析）\n3. 解决方案：结构化优化\n4. 优化后的提示词",
+        "B_snapshot_constraint": "N/A - 结构失败",
+        "C_actionability": "N/A - 结构失败",
+        "D_completeness": "N/A - 结构失败",
+        "E_drift_failure": "N/A - 结构失败"
+      },
+      "notes": "完全退化为诊断报告和提示词优化建议，未执行三段式输出协议"
+    },
+    {
+      "file": "q3 conflict explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 2,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 10,
+      "evidence": {
+        "A_structure": "1. [事实快照]\n2. [ChatGPT 联网搜索指令]\n3. [Gemini 深度挖掘指令]",
+        "B_snapshot_constraint": "大语言模型（LLM）本质是基于概率的下一词预测器而非逻辑规则引擎。格式遵循失败主要源于...",
+        "C_actionability": "搜索关键词：请搜索 \"LLM instruction following failure modes\"...查找 2024 年至今关于 OpenAI o1 或 GPT-4 Turbo...",
+        "D_completeness": "分析 \"Probability vs. Logic\"...探讨 \"Context Window Dilution\"...对比这两种路径的原理与局限性",
+        "E_drift_failure": "除原始议题和三段式输出外，无其他内容"
+      },
+      "notes": "完美执行三段式协议，结构清晰，无越界内容"
+    },
+    {
+      "file": "q3 conflict implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "提示词诊断与修复方案1. 用户遇到的问题2. 为什么会失败？（诊断分析）3. 解决方案：显性化逻辑层4. 效果对比预演",
+        "B_snapshot_constraint": "N/A - 结构失败",
+        "C_actionability": "N/A - 结构失败",
+        "D_completeness": "N/A - 结构失败",
+        "E_drift_failure": "N/A - 结构失败"
+      },
+      "notes": "完全退化为诊断报告，包含问题分析、解决方案、修复后提示词等大量越界内容"
+    },
+    {
+      "file": "q3 long explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 2,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 10,
+      "evidence": {
+        "A_structure": "1. [事实快照]\n2. [ChatGPT 联网搜索指令]\n3. [Gemini 深度挖掘指令]",
+        "B_snapshot_constraint": "大语言模型无法严格遵循格式输出通常归因于训练数据的概率分布特性、RLHF...以及注意力机制在处理长上下文时的聚焦偏差",
+        "C_actionability": "搜索并引用2023-2024年关于\"Prompt Engineering Robustness\"或\"Format Constrained Decoding\"的学术论文摘要",
+        "D_completeness": "深度剖析\"为什么模型倾向于解释而非执行\"...分析预训练阶段的\"续写文本\"目标函数与SFT阶段的\"遵循指令\"目标函数之间的潜在冲突",
+        "E_drift_failure": "仅包含原始输入和三段式输出，无额外内容"
+      },
+      "notes": "完美执行，结构清晰，内容质量高"
+    },
+    {
+      "file": "q3 long implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "提示词失效分析与优化方案\n1. 问题背景\n2. 为什么会失败？（诊断分析）\n3. 优化后的提示词 (Solution)\n4. 实测演示 (Demo)\n5. 关键修改点总结",
+        "B_snapshot_constraint": "N/A - 结构失败",
+        "C_actionability": "N/A - 结构失败",
+        "D_completeness": "N/A - 结构失败",
+        "E_drift_failure": "N/A - 结构失败"
+      },
+      "notes": "完全退化为优化方案文档，包含大量诊断分析和修改建议"
+    },
+    {
+      "file": "q3 weak explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 2,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 10,
+      "evidence": {
+        "A_structure": "1. [事实快照]\n2. [ChatGPT 联网搜索指令]\n3. [Gemini 深度挖掘指令]",
+        "B_snapshot_constraint": "大语言模型（LLM）本质是基于概率的下一个词预测器，而非确定性的规则执行引擎",
+        "C_actionability": "请立即启用联网搜索功能，针对关键词 \"LLM instruction following failure reasons\" 和 \"prompt engineering formatting constraints\" 进行广泛检索",
+        "D_completeness": "分析 RLHF 的双刃剑效应...从 Transformer 架构角度解释...综合分析，给出一套\"高强度格式锁定\"策略",
+        "E_drift_failure": "仅包含原始议题和三段式输出"
+      },
+      "notes": "完美执行三段式协议"
+    },
+    {
+      "file": "q3 weak implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "提示词失效原因分析与优化报告\n第一部分：用户原始问题与提示词\n第二部分：为什么原来的提示词会失败？\n第三部分：优化后的强约束版本\n第四部分：实际测试对比",
+        "B_snapshot_constraint": "N/A - 结构失败",
+        "C_actionability": "N/A - 结构失败",
+        "D_completeness": "N/A - 结构失败",
+        "E_drift_failure": "N/A - 结构失败"
+      },
+      "notes": "完全退化为优化报告，包含失败原因分析、优化建议、测试对比等大量越界内容"
+    },
+    {
+      "file": "q4 baseline explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 2,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 10,
+      "evidence": {
+        "A_structure": "1. [事实快照]\n2. [ChatGPT 联网搜索指令]\n3. [Gemini 深度挖掘指令]",
+        "B_snapshot_constraint": "提示词长度与模型遵循度呈非线性关系，存在边际效用递减及负相关区间",
+        "C_actionability": "搜集权威论文与报告：重点查找 Stanford、Google DeepMind 等机构关于\"Lost in the Middle\"现象的研究",
+        "D_completeness": "分析 KV Cache 在处理超长序列时的资源分配与信息检索精度下降的数学原理...对比这两种策略在\"复杂逻辑推理\"与\"创意写作\"两种不同任务下的表现差异",
+        "E_drift_failure": "仅包含议题声明和三段式输出"
+      },
+      "notes": "完美执行三段式协议"
+    },
+    {
+      "file": "q4 baseline implicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 2,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 0
+      },
+      "total": 8,
+      "evidence": {
+        "A_structure": "1. [事实快照]\n2. [ChatGPT 联网搜索指令]\n3. [Gemini 深度挖掘指令]",
+        "B_snapshot_constraint": "提示词长度与模型遵循度之间不呈线性正相关；现有研究...表明，过长的无关上下文会导致\"迷失中间\"现象",
+        "C_actionability": "搜索并引用关于 \"Lost in the Middle\" (Liu et al.) 的论文结论",
+        "D_completeness": "分析 Transformer 架构中的 Self-Attention 机制在处理超长序列时的权重分配衰减问题",
+        "E_drift_failure": "包含大段前置内容：\"2. 深度解析：长度 vs. 精度\"包含核心结论、为什么\"越长越好\"是误区、为什么你提供的提示词是\"高质量\"的等分析性内容"
+      },
+      "notes": "三段式存在且完整，但前面有大量解析和论述内容，违反E维度"
+    },
+    {
+      "file": "q4 conflict explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 2,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 10,
+      "evidence": {
+        "A_structure": "1. [事实快照]\n2. [ChatGPT 联网搜索指令]\n3. [Gemini 深度挖掘指令]",
+        "B_snapshot_constraint": "提示词长度与模型遵循度不呈正相关，甚至可能呈负相关。大语言模型存在\"注意力衰减\"及\"迷失中间\"现象",
+        "C_actionability": "强制搜索：查找 2023-2024 年关于\"Lost in the Middle\"的学术论文...搜集 OpenAI、Anthropic 官方文档中关于\"Best Practices\"的部分",
+        "D_completeness": "注意力稀释：解释当 Token 数量激增时，模型分配给特定指令 Token 的注意力权重是如何被稀释的",
+        "E_drift_failure": "仅包含用户输入和生成结果"
+      },
+      "notes": "完美执行三段式协议"
+    },
+    {
+      "file": "q4 conflict implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "议题：提示词越长，模型越听话吗？\n1. 用户提问\n2. 核心观点：长度是表象，结构才是内核\n3. 深度解析：为什么\"长\"并不等于\"好\"？\n4. 案例拆解：你提供的提示词为何优秀？\n5. 给你的建议\n6. 总结",
+        "B_snapshot_constraint": "N/A - 结构失败",
+        "C_actionability": "N/A - 结构失败",
+        "D_completeness": "N/A - 结构失败",
+        "E_drift_failure": "N/A - 结构失败"
+      },
+      "notes": "完全退化为论述文章，包含核心观点、深度解析、案例拆解、建议和总结等大量分析内容"
+    },
+    {
+      "file": "q4 long explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 2,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 10,
+      "evidence": {
+        "A_structure": "1. [事实快照]\n2. [ChatGPT 联网搜索指令]\n3. [Gemini 深度挖掘指令]",
+        "B_snapshot_constraint": "提示词长度与模型指令遵循度并非线性正相关。过长提示词易触发\"中间迷失\"现象",
+        "C_actionability": "搜索核心论文与实验：重点检索 Stanford 等机构关于\"Lost in the Middle\"现象的研究",
+        "D_completeness": "注意力机制分析：解释在 Transformer 架构中，随着 Input Token 数量增加，Self-Attention 机制在分配\"注意力权重\"时可能出现的稀释效应",
+        "E_drift_failure": "仅包含用户提问和提示词生成器输出"
+      },
+      "notes": "完美执行三段式协议"
+    },
+    {
+      "file": "q4 long implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "议题：提示词越长，模型就一定越听话吗？\n一、用户问题\n二、案例参考\n三、深度解析：长度与遵循度的辩证关系（包含1-4小节分析）",
+        "B_snapshot_constraint": "N/A - 结构失败",
+        "C_actionability": "N/A - 结构失败",
+        "D_completeness": "N/A - 结构失败",
+        "E_drift_failure": "N/A - 结构失败"
+      },
+      "notes": "完全退化为深度解析文章，包含为什么\"长\"通常被认为是\"好\"、风险分析、案例拆解、结论与建议等大量论述"
+    },
+    {
+      "file": "q4 weak explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 2,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 10,
+      "evidence": {
+        "A_structure": "1. [事实快照]\n2. [ChatGPT 联网搜索指令]\n3. [Gemini 深度挖掘指令]",
+        "B_snapshot_constraint": "提示词长度与模型依从性并非正相关。过长的上下文会导致\"中间迷失（Lost in the Middle）\"现象",
+        "C_actionability": "请利用联网搜索功能，针对\"LLM 提示词长度与指令遵循效果的关系\"进行检索...查找关于 Context Window利用率及\"Lost in the Middle\"现象的学术论文",
+        "D_completeness": "从 Token 权重分配的角度，解释为什么关键指令淹没在长文本中会被忽略...创建一个对照表格",
+        "E_drift_failure": "仅包含用户提问和模型回答"
+      },
+      "notes": "完美执行三段式协议"
+    },
+    {
+      "file": "q4 weak implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "关于\"提示词越长模型越听话\"的迷思与真相\n1. 用户的提问\n2. 我的回答与深度分析\n关键要素\n对您提供的提示词的批判性分析\n优化后的版本对比\n总结",
+        "B_snapshot_constraint": "N/A - 结构失败",
+        "C_actionability": "N/A - 结构失败",
+        "D_completeness": "N/A - 结构失败",
+        "E_drift_failure": "N/A - 结构失败"
+      },
+      "notes": "完全退化为分析文章，包含核心观点、关键要素、批判性分析、优化建议和总结"
+    }
+  ],
+  "aggregates": {
+    "avg_total": 6.125,
+    "implicit_vs_explicit_summary": {
+      "explicit_avg": 9.625,
+      "implicit_avg": 1.0,
+      "explicit_perfect_count": 7,
+      "implicit_perfect_count": 0,
+      "pattern": "Explicit触发下模型几乎完美执行三段式协议（8/8），Implicit触发下模型系统性退化为分析/诊断文章（7/8失败）"
+    },
+    "version_level_summary": {
+      "baseline": {"explicit": 10, "implicit": 0, "gap": 10},
+      "long": {"explicit": 10, "implicit": 0, "gap": 10},
+      "weak": {"explicit": 10, "implicit": 0, "gap": 10},
+      "conflict": {"explicit": 10, "implicit": 0, "gap": 10},
+      "Q3_baseline_explicit_anomaly": "唯一的explicit非满分，因附录诊断内容扣E维度"
+    }
+  },
+  "final_notes": "Explicit触发具有压倒性优势（96.25% vs 12.5%）。Implicit触发下模型展现强烈的\"助人情结\"，系统性地将工具任务转化为教学/诊断任务，完全违背协议设计。"
+}

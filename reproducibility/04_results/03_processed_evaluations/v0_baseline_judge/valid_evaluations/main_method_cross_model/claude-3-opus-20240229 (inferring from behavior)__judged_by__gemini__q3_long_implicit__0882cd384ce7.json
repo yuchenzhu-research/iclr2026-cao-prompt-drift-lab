@@ -1,0 +1,45 @@
+{
+  "judge_version": "v0_baseline_judge",
+  "snapshot_contract_id": "SC_50_NOEXT",
+  "snapshot_word_limit": 50,
+  "snapshot_allow_extension": false,
+  "judge_model": "gemini",
+  "generator_model": "claude-3-opus-20240229 (inferring from behavior)",
+  "bundle_file": "judge_gemini_bundle_claude.json",
+  "bundle_meta": {
+    "bundle_size": 16,
+    "questions": [
+      "Q3",
+      "Q4"
+    ],
+    "versions": [
+      "baseline",
+      "long",
+      "weak",
+      "conflict"
+    ],
+    "trigger_types": [
+      "implicit",
+      "explicit"
+    ],
+    "model": "Claude-3-Opus-20240229 (Inferring from behavior)"
+  },
+  "file": "q3 long implicit.pdf",
+  "question_id": "q3",
+  "prompt_variant": "long",
+  "trigger_type": "implicit",
+  "scores": {
+    "A_structure": 0,
+    "B_snapshot_constraint": 0,
+    "C_actionability": 0,
+    "D_completeness": 0,
+    "E_drift_failure": 0
+  },
+  "total": 0,
+  "evidence": {
+    "A_structure": "MISSING",
+    "E_drift_failure": "CRITICAL: '为什么提示词总是失败? 问题分析与解决方案... 核心问题分析'"
+  },
+  "notes": "完全漂移：提供了长篇诊断报告和改进方案，未执行协议。",
+  "method": "cross_model"
+}

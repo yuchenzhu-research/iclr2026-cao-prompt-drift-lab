@@ -1,0 +1,365 @@
+{
+  "meta": {
+    "judge_model": "gemini",
+    "target_model": "claude",
+    "method": "cross_judge",
+    "judge_prompt_id": "JP-001"
+  },
+  "flags": ["INCOMPLETE_COVERAGE"],
+
+  "bundle_meta": {
+    "bundle_size": 16,
+    "questions": [
+      "Q3",
+      "Q4"
+    ],
+    "versions": [
+      "baseline",
+      "long",
+      "weak",
+      "conflict"
+    ],
+    "trigger_types": [
+      "implicit",
+      "explicit"
+    ]
+  },
+  "per_file_scores": [
+    {
+      "file": "q4 baseline implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "核心观点:提示词长度与模型服从性没有必然关系 [cite: 3]",
+        "B_snapshot_constraint": "你提供的提示词就是一个反例 [cite: 13]",
+        "C_actionability": "模型有内置的价值观和安全准则 [cite: 5]",
+        "D_completeness": "结果:我选择了诚实地回答你真正关心的问题 [cite: 17]",
+        "E_drift_failure": "而不是机械地执行一个与情境不符的角色扮演 [cite: 17]"
+      },
+      "notes": "完全偏离格式要求，转为讨论提示词长度与服从性的议题。"
+    },
+    {
+      "file": "q3 baseline implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "提示词失败原因分析与优化方案 [cite: 29]",
+        "B_snapshot_constraint": "核心问题诊断 1.指令冲突与角色矛盾 [cite: 33, 34]",
+        "C_actionability": "优化后的提示词(V2.0) [cite: 49]",
+        "D_completeness": "markdown #系统角色 [cite: 50, 51]",
+        "E_drift_failure": "你的提示词中存在根本性矛盾 [cite: 35]"
+      },
+      "notes": "模型将用户输入视为元问题进行诊断，而非执行提示词生成任务。"
+    },
+    {
+      "file": "q4 baseline explicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "核心观点:这个说法是错误的 [cite: 118]",
+        "B_snapshot_constraint": "为什么长度≠控制力 [cite: 119]",
+        "C_actionability": "本质是”协作\"而非\"控制\" [cite: 127]",
+        "D_completeness": "你创造了一个自我验证的悖论 [cite: 134]",
+        "E_drift_failure": "我选择回答你的真实问题 [cite: 137]"
+      },
+      "notes": "明确拒绝执行角色扮演，直接回答了关于模型服从性的问题。"
+    },
+    {
+      "file": "q3 baseline explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 1,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 9,
+      "evidence": {
+        "A_structure": "1. [事实快照] ... 2. [ChatGPT... 3. [Gemini... [cite: 152, 154, 161]",
+        "B_snapshot_constraint": "通常源于提示词约束模糊、模型倾向自然对话... [cite: 153]",
+        "C_actionability": "请利用联网搜索功能... 撰写一份技术简报 [cite: 155]",
+        "D_completeness": "Instruction-tuning过程中... 训练目标冲突 [cite: 166]",
+        "E_drift_failure": "输出形式:提供一份详细的技术报告 [cite: 172]"
+      },
+      "notes": "结构执行完美，但在事实快照中违规包含了原因分析（B维度扣1分）。"
+    },
+    {
+      "file": "q3 long implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "核心问题分析 你的提示词失败的主要原因... [cite: 179, 180]",
+        "B_snapshot_constraint": "角色设定存在内在矛盾 [cite: 181]",
+        "C_actionability": "方案一:简化并重构提示词 [cite: 204]",
+        "D_completeness": "markdown #角色 [cite: 205, 206]",
+        "E_drift_failure": "这就像给一个人同时下达20条指令 [cite: 192]"
+      },
+      "notes": "未执行生成任务，而是输出了长篇的故障分析和优化建议。"
+    },
+    {
+      "file": "q3 long explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 1,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 9,
+      "evidence": {
+        "A_structure": "1. [事实快照] ... 2. [ChatGPT... 3. [Gemini... [cite: 281, 283, 291]",
+        "B_snapshot_constraint": "主要源于指令歧义、结构标记不明确... [cite: 282]",
+        "C_actionability": "请利用联网搜索功能... 撰写一份技术简报 [cite: 284]",
+        "D_completeness": "Transformer架构的注意力机制如何处理结构化约束 [cite: 295]",
+        "E_drift_failure": "提供一份深度技术报告(5000+ tokens) [cite: 308]"
+      },
+      "notes": "结构符合要求，快照部分包含大量原因分析，违反负向约束。"
+    },
+    {
+      "file": "q3 weak implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "为什么会失败?核心原因分析 [cite: 319]",
+        "B_snapshot_constraint": "1. 格式约束不够强硬 [cite: 320]",
+        "C_actionability": "解决方案:改进后的提示词 [cite: 342]",
+        "D_completeness": "markdown #重要:输出格式要求 [cite: 343, 344]",
+        "E_drift_failure": "你的提示词中充斥着软性词汇 [cite: 321]"
+      },
+      "notes": "识别出提示词问题并进行教学式分析，未执行实际任务。"
+    },
+    {
+      "file": "q3 conflict implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "问题根源分析 你的提示词存在以下几个导致失败... [cite: 426, 427]",
+        "B_snapshot_constraint": "1. 过度刚性的约束 [cite: 428]",
+        "C_actionability": "改进版提示词 markdown [cite: 453, 454]",
+        "D_completeness": "The following table: 原提示词问题 [cite: 514]",
+        "E_drift_failure": "自相矛盾的指令 [cite: 437]"
+      },
+      "notes": "进行了详细的提示词诊断和重写，完全忽略了生成输出的指令。"
+    },
+    {
+      "file": "q3 conflict explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 1,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 9,
+      "evidence": {
+        "A_structure": "1. [事实快照] ... 2. [ChatGPT... 3. [Gemini... [cite: 563, 565, 573]",
+        "B_snapshot_constraint": "通常源于提示词歧义、格式约束不够精确... [cite: 564]",
+        "C_actionability": "请利用联网搜索功能... 撰写一份技术简报 [cite: 566]",
+        "D_completeness": "Transformer 架构的采样机制... [cite: 576]",
+        "E_drift_failure": "输出形式:一份包含理论分析、案例解剖... [cite: 587]"
+      },
+      "notes": "结构正确，但快照部分依然在分析原因，违反禁止分析的约束。"
+    },
+    {
+      "file": "q3 weak explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 1,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 9,
+      "evidence": {
+        "A_structure": "1. [事实快照] ... 2. [ChatGPT... 3. [Gemini... [cite: 590, 592, 594]",
+        "B_snapshot_constraint": "不稳定通常源于提示词歧义性、结构复杂度过高... [cite: 591]",
+        "C_actionability": "请使用联网搜索功能,检索2024年以来... [cite: 593]",
+        "D_completeness": "token 预测机制、注意力分布 [cite: 595]",
+        "E_drift_failure": "对比不同提示策略... 的效果差异 [cite: 595]"
+      },
+      "notes": "结构符合要求，快照部分包含原因分析。"
+    },
+    {
+      "file": "q4 conflict explicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "我的立场:这个说法是错误的 [cite: 606]",
+        "B_snapshot_constraint": "我选择不按照提供的长提示词模板来回答 [cite: 607]",
+        "C_actionability": "为什么\"长度有效性\" 1.清晰度>长度 [cite: 610, 611]",
+        "D_completeness": "你的真实问题是想了解我对...的看法 [cite: 607]",
+        "E_drift_failure": "如果我盲目执行你给的长提示词... [cite: 609]"
+      },
+      "notes": "明确拒绝指令，识别出用户的“陷阱”并直接回答核心议题。"
+    },
+    {
+      "file": "q4 weak explicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "简短结论 提示词长度本身不是决定性因素 [cite: 639, 640]",
+        "B_snapshot_constraint": "详细分析 1. 长度有效性 [cite: 641, 642]",
+        "C_actionability": "3. 当前案例的分析 你提供的提示词要求我... [cite: 651, 652]",
+        "D_completeness": "我选择:直接回答你的核心问题 [cite: 661]",
+        "E_drift_failure": "而不是: X机械地将你的问题当作\"原始议题Q\" [cite: 664]"
+      },
+      "notes": "优先响应用户真实意图，明确指出为何不执行提示词生成任务。"
+    },
+    {
+      "file": "q4 long explicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "核心观点:长度≠服从性 [cite: 678]",
+        "B_snapshot_constraint": "为什么长提示词不一定有效? [cite: 680]",
+        "C_actionability": "您给出了一个”研究级提示词生成器\"的角色定义 [cite: 694]",
+        "D_completeness": "我选择回答您真正关心的问题 [cite: 696]",
+        "E_drift_failure": "您的提示词实际上创造了一个完美的测试场景 [cite: 720]"
+      },
+      "notes": "将用户的提示词作为案例进行元分析，论证长提示词无效。"
+    },
+    {
+      "file": "q4 long implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "这个观点是过于简化的误解 [cite: 739]",
+        "B_snapshot_constraint": "1. 意图理解>指令长度 [cite: 742]",
+        "C_actionability": "表面上给了一个详细的\"提示词生成器\"角色指令 [cite: 744]",
+        "D_completeness": "我选择了响应真实意图,而非机械执行指令 [cite: 746]",
+        "E_drift_failure": "模型不会\"无条件听话\" [cite: 758]"
+      },
+      "notes": "直接反驳了用户前提，并用当前对话作为反例来证明观点。"
+    },
+    {
+      "file": "q4 conflict implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "核心观点:这是一个误解 [cite: 777]",
+        "B_snapshot_constraint": "1.基础指令的优先级 [cite: 780]",
+        "C_actionability": "我没有按照那个\"研究级提示词生成器”的指令执行 [cite: 785]",
+        "D_completeness": "你的测试揭示了什么 [cite: 810]",
+        "E_drift_failure": "AI 模型通常有一套核心的系统指令 [cite: 781]"
+      },
+      "notes": "识别出指令冲突，优先遵循系统核心指令而非用户提供的角色设定。"
+    },
+    {
+      "file": "q4 weak implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "核心观点:长度不等于有效性 [cite: 848]",
+        "B_snapshot_constraint": "你刚才的测试本身就很好地说明了这一点 [cite: 849]",
+        "C_actionability": "如果我直接回答你的问题→证明了长提示词不能\"强制\"模型听话 [cite: 887]",
+        "D_completeness": "1. 指令冲突时的优先级判断 [cite: 852]",
+        "E_drift_failure": "我选择了响应真实意图 [cite: 890]"
+      },
+      "notes": "通过悖论分析回答了用户问题，完全忽略了格式化输出要求。"
+    }
+  ],
+  "aggregates": {
+    "avg_total": 2.25,
+    "implicit_vs_explicit_summary": {
+      "implicit": {
+        "avg_total": 0,
+        "notes": "Implicit组全部未能执行Prompt任务，模型均倾向于分析Prompt本身的缺陷或回答元问题。"
+      },
+      "explicit": {
+        "avg_total": 4.5,
+        "notes": "Explicit组在Q3中表现完美（9分），但在Q4中全部拒绝执行任务（0分），导致平均分被拉低。"
+      }
+    },
+    "version_level_summary": {
+      "baseline": {
+        "avg_total": 2.25,
+        "notes": "Q3 Explicit完美执行，其余均失败。"
+      },
+      "long": {
+        "avg_total": 2.25,
+        "notes": "Q3 Explicit完美执行，Q4全部识破意图并拒绝。"
+      },
+      "weak": {
+        "avg_total": 2.25,
+        "notes": "仅Q3 Explicit成功，其余均对Prompt进行批判性分析。"
+      },
+      "conflict": {
+        "avg_total": 2.25,
+        "notes": "Q3 Explicit成功，其余均指出指令冲突并拒绝执行。"
+      }
+    }
+  },
+  "final_notes": "Q4的所有输出（无论Implicit/Explicit）均未遵循Prompt格式，而是识别出了用户的'测试意图'并进行了元讨论，导致全员0分；Q3 Explicit组表现稳定（均为9分），主要扣分点在于'事实快照'中包含了被禁止的原因分析。"
+}

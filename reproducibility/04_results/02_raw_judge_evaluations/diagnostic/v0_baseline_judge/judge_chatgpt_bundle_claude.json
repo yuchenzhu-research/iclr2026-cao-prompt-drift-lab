@@ -1,0 +1,358 @@
+{
+  "bundle_meta": {
+    "bundle_size": 16,
+    "questions": [
+      "Q3",
+      "Q4"
+    ],
+    "versions": [
+      "baseline",
+      "long",
+      "weak",
+      "conflict"
+    ],
+    "trigger_types": [
+      "implicit",
+      "explicit"
+    ],
+    "model": "unknown"
+  },
+  "per_file_scores": [
+    {
+      "file": "q3_baseline_explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 1,
+        "C_actionability": 2,
+        "D_completeness": 1,
+        "E_drift_failure": 2
+      },
+      "total": 8,
+      "evidence": {
+        "A_structure": "1.[事实快照]",
+        "B_snapshot_constraint": "LLM格式输出失败通常源于提⽰词约束模糊、模",
+        "C_actionability": "你是⼀个提⽰⼯程专家。请利⽤联⽹搜索功能，针",
+        "D_completeness": "你是⼀个计算语⾔学家和神经⽹络架构专家。基于",
+        "E_drift_failure": "3.[Gemini深度挖掘指令]"
+      },
+      "notes": "快照超字数/含分析；完整性要求不充分"
+    },
+    {
+      "file": "q3_baseline_implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "提⽰词失败原因分析与优化⽅案",
+        "B_snapshot_constraint": "",
+        "C_actionability": "",
+        "D_completeness": "",
+        "E_drift_failure": ""
+      },
+      "notes": "未按三段式输出"
+    },
+    {
+      "file": "q3_conflict_explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 2,
+        "C_actionability": 2,
+        "D_completeness": 1,
+        "E_drift_failure": 2
+      },
+      "total": 9,
+      "evidence": {
+        "A_structure": "1.[事实快照]",
+        "B_snapshot_constraint": "多次要求固定格式输出,结果仍频繁偏离指定结构",
+        "C_actionability": "你是⼀个提⽰⼯程专家。请强制开启联⽹搜索功能",
+        "D_completeness": "你是⼀个计算语⾔学家和神经⽹络架构专家。请对",
+        "E_drift_failure": "3.[Gemini深度挖掘指令]"
+      },
+      "notes": "完整性要求不充分"
+    },
+    {
+      "file": "q3_conflict_implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "提⽰词问题诊断与修复建议",
+        "B_snapshot_constraint": "",
+        "C_actionability": "",
+        "D_completeness": "",
+        "E_drift_failure": ""
+      },
+      "notes": "未按三段式输出"
+    },
+    {
+      "file": "q3_long_explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 1,
+        "C_actionability": 2,
+        "D_completeness": 1,
+        "E_drift_failure": 2
+      },
+      "total": 8,
+      "evidence": {
+        "A_structure": "1.[事实快照]",
+        "B_snapshot_constraint": "多次要求固定格式输出,结果仍频繁偏离指定结构",
+        "C_actionability": "你是⼀个提⽰⼯程专家。请强制开启联⽹搜索功能",
+        "D_completeness": "你是⼀个计算语⾔学家和神经⽹络架构专家。请对",
+        "E_drift_failure": "3.[Gemini深度挖掘指令]"
+      },
+      "notes": "快照超字数/含分析；完整性要求不充分"
+    },
+    {
+      "file": "q3_long_implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "提⽰词失效分析与优化⽅案",
+        "B_snapshot_constraint": "",
+        "C_actionability": "",
+        "D_completeness": "",
+        "E_drift_failure": ""
+      },
+      "notes": "未按三段式输出"
+    },
+    {
+      "file": "q3_weak_explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 2,
+        "C_actionability": 2,
+        "D_completeness": 1,
+        "E_drift_failure": 2
+      },
+      "total": 9,
+      "evidence": {
+        "A_structure": "1.[事实快照]",
+        "B_snapshot_constraint": "同⼀提⽰词多次调⽤时,模型仍可能偏离指定输出",
+        "C_actionability": "你是⼀个提⽰⼯程专家。请强制开启联⽹搜索功能",
+        "D_completeness": "你是⼀个计算语⾔学家和神经⽹络架构专家。请对",
+        "E_drift_failure": "3.[Gemini深度挖掘指令]"
+      },
+      "notes": "完整性要求不充分"
+    },
+    {
+      "file": "q3_weak_implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "提⽰词格式问题分析与解决⽅案",
+        "B_snapshot_constraint": "",
+        "C_actionability": "",
+        "D_completeness": "",
+        "E_drift_failure": ""
+      },
+      "notes": "未按三段式输出"
+    },
+    {
+      "file": "q4_baseline_explicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "关于\"⻓提⽰词与模型服从性\"的讨论",
+        "B_snapshot_constraint": "",
+        "C_actionability": "",
+        "D_completeness": "",
+        "E_drift_failure": ""
+      },
+      "notes": "未按三段式输出"
+    },
+    {
+      "file": "q4_baseline_implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "关于\"⻓提⽰词与模型服从性\"的讨论",
+        "B_snapshot_constraint": "",
+        "C_actionability": "",
+        "D_completeness": "",
+        "E_drift_failure": ""
+      },
+      "notes": "未按三段式输出"
+    },
+    {
+      "file": "q4_conflict_explicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "关于\"⻓提⽰词与模型服从性\"的讨论",
+        "B_snapshot_constraint": "",
+        "C_actionability": "",
+        "D_completeness": "",
+        "E_drift_failure": ""
+      },
+      "notes": "未按三段式输出"
+    },
+    {
+      "file": "q4_conflict_implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "关于\"⻓提⽰词与模型服从性\"的讨论",
+        "B_snapshot_constraint": "",
+        "C_actionability": "",
+        "D_completeness": "",
+        "E_drift_failure": ""
+      },
+      "notes": "未按三段式输出"
+    },
+    {
+      "file": "q4_long_explicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "关于\"⻓提⽰词与模型服从性\"的讨论",
+        "B_snapshot_constraint": "",
+        "C_actionability": "",
+        "D_completeness": "",
+        "E_drift_failure": ""
+      },
+      "notes": "未按三段式输出"
+    },
+    {
+      "file": "q4_long_implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "关于\"⻓提⽰词与模型服从性\"的讨论",
+        "B_snapshot_constraint": "",
+        "C_actionability": "",
+        "D_completeness": "",
+        "E_drift_failure": ""
+      },
+      "notes": "未按三段式输出"
+    },
+    {
+      "file": "q4_weak_explicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "关于\"⻓提⽰词与模型服从性\"的讨论",
+        "B_snapshot_constraint": "",
+        "C_actionability": "",
+        "D_completeness": "",
+        "E_drift_failure": ""
+      },
+      "notes": "未按三段式输出"
+    },
+    {
+      "file": "q4_weak_implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "问题",
+        "B_snapshot_constraint": "",
+        "C_actionability": "",
+        "D_completeness": "",
+        "E_drift_failure": ""
+      },
+      "notes": "未按三段式输出"
+    }
+  ],
+  "aggregates": {
+    "avg_total": 2.12,
+    "implicit_vs_explicit_summary": {
+      "implicit": {
+        "avg_total": 0.0,
+        "notes": "8/8 未按三段式输出"
+      },
+      "explicit": {
+        "avg_total": 4.25,
+        "notes": "Q3 4/4 符合三段式；Q4 4/4 未按三段式输出"
+      }
+    },
+    "version_level_summary": {
+      "baseline": {
+        "avg_total": 2.0,
+        "notes": "Q3 explicit 可用；Q4/implicit 失效"
+      },
+      "long": {
+        "avg_total": 2.0,
+        "notes": "同 baseline"
+      },
+      "weak": {
+        "avg_total": 2.25,
+        "notes": "同 baseline"
+      },
+      "conflict": {
+        "avg_total": 2.25,
+        "notes": "同 baseline"
+      }
+    }
+  },
+  "final_notes": "本批次仅 q3 的 explicit 触发稳定产出三段式；q4 与所有 implicit 文件均回退为分析/论述体。"
+}

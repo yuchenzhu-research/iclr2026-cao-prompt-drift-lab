@@ -1,0 +1,354 @@
+{
+  "meta": {
+    "judge_model": "claude",
+    "target_model": "chatgpt",
+    "method": "cross_judge",
+    "judge_prompt_id": "JP-001"
+  },
+  "flags": ["CONTEXT_MISALIGNMENT"],
+
+  "bundle_meta": {
+    "bundle_size": 16,
+    "questions": ["Q3", "Q4"],
+    "versions": ["baseline", "long", "weak", "conflict"],
+    "trigger_types": ["implicit", "explicit"]
+  },
+  "per_file_scores": [
+    {
+      "file": "q3 baseline explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 2,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 10,
+      "evidence": {
+        "A_structure": "1. [事实快照] 2. [ChatGPT 联网搜索指令] 3. [Gemini]",
+        "B_snapshot_constraint": "同一提示词多次调用时，模型仍可能偏离指定输出格式。",
+        "C_actionability": "请强制联网搜索并交叉验证，围绕以下问题撰写结构化报告",
+        "D_completeness": "生成时间戳（精确到日期）- 每条结论对应的来源链接",
+        "E_drift_failure": "完全按照三段式结构输出，无漂移"
+      },
+      "notes": "完全符合三段式结构，所有约束满足"
+    },
+    {
+      "file": "q3 baseline implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "你的问题...为什么会这样（最常见的 8 个原因）",
+        "B_snapshot_constraint": "无[事实快照]段，直接进入分析",
+        "C_actionability": "怎么让它更稳（可执行清单，按优先级）",
+        "D_completeness": "缺少研究指令格式，是普通回答",
+        "E_drift_failure": "完全回退到普通对话式回答，无三段式结构"
+      },
+      "notes": "严重漂移：完全回退到普通回答格式"
+    },
+    {
+      "file": "q3 conflict explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 2,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 10,
+      "evidence": {
+        "A_structure": "1. [事实快照] 2. [ChatGPT 联网搜索指令] 3. [Gemini]",
+        "B_snapshot_constraint": "多次要求固定格式输出，模型仍常跑偏或漏段。",
+        "C_actionability": "必须开启联网搜索，围绕以下命题输出一份可核查的结构化报告",
+        "D_completeness": "报告元信息：检索时间（精确到分钟，含时区）+ 关键词列表",
+        "E_drift_failure": "完全按照三段式结构输出，无漂移"
+      },
+      "notes": "完全符合三段式结构，所有约束满足"
+    },
+    {
+      "file": "q3 conflict implicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 2,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 10,
+      "evidence": {
+        "A_structure": "1. [事实快照] 2. [ChatGPT 联网搜索指令] 3. [Gemini]",
+        "B_snapshot_constraint": "多次要求模型严格按指定 Markdown 格式输出，仍常出现漏段",
+        "C_actionability": "请强制使用联网搜索，围绕用户输入 Q...撰写一份可验证",
+        "D_completeness": "生成时间（ISO 8601）、检索关键词列表、检索范围",
+        "E_drift_failure": "完全按照三段式结构输出，无漂移"
+      },
+      "notes": "完全符合三段式结构，所有约束满足"
+    },
+    {
+      "file": "q3 long explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 2,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 10,
+      "evidence": {
+        "A_structure": "1. [事实快照] 2. [ChatGPT 联网搜索指令] 3. [Gemini]",
+        "B_snapshot_constraint": "Q：长提示词≠必然听话；格式/指令仍可能被忽略或漂移。",
+        "C_actionability": "请强制使用联网搜索，针对命题...撰写一份可验证的结构化报告",
+        "D_completeness": "生成时间戳（精确到日期）- 每条关键结论的来源链接",
+        "E_drift_failure": "完全按照三段式结构输出，无漂移"
+      },
+      "notes": "完全符合三段式结构，所有约束满足"
+    },
+    {
+      "file": "q3 long implicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 2,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 10,
+      "evidence": {
+        "A_structure": "1. [事实快照] 2. [ChatGPT 联网搜索指令] 3. [Gemini]",
+        "B_snapshot_constraint": "多次要求固定格式输出，结果仍频繁偏离指定结构。",
+        "C_actionability": "请强制开启联网搜索，围绕问题...生成一份验证性信息简报",
+        "D_completeness": "检索时间戳：在报告开头给出\"检索时间（含时区）\"",
+        "E_drift_failure": "完全按照三段式结构输出，无漂移"
+      },
+      "notes": "完全符合三段式结构，所有约束满足"
+    },
+    {
+      "file": "q3 weak explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 2,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 10,
+      "evidence": {
+        "A_structure": "1. [事实快照] 2. [ChatGPT 联网搜索指令] 3. [Gemini]",
+        "B_snapshot_constraint": "同一提示词多次运行仍可能出现格式偏离或遗漏，输出一致性不稳定",
+        "C_actionability": "你将使用联网搜索，解释\"LLM 为什么常常无法稳定按指定格式输出\"",
+        "D_completeness": "推荐阅读与引用：给出可点击来源与一行摘要",
+        "E_drift_failure": "完全按照三段式结构输出，无漂移"
+      },
+      "notes": "完全符合三段式结构，所有约束满足"
+    },
+    {
+      "file": "q3 weak implicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 2,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 10,
+      "evidence": {
+        "A_structure": "1. [事实快照] 2. [ChatGPT 联网搜索指令] 3. [Gemini]",
+        "B_snapshot_constraint": "多次要求固定格式输出，模型仍会漏段、改标题或插入多余话语",
+        "C_actionability": "你将使用联网搜索，回答：为什么大语言模型经常无法严格按指定",
+        "D_completeness": "以结构化方式呈现：A. 关键结论 B. 失控原因的分类表",
+        "E_drift_failure": "完全按照三段式结构输出，无漂移"
+      },
+      "notes": "完全符合三段式结构，所有约束满足"
+    },
+    {
+      "file": "q4 baseline explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 2,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 10,
+      "evidence": {
+        "A_structure": "1. [事实快照] 2. [ChatGPT 联网搜索指令] 3. [Gemini]",
+        "B_snapshot_constraint": "长提示词不保证遵循率；仍可能漏项、偏题或破坏格式。",
+        "C_actionability": "请强制使用联网搜索，围绕命题...撰写一份可验证的结构化报告",
+        "D_completeness": "报告开头给出生成时间戳（含时区）- 每条关键结论后必须附：来源链接",
+        "E_drift_failure": "完全按照三段式结构输出，无漂移"
+      },
+      "notes": "完全符合三段式结构，所有约束满足"
+    },
+    {
+      "file": "q4 baseline implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "用户问题...我的回答...不对。提示词变长不等于\"必然服从\"",
+        "B_snapshot_constraint": "无[事实快照]段，直接进入分析",
+        "C_actionability": "比\"长\"更重要的因素通常是：目标清晰...结构与约束可执行",
+        "D_completeness": "缺少研究指令格式，是普通建议",
+        "E_drift_failure": "完全回退到普通对话式回答，无三段式结构"
+      },
+      "notes": "严重漂移：完全回退到普通回答格式"
+    },
+    {
+      "file": "q4 conflict explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 2,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 10,
+      "evidence": {
+        "A_structure": "1. [事实快照] 2. [ChatGPT 联网搜索指令] 3. [Gemini]",
+        "B_snapshot_constraint": "长提示词可提升遵循率，但不保证\"必然听话\"。",
+        "C_actionability": "必须开启联网搜索，围绕以下命题输出一份可核查的结构化报告",
+        "D_completeness": "报告顶部：生成时间戳（精确到日期）+ 检索关键词清单",
+        "E_drift_failure": "完全按照三段式结构输出，无漂移"
+      },
+      "notes": "完全符合三段式结构，所有约束满足"
+    },
+    {
+      "file": "q4 conflict implicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 2,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 10,
+      "evidence": {
+        "A_structure": "1. [事实快照] 2. [ChatGPT 联网搜索指令] 3. [Gemini]",
+        "B_snapshot_constraint": "长提示词并不必然提升遵循率，模型仍会偏离指令。",
+        "C_actionability": "请强制使用联网搜索，针对议题...撰写一份可验证的研究型简报",
+        "D_completeness": "生成时间（ISO 8601）、检索关键词列表、检索范围",
+        "E_drift_failure": "完全按照三段式结构输出，无漂移"
+      },
+      "notes": "完全符合三段式结构，所有约束满足"
+    },
+    {
+      "file": "q4 long explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 2,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 10,
+      "evidence": {
+        "A_structure": "1. [事实快照] 2. [ChatGPT 联网搜索指令] 3. [Gemini]",
+        "B_snapshot_constraint": "提示词更长常提升理解与一致性，但不能保证模型必然遵循指令",
+        "C_actionability": "必须启用联网搜索，围绕原始议题 Q 产出一份可核查的结构化报告",
+        "D_completeness": "报告顶部给出：生成时间戳（ISO 8601） 与 检索时间范围",
+        "E_drift_failure": "完全按照三段式结构输出，无漂移"
+      },
+      "notes": "完全符合三段式结构，所有约束满足"
+    },
+    {
+      "file": "q4 long implicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 2,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 10,
+      "evidence": {
+        "A_structure": "1. [事实快照] 2. [ChatGPT 联网搜索指令] 3. [Gemini]",
+        "B_snapshot_constraint": "格式约束是\"软偏好\"，受冲突指令、长上下文与采样噪声影响易漂移",
+        "C_actionability": "请强制联网搜索并交叉验证，回答：为什么大语言模型在用户给出严格",
+        "D_completeness": "输出结构化报告（必须包含时间戳与来源链接）",
+        "E_drift_failure": "完全按照三段式结构输出，无漂移"
+      },
+      "notes": "完全符合三段式结构，所有约束满足"
+    },
+    {
+      "file": "q4 weak explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 1,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 9,
+      "evidence": {
+        "A_structure": "1. [事实快照] 2. [ChatGPT 联网搜索指令] 3. [Gemini]",
+        "B_snapshot_constraint": "提示词变长通常会提升\"被理解\"的概率，但不会保证模型必然严格遵循；指令冲突、目标不清",
+        "C_actionability": "请使用联网搜索，围绕\"提示词越长模型越听话是否成立\"进行证据汇总",
+        "D_completeness": "对每条关键结论给出：来源、发布时间、实验设置",
+        "E_drift_failure": "完全按照三段式结构输出，无漂移"
+      },
+      "notes": "事实快照部分超过50字限制（58字）"
+    },
+    {
+      "file": "q4 weak implicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 2,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 10,
+      "evidence": {
+        "A_structure": "1. [事实快照] 2. [ChatGPT 联网搜索指令] 3. [Gemini]",
+        "B_snapshot_constraint": "提示词越长不必然越\"听话\"，仍常出现偏离与格式失守。",
+        "C_actionability": "你将使用联网搜索，核查\"提示词长度\"与\"指令遵循/格式遵循\"",
+        "D_completeness": "至少覆盖：学术论文...模型/机构官方文档...标注发布时间",
+        "E_drift_failure": "完全按照三段式结构输出，无漂移"
+      },
+      "notes": "完全符合三段式结构，所有约束满足"
+    }
+  ],
+  "aggregates": {
+    "avg_total": 8.69,
+    "implicit_vs_explicit_summary": {
+      "implicit": {
+        "avg_total": 7.5,
+        "notes": "两个baseline implicit完全漂移为普通回答（0分），其余均满分"
+      },
+      "explicit": {
+        "avg_total": 9.88,
+        "notes": "仅q4 weak explicit因快照超50字扣1分，其余均满分"
+      }
+    },
+    "version_level_summary": {
+      "baseline": {
+        "avg_total": 5.0,
+        "notes": "两个implicit版本严重漂移（0分），两个explicit版本满分"
+      },
+      "long": {
+        "avg_total": 10.0,
+        "notes": "所有long版本均完美满足三段式结构和所有约束"
+      },
+      "weak": {
+        "avg_total": 9.75,
+        "notes": "仅q4 weak explicit因快照超字数限制扣1分"
+      },
+      "conflict": {
+        "avg_total": 10.0,
+        "notes": "所有conflict版本均完美满足三段式结构和所有约束"
+      }
+    }
+  },
+  "final_notes": "baseline implicit版本存在系统性漂移问题（q3和q4均回退为普通回答）；explicit版本整体表现优异；long和conflict版本最稳定"
+}

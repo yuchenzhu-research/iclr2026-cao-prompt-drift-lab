@@ -1,0 +1,354 @@
+{
+  "meta": {
+    "judge_model": "chatgpt",
+    "target_model": "gemini",
+    "method": "cross_judge",
+    "judge_prompt_id": "JP-001"
+  },
+  "flags": ["INTERNAL_INCONSISTENCY"],
+
+"bundle_meta": {
+"bundle_size": 16,
+"questions": ["Q3", "Q4"],
+"versions": ["baseline", "long", "weak", "conflict"],
+"trigger_types": ["implicit", "explicit"]
+},
+"per_file_scores": [
+{
+"file": "q3 baseline explicit.pdf",
+"scores": {
+"A_structure": 2,
+"B_snapshot_constraint": 1,
+"C_actionability": 2,
+"D_completeness": 2,
+"E_drift_failure": 1
+},
+"total": 8,
+"evidence": {
+"A_structure": "1. [事实快照] 2. [ChatGPT 联网搜索指令] 3. [Gemini 深度挖掘指令]",
+"B_snapshot_constraint": "主要源于“指令漂移”“RLHF”",
+"C_actionability": "请利用联网搜索功能，针对",
+"D_completeness": "要求：强制搜索最新的 arXiv",
+"E_drift_failure": "附录：故障诊断与分析"
+},
+"notes": "结构完整，但事实快照夹带机制解释。"
+},
+{
+"file": "q3 baseline implicit.pdf",
+"scores": {
+"A_structure": 2,
+"B_snapshot_constraint": 1,
+"C_actionability": 2,
+"D_completeness": 2,
+"E_drift_failure": 1
+},
+"total": 8,
+"evidence": {
+"A_structure": "## 1. [事实快照] ## 2. [ChatGPT 联网搜索指令] ## 3.",
+"B_snapshot_constraint": "注意力机制在长上下文中",
+"C_actionability": "请利用联网搜索功能，针对",
+"D_completeness": "查找 2024 年至今",
+"E_drift_failure": "输出形式：提供一份"
+},
+"notes": "隐式触发下仍保持三段式，但快照偏分析。"
+},
+{
+"file": "q3 long explicit.pdf",
+"scores": {
+"A_structure": 2,
+"B_snapshot_constraint": 0,
+"C_actionability": 2,
+"D_completeness": 2,
+"E_drift_failure": 1
+},
+"total": 7,
+"evidence": {
+"A_structure": "1. [事实快照]",
+"B_snapshot_constraint": "本质是基于概率的下一词预测器",
+"C_actionability": "搜索关键词：请搜索",
+"D_completeness": "输出格式：包含一份",
+"E_drift_failure": "机制深挖："
+},
+"notes": "快照明显超出≤50字且含原理解释。"
+},
+{
+"file": "q3 long implicit.pdf",
+"scores": {
+"A_structure": 2,
+"B_snapshot_constraint": 0,
+"C_actionability": 2,
+"D_completeness": 2,
+"E_drift_failure": 1
+},
+"total": 7,
+"evidence": {
+"A_structure": "1. [事实快照]",
+"B_snapshot_constraint": "而非确定性的规则执行引擎",
+"C_actionability": "请立即启用联网搜索功能",
+"D_completeness": "输出要求：请将检索结果",
+"E_drift_failure": "最终输出：请生成"
+},
+"notes": "长版本信息密度高，但违反快照约束。"
+},
+{
+"file": "q3 weak explicit.pdf",
+"scores": {
+"A_structure": 2,
+"B_snapshot_constraint": 1,
+"C_actionability": 1,
+"D_completeness": 1,
+"E_drift_failure": 1
+},
+"total": 6,
+"evidence": {
+"A_structure": "## 1. [事实快照]",
+"B_snapshot_constraint": "通常归因于训练数据",
+"C_actionability": "请利用联网搜索功能",
+"D_completeness": "查找并引用2023-2024年",
+"E_drift_failure": "请进行深度的系统性机制分析"
+},
+"notes": "指令存在，但执行产物要求偏弱。"
+},
+{
+"file": "q3 weak implicit.pdf",
+"scores": {
+"A_structure": 2,
+"B_snapshot_constraint": 1,
+"C_actionability": 1,
+"D_completeness": 1,
+"E_drift_failure": 1
+},
+"total": 6,
+"evidence": {
+"A_structure": "1. [事实快照]",
+"B_snapshot_constraint": "概率本质而非逻辑缺陷",
+"C_actionability": "请利用联网搜索功能",
+"D_completeness": "输出格式：现象分类",
+"E_drift_failure": "生成一份深度剖析报告"
+},
+"notes": "弱化版本整体合规但研究深度要求不足。"
+},
+{
+"file": "q3 conflict explicit.pdf",
+"scores": {
+"A_structure": 2,
+"B_snapshot_constraint": 0,
+"C_actionability": 2,
+"D_completeness": 2,
+"E_drift_failure": 0
+},
+"total": 6,
+"evidence": {
+"A_structure": "1. [事实快照]",
+"B_snapshot_constraint": "尽可能详细、充分地解释",
+"C_actionability": "生成一段给 GPT-4",
+"D_completeness": "包含一个“影响因子权重表”",
+"E_drift_failure": "结构性矛盾（主要原因）"
+},
+"notes": "显式指令冲突导致结构漂移。"
+},
+{
+"file": "q3 conflict implicit.pdf",
+"scores": {
+"A_structure": 2,
+"B_snapshot_constraint": 0,
+"C_actionability": 2,
+"D_completeness": 2,
+"E_drift_failure": 0
+},
+"total": 6,
+"evidence": {
+"A_structure": "## 0. [策略分析]",
+"B_snapshot_constraint": "详细解释你的判断逻辑",
+"C_actionability": "生成一段给 GPT-4 with Browsing",
+"D_completeness": "包含一个“多维归因权重表”",
+"E_drift_failure": "增加了一个 ## 0."
+},
+"notes": "引入第0段，严格意义下破坏三段式。"
+},
+{
+"file": "q4 baseline explicit.pdf",
+"scores": {
+"A_structure": 2,
+"B_snapshot_constraint": 1,
+"C_actionability": 2,
+"D_completeness": 2,
+"E_drift_failure": 1
+},
+"total": 8,
+"evidence": {
+"A_structure": "1. [事实快照]",
+"B_snapshot_constraint": "并非正相关",
+"C_actionability": "请利用联网搜索功能，针对",
+"D_completeness": "引用具体研究（附来源链接和时间）",
+"E_drift_failure": "提示词优化建议逻辑图"
+},
+"notes": "Q4 基线稳定，轻微分析性表述。"
+},
+{
+"file": "q4 baseline implicit.pdf",
+"scores": {
+"A_structure": 2,
+"B_snapshot_constraint": 1,
+"C_actionability": 2,
+"D_completeness": 2,
+"E_drift_failure": 1
+},
+"total": 8,
+"evidence": {
+"A_structure": "1. [事实快照]",
+"B_snapshot_constraint": "并非线性正相关",
+"C_actionability": "生成一份实证简报",
+"D_completeness": "包含发布日期的事实清单",
+"E_drift_failure": "理论假设图表描述"
+},
+"notes": "隐式触发下保持高一致性。"
+},
+{
+"file": "q4 long explicit.pdf",
+"scores": {
+"A_structure": 2,
+"B_snapshot_constraint": 0,
+"C_actionability": 2,
+"D_completeness": 2,
+"E_drift_failure": 1
+},
+"total": 7,
+"evidence": {
+"A_structure": "1. [事实快照]",
+"B_snapshot_constraint": "清晰度、结构化及逻辑一致性",
+"C_actionability": "撰写一份技术简报",
+"D_completeness": "列出“越长越好”观点的 3 个反例",
+"E_drift_failure": "生成一份《LLM 注意力分配机制》"
+},
+"notes": "快照超长但研究指令非常具体。"
+},
+{
+"file": "q4 long implicit.pdf",
+"scores": {
+"A_structure": 2,
+"B_snapshot_constraint": 0,
+"C_actionability": 2,
+"D_completeness": 2,
+"E_drift_failure": 1
+},
+"total": 7,
+"evidence": {
+"A_structure": "1. [事实快照]",
+"B_snapshot_constraint": "结构化及上下文相关性",
+"C_actionability": "生成一份实证简报",
+"D_completeness": "包含来源链接（GitHub/ArXiv）",
+"E_drift_failure": "深度技术备忘录"
+},
+"notes": "信息密集但违反≤50字约束。"
+},
+{
+"file": "q4 weak explicit.pdf",
+"scores": {
+"A_structure": 2,
+"B_snapshot_constraint": 1,
+"C_actionability": 1,
+"D_completeness": 1,
+"E_drift_failure": 1
+},
+"total": 6,
+"evidence": {
+"A_structure": "1. [事实快照]",
+"B_snapshot_constraint": "并非正相关",
+"C_actionability": "进行检索",
+"D_completeness": "整理为结构化要点",
+"E_drift_failure": "总结建议"
+},
+"notes": "研究动作与产物要求偏弱。"
+},
+{
+"file": "q4 weak implicit.pdf",
+"scores": {
+"A_structure": 2,
+"B_snapshot_constraint": 1,
+"C_actionability": 1,
+"D_completeness": 1,
+"E_drift_failure": 1
+},
+"total": 6,
+"evidence": {
+"A_structure": "1. [事实快照]",
+"B_snapshot_constraint": "并非正相关",
+"C_actionability": "深入分析",
+"D_completeness": "创建一个对照表格",
+"E_drift_failure": "总结建议"
+},
+"notes": "弱版本整体合规但深度不足。"
+},
+{
+"file": "q4 conflict explicit.pdf",
+"scores": {
+"A_structure": 1,
+"B_snapshot_constraint": 0,
+"C_actionability": 2,
+"D_completeness": 2,
+"E_drift_failure": 0
+},
+"total": 5,
+"evidence": {
+"A_structure": "一、 用户问题 二、 案例参考",
+"B_snapshot_constraint": "以下是详细维度的分析",
+"C_actionability": "对比“长文本详细描述”",
+"D_completeness": "创建一个对照表格",
+"E_drift_failure": "不再是三段式结构"
+},
+"notes": "完全回退为普通长文分析，结构失败。"
+},
+{
+"file": "q4 conflict implicit.pdf",
+"scores": {
+"A_structure": 1,
+"B_snapshot_constraint": 0,
+"C_actionability": 2,
+"D_completeness": 2,
+"E_drift_failure": 0
+},
+"total": 5,
+"evidence": {
+"A_structure": "一、 用户问题",
+"B_snapshot_constraint": "冗长而混乱的提示词",
+"C_actionability": "生成一份深度分析报告",
+"D_completeness": "对比不同场景",
+"E_drift_failure": "结论与建议"
+},
+"notes": "隐式冲突同样导致三段式崩解。"
+}
+],
+"aggregates": {
+"avg_total": 6.8,
+"implicit_vs_explicit_summary": {
+"implicit": {
+"avg_total": 6.7,
+"notes": "隐式整体略低，主要因快照超长。"
+},
+"explicit": {
+"avg_total": 6.9,
+"notes": "显式略高，但冲突条件下崩解更明显。"
+}
+},
+"version_level_summary": {
+"baseline": {
+"avg_total": 8.0,
+"notes": "最稳定，结构与可执行性最好。"
+},
+"long": {
+"avg_total": 7.0,
+"notes": "信息充分但系统性违反≤50字。"
+},
+"weak": {
+"avg_total": 6.0,
+"notes": "合规但研究指令与产物要求偏弱。"
+},
+"conflict": {
+"avg_total": 5.5,
+"notes": "指令冲突导致严重结构漂移。"
+}
+}
+},
+"final_notes": "全部16份齐全；Q3/Q4内容正确；conflict版本多处破坏三段式。"
+}

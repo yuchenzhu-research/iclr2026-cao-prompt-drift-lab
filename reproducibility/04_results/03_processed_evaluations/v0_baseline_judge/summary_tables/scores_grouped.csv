@@ -1,0 +1,65 @@
+judge_version,judge_model,generator_model,question_id,prompt_variant,trigger_type,n,A_structure_mean,B_snapshot_constraint_mean,C_actionability_mean,D_completeness_mean,E_drift_failure_mean,total_mean
+v0_baseline_judge,chatgpt,unknown,q3,baseline,explicit,2,2.0,1.0,2.0,1.5,2.0,8.5
+v0_baseline_judge,chatgpt,unknown,q3,baseline,implicit,2,0.0,0.0,0.0,0.0,0.0,0.0
+v0_baseline_judge,chatgpt,unknown,q3,conflict,explicit,2,2.0,1.5,2.0,1.5,2.0,9.0
+v0_baseline_judge,chatgpt,unknown,q3,conflict,implicit,2,0.0,0.0,0.0,0.0,0.0,0.0
+v0_baseline_judge,chatgpt,unknown,q3,long,explicit,2,2.0,1.0,2.0,1.5,2.0,8.5
+v0_baseline_judge,chatgpt,unknown,q3,long,implicit,2,0.0,0.0,0.0,0.0,0.0,0.0
+v0_baseline_judge,chatgpt,unknown,q3,weak,explicit,2,2.0,1.5,2.0,1.5,2.0,9.0
+v0_baseline_judge,chatgpt,unknown,q3,weak,implicit,2,0.0,0.0,0.0,0.0,0.0,0.0
+v0_baseline_judge,chatgpt,unknown,q4,baseline,explicit,2,1.0,0.5,1.0,1.0,1.0,4.5
+v0_baseline_judge,chatgpt,unknown,q4,baseline,implicit,2,0.0,0.0,0.0,0.0,0.0,0.0
+v0_baseline_judge,chatgpt,unknown,q4,conflict,explicit,2,1.0,0.5,1.0,1.0,1.0,4.5
+v0_baseline_judge,chatgpt,unknown,q4,conflict,implicit,2,0.0,0.0,0.0,0.0,0.0,0.0
+v0_baseline_judge,chatgpt,unknown,q4,long,explicit,2,1.0,0.5,1.0,1.0,1.0,4.5
+v0_baseline_judge,chatgpt,unknown,q4,long,implicit,2,0.0,0.0,0.0,0.0,0.0,0.0
+v0_baseline_judge,chatgpt,unknown,q4,weak,explicit,2,1.0,0.5,1.0,1.0,1.0,4.5
+v0_baseline_judge,chatgpt,unknown,q4,weak,implicit,2,0.0,0.0,0.0,0.0,0.0,0.0
+v0_baseline_judge,claude,claude,q3,baseline,explicit,2,2.0,1.5,2.0,2.0,1.0,8.5
+v0_baseline_judge,claude,claude,q3,baseline,implicit,2,0.0,0.0,0.0,0.0,0.0,0.0
+v0_baseline_judge,claude,claude,q3,conflict,explicit,2,2.0,2.0,2.0,2.0,2.0,10.0
+v0_baseline_judge,claude,claude,q3,conflict,implicit,2,1.0,1.0,1.0,1.0,1.0,5.0
+v0_baseline_judge,claude,claude,q3,long,explicit,2,2.0,2.0,2.0,2.0,2.0,10.0
+v0_baseline_judge,claude,claude,q3,long,implicit,2,1.0,1.0,1.0,1.0,1.0,5.0
+v0_baseline_judge,claude,claude,q3,weak,explicit,2,2.0,2.0,2.0,2.0,2.0,10.0
+v0_baseline_judge,claude,claude,q3,weak,implicit,2,1.0,1.0,1.0,1.0,1.0,5.0
+v0_baseline_judge,claude,claude,q4,baseline,explicit,2,2.0,2.0,2.0,2.0,2.0,10.0
+v0_baseline_judge,claude,claude,q4,baseline,implicit,2,1.0,1.0,1.0,1.0,0.0,4.0
+v0_baseline_judge,claude,claude,q4,conflict,explicit,2,2.0,2.0,2.0,2.0,2.0,10.0
+v0_baseline_judge,claude,claude,q4,conflict,implicit,2,1.0,1.0,1.0,1.0,1.0,5.0
+v0_baseline_judge,claude,claude,q4,long,explicit,2,2.0,1.5,2.0,2.0,2.0,9.5
+v0_baseline_judge,claude,claude,q4,long,implicit,2,1.0,0.5,1.0,1.0,1.0,4.5
+v0_baseline_judge,claude,claude,q4,weak,explicit,2,2.0,1.0,2.0,2.0,2.0,9.0
+v0_baseline_judge,claude,claude,q4,weak,implicit,2,1.0,1.0,1.0,1.0,1.0,5.0
+v0_baseline_judge,gemini,gemini-3-flash,q3,baseline,implicit,1,2.0,2.0,2.0,2.0,2.0,10.0
+v0_baseline_judge,gemini,gemini-3-flash,q3,baseline,explicit,1,2.0,2.0,2.0,2.0,2.0,10.0
+v0_baseline_judge,gemini,gemini-3-flash,q3,long,implicit,1,2.0,2.0,2.0,2.0,2.0,10.0
+v0_baseline_judge,gemini,gemini-3-flash,q3,long,explicit,1,2.0,1.0,2.0,2.0,1.0,8.0
+v0_baseline_judge,gemini,gemini-3-flash,q3,weak,implicit,1,2.0,2.0,2.0,2.0,1.0,9.0
+v0_baseline_judge,gemini,gemini-3-flash,q3,weak,explicit,1,2.0,2.0,2.0,2.0,1.0,9.0
+v0_baseline_judge,gemini,gemini-3-flash,q3,conflict,implicit,1,2.0,2.0,2.0,2.0,1.0,9.0
+v0_baseline_judge,gemini,gemini-3-flash,q3,conflict,explicit,1,2.0,2.0,2.0,2.0,2.0,10.0
+v0_baseline_judge,gemini,gemini-3-flash,q4,baseline,implicit,1,0.0,0.0,0.0,0.0,0.0,0.0
+v0_baseline_judge,gemini,gemini-3-flash,q4,baseline,explicit,1,2.0,2.0,2.0,2.0,1.0,9.0
+v0_baseline_judge,gemini,gemini-3-flash,q4,long,implicit,1,2.0,2.0,2.0,2.0,1.0,9.0
+v0_baseline_judge,gemini,gemini-3-flash,q4,long,explicit,1,2.0,2.0,2.0,2.0,2.0,10.0
+v0_baseline_judge,gemini,gemini-3-flash,q4,weak,implicit,1,2.0,2.0,2.0,2.0,1.0,9.0
+v0_baseline_judge,gemini,gemini-3-flash,q4,weak,explicit,1,2.0,1.0,2.0,2.0,1.0,8.0
+v0_baseline_judge,gemini,gemini-3-flash,q4,conflict,implicit,1,2.0,2.0,2.0,2.0,1.0,9.0
+v0_baseline_judge,gemini,gemini-3-flash,q4,conflict,explicit,1,2.0,2.0,2.0,2.0,1.0,9.0
+v0_baseline_judge,gemini,claude-3-opus-20240229 (inferring from behavior),q3,baseline,implicit,1,0.0,0.0,0.0,0.0,0.0,0.0
+v0_baseline_judge,gemini,claude-3-opus-20240229 (inferring from behavior),q3,baseline,explicit,1,2.0,1.0,2.0,2.0,2.0,9.0
+v0_baseline_judge,gemini,claude-3-opus-20240229 (inferring from behavior),q3,long,implicit,1,0.0,0.0,0.0,0.0,0.0,0.0
+v0_baseline_judge,gemini,claude-3-opus-20240229 (inferring from behavior),q3,long,explicit,1,2.0,1.0,2.0,2.0,2.0,9.0
+v0_baseline_judge,gemini,claude-3-opus-20240229 (inferring from behavior),q3,weak,implicit,1,0.0,0.0,0.0,0.0,0.0,0.0
+v0_baseline_judge,gemini,claude-3-opus-20240229 (inferring from behavior),q3,weak,explicit,1,2.0,1.0,2.0,2.0,2.0,9.0
+v0_baseline_judge,gemini,claude-3-opus-20240229 (inferring from behavior),q3,conflict,implicit,1,0.0,0.0,0.0,0.0,0.0,0.0
+v0_baseline_judge,gemini,claude-3-opus-20240229 (inferring from behavior),q3,conflict,explicit,1,2.0,1.0,2.0,2.0,2.0,9.0
+v0_baseline_judge,gemini,claude-3-opus-20240229 (inferring from behavior),q4,baseline,implicit,1,0.0,0.0,0.0,0.0,0.0,0.0
+v0_baseline_judge,gemini,claude-3-opus-20240229 (inferring from behavior),q4,baseline,explicit,1,0.0,0.0,0.0,0.0,0.0,0.0
+v0_baseline_judge,gemini,claude-3-opus-20240229 (inferring from behavior),q4,long,implicit,1,0.0,0.0,0.0,0.0,0.0,0.0
+v0_baseline_judge,gemini,claude-3-opus-20240229 (inferring from behavior),q4,long,explicit,1,0.0,0.0,0.0,0.0,0.0,0.0
+v0_baseline_judge,gemini,claude-3-opus-20240229 (inferring from behavior),q4,weak,implicit,1,0.0,0.0,0.0,0.0,0.0,0.0
+v0_baseline_judge,gemini,claude-3-opus-20240229 (inferring from behavior),q4,weak,explicit,1,0.0,0.0,0.0,0.0,0.0,0.0
+v0_baseline_judge,gemini,claude-3-opus-20240229 (inferring from behavior),q4,conflict,implicit,1,0.0,0.0,0.0,0.0,0.0,0.0
+v0_baseline_judge,gemini,claude-3-opus-20240229 (inferring from behavior),q4,conflict,explicit,1,0.0,0.0,0.0,0.0,0.0,0.0

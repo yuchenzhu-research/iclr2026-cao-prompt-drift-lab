@@ -1,0 +1,354 @@
+{
+  "meta": {
+    "judge_model": "claude",
+    "target_model": "gemini",
+    "method": "cross_judge",
+    "judge_prompt_id": "JP-001"
+  },
+  "flags": ["PROTOCOL_VIOLATION"],
+
+  "bundle_meta": {
+    "bundle_size": 16,
+    "questions": ["Q3", "Q4"],
+    "versions": ["baseline", "long", "weak", "conflict"],
+    "trigger_types": ["implicit", "explicit"]
+  },
+  "per_file_scores": [
+    {
+      "file": "q3 baseline explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 1,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 1
+      },
+      "total": 8,
+      "evidence": {
+        "A_structure": "1. [事实快照] 2. [ChatGPT 联网搜索指令] 3. [Gemini 深度挖掘指令]",
+        "B_snapshot_constraint": "大语言模型（LLM）的格式遵循失败主要源于...约80字",
+        "C_actionability": "强制搜索最新的 arXiv 论文...罗列不少于 5 个技术社区",
+        "D_completeness": "输出格式：包含来源链接...按三个维度分类",
+        "E_drift_failure": "附录：故障诊断与分析（针对你的困惑）"
+      },
+      "notes": "三段式完整但快照超50字，有附录诊断部分造成轻微漂移"
+    },
+    {
+      "file": "q3 baseline implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "1. 用户遇到的问题 2. 为什么会失败？（原因分析）",
+        "B_snapshot_constraint": "无事实快照部分",
+        "C_actionability": "无研究指令生成",
+        "D_completeness": "无Step2/Step3要求",
+        "E_drift_failure": "为了解决上述问题，我对你的提示词进行了加固"
+      },
+      "notes": "完全漂移为诊断报告，提供优化后的提示词而非执行三段式输出"
+    },
+    {
+      "file": "q3 conflict explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 1,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 9,
+      "evidence": {
+        "A_structure": "Response (基于设定角色的输出) 1. 2. 3.",
+        "B_snapshot_constraint": "大语言模型...格式约束之间的算力分配冲突 约70字",
+        "C_actionability": "搜索关键词...查找2024年至今...对比纯文本提示词",
+        "D_completeness": "包含来源链接和时间...对比两种路径的原理与局限性",
+        "E_drift_failure": "无额外漂移内容"
+      },
+      "notes": "严格三段式输出，仅快照部分超字数限制"
+    },
+    {
+      "file": "q3 conflict implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "提示词诊断与修复方案...修复后的提示词",
+        "B_snapshot_constraint": "无事实快照",
+        "C_actionability": "无指令生成",
+        "D_completeness": "无Step2/3",
+        "E_drift_failure": "我们需要修改输出结构...增加了一个 ## 0. [策略分析]"
+      },
+      "notes": "严重漂移为诊断与修复方案，包含大量元分析和新提示词模板"
+    },
+    {
+      "file": "q3 long explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 1,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 9,
+      "evidence": {
+        "A_structure": "原始输入 (Q) 1. [事实快照] 2. 3.",
+        "B_snapshot_constraint": "大语言模型无法严格遵循格式...概率本质而非逻辑缺陷 约60字",
+        "C_actionability": "搜索并引用...查找OpenAI或Anthropic官方...交叉验证",
+        "D_completeness": "包含来源链接的时间戳列表...指令依从性衰减模型图解",
+        "E_drift_failure": "无漂移"
+      },
+      "notes": "完整三段式，快照稍超字数但内容规范"
+    },
+    {
+      "file": "q3 long implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "提示词失效分析与优化方案...优化后的提示词",
+        "B_snapshot_constraint": "无快照",
+        "C_actionability": "无指令",
+        "D_completeness": "无要求",
+        "E_drift_failure": "为了解决上述问题，我使用了结构化分隔符...重写了提示词"
+      },
+      "notes": "完全漂移为失效分析报告和新提示词模板"
+    },
+    {
+      "file": "q3 weak explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 1,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 9,
+      "evidence": {
+        "A_structure": "结构化提示词生成结果 1. 2. 3.",
+        "B_snapshot_constraint": "大语言模型...导致忽略严格的格式限制...约75字",
+        "C_actionability": "请立即启用联网搜索...请重点搜集并验证...请你的回答包含",
+        "D_completeness": "注明信息来源...格式控制失效原因 vs 解决方案的对照表格",
+        "E_drift_failure": "无漂移"
+      },
+      "notes": "标准三段式，快照略超字数"
+    },
+    {
+      "file": "q3 weak implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "第一部分...第二部分...第三部分...第四部分",
+        "B_snapshot_constraint": "无快照",
+        "C_actionability": "无指令",
+        "D_completeness": "无要求",
+        "E_drift_failure": "你的原始提示词存在以下三个核心问题...推荐使用的新提示词"
+      },
+      "notes": "严重漂移为四部分分析报告和优化建议"
+    },
+    {
+      "file": "q4 baseline explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 1,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 9,
+      "evidence": {
+        "A_structure": "原始议题 Q 1. [事实快照] 2. 3.",
+        "B_snapshot_constraint": "提示词长度与模型遵循度呈非线性关系...约55字",
+        "C_actionability": "搜集权威论文...交叉验证...案例搜集",
+        "D_completeness": "包含时间戳...关键论文来源列表...提示词信噪比与依从性模型对比表",
+        "E_drift_failure": "无漂移"
+      },
+      "notes": "完整三段式，快照稍超字数"
+    },
+    {
+      "file": "q4 baseline implicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 1,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 1
+      },
+      "total": 8,
+      "evidence": {
+        "A_structure": "输入 输出 1. [事实快照] 2. 3.",
+        "B_snapshot_constraint": "提示词长度与模型遵循度之间不呈线性正相关...约55字",
+        "C_actionability": "搜索并引用...查找OpenAI或Anthropic...寻找不少于3个",
+        "D_completeness": "权威来源链接 + 最佳实践对比表...Token利用率与模型性能关系",
+        "E_drift_failure": "2. 深度解析：长度 vs. 精度...3. 实战演示"
+      },
+      "notes": "有三段式输出但前置大量解析文字，轻微漂移"
+    },
+    {
+      "file": "q4 conflict explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 1,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 9,
+      "evidence": {
+        "A_structure": "生成结果 1. [事实快照] 2. 3.",
+        "B_snapshot_constraint": "提示词长度与模型遵循度不呈正相关...约55字",
+        "C_actionability": "强制搜索...交叉验证...执行步骤",
+        "D_completeness": "迷思粉碎表...数据支撑...提示词优化建议逻辑图",
+        "E_drift_failure": "无漂移"
+      },
+      "notes": "标准三段式，快照稍超字数"
+    },
+    {
+      "file": "q4 conflict implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "1. 用户提问 2. 核心观点...3. 深度解析...6. 总结",
+        "B_snapshot_constraint": "无快照",
+        "C_actionability": "无指令",
+        "D_completeness": "无要求",
+        "E_drift_failure": "长度是表象，结构才是内核...案例拆解...给你的建议"
+      },
+      "notes": "严重漂移为六部分深度分析文章"
+    },
+    {
+      "file": "q4 long explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 2,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 10,
+      "evidence": {
+        "A_structure": "提示词生成器输出 1. 2. 3.",
+        "B_snapshot_constraint": "提示词长度与模型指令遵循度并非线性正相关 约45字",
+        "C_actionability": "搜索核心论文...查找最佳实践...搜集反例",
+        "D_completeness": "包含发布日期...来源链接...提示词熵值 vs 遵循度图表描述",
+        "E_drift_failure": "无漂移"
+      },
+      "notes": "完美执行三段式，快照符合字数要求且仅陈述"
+    },
+    {
+      "file": "q4 long implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "一、用户问题 二、案例参考 三、深度解析",
+        "B_snapshot_constraint": "无快照",
+        "C_actionability": "无指令",
+        "D_completeness": "无要求",
+        "E_drift_failure": "深度解析：长度与遵循度的辩证关系...分析你提供的案例"
+      },
+      "notes": "完全漂移为多部分辩证分析"
+    },
+    {
+      "file": "q4 weak explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 2,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 10,
+      "evidence": {
+        "A_structure": "模型回答 1. [事实快照] 2. 3.",
+        "B_snapshot_constraint": "提示词长度与模型依从性并非正相关 约40字",
+        "C_actionability": "请利用联网搜索...请重点涵盖...请执行以下任务",
+        "D_completeness": "标注信息来源...对照表格",
+        "E_drift_failure": "无漂移"
+      },
+      "notes": "完美三段式，快照符合要求"
+    },
+    {
+      "file": "q4 weak implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "1. 用户的提问 2. 我的回答与深度分析",
+        "B_snapshot_constraint": "无快照",
+        "C_actionability": "无指令",
+        "D_completeness": "无要求",
+        "E_drift_failure": "核心观点...关键要素...对您提供的提示词的批判性分析"
+      },
+      "notes": "严重漂移为迷思真相分析和批判性评论"
+    }
+  ],
+  "aggregates": {
+    "avg_total": 5.06,
+    "implicit_vs_explicit_summary": {
+      "implicit": {
+        "avg_total": 1.0,
+        "notes": "仅1个文件执行三段式(q4 baseline implicit得8分)，其余7个完全漂移为诊断/分析报告"
+      },
+      "explicit": {
+        "avg_total": 9.13,
+        "notes": "8个文件均完成三段式结构，6个得9分、2个满分10分，主要扣分在快照超字数"
+      }
+    },
+    "version_level_summary": {
+      "baseline": {
+        "avg_total": 6.25,
+        "notes": "explicit表现优秀(8-9分)，implicit一半完全失败一半中等(q4得8分)"
+      },
+      "long": {
+        "avg_total": 4.75,
+        "notes": "explicit表现优异(9-10分)，implicit全部失败(0分)"
+      },
+      "weak": {
+        "avg_total": 4.75,
+        "notes": "explicit表现最佳(9-10分)，implicit全部失败(0分)"
+      },
+      "conflict": {
+        "avg_total": 4.5,
+        "notes": "explicit表现稳定(9分)，implicit全部失败(0分)"
+      }
+    }
+  },
+  "final_notes": "Explicit触发下模型高度遵循三段式结构(8/8成功)，implicit触发下严重漂移(7/8失败为诊断报告)，显示明确结构化指令对格式遵循至关重要"
+}

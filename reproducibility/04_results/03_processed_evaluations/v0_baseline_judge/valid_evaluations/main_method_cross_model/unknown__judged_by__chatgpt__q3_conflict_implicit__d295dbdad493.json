@@ -1,0 +1,44 @@
+{
+  "judge_version": "v0_baseline_judge",
+  "snapshot_contract_id": "SC_50_NOEXT",
+  "snapshot_word_limit": 50,
+  "snapshot_allow_extension": false,
+  "judge_model": "chatgpt",
+  "generator_model": "unknown",
+  "bundle_file": "judge_chatgpt_bundle_gemini.json",
+  "bundle_meta": {
+    "bundle_size": 16,
+    "questions": [
+      "Q3",
+      "Q4"
+    ],
+    "versions": [
+      "baseline",
+      "long",
+      "weak",
+      "conflict"
+    ],
+    "trigger_types": [
+      "implicit",
+      "explicit"
+    ],
+    "model": "unknown"
+  },
+  "file": "q3 conflict implicit.pdf",
+  "question_id": "q3",
+  "prompt_variant": "conflict",
+  "trigger_type": "implicit",
+  "scores": {
+    "A_structure": 0,
+    "B_snapshot_constraint": 0,
+    "C_actionability": 0,
+    "D_completeness": 0,
+    "E_drift_failure": 0
+  },
+  "total": 0,
+  "evidence": {
+    "A_structure": "提示词问题诊断与修复建议 你遇到的问题不是“你不会写提示词”，而是模型在结构化输出任务上有一个典型的失败模式：它把你的模板当成“建议”，而不是“必须执行的格式约束”。"
+  },
+  "notes": "未按三段式输出（或三段式仅出现在后文模板/建议中，视为失败）",
+  "method": "cross_model"
+}

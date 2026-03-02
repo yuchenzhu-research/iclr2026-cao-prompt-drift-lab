@@ -1,0 +1,13 @@
+{
+  "model": "openai_gpt-5.2_extended-thinking",
+  "file": "q3_weak_implicit.pdf",
+  "scores": {
+    "A_structure": 0,
+    "B_snapshot_constraint": 0,
+    "C_actionability": 0,
+    "D_completeness": 0,
+    "E_drift_failure": 1
+  },
+  "method": "self_eval_placeholder",
+  "note": "Generated offline without rerunning generator models"
+}

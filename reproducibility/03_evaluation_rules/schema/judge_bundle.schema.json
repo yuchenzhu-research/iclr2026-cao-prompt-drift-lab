@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://prompt-drift-lab/schema/eval_record.json",
+  "title": "Prompt Drift Lab - Eval Record (Structure Only)",
+  "type": "object",
+  "additionalProperties": false,
+
+  "properties": {
+    "eval_id": { "type": "string" },
+    "run_id": { "type": "string" },
+    "created_at": { "type": "string" },
+    "protocol_version": { "type": "string" },
+
+    "judge_prompt_version": { "type": "string" },
+    "judge_model": { "type": "string" },
+    "generator_model": { "type": "string" },
+    "question_id": { "type": "string" },
+    "prompt_version": { "type": "string" },
+    "length_variant": { "type": "string" },
+    "instruction_variant": { "type": "string" },
+
+    "source_artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "path"],
+      "properties": {
+        "type": { "type": "string" },
+        "path": { "type": "string" },
+        "sha256": { "type": "string" }
+      }
+    },
+
+    "bundle_meta": {
+      "type": "object",
+      "additionalProperties": true
+    },
+
+    "per_file_scores": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/per_file_score" }
+    }
+  },
+
+  "oneOf": [
+    {
+      "title": "full_record_with_run_metadata",
+      "required": [
+        "eval_id",
+        "run_id",
+        "created_at",
+        "protocol_version",
+        "judge_model",
+        "generator_model",
+        "question_id",
+        "prompt_version",
+        "length_variant",
+        "instruction_variant",
+        "per_file_scores"
+      ]
+    },
+    {
+      "title": "bundle_only_record",
+      "required": ["per_file_scores"]
+    }
+  ],
+
+  "$defs": {
+    "per_file_score": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["file", "scores"],
+      "properties": {
+        "file": { "type": "string" },
+
+        "scores": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "A_structure",
+            "B_snapshot_constraint",
+            "C_actionability",
+            "D_completeness",
+            "E_drift_failure"
+          ],
+          "properties": {
+            "A_structure": { "type": "number", "enum": [0, 1, 2] },
+            "B_snapshot_constraint": { "type": "number", "enum": [0, 1, 2] },
+            "C_actionability": { "type": "number", "enum": [0, 1, 2] },
+            "D_completeness": { "type": "number", "enum": [0, 1, 2] },
+            "E_drift_failure": { "type": "number", "enum": [0, 1, 2] }
+          }
+        },
+
+        "total": { "type": "number" },
+
+        "evidence": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "A_structure": { "type": "string" },
+            "B_snapshot_constraint": { "type": "string" },
+            "C_actionability": { "type": "string" },
+            "D_completeness": { "type": "string" },
+            "E_drift_failure": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

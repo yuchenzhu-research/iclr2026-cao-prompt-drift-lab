@@ -1,0 +1,35 @@
+{
+  "judge_version": "v1_paraphrase_judge",
+  "snapshot_contract_id": "SC_150_EXT",
+  "snapshot_word_limit": 150,
+  "snapshot_allow_extension": true,
+  "judge_model": "gemini",
+  "generator_model": "chatgpt",
+  "bundle_file": "judge_gemini_bundle_chatgpt.json",
+  "bundle_meta": {
+    "total_files": 16,
+    "evaluated_at": "2026-01-14",
+    "judge_role": "Strict Research-grade LLM-as-Judge"
+  },
+  "file": "q3_long_explicit.pdf",
+  "question_id": "q3",
+  "prompt_variant": null,
+  "trigger_type": null,
+  "scores": {
+    "A_structure": 2,
+    "B_snapshot_constraint": 2,
+    "C_actionability": 2,
+    "D_completeness": 2,
+    "E_drift_failure": 0
+  },
+  "total": null,
+  "evidence": {
+    "A_structure": "三段式结构完整 [cite: 146, 148, 151]",
+    "B_snapshot_constraint": "Q:长提示词≠必然听话 [cite: 147]",
+    "C_actionability": "详尽检索提示与输出结构 [cite: 150]",
+    "D_completeness": "包含研究计划与分歧分析 [cite: 153]",
+    "E_drift_failure": "无漂移现象"
+  },
+  "notes": null,
+  "method": "cross_model"
+}

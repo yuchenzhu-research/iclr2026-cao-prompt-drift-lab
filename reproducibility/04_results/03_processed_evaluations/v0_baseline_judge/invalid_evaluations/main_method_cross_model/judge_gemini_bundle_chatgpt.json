@@ -1,0 +1,365 @@
+{
+  "meta": {
+    "judge_model": "gemini",
+    "target_model": "chatgpt",
+    "method": "cross_judge",
+    "judge_prompt_id": "JP-001"
+  },
+  "flags": ["UNPARSABLE_OUTPUT"],
+
+  "bundle_meta": {
+    "bundle_size": 16,
+    "questions": [
+      "Q3",
+      "Q4"
+    ],
+    "versions": [
+      "baseline",
+      "long",
+      "weak",
+      "conflict"
+    ],
+    "trigger_types": [
+      "implicit",
+      "explicit"
+    ]
+  },
+  "per_file_scores": [
+    {
+      "file": "q3 conflict explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 2,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 10,
+      "evidence": {
+        "A_structure": "1. [事实快照]... 2. [ChatGPT 联网搜索指令]... 3. [Gemini 深度挖掘指令] [cite: 2, 4, 16]",
+        "B_snapshot_constraint": "多次要求固定格式输出,模型仍常跑偏或漏段。 [cite: 3]",
+        "C_actionability": "请强制使用联网搜索... 请执行以下任务 [cite: 5, 20]",
+        "D_completeness": "必须含时间戳与来源链接... 机制拆解... 学术分歧 [cite: 7, 22, 23]",
+        "E_drift_failure": "1. [cite_start][事实快照]... (遵循完整结构) [cite: 2]"
+      },
+      "notes": "完美遵循三段式结构与所有深度研究约束。"
+    },
+    {
+      "file": "q3 conflict implicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 2,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 10,
+      "evidence": {
+        "A_structure": "1. [cite_start][事实快照]... 2. [ChatGPT 联网搜索指令]... 3. [Gemini 深度挖掘指令] [cite: 30, 32, 38]",
+        "B_snapshot_constraint": "多次要求模型严格按指定 Markdown 格式输出,仍常出现漏段... [cite: 31]",
+        "C_actionability": "请强制使用联网搜索... 请按以下步骤执行 [cite: 33, 41]",
+        "D_completeness": "带时间戳... 机制深挖... 证据对比表 [cite: 34, 43, 44]",
+        "E_drift_failure": "1. [cite_start][事实快照]... (无漂移) [cite: 30]"
+      },
+      "notes": "结构清晰，指令具体，完全符合要求。"
+    },
+    {
+      "file": "q3 baseline explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 2,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 10,
+      "evidence": {
+        "A_structure": "1. [cite_start][事实快照]... 2. [ChatGPT 联网搜索指令]... 3. [Gemini 深度挖掘指令] [cite: 47, 49, 54]",
+        "B_snapshot_constraint": "同一提示词多次调用时,模型仍可能偏离指定输出格式。 [cite: 48]",
+        "C_actionability": "请强制联网搜索... 请执行以下步骤 [cite: 50, 57]",
+        "D_completeness": "每条结论对应的来源链接... 机制深挖... 学术分歧 [cite: 52, 57]",
+        "E_drift_failure": "1. [cite_start][事实快照]... (结构保持良好) [cite: 47]"
+      },
+      "notes": "Baseline Explicit 版本成功触发了严格结构。"
+    },
+    {
+      "file": "q4 baseline implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "我的回答... 1)为什么“长”并不能保证听话 [cite: 63, 65]",
+        "B_snapshot_constraint": "(缺失) 直接进入分析: 不对。提示词变长不等于... [cite: 64]",
+        "C_actionability": "你可以在提示词里加 4 个小模块... [cite: 84]",
+        "D_completeness": "(缺失) 无时间戳或研究指令要求",
+        "E_drift_failure": "我的回答... 结论 [cite: 63, 85]"
+      },
+      "notes": "严重漂移：完全未遵循三段式结构，退化为普通问答建议。"
+    },
+    {
+      "file": "q3 baseline implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "你的问题... 为什么会这样(最常见的8个原因) [cite: 88, 91]",
+        "B_snapshot_constraint": "(缺失) 上下文:你给了一个... [cite: 90]",
+        "C_actionability": "给你一个更稳的「v1改造版」模板 [cite: 125]",
+        "D_completeness": "(缺失) 未要求生成研究报告",
+        "E_drift_failure": "你的问题... (完全是普通对话回复) [cite: 88]"
+      },
+      "notes": "严重漂移：Baseline Implicit 未能触发特定格式，直接提供了建议。"
+    },
+    {
+      "file": "q3 long explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 2,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 10,
+      "evidence": {
+        "A_structure": "1. [cite_start][事实快照]... 2. [ChatGPT 联网搜索指令]... 3. [Gemini 深度挖掘指令] [cite: 160, 162, 165]",
+        "B_snapshot_constraint": "Q:长提示词≠必然听话;格式/指令仍可能被忽略或漂移。 [cite: 161]",
+        "C_actionability": "请强制使用联网搜索... 请严格执行 [cite: 163, 167]",
+        "D_completeness": "生成时间戳... 机制深挖... 证据对比表 [cite: 164, 167]",
+        "E_drift_failure": "1. [cite_start][事实快照]... (格式完美) [cite: 160]"
+      },
+      "notes": "Long Explicit 版本表现完美，指令非常详尽。"
+    },
+    {
+      "file": "q4 baseline explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 2,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 10,
+      "evidence": {
+        "A_structure": "1. [cite_start][事实快照]... 2. [ChatGPT 联网搜索指令]... 3. [Gemini 深度挖掘指令] [cite: 170, 172, 177]",
+        "B_snapshot_constraint": "长提示词不保证遵循率;仍可能漏项、偏题或破坏格式。 [cite: 171]",
+        "C_actionability": "请强制使用联网搜索... 请执行以下步骤 [cite: 173, 179]",
+        "D_completeness": "生成时间戳... 机制深挖... 证据对比表 [cite: 176, 179]",
+        "E_drift_failure": "1. [cite_start][事实快照]... (格式稳定) [cite: 170]"
+      },
+      "notes": "Explicit 版本修正了 Baseline 的漂移问题。"
+    },
+    {
+      "file": "q3 weak implicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 2,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 10,
+      "evidence": {
+        "A_structure": "1. [cite_start][事实快照]... 2. [ChatGPT 联网搜索指令]... 3. [Gemini 深度挖掘指令] [cite: 184, 186, 189]",
+        "B_snapshot_constraint": "多次要求固定格式输出,模型仍会漏段、改标题或插入多余话语。 [cite: 185]",
+        "C_actionability": "你将使用联网搜索... 做更深入的分析与整合 [cite: 187, 190]",
+        "D_completeness": "交叉验证... 故障树... 对照表 [cite: 188, 191]",
+        "E_drift_failure": "1. [cite_start][事实快照]... (遵循良好) [cite: 184]"
+      },
+      "notes": "Weak Implicit 成功维持了结构，未出现 Baseline 的失控。"
+    },
+    {
+      "file": "q3 long implicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 2,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 10,
+      "evidence": {
+        "A_structure": "1. [cite_start][事实快照]... 2. [ChatGPT 联网搜索指令]... 3. [Gemini 深度挖掘指令] [cite: 194, 196, 200]",
+        "B_snapshot_constraint": "多次要求固定格式输出,结果仍频繁偏离指定结构。 [cite: 195]",
+        "C_actionability": "请强制开启联网搜索... 请进行机制级深挖 [cite: 197, 201]",
+        "D_completeness": "检索时间(含时区)... 机制分析... 证据对比表 [cite: 198, 202]",
+        "E_drift_failure": "1. [cite_start][事实快照]... (无漂移) [cite: 194]"
+      },
+      "notes": "Long Implicit 表现优异，结构与内容均符合要求。"
+    },
+    {
+      "file": "q3 weak explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 2,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 10,
+      "evidence": {
+        "A_structure": "1. [cite_start][事实快照]... 2. [ChatGPT 联网搜索指令]... 3. [Gemini 深度挖掘指令] [cite: 207, 209, 215]",
+        "B_snapshot_constraint": "同一提示词多次运行仍可能出现格式偏离或遗漏... [cite: 208]",
+        "C_actionability": "你将使用联网搜索... 请对“格式遵循失败”做系统层面的机制解释 [cite: 210, 216]",
+        "D_completeness": "交叉验证... 机制模型... 策略对照表 [cite: 211, 217]",
+        "E_drift_failure": "1. [cite_start][事实快照]... (格式正确) [cite: 207]"
+      },
+      "notes": "Weak Explicit 同样表现完美。"
+    },
+    {
+      "file": "q4 conflict explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 2,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 10,
+      "evidence": {
+        "A_structure": "1. [cite_start][事实快照]... 2. [ChatGPT 联网搜索指令]... 3. [Gemini 深度挖掘指令] [cite: 222, 224, 244]",
+        "B_snapshot_constraint": "长提示词可提升遵循率,但不保证“必然听话”。 [cite: 223]",
+        "C_actionability": "必须开启联网搜索... 请对同一命题做深度机制分析 [cite: 225, 245]",
+        "D_completeness": "生成时间戳... 机制深挖... 证据对比表 [cite: 238, 253, 257]",
+        "E_drift_failure": "1. [cite_start][事实快照]... (无漂移) [cite: 222]"
+      },
+      "notes": "Conflict Explicit 版本指令强度高，结构完美。"
+    },
+    {
+      "file": "q4 long implicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 2,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 10,
+      "evidence": {
+        "A_structure": "1. [cite_start][事实快照]... 2. [ChatGPT 联网搜索指令]... 3. [Gemini 深度挖掘指令] [cite: 269, 271, 274]",
+        "B_snapshot_constraint": "格式约束是“软偏好”,受冲突指令...易漂移。 [cite: 270]",
+        "C_actionability": "请强制联网搜索... 请做深度机制分析 [cite: 272, 275]",
+        "D_completeness": "包含时间戳... 机制深挖... 证据对比表 [cite: 273, 276]",
+        "E_drift_failure": "1. [cite_start][事实快照]... (格式工整) [cite: 269]"
+      },
+      "notes": "文件名是Q4但内容是Q3话题（格式失败）；就结构遵循而言得满分。"
+    },
+    {
+      "file": "q4 long explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 2,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 10,
+      "evidence": {
+        "A_structure": "1. [cite_start][事实快照]... 2. [ChatGPT 联网搜索指令]... 3. [Gemini 深度挖掘指令] [cite: 278, 280, 301]",
+        "B_snapshot_constraint": "提示词更长常提升理解与一致性,但不能保证模型必然遵循指令。 [cite: 279]",
+        "C_actionability": "必须后用联网搜索... 请基于原始议题 Q做深度机制分析 [cite: 281, 302]",
+        "D_completeness": "生成时间戳... 机制深挖... 冲突点矩阵 [cite: 293, 313, 321]",
+        "E_drift_failure": "1. [cite_start][事实快照]... (无漂移) [cite: 278]"
+      },
+      "notes": "Long Explicit 保持了高水准的结构遵循。"
+    },
+    {
+      "file": "q4 weak implicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 2,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 10,
+      "evidence": {
+        "A_structure": "1. [cite_start][事实快照]... 2. [ChatGPT 联网搜索指令]... 3. [Gemini 深度挖掘指令] [cite: 332, 334, 340]",
+        "B_snapshot_constraint": "提示词越长不必然越“听话”,仍常出现偏离与格式失守。 [cite: 333]",
+        "C_actionability": "你将使用联网搜索... 你将基于已检索到的材料 [cite: 335, 341]",
+        "D_completeness": "来源与交叉验证... 机制层面... 证据对比表 [cite: 338, 342, 345]",
+        "E_drift_failure": "1. [cite_start][事实快照]... (无漂移) [cite: 332]"
+      },
+      "notes": "Weak Implicit 在Q4话题上也成功维持了结构。"
+    },
+    {
+      "file": "q4 conflict implicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 2,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 10,
+      "evidence": {
+        "A_structure": "1. [cite_start][事实快照]... 2. [ChatGPT 联网搜索指令]... 3. [Gemini 深度挖掘指令] [cite: 350, 352, 372]",
+        "B_snapshot_constraint": "长提示词并不必然提升遵循率,模型仍会偏离指令。 [cite: 351]",
+        "C_actionability": "请强制使用联网搜索... 进行深度机制分析 [cite: 353, 375]",
+        "D_completeness": "包含时间戳... 分岐点分析... 证据对比表 [cite: 370, 378, 380]",
+        "E_drift_failure": "1. [cite_start][事实快照]... (结构正确) [cite: 350]"
+      },
+      "notes": "Conflict Implicit 表现稳健，指令清晰。"
+    },
+    {
+      "file": "q4 weak explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 2,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 10,
+      "evidence": {
+        "A_structure": "1. [cite_start][事实快照]... 2. [ChatGPT 联网搜索指令]... 3. [Gemini 深度挖掘指令] [cite: 392, 394, 399]",
+        "B_snapshot_constraint": "提示词变长通常会提升...但不会保证... [cite: 393]",
+        "C_actionability": "请使用联网搜索... 请从机制与系统层面解释 [cite: 395, 400]",
+        "D_completeness": "发布时间... 机制层... 反例与分歧 [cite: 397, 401, 404]",
+        "E_drift_failure": "1. [cite_start][事实快照]... (无漂移) [cite: 392]"
+      },
+      "notes": "Weak Explicit 同样完美遵循。"
+    }
+  ],
+  "aggregates": {
+    "avg_total": 8.75,
+    "implicit_vs_explicit_summary": {
+      "implicit": {
+        "avg_total": 7.5,
+        "notes": "Implicit Baseline 组彻底失效（退化为对话），但 Long/Weak/Conflict 的 Implicit 版本表现完美。"
+      },
+      "explicit": {
+        "avg_total": 10.0,
+        "notes": "Explicit 组在所有版本中均保持满分，显示出极强的指令控制力。"
+      }
+    },
+    "version_level_summary": {
+      "baseline": {
+        "avg_total": 5.0,
+        "notes": "Baseline 表现极不稳定，Implicit 版本全部失败，仅 Explicit 版本有效。"
+      },
+      "long": {
+        "avg_total": 10.0,
+        "notes": "Long 版本（无论显隐）均表现完美，显示出长提示词在稳固格式方面的优势。"
+      },
+      "weak": {
+        "avg_total": 10.0,
+        "notes": "Weak 版本出人意料地全部拿满分，未出现 Baseline 的漂移。"
+      },
+      "conflict": {
+        "avg_total": 10.0,
+        "notes": "Conflict 版本通过强约束成功抵抗了漂移，全部满分。"
+      }
+    }
+  },
+  "final_notes": "文件 'q4 long implicit.pdf' 的内容实际上是 Q3 议题（格式失败）而非 Q4 议题（长提示词），但因其结构完全符合评分标准，故判为满分。Baseline Implicit 组是唯一的失分点。"
+}

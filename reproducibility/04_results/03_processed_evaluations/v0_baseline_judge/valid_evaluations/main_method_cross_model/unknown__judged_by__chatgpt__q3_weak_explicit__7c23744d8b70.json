@@ -1,0 +1,48 @@
+{
+  "judge_version": "v0_baseline_judge",
+  "snapshot_contract_id": "SC_50_NOEXT",
+  "snapshot_word_limit": 50,
+  "snapshot_allow_extension": false,
+  "judge_model": "chatgpt",
+  "generator_model": "unknown",
+  "bundle_file": "judge_chatgpt_bundle_gemini.json",
+  "bundle_meta": {
+    "bundle_size": 16,
+    "questions": [
+      "Q3",
+      "Q4"
+    ],
+    "versions": [
+      "baseline",
+      "long",
+      "weak",
+      "conflict"
+    ],
+    "trigger_types": [
+      "implicit",
+      "explicit"
+    ],
+    "model": "unknown"
+  },
+  "file": "q3 weak explicit.pdf",
+  "question_id": "q3",
+  "prompt_variant": "weak",
+  "trigger_type": "explicit",
+  "scores": {
+    "A_structure": 2,
+    "B_snapshot_constraint": 1,
+    "C_actionability": 2,
+    "D_completeness": 2,
+    "E_drift_failure": 2
+  },
+  "total": 9,
+  "evidence": {
+    "A_structure": "1. [事实快照] | 2. [ChatGPT 联网搜索指令] | 3. [Gemini 深度挖掘指令]",
+    "B_snapshot_constraint": "[事实快照] 同一提示词多次调用时,模型仍可能偏离指定输出模板,出现结构破坏与内容漂移。",
+    "C_actionability": "[ChatGPT 联网搜索指令] 强制开启联网搜索；检索 2024 以来与“structured output / instruction following / formatting errors”相关研究与工程经验；产出带引用的结构化简报/表格。",
+    "D_completeness": "[Gemini 深度挖掘指令] 解释机制差异（对齐目标、解码、上下文窗口、拒绝/安全策略等）；给出对照表/决策树；提出可复现实验方案（含变量与指标）。",
+    "E_drift_failure": "preamble_nonspace_chars=64"
+  },
+  "notes": "事实快照超字数/含因果或解释",
+  "method": "cross_model"
+}

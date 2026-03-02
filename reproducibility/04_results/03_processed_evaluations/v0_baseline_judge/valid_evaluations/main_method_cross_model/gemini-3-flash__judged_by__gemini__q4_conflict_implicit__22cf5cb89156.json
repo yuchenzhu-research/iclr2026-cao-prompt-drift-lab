@@ -1,0 +1,48 @@
+{
+  "judge_version": "v0_baseline_judge",
+  "snapshot_contract_id": "SC_50_NOEXT",
+  "snapshot_word_limit": 50,
+  "snapshot_allow_extension": false,
+  "judge_model": "gemini",
+  "generator_model": "gemini-3-flash",
+  "bundle_file": "judge_gemini_bundle_chatgpt.json",
+  "bundle_meta": {
+    "bundle_size": 16,
+    "questions": [
+      "Q3",
+      "Q4"
+    ],
+    "versions": [
+      "baseline",
+      "long",
+      "weak",
+      "conflict"
+    ],
+    "trigger_types": [
+      "implicit",
+      "explicit"
+    ],
+    "model": "Gemini-3-Flash"
+  },
+  "file": "q4 conflict implicit.pdf",
+  "question_id": "q4",
+  "prompt_variant": "conflict",
+  "trigger_type": "implicit",
+  "scores": {
+    "A_structure": 2,
+    "B_snapshot_constraint": 2,
+    "C_actionability": 2,
+    "D_completeness": 2,
+    "E_drift_failure": 1
+  },
+  "total": 9,
+  "evidence": {
+    "A_structure": "1. [事实快照] ... 2. [ChatGPT 联网搜索指令] ... 3. [Gemini 深度挖掘指令]",
+    "B_snapshot_constraint": "长提示词并不必然提升遵循率,模型仍会偏离指令。",
+    "C_actionability": "任务目标...搜索与交叉验证要求...输出格式",
+    "D_completeness": "研究计划...分岐点分析...证据对比表...面向实践的可操作结论",
+    "E_drift_failure": "严格遵循三段，仅标题前有微小序号。"
+  },
+  "notes": "快照简洁有力。",
+  "method": "cross_model"
+}

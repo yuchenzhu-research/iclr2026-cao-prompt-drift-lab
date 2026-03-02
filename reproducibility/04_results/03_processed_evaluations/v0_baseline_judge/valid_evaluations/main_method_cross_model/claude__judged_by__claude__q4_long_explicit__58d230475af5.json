@@ -1,0 +1,48 @@
+{
+  "judge_version": "v0_baseline_judge",
+  "snapshot_contract_id": "SC_50_NOEXT",
+  "snapshot_word_limit": 50,
+  "snapshot_allow_extension": false,
+  "judge_model": "claude",
+  "generator_model": "claude",
+  "bundle_file": "judge_claude_bundle_gemini.json",
+  "bundle_meta": {
+    "bundle_size": 16,
+    "questions": [
+      "Q3",
+      "Q4"
+    ],
+    "versions": [
+      "baseline",
+      "long",
+      "weak",
+      "conflict"
+    ],
+    "trigger_types": [
+      "implicit",
+      "explicit"
+    ],
+    "model": "claude"
+  },
+  "file": "q4 long explicit.pdf",
+  "question_id": "q4",
+  "prompt_variant": "long",
+  "trigger_type": "explicit",
+  "scores": {
+    "A_structure": 2,
+    "B_snapshot_constraint": 2,
+    "C_actionability": 2,
+    "D_completeness": 2,
+    "E_drift_failure": 2
+  },
+  "total": 10,
+  "evidence": {
+    "A_structure": "1. [事实快照]\n2. [ChatGPT 联网搜索指令]\n3. [Gemini 深度挖掘指令]",
+    "B_snapshot_constraint": "提示词长度与模型指令遵循度并非线性正相关。过长提示词易触发\"中间迷失\"现象",
+    "C_actionability": "搜索核心论文与实验：重点检索 Stanford 等机构关于\"Lost in the Middle\"现象的研究",
+    "D_completeness": "注意力机制分析：解释在 Transformer 架构中，随着 Input Token 数量增加，Self-Attention 机制在分配\"注意力权重\"时可能出现的稀释效应",
+    "E_drift_failure": "仅包含用户提问和提示词生成器输出"
+  },
+  "notes": "完美执行三段式协议",
+  "method": "cross_model"
+}

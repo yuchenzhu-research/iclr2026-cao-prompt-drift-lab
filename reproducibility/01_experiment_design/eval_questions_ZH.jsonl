@@ -1,0 +1,4 @@
+{"id":"Q1","question":"上海最近三天天气如何？","category":"weather"}
+{"id":"Q2","question":"雨天街拍时，ISO 一般会怎么设置？","category":"photography"}
+{"id":"Q3","question":"我为了让模型按格式输出试了很多次都失败了，真的很烦。为什么会这样？","category":"llm_behavior"}
+{"id":"Q4","question":"有人说只要提示词写得足够长，模型就一定会听话。你怎么看？","category":"prompting"}

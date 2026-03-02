@@ -1,0 +1,13 @@
+{
+  "model": "google_gemini-3-pro",
+  "file": "q4_baseline_implicit.pdf",
+  "scores": {
+    "A_structure": 0,
+    "B_snapshot_constraint": 0,
+    "C_actionability": 1,
+    "D_completeness": 0,
+    "E_drift_failure": 1
+  },
+  "method": "self_eval_placeholder",
+  "note": "Generated offline without rerunning generator models"
+}

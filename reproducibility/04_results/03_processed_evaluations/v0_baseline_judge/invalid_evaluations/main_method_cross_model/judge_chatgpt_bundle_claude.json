@@ -1,0 +1,240 @@
+{
+  "meta": {
+    "judge_model": "chatgpt",
+    "target_model": "claude",
+    "method": "cross_judge",
+    "judge_prompt_id": "JP-001"
+  },
+  "flags": ["PROTOCOL_VIOLATION"],
+
+"bundle_meta": {
+"bundle_size": 16,
+"questions": ["Q3", "Q4"],
+"versions": ["baseline", "long", "weak", "conflict"],
+"trigger_types": ["implicit", "explicit"]
+},
+"per_file_scores": [
+{
+"file": "q3 baseline explicit.pdf",
+"scores": { "A_structure": 0, "B_snapshot_constraint": 0, "C_actionability": 0, "D_completeness": 0, "E_drift_failure": 0 },
+"total": 0,
+"evidence": {
+"A_structure": "核心观点：这是一个误解",
+"B_snapshot_constraint": "详细分析",
+"C_actionability": "实用建议",
+"D_completeness": "结论",
+"E_drift_failure": "未见三段式标题"
+},
+"notes": "直接论述观点，未按三段式结构输出。"
+},
+{
+"file": "q3 baseline implicit.pdf",
+"scores": { "A_structure": 0, "B_snapshot_constraint": 0, "C_actionability": 0, "D_completeness": 0, "E_drift_failure": 0 },
+"total": 0,
+"evidence": {
+"A_structure": "核心观点测试",
+"B_snapshot_constraint": "详细分析",
+"C_actionability": "实用建议",
+"D_completeness": "结论",
+"E_drift_failure": "未见结构化指令"
+},
+"notes": "普通回答体裁，完全未遵循结构约束。"
+},
+{
+"file": "q3 long explicit.pdf",
+"scores": { "A_structure": 0, "B_snapshot_constraint": 0, "C_actionability": 0, "D_completeness": 0, "E_drift_failure": 0 },
+"total": 0,
+"evidence": {
+"A_structure": "为什么长提示词",
+"B_snapshot_constraint": "详细分析",
+"C_actionability": "实用建议",
+"D_completeness": "结论",
+"E_drift_failure": "未分事实/指令"
+},
+"notes": "篇幅较长但仍是普通解释性回答。"
+},
+{
+"file": "q3 long implicit.pdf",
+"scores": { "A_structure": 0, "B_snapshot_constraint": 0, "C_actionability": 0, "D_completeness": 0, "E_drift_failure": 0 },
+"total": 0,
+"evidence": {
+"A_structure": "关于提示词长度",
+"B_snapshot_constraint": "详细分析",
+"C_actionability": "实用建议",
+"D_completeness": "结论",
+"E_drift_failure": "结构性缺失"
+},
+"notes": "无三段式，内容偏评论分析。"
+},
+{
+"file": "q3 weak explicit.pdf",
+"scores": { "A_structure": 0, "B_snapshot_constraint": 0, "C_actionability": 0, "D_completeness": 0, "E_drift_failure": 0 },
+"total": 0,
+"evidence": {
+"A_structure": "核心观点",
+"B_snapshot_constraint": "详细分析",
+"C_actionability": "实际建议",
+"D_completeness": "结论",
+"E_drift_failure": "忽略结构要求"
+},
+"notes": "弱约束下完全漂移为常规回答。"
+},
+{
+"file": "q3 weak implicit.pdf",
+"scores": { "A_structure": 0, "B_snapshot_constraint": 0, "C_actionability": 0, "D_completeness": 0, "E_drift_failure": 0 },
+"total": 0,
+"evidence": {
+"A_structure": "简短结论",
+"B_snapshot_constraint": "详细分析",
+"C_actionability": "实用建议",
+"D_completeness": "结论",
+"E_drift_failure": "未见分段"
+},
+"notes": "未触发任何结构化输出。"
+},
+{
+"file": "q3 conflict explicit.pdf",
+"scores": { "A_structure": 0, "B_snapshot_constraint": 0, "C_actionability": 0, "D_completeness": 0, "E_drift_failure": 0 },
+"total": 0,
+"evidence": {
+"A_structure": "核心问题",
+"B_snapshot_constraint": "详细分析",
+"C_actionability": "实际建议",
+"D_completeness": "结论",
+"E_drift_failure": "结构冲突回退"
+},
+"notes": "冲突条件下完全回退普通回答。"
+},
+{
+"file": "q3 conflict implicit.pdf",
+"scores": { "A_structure": 0, "B_snapshot_constraint": 0, "C_actionability": 0, "D_completeness": 0, "E_drift_failure": 0 },
+"total": 0,
+"evidence": {
+"A_structure": "我的回答",
+"B_snapshot_constraint": "详细分析",
+"C_actionability": "实用建议",
+"D_completeness": "结论",
+"E_drift_failure": "严重漂移"
+},
+"notes": "结构性完全失败。"
+},
+{
+"file": "q4 baseline explicit.pdf",
+"scores": { "A_structure": 0, "B_snapshot_constraint": 0, "C_actionability": 0, "D_completeness": 0, "E_drift_failure": 0 },
+"total": 0,
+"evidence": {
+"A_structure": "核心观点",
+"B_snapshot_constraint": "详细分析",
+"C_actionability": "建议",
+"D_completeness": "结论",
+"E_drift_failure": "未分三段"
+},
+"notes": "Q4同样未遵循三段式。"
+},
+{
+"file": "q4 baseline implicit.pdf",
+"scores": { "A_structure": 0, "B_snapshot_constraint": 0, "C_actionability": 0, "D_completeness": 0, "E_drift_failure": 0 },
+"total": 0,
+"evidence": {
+"A_structure": "简短结论",
+"B_snapshot_constraint": "详细分析",
+"C_actionability": "建议",
+"D_completeness": "结论",
+"E_drift_failure": "结构缺失"
+},
+"notes": "普通问答形式。"
+},
+{
+"file": "q4 long explicit.pdf",
+"scores": { "A_structure": 0, "B_snapshot_constraint": 0, "C_actionability": 0, "D_completeness": 0, "E_drift_failure": 0 },
+"total": 0,
+"evidence": {
+"A_structure": "详细分析",
+"B_snapshot_constraint": "分析",
+"C_actionability": "建议",
+"D_completeness": "结论",
+"E_drift_failure": "未按模板"
+},
+"notes": "长文本但结构未对齐。"
+},
+{
+"file": "q4 long implicit.pdf",
+"scores": { "A_structure": 0, "B_snapshot_constraint": 0, "C_actionability": 0, "D_completeness": 0, "E_drift_failure": 0 },
+"total": 0,
+"evidence": {
+"A_structure": "详细分析",
+"B_snapshot_constraint": "分析",
+"C_actionability": "建议",
+"D_completeness": "结论",
+"E_drift_failure": "漂移严重"
+},
+"notes": "无任何结构化指令。"
+},
+{
+"file": "q4 weak explicit.pdf",
+"scores": { "A_structure": 0, "B_snapshot_constraint": 0, "C_actionability": 0, "D_completeness": 0, "E_drift_failure": 0 },
+"total": 0,
+"evidence": {
+"A_structure": "核心观点",
+"B_snapshot_constraint": "分析",
+"C_actionability": "建议",
+"D_completeness": "结论",
+"E_drift_failure": "未分段"
+},
+"notes": "弱提示未能约束格式。"
+},
+{
+"file": "q4 weak implicit.pdf",
+"scores": { "A_structure": 0, "B_snapshot_constraint": 0, "C_actionability": 0, "D_completeness": 0, "E_drift_failure": 0 },
+"total": 0,
+"evidence": {
+"A_structure": "我的回答",
+"B_snapshot_constraint": "分析",
+"C_actionability": "建议",
+"D_completeness": "结论",
+"E_drift_failure": "完全漂移"
+},
+"notes": "隐式触发下完全失控。"
+},
+{
+"file": "q4 conflict explicit.pdf",
+"scores": { "A_structure": 0, "B_snapshot_constraint": 0, "C_actionability": 0, "D_completeness": 0, "E_drift_failure": 0 },
+"total": 0,
+"evidence": {
+"A_structure": "核心问题",
+"B_snapshot_constraint": "分析",
+"C_actionability": "建议",
+"D_completeness": "结论",
+"E_drift_failure": "结构冲突"
+},
+"notes": "冲突条件下回退普通回答。"
+},
+{
+"file": "q4 conflict implicit.pdf",
+"scores": { "A_structure": 0, "B_snapshot_constraint": 0, "C_actionability": 0, "D_completeness": 0, "E_drift_failure": 0 },
+"total": 0,
+"evidence": {
+"A_structure": "我的回答",
+"B_snapshot_constraint": "分析",
+"C_actionability": "建议",
+"D_completeness": "结论",
+"E_drift_failure": "严重漂移"
+},
+"notes": "完全未执行研究型模板。"
+}
+],
+"aggregates": {
+"avg_total": 0,
+"implicit_vs_explicit_summary": {
+"implicit": { "avg_total": 0, "notes": "隐式触发全部回退普通回答。" },
+"explicit": { "avg_total": 0, "notes": "显式触发亦未能维持结构。" }
+},
+"version_level_summary": {
+"baseline": { "avg_total": 0, "notes": "baseline 全部失败。" },
+"long": { "avg_total": 0, "notes": "long 仅增加篇幅无结构改进。" },
+"weak": { "avg_total": 0, "notes": "weak 提示无法约束行为。" },
+"conflict": { "avg_total": 0, "notes": "conflict 全面结构崩溃。" }
+}
+},
+"final_notes": "所有文件均未出现三段式结构，整体为系统性结构失效。"
+}

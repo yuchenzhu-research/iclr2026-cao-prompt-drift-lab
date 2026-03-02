@@ -1,0 +1,240 @@
+{
+  "meta": {
+    "judge_model": "chatgpt",
+    "target_model": "chatgpt",
+    "method": "self_judge",
+    "judge_prompt_id": "JP-002"
+  },
+  "flags": ["SELF_JUDGING_BIAS"],
+
+"bundle_meta": {
+"bundle_size": 16,
+"questions": ["Q3","Q4"],
+"versions": ["baseline","long","weak","conflict"],
+"trigger_types": ["implicit","explicit"]
+},
+"per_file_scores": [
+{
+"file":"q3 baseline explicit.pdf",
+"scores":{"A_structure":2,"B_snapshot_constraint":2,"C_actionability":2,"D_completeness":2,"E_drift_failure":2},
+"total":10,
+"evidence":{
+"A_structure":"1. [事实快照]",
+"B_snapshot_constraint":"同一提示词多次调用",
+"C_actionability":"请强制联网搜索",
+"D_completeness":"生成时间戳",
+"E_drift_failure":"3. [Gemini 深度挖掘指令]"
+},
+"notes":"三段式完整，指令清晰可执行"
+},
+{
+"file":"q3 baseline implicit.pdf",
+"scores":{"A_structure":2,"B_snapshot_constraint":2,"C_actionability":2,"D_completeness":2,"E_drift_failure":2},
+"total":10,
+"evidence":{
+"A_structure":"1. [事实快照]",
+"B_snapshot_constraint":"模型仍可能偏离",
+"C_actionability":"请先搜索",
+"D_completeness":"时间戳",
+"E_drift_failure":"[Gemini 深度挖掘指令]"
+},
+"notes":"结构稳定，约束满足"
+},
+{
+"file":"q3 long explicit.pdf",
+"scores":{"A_structure":2,"B_snapshot_constraint":2,"C_actionability":2,"D_completeness":2,"E_drift_failure":2},
+"total":10,
+"evidence":{
+"A_structure":"1. [事实快照]",
+"B_snapshot_constraint":"模型仍常跑偏",
+"C_actionability":"撰写结构化报告",
+"D_completeness":"来源链接",
+"E_drift_failure":"三段式输出"
+},
+"notes":"长指令但未破坏结构"
+},
+{
+"file":"q3 long implicit.pdf",
+"scores":{"A_structure":2,"B_snapshot_constraint":2,"C_actionability":2,"D_completeness":2,"E_drift_failure":2},
+"total":10,
+"evidence":{
+"A_structure":"1. [事实快照]",
+"B_snapshot_constraint":"格式偏离或遗漏",
+"C_actionability":"设计评测协议",
+"D_completeness":"证据对比表",
+"E_drift_failure":"[Gemini 深度挖掘指令]"
+},
+"notes":"长但完整，无漂移"
+},
+{
+"file":"q3 weak explicit.pdf",
+"scores":{"A_structure":2,"B_snapshot_constraint":2,"C_actionability":2,"D_completeness":2,"E_drift_failure":2},
+"total":10,
+"evidence":{
+"A_structure":"1. [事实快照]",
+"B_snapshot_constraint":"多次要求固定格式",
+"C_actionability":"给出可复现实验",
+"D_completeness":"机制假设",
+"E_drift_failure":"顺序正确"
+},
+"notes":"弱版本但仍满足rubric"
+},
+{
+"file":"q3 weak implicit.pdf",
+"scores":{"A_structure":2,"B_snapshot_constraint":2,"C_actionability":2,"D_completeness":2,"E_drift_failure":2},
+"total":10,
+"evidence":{
+"A_structure":"1. [事实快照]",
+"B_snapshot_constraint":"输出一致性不稳定",
+"C_actionability":"输出结构化",
+"D_completeness":"评测框架",
+"E_drift_failure":"未见缺段"
+},
+"notes":"隐式触发但结构保持"
+},
+{
+"file":"q3 conflict explicit.pdf",
+"scores":{"A_structure":2,"B_snapshot_constraint":2,"C_actionability":2,"D_completeness":2,"E_drift_failure":2},
+"total":10,
+"evidence":{
+"A_structure":"1. [事实快照]",
+"B_snapshot_constraint":"格式约束是软偏好",
+"C_actionability":"交叉验证",
+"D_completeness":"冲突点",
+"E_drift_failure":"结构完整"
+},
+"notes":"冲突设定下仍稳定"
+},
+{
+"file":"q3 conflict implicit.pdf",
+"scores":{"A_structure":2,"B_snapshot_constraint":2,"C_actionability":2,"D_completeness":2,"E_drift_failure":2},
+"total":10,
+"evidence":{
+"A_structure":"1. [事实快照]",
+"B_snapshot_constraint":"易漂移",
+"C_actionability":"设计研究计划",
+"D_completeness":"证据表",
+"E_drift_failure":"无乱序"
+},
+"notes":"隐式冲突未引发漂移"
+},
+{
+"file":"q4 baseline explicit.pdf",
+"scores":{"A_structure":2,"B_snapshot_constraint":2,"C_actionability":2,"D_completeness":2,"E_drift_failure":2},
+"total":10,
+"evidence":{
+"A_structure":"1. [事实快照]",
+"B_snapshot_constraint":"长提示词可提升",
+"C_actionability":"撰写报告",
+"D_completeness":"证据对照表",
+"E_drift_failure":"三段式"
+},
+"notes":"Q4基线表现稳定"
+},
+{
+"file":"q4 baseline implicit.pdf",
+"scores":{"A_structure":2,"B_snapshot_constraint":2,"C_actionability":2,"D_completeness":2,"E_drift_failure":2},
+"total":10,
+"evidence":{
+"A_structure":"1. [事实快照]",
+"B_snapshot_constraint":"并不必然提升",
+"C_actionability":"可复现实验",
+"D_completeness":"来源链接",
+"E_drift_failure":"未见回退"
+},
+"notes":"隐式同样完整"
+},
+{
+"file":"q4 long explicit.pdf",
+"scores":{"A_structure":2,"B_snapshot_constraint":2,"C_actionability":2,"D_completeness":2,"E_drift_failure":2},
+"total":10,
+"evidence":{
+"A_structure":"1. [事实快照]",
+"B_snapshot_constraint":"不能保证必然",
+"C_actionability":"设计实验矩阵",
+"D_completeness":"时间线",
+"E_drift_failure":"顺序正确"
+},
+"notes":"长版本无结构问题"
+},
+{
+"file":"q4 long implicit.pdf",
+"scores":{"A_structure":2,"B_snapshot_constraint":2,"C_actionability":2,"D_completeness":2,"E_drift_failure":2},
+"total":10,
+"evidence":{
+"A_structure":"1. [事实快照]",
+"B_snapshot_constraint":"仍会偏离",
+"C_actionability":"输出对照表",
+"D_completeness":"机制解释",
+"E_drift_failure":"结构保持"
+},
+"notes":"信息量大但合规"
+},
+{
+"file":"q4 weak explicit.pdf",
+"scores":{"A_structure":2,"B_snapshot_constraint":2,"C_actionability":2,"D_completeness":2,"E_drift_failure":2},
+"total":10,
+"evidence":{
+"A_structure":"1. [事实快照]",
+"B_snapshot_constraint":"不必然越听话",
+"C_actionability":"工程建议",
+"D_completeness":"反例",
+"E_drift_failure":"无缺段"
+},
+"notes":"弱设定但rubric全中"
+},
+{
+"file":"q4 weak implicit.pdf",
+"scores":{"A_structure":2,"B_snapshot_constraint":2,"C_actionability":2,"D_completeness":2,"E_drift_failure":2},
+"total":10,
+"evidence":{
+"A_structure":"1. [事实快照]",
+"B_snapshot_constraint":"格式失守",
+"C_actionability":"最小实验",
+"D_completeness":"指标定义",
+"E_drift_failure":"顺序正确"
+},
+"notes":"隐式弱版仍完整"
+},
+{
+"file":"q4 conflict explicit.pdf",
+"scores":{"A_structure":2,"B_snapshot_constraint":2,"C_actionability":2,"D_completeness":2,"E_drift_failure":2},
+"total":10,
+"evidence":{
+"A_structure":"1. [事实快照]",
+"B_snapshot_constraint":"目标不清",
+"C_actionability":"交叉验证",
+"D_completeness":"冲突点矩阵",
+"E_drift_failure":"三段齐全"
+},
+"notes":"冲突条件下仍稳健"
+},
+{
+"file":"q4 conflict implicit.pdf",
+"scores":{"A_structure":2,"B_snapshot_constraint":2,"C_actionability":2,"D_completeness":2,"E_drift_failure":2},
+"total":10,
+"evidence":{
+"A_structure":"1. [事实快照]",
+"B_snapshot_constraint":"偏离与噪声",
+"C_actionability":"研究计划",
+"D_completeness":"证据表",
+"E_drift_failure":"无乱序"
+},
+"notes":"整体一致性良好"
+}
+],
+"aggregates": {
+"avg_total": 10,
+"implicit_vs_explicit_summary": {
+"implicit":{"avg_total":10,"notes":"隐式触发未降低结构或可执行性"},
+"explicit":{"avg_total":10,"notes":"显式触发表现同样稳定"}
+},
+"version_level_summary": {
+"baseline":{"avg_total":10,"notes":"基线版本已完全满足rubric"},
+"long":{"avg_total":10,"notes":"加长未引入漂移"},
+"weak":{"avg_total":10,"notes":"弱约束仍保持完整"},
+"conflict":{"avg_total":10,"notes":"冲突条件下未见结构失败"}
+}
+},
+"final_notes":"16份文件齐全，命名与内容对应正常"
+}

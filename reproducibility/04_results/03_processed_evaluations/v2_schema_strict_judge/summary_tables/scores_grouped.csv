@@ -1,0 +1,5 @@
+judge_version,judge_model,generator_model,question_id,prompt_variant,trigger_type,n,A_structure_mean,B_snapshot_constraint_mean,C_actionability_mean,D_completeness_mean,E_drift_failure_mean,total_mean
+v2_schema_strict_judge,chatgpt,gemini,q3,,,8,2.0,2.0,2.0,2.0,2.0,10.0
+v2_schema_strict_judge,chatgpt,gemini,q4,,,8,2.0,2.0,2.0,2.0,2.0,10.0
+v2_schema_strict_judge,gemini,chatgpt,q3,,,8,1.75,1.75,1.625,1.625,1.75,0.0
+v2_schema_strict_judge,gemini,chatgpt,q4,,,8,1.75,1.75,1.75,1.75,1.75,0.0

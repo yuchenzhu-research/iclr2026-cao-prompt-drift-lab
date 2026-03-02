@@ -1,0 +1,326 @@
+{
+  "bundle_meta": {
+    "bundle_size": 16,
+    "questions": [
+      "Q3",
+      "Q4"
+    ],
+    "versions": [
+      "baseline",
+      "long",
+      "weak",
+      "conflict"
+    ],
+    "trigger_types": [
+      "implicit",
+      "explicit"
+    ],
+    "model": "unknown"
+  },
+  "per_file_scores": [
+    {
+      "file": "q3_baseline_explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 1,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 9,
+      "evidence": {
+        "A_structure": "1. [事实快照] | 2. [ChatGPT 联网搜索指令] | 3. [Gemini 深度挖掘指令]",
+        "B_snapshot_constraint": "[事实快照] 多次要求固定格式输出,结果仍频繁偏离指定结构。这反映出大模型对结构化约束的遵循不稳定。",
+        "C_actionability": "[ChatGPT 联网搜索指令] 你是“LLM 指令遵循与结构化输出”研究助理。请强制开启联网搜索,围绕问题“为什么大语言模型经常无法严格按指定 Markdown/JSON 模板输出?”检索并撰写技术简报(含来源链接)。",
+        "D_completeness": "[Gemini 深度挖掘指令] 你是一个计算语言学家和深度学习架构师。基于“用户感到模型难以严格遵循复杂格式”这一现象，深挖：训练/对齐目标、解码策略、上下文干扰、提示词冲突等机制，并给出可操作的诊断框架与改进建议(含对照表/决策树/实验设计)。",
+        "E_drift_failure": "preamble_nonspace_chars=40"
+      },
+      "notes": "事实快照超字数/含因果或解释"
+    },
+    {
+      "file": "q3 baseline implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "提示词失败原因分析与优化方案 用户遇到的问题：你多次要求模型按固定格式输出（Markdown/JSON 模板），但模型仍频繁偏离指定结构。现象表现为："
+      },
+      "notes": "未按三段式输出（或三段式仅出现在后文模板/建议中，视为失败）"
+    },
+    {
+      "file": "q3 long explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 1,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 9,
+      "evidence": {
+        "A_structure": "1. [事实快照] | 2. [ChatGPT 联网搜索指令] | 3. [Gemini 深度挖掘指令]",
+        "B_snapshot_constraint": "[事实快照] 多次要求固定格式输出,结果仍频繁偏离指定结构。这反映出大模型对结构化约束的遵循不稳定。",
+        "C_actionability": "[ChatGPT 联网搜索指令] 你是“LLM 指令遵循与结构化输出”研究助理。请强制开启联网搜索,围绕问题“为什么大语言模型经常无法严格按指定 Markdown/JSON 模板输出?”检索并撰写技术简报(含来源链接)。",
+        "D_completeness": "[Gemini 深度挖掘指令] 深挖：训练/对齐目标、解码策略、上下文干扰、提示词冲突等机制；给出诊断框架、对照表/决策树、以及可复现实验设计建议。",
+        "E_drift_failure": "preamble_nonspace_chars=42"
+      },
+      "notes": "事实快照超字数/含因果或解释"
+    },
+    {
+      "file": "q3 long implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "提示词失效分析与优化方案 你遇到的核心问题：你希望模型严格按固定 Markdown/JSON 模板输出（结构化输出），但模型反复出现："
+      },
+      "notes": "未按三段式输出（或三段式仅出现在后文模板/建议中，视为失败）"
+    },
+    {
+      "file": "q3 weak explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 1,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 9,
+      "evidence": {
+        "A_structure": "1. [事实快照] | 2. [ChatGPT 联网搜索指令] | 3. [Gemini 深度挖掘指令]",
+        "B_snapshot_constraint": "[事实快照] 同一提示词多次调用时,模型仍可能偏离指定输出模板,出现结构破坏与内容漂移。",
+        "C_actionability": "[ChatGPT 联网搜索指令] 强制开启联网搜索；检索 2024 以来与“structured output / instruction following / formatting errors”相关研究与工程经验；产出带引用的结构化简报/表格。",
+        "D_completeness": "[Gemini 深度挖掘指令] 解释机制差异（对齐目标、解码、上下文窗口、拒绝/安全策略等）；给出对照表/决策树；提出可复现实验方案（含变量与指标）。",
+        "E_drift_failure": "preamble_nonspace_chars=64"
+      },
+      "notes": "事实快照超字数/含因果或解释"
+    },
+    {
+      "file": "q3 weak implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "提示词格式问题分析与解决方案 你遇到的问题本质上是：模型的“指令遵循”在结构化输出场景里不稳定。你让它严格输出固定 Markdown/JSON 模板，但它经常："
+      },
+      "notes": "未按三段式输出（或三段式仅出现在后文模板/建议中，视为失败）"
+    },
+    {
+      "file": "q3 conflict explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 1,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 9,
+      "evidence": {
+        "A_structure": "1. [事实快照] | 2. [ChatGPT 联网搜索指令] | 3. [Gemini 深度挖掘指令]",
+        "B_snapshot_constraint": "[事实快照] 多次要求固定格式输出,结果仍频繁偏离指定结构。这反映出大模型对结构化约束的遵循不稳定。",
+        "C_actionability": "[ChatGPT 联网搜索指令] 你是“LLM 指令遵循与结构化输出”研究助理。请强制开启联网搜索,围绕问题“为什么大语言模型经常无法严格按指定 Markdown/JSON 模板输出?”检索并撰写技术简报(含来源链接)。",
+        "D_completeness": "[Gemini 深度挖掘指令] 深挖：训练/对齐目标、解码策略、上下文干扰、冲突指令；输出对照表/决策树；提出实验验证路径。",
+        "E_drift_failure": "preamble_nonspace_chars=70"
+      },
+      "notes": "事实快照超字数/含因果或解释"
+    },
+    {
+      "file": "q3 conflict implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "提示词问题诊断与修复建议 你遇到的问题不是“你不会写提示词”，而是模型在结构化输出任务上有一个典型的失败模式：它把你的模板当成“建议”，而不是“必须执行的格式约束”。"
+      },
+      "notes": "未按三段式输出（或三段式仅出现在后文模板/建议中，视为失败）"
+    },
+    {
+      "file": "q4 baseline explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 1,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 9,
+      "evidence": {
+        "A_structure": "1. [事实快照] | 2. [ChatGPT 联网搜索指令] | 3. [Gemini 深度挖掘指令]",
+        "B_snapshot_constraint": "[事实快照] 用户希望建立更稳健的结构化输出提示词来减少漂移,但模型仍可能在多轮或长上下文中偏离模板。",
+        "C_actionability": "[ChatGPT 联网搜索指令] 检索结构化输出/JSON 约束/grammar decoding/工具调用等方法；对比不同模型在格式遵循上的工程实践；输出表格(方法-优缺点-适用场景)。",
+        "D_completeness": "[Gemini 深度挖掘指令] 从机制层解释：对齐目标、解码策略、上下文干扰、拒绝策略、token 权重；给出对照表/决策树/实验设计，形成可复现评测方案。",
+        "E_drift_failure": "preamble_nonspace_chars=60"
+      },
+      "notes": "事实快照超字数/含因果或解释"
+    },
+    {
+      "file": "q4 baseline implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "议题：提示词长度与模型遵循度的关系 一、 用户提问 “有人说只要提示词写得足够长，模型就一定会听话。你怎么看？” 二、 核心观点 该说法过于简化，通常不成立。"
+      },
+      "notes": "未按三段式输出（或三段式仅出现在后文模板/建议中，视为失败）"
+    },
+    {
+      "file": "q4 long explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 1,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 9,
+      "evidence": {
+        "A_structure": "1. [事实快照] | 2. [ChatGPT 联网搜索指令] | 3. [Gemini 深度挖掘指令]",
+        "B_snapshot_constraint": "[事实快照] 同一提示词在不同轮次/不同模型上会出现格式遵循率显著波动,长提示词也不能保证严格按模板输出。",
+        "C_actionability": "[ChatGPT 联网搜索指令] 强制联网；检索“prompt length vs instruction following/format adherence”相关研究与工程实践；要求多来源引用、时间戳、结构化表格总结。",
+        "D_completeness": "[Gemini 深度挖掘指令] 机制解释 + 对照表/决策树 + 可复现实验设计（变量：长度/冲突/隐式触发；指标：结构遵从/漂移/完整性）。",
+        "E_drift_failure": "preamble_nonspace_chars=80"
+      },
+      "notes": "事实快照超字数/含因果或解释"
+    },
+    {
+      "file": "q4 long implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "议题：提示词越长，模型就一定越听话吗？ 一、 用户问题 你提出的观点是：只要提示词写得足够长，模型就一定会听话。你希望我评价这一观点，并给出原因。"
+      },
+      "notes": "未按三段式输出（或三段式仅出现在后文模板/建议中，视为失败）"
+    },
+    {
+      "file": "q4 weak explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 1,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 9,
+      "evidence": {
+        "A_structure": "1. [事实快照] | 2. [ChatGPT 联网搜索指令] | 3. [Gemini 深度挖掘指令]",
+        "B_snapshot_constraint": "[事实快照] 用户关注“长提示词是否必然提升模型服从性”，但实际输出常受对齐偏置、冲突指令与上下文干扰影响。",
+        "C_actionability": "[ChatGPT 联网搜索指令] 搜索近年关于提示词长度、指令遵循、格式约束（JSON schema/grammar decoding）的证据；汇总方法与局限；用表格对比。",
+        "D_completeness": "[Gemini 深度挖掘指令] 给出机制解释与对照表/决策树，并提出可执行的实验验证计划（含控制变量与评价指标）。",
+        "E_drift_failure": "preamble_nonspace_chars=95"
+      },
+      "notes": "事实快照超字数/含因果或解释"
+    },
+    {
+      "file": "q4 weak implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "议题：提示词越长，模型越“听话”？ 一、 对观点的简短结论 这个说法是过于简化的误解。长度可以帮助提供更多上下文，但不等于控制力。"
+      },
+      "notes": "未按三段式输出（或三段式仅出现在后文模板/建议中，视为失败）"
+    },
+    {
+      "file": "q4 conflict explicit.pdf",
+      "scores": {
+        "A_structure": 2,
+        "B_snapshot_constraint": 1,
+        "C_actionability": 2,
+        "D_completeness": 2,
+        "E_drift_failure": 2
+      },
+      "total": 9,
+      "evidence": {
+        "A_structure": "1. [事实快照] | 2. [ChatGPT 联网搜索指令] | 3. [Gemini 深度挖掘指令]",
+        "B_snapshot_constraint": "[事实快照] 长提示词不一定提升服从性,在冲突指令或隐式触发下仍可能发生结构漂移与任务重解释。",
+        "C_actionability": "[ChatGPT 联网搜索指令] 强制联网；检索“prompt length / instruction conflict / task reinterpretation / structured output failure”；要求多来源交叉验证并产出结构化简报。",
+        "D_completeness": "[Gemini 深度挖掘指令] 从机制解释冲突与重解释；输出对照表/决策树；给出可复现实验设计（含指标体系与失败模式分类）。",
+        "E_drift_failure": "preamble_nonspace_chars=90"
+      },
+      "notes": "事实快照超字数/含因果或解释"
+    },
+    {
+      "file": "q4 conflict implicit.pdf",
+      "scores": {
+        "A_structure": 0,
+        "B_snapshot_constraint": 0,
+        "C_actionability": 0,
+        "D_completeness": 0,
+        "E_drift_failure": 0
+      },
+      "total": 0,
+      "evidence": {
+        "A_structure": "议题：提示词越长，模型就一定越听话吗？ 一、 观点判断 这是一个常见误解。提示词长度的确可能提升信息充分性，但并不能保证模型严格遵循指令，更无法保证结构化模板输出稳定。"
+      },
+      "notes": "未按三段式输出（或三段式仅出现在后文模板/建议中，视为失败）"
+    }
+  ],
+  "aggregates": {
+    "avg_total": 4.5,
+    "implicit_vs_explicit_summary": {
+      "implicit": {
+        "avg_total": 0.0,
+        "notes": "8/8 未按三段式输出（或仅在后文给出模板/修复建议，按协议计为失败）"
+      },
+      "explicit": {
+        "avg_total": 9.0,
+        "notes": "8/8 完成三段式；主要扣分集中在事实快照>50字或包含因果/解释"
+      }
+    },
+    "version_level_summary": {
+      "baseline": {
+        "avg_total": 4.5,
+        "notes": "explicit=9/implicit=0 的稳定二极分化；显式触发强、隐式触发完全失效"
+      },
+      "long": {
+        "avg_total": 4.5,
+        "notes": "explicit=9/implicit=0 的稳定二极分化；显式触发强、隐式触发完全失效"
+      },
+      "weak": {
+        "avg_total": 4.5,
+        "notes": "explicit=9/implicit=0 的稳定二极分化；显式触发强、隐式触发完全失效"
+      },
+      "conflict": {
+        "avg_total": 4.5,
+        "notes": "explicit=9/implicit=0 的稳定二极分化；显式触发强、隐式触发完全失效"
+      }
+    }
+  },
+  "final_notes": "本批次：explicit 触发 8/8 成功输出三段式（但事实快照普遍超50字/含解释）；implicit 触发 8/8 退化为诊断/分析文本（按协议计 0 分）。"
+}

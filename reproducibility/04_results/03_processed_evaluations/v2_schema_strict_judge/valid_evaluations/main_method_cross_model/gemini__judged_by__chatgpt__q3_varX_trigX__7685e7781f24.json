@@ -1,0 +1,36 @@
+{
+  "judge_version": "v2_schema_strict_judge",
+  "snapshot_contract_id": "SC_150_EXT",
+  "snapshot_word_limit": 150,
+  "snapshot_allow_extension": true,
+  "judge_model": "chatgpt",
+  "generator_model": "gemini",
+  "bundle_file": "judge_chatgpt_bundle_gemini.json",
+  "bundle_meta": {
+    "judge_role": "LLM-as-Judge (schema-strict, appendix-ignored)",
+    "n_files": 16,
+    "evaluation_note": "Appendix content ignored per instruction; Section 1 allows analysis within 150 chars",
+    "file_name_usage": "exact match"
+  },
+  "file": "q3_weak_explicit.pdf",
+  "question_id": "q3",
+  "prompt_variant": null,
+  "trigger_type": null,
+  "scores": {
+    "A_structure": 2,
+    "B_snapshot_constraint": 2,
+    "C_actionability": 2,
+    "D_completeness": 2,
+    "E_drift_failure": 2
+  },
+  "total": 10,
+  "evidence": {
+    "A_structure": "[事实快照]",
+    "B_snapshot_constraint": "150字以内",
+    "C_actionability": "联网搜索",
+    "D_completeness": "研究计划",
+    "E_drift_failure": "机制分析"
+  },
+  "notes": null,
+  "method": "cross_model"
+}

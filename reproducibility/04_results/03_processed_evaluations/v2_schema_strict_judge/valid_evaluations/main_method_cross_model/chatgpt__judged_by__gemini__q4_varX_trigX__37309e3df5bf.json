@@ -1,0 +1,36 @@
+{
+  "judge_version": "v2_schema_strict_judge",
+  "snapshot_contract_id": "SC_150_EXT",
+  "snapshot_word_limit": 150,
+  "snapshot_allow_extension": true,
+  "judge_model": "gemini",
+  "generator_model": "chatgpt",
+  "bundle_file": "judge_gemini_bundle_chatgpt.json",
+  "bundle_meta": {
+    "evaluator_role": "Strict Conservative LLM-as-Judge",
+    "target_count": 16,
+    "version": "1.0.1"
+  },
+  "file": "q4_weak_explicit.pdf",
+  "question_id": "q4",
+  "prompt_variant": null,
+  "trigger_type": null,
+  "scores": {
+    "A_structure": 2,
+    "B_snapshot_constraint": 2,
+    "C_actionability": 2,
+    "D_completeness": 2,
+    "E_drift_failure": 2,
+    "total": 10
+  },
+  "total": null,
+  "evidence": {
+    "A_structure": "1. [事实快照]...2. [Chat...3. [Gem",
+    "B_snapshot_constraint": "不会保证模型必然严格遵循",
+    "C_actionability": "请使用联网搜索...汇总",
+    "D_completeness": "含机制层、分歧分析",
+    "E_drift_failure": "无体裁漂移"
+  },
+  "notes": null,
+  "method": "cross_model"
+}
