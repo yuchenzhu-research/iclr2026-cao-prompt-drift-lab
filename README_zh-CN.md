@@ -139,7 +139,7 @@
 
 ```bash
 cd prompt-drift-lab
-python -m pip install -r reproducibility/03_evaluation_rules/tools/requirements.txt
+python -m pip install -r reproducibility/tools/requirements.txt
 ```
 
 > 依赖：NumPy、Pandas、Matplotlib、Seaborn
@@ -147,8 +147,8 @@ python -m pip install -r reproducibility/03_evaluation_rules/tools/requirements.
 ### 步骤 1：生成权威评分表
 
 ```bash
-python -u reproducibility/03_evaluation_rules/tools/materialize_records.py \
-  --ack-legacy --overwrite \
+python -u reproducibility/tools/ingest/materialize_records.py \
+  --overwrite \
   --runs v0_baseline_judge v1_paraphrase_judge v2_schema_strict_judge
 ```
 
@@ -159,8 +159,8 @@ python -u reproducibility/03_evaluation_rules/tools/materialize_records.py \
 ### 步骤 2：重新绘制论文图表
 
 ```bash
-python reproducibility/03_evaluation_rules/tools/figures/make_figure1_schema_failure_cliff.py
-python reproducibility/03_evaluation_rules/tools/figures/make_figure6_judge_comparison.py
+python reproducibility/tools/figures/make_fig1_heatmap_v1_schema_failure_cliff.py
+python reproducibility/tools/figures/make_fig5_judge_comparison_v0_v1_v2.py
 ```
 
 > 📁 图表输出到 `paper_anon_submission/figures/`

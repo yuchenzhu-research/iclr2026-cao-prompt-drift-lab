@@ -139,7 +139,7 @@ Failures aren't "noise"—they're **evidence of protocol brittleness**.
 
 ```bash
 cd prompt-drift-lab
-python -m pip install -r reproducibility/03_evaluation_rules/tools/requirements.txt
+python -m pip install -r reproducibility/tools/requirements.txt
 ```
 
 > Dependencies: NumPy, Pandas, Matplotlib, Seaborn
@@ -147,8 +147,8 @@ python -m pip install -r reproducibility/03_evaluation_rules/tools/requirements.
 ### Step 1: Generate Authoritative CSVs
 
 ```bash
-python -u reproducibility/03_evaluation_rules/tools/materialize_records.py \
-  --ack-legacy --overwrite \
+python -u reproducibility/tools/ingest/materialize_records.py \
+  --overwrite \
   --runs v0_baseline_judge v1_paraphrase_judge v2_schema_strict_judge
 ```
 
@@ -159,8 +159,8 @@ python -u reproducibility/03_evaluation_rules/tools/materialize_records.py \
 ### Step 2: Regenerate Paper Figures
 
 ```bash
-python reproducibility/03_evaluation_rules/tools/figures/make_figure1_schema_failure_cliff.py
-python reproducibility/03_evaluation_rules/tools/figures/make_figure6_judge_comparison.py
+python reproducibility/tools/figures/make_fig1_heatmap_v1_schema_failure_cliff.py
+python reproducibility/tools/figures/make_fig5_judge_comparison_v0_v1_v2.py
 ```
 
 > 📁 Figures output to `paper_anon_submission/figures/`
