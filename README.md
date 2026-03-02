@@ -267,8 +267,11 @@ Questions or suggestions? Feel free to open an issue!
 
 ---
 
-<div align="center">
+## 👤 Author
 
-*"Ars Longa, Vita Brevis"*
+**Yuchen Zhu** (朱宇晨)
 
-</div>
+- 🏠 GitHub: [@yuchenzhu-research](https://github.com/yuchenzhu-research)
+- 🌍 Project: [iclr2026-cao-prompt-drift-lab](https://github.com/yuchenzhu-research/iclr2026-cao-prompt-drift-lab)
+
+Questions or suggestions? Feel free to open an issue!
