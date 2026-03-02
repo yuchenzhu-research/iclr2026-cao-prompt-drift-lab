@@ -264,14 +264,3 @@ If this work aids your research, please cite:
 - 🌍 Project: [iclr2026-cao-prompt-drift-lab](https://github.com/yuchenzhu-research/iclr2026-cao-prompt-drift-lab)
 
 Questions or suggestions? Feel free to open an issue!
-
----
-
-## 👤 Author
-
-**Yuchen Zhu** (朱宇晨)
-
-- 🏠 GitHub: [@yuchenzhu-research](https://github.com/yuchenzhu-research)
-- 🌍 Project: [iclr2026-cao-prompt-drift-lab](https://github.com/yuchenzhu-research/iclr2026-cao-prompt-drift-lab)
-
-Questions or suggestions? Feel free to open an issue!

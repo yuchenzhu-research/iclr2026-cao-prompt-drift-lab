@@ -264,14 +264,3 @@ python reproducibility/03_evaluation_rules/tools/figures/make_figure6_judge_comp
 - 🌍 项目主页: [iclr2026-cao-prompt-drift-lab](https://github.com/yuchenzhu-research/iclr2026-cao-prompt-drift-lab)
 
 有问题或建议，欢迎提 Issue！
-
----
-
-## 👤 作者
-
-**朱宇晨** (Yuchen Zhu)
-
-- 🏠 GitHub: [@yuchenzhu-research](https://github.com/yuchenzhu-research)
-- 🌍 项目主页: [iclr2026-cao-prompt-drift-lab](https://github.com/yuchenzhu-research/iclr2026-cao-prompt-drift-lab)
-
-有问题或建议，欢迎提 Issue！
