@@ -5,7 +5,7 @@ All executable prompts are written in **Chinese** and are used verbatim during e
 English content in this file is provided solely for reviewer comprehension and is **not** an executable prompt artifact.
 
 This directory does **not** include judge prompts, judging logic, or evaluation definitions.
-All judge-side components are defined under `supplement/03_evaluation_rules/`.
+All judge-side components are defined under `reproducibility/03_evaluation_rules/`.
 
 ---
 
@@ -29,7 +29,7 @@ They are not executable instructions and must not be interpreted as alternative 
 
 A minimal instruction that specifies the required three-section output interface.
 This file is used only for early pipeline sanity checks and qualitative reference.
-It is excluded from all quantitative summary tables and quantitative comparisons (see `supplement/02_prompt_variants/prompt_manifest.md`).
+It is excluded from all quantitative summary tables and quantitative comparisons (see `reproducibility/02_prompt_variants/prompt_manifest.md`).
 
 ### 2. Baseline (B — primary)
 
@@ -52,7 +52,7 @@ A perturbation where constraint wording is softened while keeping the same task 
 
 ## Manifest Authority and Auditability
 
-- `supplement/02_prompt_variants/prompt_manifest.md` is the **single source of truth** for the prompt inventory and variant roles.
+- `reproducibility/02_prompt_variants/prompt_manifest.md` is the **single source of truth** for the prompt inventory and variant roles.
 - Prompt files listed in the manifest are treated as **preserved execution assets** and must not be modified in place.
 - Run directories can snapshot the exact manifest used for a run to support traceability.
 
@@ -68,7 +68,7 @@ A perturbation where constraint wording is softened while keeping the same task 
 ```
 
 Only files that physically exist in the directory are listed here.
-The authoritative inventory of prompt files and variants is maintained in `supplement/02_prompt_variants/prompt_manifest.md`.
+The authoritative inventory of prompt files and variants is maintained in `reproducibility/02_prompt_variants/prompt_manifest.md`.
 
 ---
 
@@ -77,7 +77,7 @@ The authoritative inventory of prompt files and variants is maintained in `suppl
 - Do not overwrite existing prompt files when comparability is required.
 - To introduce a new variant:
   1. Add a new `.txt` file.
-  2. Register the variant in `supplement/02_prompt_variants/prompt_manifest.md`.
+  2. Register the variant in `reproducibility/02_prompt_variants/prompt_manifest.md`.
 - Keep prompt identifiers stable across variants to support aggregation and comparison.
 
 ---
@@ -85,16 +85,16 @@ The authoritative inventory of prompt files and variants is maintained in `suppl
 ## Relation to Other Components
 
 - **Experimental design and schemas**
-  Defined in `supplement/01_experiment_design/`, including the execution protocol and output schema.
+  Defined in `reproducibility/01_experiment_design/`, including the execution protocol and output schema.
 
 - **Evaluation rules and judging contracts**
-  Specified independently in `supplement/03_evaluation_rules/`, covering the judging procedure and definitions.
+  Specified independently in `reproducibility/03_evaluation_rules/`, covering the judging procedure and definitions.
 
 - **Results and analyses**
-  Stored under `supplement/04_results/`, including raw outputs, judged records, and aggregated tables.
+  Stored under `reproducibility/04_results/`, including raw outputs, judged records, and aggregated tables.
 
 - **Methodological addenda and controls**
-  Documented in `supplement/05_methodological_addenda_and_controls/`.
+  Documented in `reproducibility/05_methodological_addenda_and_controls/`.
 
 - **Tools and utilities**
-  Located in `supplement/tools/`, containing inspection and maintenance helpers.
+  Located in `reproducibility/tools/`, containing inspection and maintenance helpers.

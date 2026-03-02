@@ -66,4 +66,4 @@ These revisions were applied conservatively and are limited to addressing behavi
 
 - Base B is treated as a fixed input for all evaluation experiments.
 - All prompt variants and ablations are derived from Base B and evaluated only on Q3–Q4.
-- Evaluation-stage processing, aggregation, and interpretation are defined exclusively in `supplement/03_evaluation_rules/`.
+- Evaluation-stage processing, aggregation, and interpretation are defined exclusively in `reproducibility/03_evaluation_rules/`.

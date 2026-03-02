@@ -1,4 +1,4 @@
-# supplement/tools/requirements.txt
+# reproducibility/tools/requirements.txt
 # Minimal deps for Route A reproduction (ingest + figures)
 
 numpy>=1.21

@@ -3,12 +3,12 @@ import matplotlib.pyplot as plt
 from pathlib import Path
 
 curr_dir = Path(__file__).resolve().parent
-supplement_dir = curr_dir.parent.parent
-project_dir = supplement_dir.parent
+reproducibility_dir = curr_dir.parent.parent
+project_dir = reproducibility_dir.parent
 
 # === authoritative v0 input ===
 data_path = (
-    supplement_dir
+    reproducibility_dir
     / "04_results"
     / "03_processed_evaluations"
     / "v0_baseline_judge"
@@ -19,8 +19,8 @@ data_path = (
 if not data_path.exists():
     raise FileNotFoundError(f"Expected input file not found:\n{data_path}")
 
-# output directory -> supplement/tools/figures
-out_dir = supplement_dir / "tools" / "figures"
+# output directory -> reproducibility/tools/figures
+out_dir = reproducibility_dir / "tools" / "figures"
 out_dir.mkdir(parents=True, exist_ok=True)
 
 # === load data ===
@@ -92,7 +92,7 @@ plt.legend()
 plt.grid(True, axis="y", linestyle="--", alpha=0.4)
 plt.tight_layout()
 
-# write to supplement/tools/figures directory
+# write to reproducibility/tools/figures directory
 fig_path = out_dir / "fig4_dimension_failure_rate.pdf"
 plt.savefig(fig_path, bbox_inches="tight")
 plt.show()

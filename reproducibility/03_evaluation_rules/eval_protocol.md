@@ -2,7 +2,7 @@
 
 ## 0. authority and precedence
 
-This file is the **only normative authority** for evaluation rules in `supplement/03_evaluation_rules/`.
+This file is the **only normative authority** for evaluation rules in `reproducibility/03_evaluation_rules/`.
 
 - If any other document conflicts with this file, **this file MUST be followed**.
 - `schema/judge_bundle.schema.json` defines the **raw judge bundle JSON shape** and applies **only** to runtime judge outputs.

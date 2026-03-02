@@ -10,7 +10,7 @@ This is an OPTIONAL audit utility.
 
 Reproducibility boundary for this submission:
 - Authoritative evaluation tables are the shipped scores_long.csv files under:
-  supplement/04_results/03_processed_evaluations/*/summary_tables/scores_long.csv
+  reproducibility/04_results/03_processed_evaluations/*/summary_tables/scores_long.csv
 - Figures are reproducible from these shipped CSV tables.
 - Regenerating scores_long.csv from raw bundles/records is out of scope for artifact reproduction.
 """
@@ -261,7 +261,7 @@ def main():
     )
     args = parser.parse_args()
 
-    supplement_root = Path(__file__).resolve().parents[2]
+    reproducibility_root = Path(__file__).resolve().parents[2]
     for r in args.runs:
         if r == "v0_baseline_judge":
             print("[WARN] Running v0_baseline_judge (legacy / not reproducible). Outputs are non-authoritative.")

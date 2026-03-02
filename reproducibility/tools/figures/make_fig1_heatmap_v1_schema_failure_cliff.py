@@ -10,19 +10,19 @@ import numpy as np
 curr_path = Path(__file__).resolve()
 repo_root = None
 for p in [curr_path.parent] + list(curr_path.parents):
-    if (p / "supplement").is_dir():
+    if (p / "reproducibility").is_dir():
         repo_root = p
         break
 if repo_root is None:
     repo_root = curr_path.parent.parent.parent
-supplement_dir = repo_root / "supplement"
+reproducibility_dir = repo_root / "reproducibility"
 
 # --------------------------------------------------
 # Input data (v1 only)
 #   NOTE: if you want scores_long.csv, change the filename below.
 # --------------------------------------------------
 DATA_PATH = (
-    supplement_dir
+    reproducibility_dir
     / "04_results"
     / "03_processed_evaluations"
     / "v1_paraphrase_judge"
@@ -33,7 +33,7 @@ DATA_PATH = (
 # --------------------------------------------------
 # Output figures
 # --------------------------------------------------
-out_dir = supplement_dir / "tools" / "figures"
+out_dir = reproducibility_dir / "tools" / "figures"
 out_dir.mkdir(parents=True, exist_ok=True)
 OUT_FIG = out_dir / "fig1_heatmap_v1.pdf"
 

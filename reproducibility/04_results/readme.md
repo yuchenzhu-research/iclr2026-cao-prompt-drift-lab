@@ -1,12 +1,12 @@
-# supplement/04_results
+# reproducibility/04_results
 
 This directory is the paper evidence store. It contains preserved artifacts and the canonical tables used for every reported number.
 
 ## Authority
 
-- Evaluation rules are defined under `supplement/03_evaluation_rules/`.
+- Evaluation rules are defined under `reproducibility/03_evaluation_rules/`.
 - Paper-citable numeric sources are the CSV files under:
-  - `supplement/04_results/03_processed_evaluations/<judge_version>/summary_tables/`
+  - `reproducibility/04_results/03_processed_evaluations/<judge_version>/summary_tables/`
 - This file is an index only and must not override the two items above.
 
 ## Layout
@@ -29,7 +29,7 @@ Later stages must not modify earlier stages.
 
 ## Paper numeric sources
 
-All numeric claims in the paper must cite files under `supplement/04_results/03_processed_evaluations/<judge_version>/summary_tables/`.
+All numeric claims in the paper must cite files under `reproducibility/04_results/03_processed_evaluations/<judge_version>/summary_tables/`.
 
 - Use `scores_grouped.csv` for grouped means.
 - Use `scores_long.csv` for per-file evidence.
@@ -38,17 +38,17 @@ No-merge rule: do not pool results across different judge versions.
 
 ## Inclusion and exclusion
 
-Validity criteria are defined under `supplement/03_evaluation_rules/`.
+Validity criteria are defined under `reproducibility/03_evaluation_rules/`.
 
 - If exclusions exist, they are recorded in:
-  - `supplement/04_results/03_processed_evaluations/<judge_version>/summary_tables/excluded_records.jsonl`
+  - `reproducibility/04_results/03_processed_evaluations/<judge_version>/summary_tables/excluded_records.jsonl`
 - If `excluded_records.jsonl` is absent, treat it as **zero exclusions** for that judge version.
 
 ## Figures
 
 Figures are not stored under `04_results/`.
 
-- Figure generation scripts live at `supplement/tools/figures/`.
+- Figure generation scripts live at `reproducibility/tools/figures/`.
 - Figure outputs for LaTeX compilation live at `paper/figures/`.
 
 ## Traceability recipe (grouped row → long rows → record → raw PDF)
@@ -57,5 +57,5 @@ Figures are not stored under `04_results/`.
 2) Locate supporting row(s) in `scores_long.csv`.
 3) From a `scores_long.csv` row, use join keys such as `file`, `generator_model`, `prompt_variant`, `question_id`, `trigger_type` as applicable.
 4) Locate the matching `record_*.json` under:
-   - `supplement/04_results/03_processed_evaluations/<judge_version>/valid_evaluations/`
+   - `reproducibility/04_results/03_processed_evaluations/<judge_version>/valid_evaluations/`
 5) Open the raw PDF under `01_raw_model_outputs/` using the resolution rule documented in `04_results_analysis.md`.

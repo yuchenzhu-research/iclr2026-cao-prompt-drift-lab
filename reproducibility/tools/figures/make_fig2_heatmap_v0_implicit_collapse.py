@@ -9,20 +9,20 @@ def _canon_series(s: pd.Series) -> pd.Series:
 
 
 # === configuration ===
-# Find repo root by locating a directory containing `supplement/`
+# Find repo root by locating a directory containing `reproducibility/`
 curr_path = Path(__file__).resolve()
 repo_root = None
 for p in [curr_path.parent] + list(curr_path.parents):
-    if (p / "supplement").is_dir():
+    if (p / "reproducibility").is_dir():
         repo_root = p
         break
 if repo_root is None:
     repo_root = curr_path.parent.parent.parent
 
-supplement_dir = repo_root / "supplement"
+reproducibility_dir = repo_root / "reproducibility"
 
 DATA_PATH = (
-    supplement_dir
+    reproducibility_dir
     / "04_results"
     / "03_processed_evaluations"
     / "v0_baseline_judge"
@@ -97,7 +97,7 @@ plt.title("Implicit Trigger: Mean Total by Prompt Variant × Generator (v0 basel
 plt.xlabel("Generator Model")
 plt.ylabel("Prompt Variant")
 
-out_dir = supplement_dir / "tools" / "figures"
+out_dir = reproducibility_dir / "tools" / "figures"
 out_dir.mkdir(parents=True, exist_ok=True)
 out_path = out_dir / "fig2_heatmap_v0.pdf"
 

@@ -7,7 +7,7 @@ This directory defines the experimental inputs and setup documentation for Promp
 ## Hard Boundary
 
 - This directory does not define, modify, or interpret any evaluation rules, including scoring scales, validity criteria, failure definitions, or judgment procedures.
-- The sole authority for evaluation and judging is `supplement/03_evaluation_rules/`.
+- The sole authority for evaluation and judging is `reproducibility/03_evaluation_rules/`.
 
 The purpose of this directory is to make experimental execution traceable and reproducible: what inputs were used, what output structure was requested, and how runs were produced and recorded.
 
@@ -25,10 +25,10 @@ The purpose of this directory is to make experimental execution traceable and re
 
 ## What This Directory Explicitly Does Not Define
 
-- Any scoring or judging rules (see `supplement/03_evaluation_rules/`)
+- Any scoring or judging rules (see `reproducibility/03_evaluation_rules/`)
 - Any interpretation of output quality, validity, or failure categories
 - Any post-hoc relabeling of results or metrics
-- Any results, summary tables, or analysis (see `supplement/04_results/`)
+- Any results, summary tables, or analysis (see `reproducibility/04_results/`)
 
 ---
 
@@ -77,29 +77,29 @@ This file does not enumerate failure criteria or scoring logic.
 
 ### Excluded
 
-- Evaluation and judging rules: `supplement/03_evaluation_rules/`
-- Prompt text and perturbation definitions: `supplement/02_prompt_variants/`
-- Results, summary tables, and analysis: `supplement/04_results/`
+- Evaluation and judging rules: `reproducibility/03_evaluation_rules/`
+- Prompt text and perturbation definitions: `reproducibility/02_prompt_variants/`
+- Results, summary tables, and analysis: `reproducibility/04_results/`
 
 ---
 
 ## Repository Connections
 
-This directory is part of a strictly layered supplement structure:
+This directory is part of a strictly layered reproducibility structure:
 
 - **Prompt variants and perturbations**
-  Defined in `supplement/02_prompt_variants/`, including all generator-side prompt files and variant manifests.
+  Defined in `reproducibility/02_prompt_variants/`, including all generator-side prompt files and variant manifests.
 
 - **Evaluation protocol (single authority)**
-  Defined in `supplement/03_evaluation_rules/`, which exclusively specifies judging rules, scoring scales, validity criteria, and failure definitions.
+  Defined in `reproducibility/03_evaluation_rules/`, which exclusively specifies judging rules, scoring scales, validity criteria, and failure definitions.
 
 - **Results and analysis outputs**
-  Stored under `supplement/04_results/`, including raw model outputs, judged records, invalid cases, and aggregated summary tables.
+  Stored under `reproducibility/04_results/`, including raw model outputs, judged records, invalid cases, and aggregated summary tables.
 
 - **Methodological addenda and controls**
-  Documented in `supplement/05_methodological_addenda_and_controls/`, providing auxiliary analyses, robustness notes, and design-level controls that do not alter the fixed evaluation protocol.
+  Documented in `reproducibility/05_methodological_addenda_and_controls/`, providing auxiliary analyses, robustness notes, and design-level controls that do not alter the fixed evaluation protocol.
 
 - **Tools and utilities**
-  Located in `supplement/tools/`, containing inspection scripts, validation helpers, and maintenance utilities used for artifact management and auditing.
+  Located in `reproducibility/tools/`, containing inspection scripts, validation helpers, and maintenance utilities used for artifact management and auditing.
 
 This directory defines experimental setup and execution only and does not override or reinterpret content from any connected component.

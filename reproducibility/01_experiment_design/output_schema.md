@@ -5,7 +5,7 @@ This document specifies the **expected structural layout** of model outputs used
 **Scope / Non-goals**
 - This file defines **structure only** (section names and order).
 - This file does **not** define or interpret evaluation rules (scales, validity criteria, failure definitions, or judgment procedures).
-- All evaluation logic is defined **exclusively** in `supplement/03_evaluation_rules/`.
+- All evaluation logic is defined **exclusively** in `reproducibility/03_evaluation_rules/`.
 
 ---
 
@@ -27,7 +27,7 @@ An output is expected to contain **exactly three** top-level sections, appearing
 - **ChatGPT web search instructions**: instructions for web searching and synthesis.
 - **Gemini deep research instructions**: instructions for broader literature-style exploration.
 
-> Note: Any constraints beyond this layout (e.g., length limits, content constraints, schema violation handling) are specified and adjudicated only by the evaluation protocol in `supplement/03_evaluation_rules/`.
+> Note: Any constraints beyond this layout (e.g., length limits, content constraints, schema violation handling) are specified and adjudicated only by the evaluation protocol in `reproducibility/03_evaluation_rules/`.
 
 ---
 

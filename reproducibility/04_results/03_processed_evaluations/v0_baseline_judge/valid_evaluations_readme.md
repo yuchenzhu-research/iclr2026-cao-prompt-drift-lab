@@ -79,6 +79,6 @@ They are **read-only evidence**, not analytical inputs.
 - ✅ Final analysis uses exactly three generator models (listed above)
 
 For reproduction instructions, please refer to:
-- `supplement/tools/README.md`
+- `reproducibility/tools/README.md`
 - repository root `README_FOR_REVIEWERS.md`
 

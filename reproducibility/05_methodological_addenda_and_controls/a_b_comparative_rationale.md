@@ -45,7 +45,7 @@ The released setup supports quantitative comparisons only within Prompt Family B
 
 Reported numbers are computed from judge-specific summary tables under:
 
-supplement/04_results/03_processed_evaluations/<judge_version>/summary_tables/
+reproducibility/04_results/03_processed_evaluations/<judge_version>/summary_tables/
 
 Prompt Family A is not used to populate these tables. Prompt Family B (and its frozen variants) is the exclusive source for quantitative reporting.
 

@@ -9,16 +9,16 @@ No API calls, no model execution, no randomness.
 
 Authoritative CSV tables:
 
-- `supplement/04_results/03_processed_evaluations/v0_baseline_judge/summary_tables/scores_long.csv`
-- `supplement/04_results/03_processed_evaluations/v1_paraphrase_judge/summary_tables/scores_long.csv`
-- `supplement/04_results/03_processed_evaluations/v2_schema_strict_judge/summary_tables/scores_long.csv`
+- `reproducibility/04_results/03_processed_evaluations/v0_baseline_judge/summary_tables/scores_long.csv`
+- `reproducibility/04_results/03_processed_evaluations/v1_paraphrase_judge/summary_tables/scores_long.csv`
+- `reproducibility/04_results/03_processed_evaluations/v2_schema_strict_judge/summary_tables/scores_long.csv`
 
 All paper figures are reproducible from these CSVs (**CSV → Figures**).
 
 ### What is out of scope
 
 Regenerating `scores_long.csv` from upstream raw judge bundles / intermediate records is **not supported** for this submission.
-See `supplement/tools/aggregate/README.md` for the deprecated aggregation note.
+See `reproducibility/tools/aggregate/README.md` for the deprecated aggregation note.
 
 ## v0 / v1 / v2 meaning
 
@@ -30,7 +30,7 @@ See `supplement/tools/aggregate/README.md` for the deprecated aggregation note.
 ## Directory layout
 
 ```text
-supplement/tools/
+reproducibility/tools/
   figures/             # scores_long.csv → PDF figures (reproducible)
   ingest/              # optional audit utilities (raw bundles → record JSON)
   aggregate/           # deprecated/historical notes (no supported CSV regen)
@@ -52,14 +52,14 @@ Run from repository root:
 
 All figure scripts read directly from the shipped `scores_long.csv` tables and write PDFs under:
 
-- `supplement/tools/figures/`
+- `reproducibility/tools/figures/`
 
 Example:
 ```bash
-python supplement/tools/figures/make_fig2_heatmap_v0_implicit_collapse.py
+python reproducibility/tools/figures/make_fig2_heatmap_v0_implicit_collapse.py
 ```
 
-See `supplement/tools/figures/README.md` for the script → input CSV → output PDF mapping.
+See `reproducibility/tools/figures/README.md` for the script → input CSV → output PDF mapping.
 
 ### 2) Ingest (optional audit only)
 
@@ -67,13 +67,13 @@ The ingest utilities materialize record-level JSON from raw bundles for auditing
 They are **not required** for reproducing figures or paper numbers.
 
 Entry point:
-- `supplement/tools/ingest/materialize_records.py`
+- `reproducibility/tools/ingest/materialize_records.py`
 
 ---
 
 ## Related materials
 
 Evaluation rules and schemas:
-- `supplement/03_evaluation_rules/`
+- `reproducibility/03_evaluation_rules/`
 
 These tools consume stored artifacts and do not redefine the evaluation rules.

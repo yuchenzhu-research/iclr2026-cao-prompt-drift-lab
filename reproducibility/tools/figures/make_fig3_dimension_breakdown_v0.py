@@ -20,12 +20,12 @@ def nice_dim_label(d: str) -> str:
 
 def main():
     # === fig5-style path resolution ===
-    curr_dir = Path(__file__).resolve().parent          # .../supplement/tools/figures
-    supplement_dir = curr_dir.parent.parent             # .../supplement
+    curr_dir = Path(__file__).resolve().parent          # .../reproducibility/tools/figures
+    reproducibility_dir = curr_dir.parent.parent             # .../reproducibility
 
     # === authoritative v0 input (NO fixed) ===
     data_path = (
-        supplement_dir
+        reproducibility_dir
         / "04_results"
         / "03_processed_evaluations"
         / "v0_baseline_judge"
@@ -36,7 +36,7 @@ def main():
         raise FileNotFoundError(f"Expected input file not found:\n{data_path}")
 
     # === relative output dir (same as fig5) ===
-    out_dir = supplement_dir / "tools" / "figures"
+    out_dir = reproducibility_dir / "tools" / "figures"
     out_dir.mkdir(parents=True, exist_ok=True)
 
     df = pd.read_csv(data_path)

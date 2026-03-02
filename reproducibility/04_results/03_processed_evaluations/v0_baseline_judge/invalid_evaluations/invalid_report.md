@@ -10,7 +10,7 @@ Invalid evaluations are **excluded from all quantitative aggregation and summary
 
 ## Overview
 
-- **Location**: `supplement/04_results/03_processed_evaluations/v0_baseline_judge/invalid_evaluations/`
+- **Location**: `reproducibility/04_results/03_processed_evaluations/v0_baseline_judge/invalid_evaluations/`
 - **Purpose**: summarize evaluation records that fail **protocol-level validity checks** and therefore cannot be aggregated
 - **Role**: descriptive and diagnostic; not normative
 
@@ -30,7 +30,7 @@ Each invalid record is marked using one or more **failure flags** recorded in th
 
 Failure flags are defined in:
 
-- `supplement/03_evaluation_rules/failure_taxonomy.md`
+- `reproducibility/03_evaluation_rules/failure_taxonomy.md`
 
 These flags **do not replace scoring dimensions**. They record *why* a record is excluded from aggregation.
 
@@ -98,7 +98,7 @@ The cases below are **illustrative summaries** rather than an exhaustive listing
 
 - Narrative category: B
 - Failure flag(s): `PROTOCOL_VIOLATION`
-- Location: `supplement/04_results/03_processed_evaluations/v0_baseline_judge/invalid_evaluations/main_method_cross_model/`
+- Location: `reproducibility/04_results/03_processed_evaluations/v0_baseline_judge/invalid_evaluations/main_method_cross_model/`
 - Description: the judge output departs from the required evaluation structure and shifts into advisory or diagnostic commentary.
 
 ---
@@ -107,7 +107,7 @@ The cases below are **illustrative summaries** rather than an exhaustive listing
 
 - Narrative category: D
 - Failure flag(s): `INCOMPLETE_COVERAGE`
-- Location: `supplement/04_results/03_processed_evaluations/v0_baseline_judge/invalid_evaluations/supporting_method_self_eval/`
+- Location: `reproducibility/04_results/03_processed_evaluations/v0_baseline_judge/invalid_evaluations/supporting_method_self_eval/`
 - Description: the output terminates before all required dimensions are evaluated.
 
 ---
@@ -116,7 +116,7 @@ The cases below are **illustrative summaries** rather than an exhaustive listing
 
 - Narrative category: B, C
 - Failure flag(s): `PROTOCOL_VIOLATION`, `INTERNAL_INCONSISTENCY`
-- Location: `supplement/04_results/03_processed_evaluations/v0_baseline_judge/invalid_evaluations/main_method_cross_model/`
+- Location: `reproducibility/04_results/03_processed_evaluations/v0_baseline_judge/invalid_evaluations/main_method_cross_model/`
 - Description: scores are present, but rationales do not align with the evaluated content or violate the evaluation contract.
 
 ---

@@ -7,7 +7,7 @@ This document records scope boundaries and limitations of the experimental desig
 ## Non-goals
 
 - This file does not define, modify, or interpret evaluation rules, scoring scales, validity criteria, failure definitions, or judgment procedures.
-- All evaluation logic is defined exclusively in `supplement/03_evaluation_rules/`.
+- All evaluation logic is defined exclusively in `reproducibility/03_evaluation_rules/`.
 
 ---
 
@@ -29,7 +29,7 @@ The definition and granularity of reported evaluation signals are determined by 
 ### 1.3 Handling Boundaries
 
 Some generated outputs may be deemed non-evaluable under the fixed evaluation protocol.  
-Criteria and handling procedures for such cases are defined exclusively in `supplement/03_evaluation_rules/` and are not duplicated here.
+Criteria and handling procedures for such cases are defined exclusively in `reproducibility/03_evaluation_rules/` and are not duplicated here.
 
 ---
 

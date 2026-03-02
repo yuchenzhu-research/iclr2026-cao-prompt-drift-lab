@@ -45,7 +45,7 @@ output_contract:
       provided for reviewer readability only.
 
 evaluation_reference:
-  authority: supplement/03_evaluation_rules
+  authority: reproducibility/03_evaluation_rules
   note: >
     All scoring scales, validity criteria, failure definitions, and
     judgment procedures are defined exclusively in the evaluation

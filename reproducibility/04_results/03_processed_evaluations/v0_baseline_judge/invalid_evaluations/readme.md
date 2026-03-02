@@ -20,7 +20,7 @@ Each invalid evaluation is marked using one or more **failure flags** recorded i
 
 These flags are defined and explained in:
 
-- `supplement/03_evaluation_rules/failure_taxonomy.md`
+- `reproducibility/03_evaluation_rules/failure_taxonomy.md`
 
 Failure flags **do not replace scoring dimensions**. They explain *why* an evaluation record is excluded from aggregation.
 

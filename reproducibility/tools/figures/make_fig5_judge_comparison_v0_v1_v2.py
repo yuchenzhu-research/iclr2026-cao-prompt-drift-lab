@@ -3,18 +3,18 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 curr_dir = Path(__file__).resolve().parent          # .../figures
-supplement_dir = curr_dir.parent.parent             # .../supplement
-project_dir = supplement_dir.parent                 # .../prompt-drift-lab
+reproducibility_dir = curr_dir.parent.parent             # .../reproducibility
+project_dir = reproducibility_dir.parent                 # .../prompt-drift-lab
 
-BASE_PATH = supplement_dir / "04_results" / "03_processed_evaluations"
+BASE_PATH = reproducibility_dir / "04_results" / "03_processed_evaluations"
 JUDGES = {
     "v0_baseline_judge": "v0 (baseline)",
     "v1_paraphrase_judge": "v1 (paraphrased)",
     "v2_schema_strict_judge": "v2 (schema-strict)",
 }
 
-# output directory -> supplement/tools/figures (repo-relative)
-out_dir = supplement_dir / "tools" / "figures"
+# output directory -> reproducibility/tools/figures (repo-relative)
+out_dir = reproducibility_dir / "tools" / "figures"
 out_dir.mkdir(parents=True, exist_ok=True)
 
 # === helper functions ===

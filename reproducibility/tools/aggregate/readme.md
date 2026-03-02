@@ -13,9 +13,9 @@
 
 **The only authoritative evaluation tables are the shipped `scores_long.csv` files (manually audited/fixed by the authors):**
 
-- `supplement/04_results/03_processed_evaluations/v0_baseline_judge/summary_tables/scores_long.csv`
-- `supplement/04_results/03_processed_evaluations/v1_paraphrase_judge/summary_tables/scores_long.csv`
-- `supplement/04_results/03_processed_evaluations/v2_schema_strict_judge/summary_tables/scores_long.csv`
+- `reproducibility/04_results/03_processed_evaluations/v0_baseline_judge/summary_tables/scores_long.csv`
+- `reproducibility/04_results/03_processed_evaluations/v1_paraphrase_judge/summary_tables/scores_long.csv`
+- `reproducibility/04_results/03_processed_evaluations/v2_schema_strict_judge/summary_tables/scores_long.csv`
 
 All paper figures are reproducible from these CSVs.
 
@@ -38,7 +38,7 @@ Reproduction is limited to the following deterministic pipeline:
 (scores_long.csv tables; v0/v1/v2)  →  figure scripts  →  PDF figures
 ```
 
-See `supplement/tools/figures/README.md` for the script-to-figure mapping and one-command reproduction instructions.
+See `reproducibility/tools/figures/README.md` for the script-to-figure mapping and one-command reproduction instructions.
 
 ---
 
@@ -65,5 +65,5 @@ The shipped `scores_long.csv` tables are treated as **frozen artifacts** because
 
 If you are looking for reproduction steps, start from:
 
-- `supplement/04_results/03_processed_evaluations/*/summary_tables/scores_long.csv`
-- and run `supplement/tools/figures/*.py`.
+- `reproducibility/04_results/03_processed_evaluations/*/summary_tables/scores_long.csv`
+- and run `reproducibility/tools/figures/*.py`.

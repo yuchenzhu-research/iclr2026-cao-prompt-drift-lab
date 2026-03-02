@@ -11,14 +11,14 @@ It is retained **solely for auditability and traceability of scoring logic**.
 It is **NOT a required execution entry point**, and reviewers are **not expected
 or required to run this script**.
 
-All results reported in the paper and supplement are produced via the unified,
+All results reported in the paper and reproducibility are produced via the unified,
 end-to-end pipeline implemented in:
 
 tools/reproduce_valid_evaluations.py
 
 Processed outputs are stored under:
 
-supplement/04_results/03_processed_evaluations/
+reproducibility/04_results/03_processed_evaluations/
 
 No reproducibility claims rely on executing this file.
 """
@@ -75,7 +75,7 @@ def main():
         raise FileNotFoundError(f"rubric file not found: {args.rubric}")
 
     # ---------- Minimal placeholder logic ----------
-    # The actual results used in the supplement are pre-computed.
+    # The actual results used in the reproducibility are pre-computed.
     summary = {
         "run_dir": str(args.run_dir),
         "rubric": str(args.rubric),

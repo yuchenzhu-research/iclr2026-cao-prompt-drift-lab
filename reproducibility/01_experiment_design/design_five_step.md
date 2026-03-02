@@ -69,4 +69,4 @@ Once generated, raw model outputs are treated as immutable artifacts and are not
 **Objective:** Prepare generated outputs for downstream evaluation and analysis without defining evaluation logic.
 This step performs no evaluation, interpretation, or judgment of model behavior.
 
-Generated outputs are organized and stored to support downstream evaluation, aggregation, and analysis. All evaluation criteria, validity handling, scoring procedures, and failure definitions are specified exclusively in `supplement/03_evaluation_rules/` and are not duplicated or interpreted here.
+Generated outputs are organized and stored to support downstream evaluation, aggregation, and analysis. All evaluation criteria, validity handling, scoring procedures, and failure definitions are specified exclusively in `reproducibility/03_evaluation_rules/` and are not duplicated or interpreted here.

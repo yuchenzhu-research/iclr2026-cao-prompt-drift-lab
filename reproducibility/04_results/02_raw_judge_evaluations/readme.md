@@ -1,8 +1,8 @@
-# supplement/04_results/02_raw_judge_evaluations — Raw judge outputs
+# reproducibility/04_results/02_raw_judge_evaluations — Raw judge outputs
 
 This directory stores judge outputs exactly as produced by the judge model.
 
-- Downstream processing reads from here: `supplement/04_results/03_processed_evaluations/`
+- Downstream processing reads from here: `reproducibility/04_results/03_processed_evaluations/`
 - Summary tables are not stored here.
 
 ---
@@ -16,7 +16,7 @@ Judge runs are grouped by intent:
 
 Each run lives in its own directory:
 
-- `supplement/04_results/02_raw_judge_evaluations/{diagnostic|final}/<judge_run_dir>/`
+- `reproducibility/04_results/02_raw_judge_evaluations/{diagnostic|final}/<judge_run_dir>/`
 
 A judge-run directory typically includes judge bundles and run metadata such as `run_meta.json`.
 
@@ -27,4 +27,4 @@ A judge-run directory typically includes judge bundles and run metadata such as 
 - Files are preserved exactly as generated and are not modified in place.
 - Judge outputs are treated as immutable evidence once written.
 - Any filtering, exclusion, or regeneration logic is applied only in downstream processing, with the mechanism recorded under:
-  - `supplement/04_results/03_processed_evaluations/`
+  - `reproducibility/04_results/03_processed_evaluations/`

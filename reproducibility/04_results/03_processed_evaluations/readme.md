@@ -80,7 +80,7 @@ was stabilized.
 Paper-citable numbers come **only** from:
 
 ```
-supplement/04_results/03_processed_evaluations/**/summary_tables/*.csv
+reproducibility/04_results/03_processed_evaluations/**/summary_tables/*.csv
 ```
 
 Any other files in this directory should be treated as **non-normative supporting evidence**.
@@ -89,15 +89,15 @@ Any other files in this directory should be treated as **non-normative supportin
 
 ## Provenance
 
-- Source inputs: `supplement/04_results/02_raw_judge_evaluations/`
-- Processing scripts: `supplement/tools/`
+- Source inputs: `reproducibility/04_results/02_raw_judge_evaluations/`
+- Processing scripts: `reproducibility/tools/`
 - No model inference is executed in this stage
 
 ---
 
 ## What this directory does NOT contain
 
-- Prompt variants → `supplement/02_prompt_variants/`
-- Evaluation rules → `supplement/03_evaluation_rules/`
-- Raw model outputs (PDFs) → `supplement/04_results/01_raw_model_outputs/`
-- Reproduction scripts → `supplement/tools/`
+- Prompt variants → `reproducibility/02_prompt_variants/`
+- Evaluation rules → `reproducibility/03_evaluation_rules/`
+- Raw model outputs (PDFs) → `reproducibility/04_results/01_raw_model_outputs/`
+- Reproduction scripts → `reproducibility/tools/`

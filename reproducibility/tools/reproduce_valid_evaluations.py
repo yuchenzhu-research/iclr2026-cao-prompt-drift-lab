@@ -9,7 +9,7 @@ Behavior:
     process only that version.
 - If not provided:
     automatically process all judge_version directories under
-    supplement/04_results/03_processed_evaluations/
+    reproducibility/04_results/03_processed_evaluations/
 
 Guarantees:
 - Raw judge bundles are NOT modified.
@@ -126,7 +126,7 @@ def group_scores(rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
 
 def process_one_version(judge_version: str) -> None:
     base = (
-        Path("supplement/04_results/03_processed_evaluations")
+        Path("reproducibility/04_results/03_processed_evaluations")
         / judge_version
         / "valid_evaluations"
     )
@@ -148,7 +148,7 @@ def process_one_version(judge_version: str) -> None:
     grouped = group_scores(rows)
 
     out_root = (
-        Path("supplement/04_results/03_processed_evaluations")
+        Path("reproducibility/04_results/03_processed_evaluations")
         / judge_version
         / "summary_tables"
     )
@@ -184,7 +184,7 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    root = Path("supplement/04_results/03_processed_evaluations")
+    root = Path("reproducibility/04_results/03_processed_evaluations")
 
     if args.judge_version:
         process_one_version(args.judge_version)

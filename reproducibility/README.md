@@ -1,6 +1,6 @@
-# supplement/ — Index and evidence bundle
+# reproducibility/ — Index and evidence bundle
 
-This `supplement/` directory is an **index + evidence bundle**.
+This `reproducibility/` directory is an **index + evidence bundle**.
 If you are reviewing the whole repository, the single entry point is the repo-root **`README_FOR_REVIEWERS.md`**.
 
 This artifact studies **prompt drift** under small prompt perturbations (instruction following, schema/format compliance, semantic deviation). Evidence is organized as a one-way chain:
@@ -16,19 +16,19 @@ All paper-citable numbers are backed by stored artifacts and are traceable to pr
 **Normative sources of truth (must override everything else):**
 
 1) **Rules / validity / scoring protocol**
-- `supplement/03_evaluation_rules/eval_protocol.md`
+- `reproducibility/03_evaluation_rules/eval_protocol.md`
 
 2) **Paper-citable numeric sources (per judge version)**
-- `supplement/04_results/03_processed_evaluations/<judge_version>/summary_tables/`
+- `reproducibility/04_results/03_processed_evaluations/<judge_version>/summary_tables/`
 
-This `supplement/README.md` is **non-normative** (index/explainer only). It must not override the two items above.
+This `reproducibility/README.md` is **non-normative** (index/explainer only). It must not override the two items above.
 
 ---
 
 ## 30-second navigation (no code)
 
 1) Pick a judge version under:
-- `supplement/04_results/03_processed_evaluations/`
+- `reproducibility/04_results/03_processed_evaluations/`
 
 This artifact includes:
 - `v0_baseline_judge/`
@@ -40,7 +40,7 @@ This artifact includes:
 - `summary_tables/scores_long.csv`
 
 3) Open the normative protocol:
-- `supplement/03_evaluation_rules/eval_protocol.md`
+- `reproducibility/03_evaluation_rules/eval_protocol.md`
 
 **No-merge rule:** interpret tables only within the selected `<judge_version>` (no pooling across judge versions).
 
@@ -76,7 +76,7 @@ Later stages must not modify earlier stages.
 
 For each `<judge_version>`, the following directory is the **only** numeric source for paper-citable values:
 
-- `supplement/04_results/03_processed_evaluations/<judge_version>/summary_tables/`
+- `reproducibility/04_results/03_processed_evaluations/<judge_version>/summary_tables/`
 
 Typical files:
 - `scores_long.csv`
@@ -110,7 +110,7 @@ Target chain:
 - `prompt_variant` / `trigger_type` are reliably populated in v0, but may be empty for v1/v2; do not assume they are required join keys.
 
 4) Open the raw PDF under:
-- `supplement/04_results/01_raw_model_outputs/`
+- `reproducibility/04_results/01_raw_model_outputs/`
 
 `file` semantics:
 - `file` is the canonical file identifier carried through judge bundles and processed records.
@@ -119,7 +119,7 @@ Target chain:
 Optional helper (filename-only lookup):
 
 ```bash
-cd supplement/04_results/01_raw_model_outputs
+cd reproducibility/04_results/01_raw_model_outputs
 PDF_NAME="q4_conflict_explicit.pdf"  # from record.file or inferred from the CSV row
 find . -type f -name "$PDF_NAME" -print
 ```
@@ -129,5 +129,5 @@ find . -type f -name "$PDF_NAME" -print
 ## Tools and reproducibility boundary
 
 - This pack is self-contained for audit: shipped CSV tables are backed by stored record JSON and raw PDFs.
-- Deterministic re-materialization of **records / tables / figures** from preserved bundles is supported via `supplement/tools/`.
+- Deterministic re-materialization of **records / tables / figures** from preserved bundles is supported via `reproducibility/tools/`.
 - Re-running LLM judging is **not** claimed as reproducible (judge models are stochastic and version-sensitive).
