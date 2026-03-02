@@ -1,6 +1,0 @@
-{
-  "judge_version": "v2_schema_strict_judge",
-  "snapshot_contract_id": "SC_150_EXT",
-  "snapshot_word_limit": 150,
-  "snapshot_allow_extension": true
-}

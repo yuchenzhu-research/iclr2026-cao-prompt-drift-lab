@@ -1,7 +1,0 @@
-# supplement/tools/requirements.txt
-# Minimal deps for Route A reproduction (ingest + figures)
-
-numpy>=1.21
-pandas>=1.5
-matplotlib>=3.6
-seaborn>=0.12

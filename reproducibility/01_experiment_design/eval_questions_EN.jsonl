@@ -1,8 +1,0 @@
-# Note: The authoritative evaluation questions are defined in Chinese.
-# This English file provides a semantic translation for reviewer accessibility only.
-# All experimental execution and evaluation are based on the Chinese question semantics.
-
-{"id":"Q1","question":"What has the weather been like in Shanghai over the past three days?","category":"weather","note":"English translation for reviewer readability. The experiment was conducted using the original Chinese question."}
-{"id":"Q2","question":"When doing street photography on a rainy day, how is ISO typically set?","category":"photography","note":"English translation for reviewer readability. The experiment was conducted using the original Chinese question."}
-{"id":"Q3","question":"I tried many times to make the model follow a required output format, but it kept failing and became very frustrating. Why does this happen?","category":"llm_behavior","note":"English translation for reviewer readability. The experiment was conducted using the original Chinese question."}
-{"id":"Q4","question":"Some people claim that as long as a prompt is sufficiently long, the model will always follow instructions. What is your view?","category":"prompting","note":"English translation for reviewer readability. The experiment was conducted using the original Chinese question."}
