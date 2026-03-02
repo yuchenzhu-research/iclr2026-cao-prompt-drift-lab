@@ -2,164 +2,243 @@
 
 [![en](https://img.shields.io/badge/Language-English-blue.svg)](README.md)
 
-本项目包含了 **Prompt Drift Lab** (提示词漂移实验室) 的冻结评估工件与工具。这套方法论用于研究微小、看似无害的提示词扰动如何导致大语言模型 (LLM) 在遵循指令、格式合规性和语义对齐方面发生灾难性故障。本代码库作为一个可审计的数据库，包含了提示词、生成器原始输出 (PDF)、LLM 裁判输出包 (JSON) 以及处理过的评分表 (CSV)，这为配套论文的核心结论提供了支撑。我们提供了用于确定性审计、数据记录生成以及基于已有数据直接生成图表的离线代码工具。
-
-**作者**: Yuchen Zhu
-
-### 核心贡献
-- **可审计的评估链条**：建立了一个从提示词变体到生成器原始输出、裁判包，再到最终 CSV 表格的严格单向可验证流水线。
-- **冻结数据工件**：所有模型响应和裁判判断均预先计算并保存，确保在不依赖存在随机性的 LLM API 调用的情况下实现确定性复现。
-- **失效分类法**：格式化的 schema 用于追踪模型故障的特定性质（例如：语义失败与格式失败）。
-- **离线工具支持**：提供离线代码脚本，支持准确还原论文图表并进行中间层 JSON 文件的聚合。
+> **"用同一个提示词评估模型真的可靠吗？"**
+>
+> 本项目通过系统的审计式评估发现：微小的提示词改动就能让模型评分"过山车"——从 9.31 暴跌到 0.50。
 
 ---
 
-## 目录
+## 项目要解决什么问题？
 
-1. [可复现状态](#可复现状态)
-2. [快速开始 (Minimal Runnable Path)](#快速开始-minimal-runnable-path)
-3. [完整复现流水线](#完整复现流水线)
-4. [代码库结构图](#代码库结构图)
-5. [数据工件与审计追踪](#数据工件与审计追踪)
-6. [已知问题与路线图](#已知问题与路线图)
-7. [引用](#引用)
-8. [开源协议](#开源协议)
+### 现实困境
 
----
+在 LLM 评估中，我们经常这样做：
 
-## 可复现状态
+1. 选定一个提示词
+2. 让模型跑一遍
+3. 根据结果宣称"模型 A 更好"或"模型 B 通过了测试"
 
-✅ **可复现 (已验证)**
-- 基于已处理的 CSV 自动重新绘制论文最终 PDF 图表 (`supplement/tools/figures/*.py`)。
-- 从缓存的原始裁判 JSON 数据包重新生成处理后的 JSON 记录并重新计算提取 CSV 总结数据表。
-- 安装本地 Python 依赖 `supplement/tools/requirements.txt`。
+但问题在于：**提示词本身就是评估协议的一部分**。同一个任务，换个说法问，模型的回答可能天差地别。
 
-⚠️ **部分可复现**
-- Schema 验证与评分维度逻辑。`compute_scores.py` 作为一个存档工具存在，用于说明评分规则如何映射到 JSON 数据上，但如果要从零开始进行全新的全面评估，你需要自己编写调用任意 LLM provider 接口的代码。
+### 我们的立场
 
-❌ **不可复现 (在设计上缺失)**
-- **生成模型推理**：调用 Anthropic, OpenAI 或 Google API 服务并结合 `02_prompt_variants` 来生成原始 PDF 结果的代码脚本和密钥未包含在内。
-- **裁判模型执行**：针对原始 PDF 运行评估协议 (`judge_prompt.md`) 进而产生 `02_raw_judge_evaluations` 的 API 代码未包含在内。
+我们不打算提出新的提示技巧，而是直接问：
+
+> **如果任务和解码参数都不变，提示词的微小变化（改改措辞、加点约束、换种说法）会不会直接推翻评估结论？**
+
+这就是 **Prompt Drift Lab** 在做的事情——对评估稳定性进行**审计**。
 
 ---
 
-## 快速开始 (Minimal Runnable Path)
+## 实验设计和核心发现
 
-本项目提供了离线代码用于完全确定性地重新生成研究数据表和图表。请在代码库根目录运行以下命令。相关依赖很少 (NumPy, Pandas, Matplotlib, Seaborn)。
+### 1. 实验怎么设计的？
 
-**1. 安装依赖:**
-```bash
-python -m pip install -r supplement/tools/requirements.txt
+| 维度 | 设置 |
+|------|------|
+| **测试任务** | 2 个结构化输出任务 (Q3、Q4) |
+| **生成模型** | 3 个主流 LLM（ChatGPT、Claude、Gemini） |
+| **提示词变体** | 4 种：baseline / weak / long / conflict |
+| **指令明确性** | 2 种：explicit（直接说明格式）/ implicit（间接暗示） |
+| **总测试量** | 每个模型 16 个输出（4 变体 × 2 明确性） |
+| **裁判方式** | 交叉模型裁判（Model A 评价 Model B）+ 自评交叉验证 |
+
+### 2. 核心发现
+
+#### 关键发现 F1：指令明确性是决定性因素
+
+同一模型，在 explicit 和 implicit 条件下的表现差异巨大：
+
+| 模型 | Explicit 平均 | Implicit 平均 |
+|------|---------------|---------------|
+| Gemini | **9.31** | **0.50** |
+| Claude | 4.38 | **0.00** |
+| ChatGPT | 9.38 | 7.75 |
+
+> Gemini 换个说法问，平均分直接从 9.31 掉到 0.50——几乎等于没及格。
+
+这说明**"隐式合规"是一个独立且脆弱的能力**。模型能听懂弦外之音这件事，并没有我们想象的那么可靠。
+
+#### 关键发现 F2：换个说法，结论大变
+
+只看 Q3 的平均分变化（保持任务不变）：
+
+| 模型 | Baseline → Conflict | 变化幅度 |
+|------|---------------------|----------|
+| ChatGPT | 7.50 → 9.75 | **+3.25** |
+| Claude | 4.25 → 4.50 | +0.25 |
+| Gemini | 4.00 → 4.75 | +0.75 |
+
+同一个模型，仅仅换个提示词风格，结论就可能从"这模型表现一般"变成"这模型很强"。
+
+#### 关键发现 F3：单提示词评估具有误导性
+
+单一提示词的评估结果，可能恰好选中了一个对某模型"友好"或"不友好"的说法，进而高估（低估）模型的真实可靠性。
+
+这是审计的核心价值：**让这些结论翻转变得可追溯、可审计，而不是事后诸葛亮式的叙事。**
+
+### 3. 为什么我们关注"失效"案例？
+
+传统评估会这样做：低分记录下来，然后默默扔掉不合理的、格式错的、法官拒绝评分的案例。
+
+我们的做法不同：我们**把失效视为一等公民**。
+
+常见失效类型包括：
+- **Schema/格式破坏**：JSON 少了字段、多了层级
+- **指令漂移**：直接忽略格式要求
+- **元裁判**：法官开始讨论评分标准而不是给出评分（评估污染）
+- **鲁棒性失效**：同一模型自评和互评结果差距过大
+
+失效不是"噪声"，而是**协议本身脆弱性的证据**。
+
+---
+
+## 代码库结构
+
+```
+prompt-drift-lab/
+├── paper_anon_submission/           # 论文 LaTeX 源码、图表
+│   └── figures/                     # 论文插图
+├── reproducibility/                 # 完整可复现的实验材料
+│   ├── 01_experiment_design/        # 实验设计：任务定义、输出结构、分割策略
+│   ├── 02_prompt_variants/          # 提示词变体（中文） + 变体清单
+│   ├── 03_evaluation_rules/         # 评估协议、评分维度、失效分类法
+│   │   ├── eval_protocol.md         # 核心协议（权威版本）
+│   │   ├── judge_prompt.md          # 法官提示词模板
+│   │   ├── compute_scores.py        # 评分计算脚本
+│   │   ├── scoring_dimensions.md    # 评分维度说明
+│   │   ├── failure_taxonomy.md      # 失效类型分类
+│   │   └── schema/                  # JSON Schema 定义
+│   └── 04_results/                  # 冻结的实验数据
+│       ├── 01_raw_model_outputs/    # 模型原始输出（PDF）
+│       ├── 02_raw_judge_evaluations/# 法官评分原始结果（JSON）
+│       └── 03_processed_evaluations/# 处理后的评分数据（CSV）+ 失效分析
+├── final-version/                   # 最终版论文 PDF + 补充材料
+├── README.md                        # 英文说明
+└── README_zh-CN.md                  # 中文说明（你正在看）
 ```
 
-**2. 审计并重新生成记录与表格:**
-此步骤从原始 JSON 裁判包数据重新生成权威的 CSV 数据。
+---
+
+## 快速上手：复现核心结果
+
+### 环境准备
+
 ```bash
-python -u supplement/tools/ingest/materialize_records.py \
+cd prompt-drift-lab
+python -m pip install -r reproducibility/03_evaluation_rules/tools/requirements.txt
+```
+
+依赖：NumPy、Pandas、Matplotlib、Seaborn。
+
+### 步骤 1：生成权威评分表
+
+从缓存的法官 JSON 数据重新生成 CSV：
+
+```bash
+python -u reproducibility/03_evaluation_rules/tools/materialize_records.py \
   --ack-legacy --overwrite \
   --runs v0_baseline_judge v1_paraphrase_judge v2_schema_strict_judge
 ```
-*预期输出:*
-- `supplement/04_results/03_processed_evaluations/<judge_version>/summary_tables/scores_long.csv`
-- `supplement/04_results/03_processed_evaluations/<judge_version>/summary_tables/scores_grouped.csv`
 
-**3. 重新生成图表:**
-此步骤采用上述的 `scores_long.csv` 重新生成 PDF 格式论文图。
+**预期输出：**
+- `reproducibility/04_results/03_processed_evaluations/<judge_version>/summary_tables/scores_long.csv`
+- `reproducibility/04_results/03_processed_evaluations/<judge_version>/summary_tables/scores_grouped.csv`
+
+### 步骤 2：重新绘制论文图表
+
 ```bash
-python supplement/tools/figures/make_figure1_schema_failure_cliff.py
-python supplement/tools/figures/make_figure6_judge_comparison.py
+python reproducibility/03_evaluation_rules/tools/figures/make_figure1_schema_failure_cliff.py
+python reproducibility/03_evaluation_rules/tools/figures/make_figure6_judge_comparison.py
 ```
-*预期输出:*
-图表将被生成保存在 `paper_anon_submission/figures/` 文件夹下。
+
+图表输出到 `paper_anon_submission/figures/`。
 
 ---
 
-## 完整复现流水线
+## 数据溯源：从数字到证据
 
-本基准实验强制实施严密的单向数据流动隔离。虽然调用生成器与裁判模型 API 执行步骤的代码在此处缺失 (Broken Link)，但完整的端到端概念化数据流水线如下：
+每一个报告的数据点都可以追溯到原始工件：
 
-1. **提示词生成:** `02_prompt_variants/` (变体和 manifests 定义)
-2. **模型推理 [BROKEN LINK ❌]:** 调用 LLM 生成器产生标准格式回答。
-3. **生成器原始输出存储:** `04_results/01_raw_model_outputs/` (冻结的 `.pdf` 文件)
-4. **裁判执行 [BROKEN LINK ❌]:** 应用 `03_evaluation_rules/judge_prompt.md` 执行 LLM 裁判。
-5. **原始裁判结果:** `04_results/02_raw_judge_evaluations/` (依照 `judge_bundle.schema.json` 存储的 JSON 包)
-6. **处理与总结:** `tools/ingest/` 将裁判包验证并转化为标准的 JSON 记录，最终摊平为 `04_results/03_processed_evaluations/.../scores_long.csv`。
-7. **图表绘制:** `tools/figures/` 直接读取 `scores_long.csv` 绘制可视化 PDF。
+**从表格到原始记录**
+1. 打开 `scores_long.csv`，选择任意一行
+2. 记住 `record_id` 或文件名
+3. 在 `.../valid_evaluations/` 找对应的 `record_*.json`
 
----
+**从记录到原始输出**
+1. 从 JSON 中找到 `file` 字段
+2. 在 `01_raw_model_outputs/` 找到同名 PDF
+3. 对比 PDF 内容和评分是否一致
 
-## 代码库结构图
-
-```text
-prompt-drift-lab/
-├── README_FOR_REVIEWERS.md          # 内部元数据文档，说明复现限制
-├── README.md                        # 英文版 README
-├── README_zh-CN.md                  # 中文版 README
-├── paper_anon_submission/           # 论文 LaTeX 源码
-│   └── figures/                     # 编译后用于论文 PDF 的图表
-└── supplement/                      # 包含所有实验设计、数据与工具
-    ├── 01_experiment_design/        # 测试问题、工作流详情、数据集划分标准
-    ├── 02_prompt_variants/          # 提示词变体及具体测试扰动
-    ├── 03_evaluation_rules/         # 评估协议、schemas 与评分标准
-    ├── 04_results/                  # 冻结数据工件目录 (权威数据映射)
-    │   ├── 01_raw_model_outputs/    # 模型生成的原始 PDF 文件
-    │   ├── 02_raw_judge_evaluations/# LLM 裁判输出的 JSON 数据块
-    │   └── 03_processed_evaluations/# 经过评估验证的记录 JSON 及最终 CSV
-    └── tools/                       # 工具集
-        ├── ingest/                  # JSON 到 CSV 转换工具 (materialize_records.py)
-        ├── figures/                 # 绘制数据图表的脚本
-        └── requirements.txt         # 核心依赖追踪
-```
-*(注：项目中间分支中可能会出现重复的 `final-version` / `reproducibility` 文件夹。离线组件的逻辑权威根目录准确映射为上述的 `supplement/` 与 `paper_anon_submission/` 命名空间。)*
+**评估协议的权威版本**
+> 以 `reproducibility/03_evaluation_rules/eval_protocol.md` 为准，这是唯一权威文档。
 
 ---
 
-## 数据工件与审计追踪
+## 可复现性状态
 
-为了保证每一个数据点的可验证溯源，我们在此提供直接映射指南。
+| 能力 | 状态 | 说明 |
+|------|------|------|
+| 绑定论文图表 | ✅ 可复现 | 本地 CSV 即可生成 |
+| 生成汇总表格 | ✅ 可复现 | 从缓存法官 JSON 生成 |
+| 评分逻辑验证 | ⚠️ 部分 | 脚本仅作存档参考 |
+| 从零运行完整评估 | ❌ 不可复现 | 缺少 LLM API 调用代码 |
 
-- **协议与规则:** 请仅参考 `supplement/03_evaluation_rules/eval_protocol.md`。此处的规则优先于所有其他元数据。
-- **论文数据 (评分):** 严格来源于 `supplement/04_results/03_processed_evaluations/<judge_version>/summary_tables/`。请查找 `scores_long.csv` 或 `scores_grouped.csv`。**切勿合并**不同裁判版本 (如 `v0_baseline`, `v1_paraphrase`) 的记录。
-- **审计流程 (行 -> 证据):**
-  1. 从 `scores_long.csv` 中选取任意一行数据。
-  2. 使用行标识符 (`file`, `generator_model` 等) 在 `.../valid_evaluations/**/record_*.json` 映射到处理过的 JSON。
-  3. 从 `supplement/04_results/01_raw_model_outputs/` 中加载相应的原始生成 PDF 文件。
-- **图表:** 
-  - *Figure 1 (Failure Cliff):* 由 `supplement/tools/figures/make_figure1_schema_failure_cliff.py` 生成
-  - *Figure 6 (Judge Comparison):* 由 `supplement/tools/figures/make_figure6_judge_comparison.py` 生成
-  - *(其他图表)* → *待办: 待剩余画图脚本合并后更新人工精确追踪映射。*
+**为什么没有 API 代码？**
+
+为了避免密钥泄露和 API 版本变动带来的复现问题，我们选择**只开源冻结的结果**，而非可运行但可能过时的 API 代码。如需重新运行完整实验，请自行接入 LLM 提供商。
 
 ---
 
-## 已知问题与路线图
+## 主要贡献
 
-**已知问题:**
-- **工具链执行未补全:** `tools/aggregate/` 脚本已被标记为弃用，如果不进行自定义修改，则无法直接从原始记录重新构建 CSV。
-- **运行代码骨架缺失:** 目前必须由社区手动实现用于调用生成器和进行评估的 API 绑定。我们仅提供提示词和最终运行结果工件。
+1. **可审计的评估链条**：从提示词 → 模型输出 → 法官评分 → 最终 CSV，每一步都可追溯验证
 
-**路线图:**
-- [ ] 提供一个 shim 层骨架代码，让用户能够完全通过本地 API 或标准 provider 无缝重放任意新模型。
-- [ ] 纳入针对评分维度阈值的综合测试和单元断言。
-- [ ] 自动生成 `CITATION.cff` 集成。
-- [ ] 合并 `final-version` 与 `reproducibility` 别名文件夹，以严格反映顶层的 `supplement` 路径结构。
+2. **冻结的实验工件**：所有结果预先生成并存储，不依赖任何 LLM API，确保 100% 确定可复现
+
+3. **失效分类法**：将法官失效（格式错误、拒绝评分等）系统化分类，让"评不了"本身成为一种证据
+
+4. **离线工具支持**：无需 API，无外部依赖，直接在本地复现论文所有图表和分析
+
+---
+
+## 研究启示：如何做更好的评估？
+
+基于本审计工作，我们建议评估协议设计者：
+
+| 建议 | 做什么 |
+|------|--------|
+| **提示词敏感度检查** | 用 2-3 个同类说法测试，不要只用一个提示词 |
+| **失效率报告** | 说明有多少比例的输出因格式/协议问题无法评估 |
+| **工件映射** | 每个报告的数字都要能追溯到原始输出和法官记录 |
 
 ---
 
 ## 引用
 
-如果您在研究中使用了本项目，请引用：
-*(待办: 替换为实际的论文引用/arXiv 链接。考虑在根目录下提供 `CITATION.cff`)。*
+如果本工作对你的研究有帮助，请引用：
+
 ```bibtex
-@misc{prompt-drift-lab-2026,
-  author = {Yuchen Zhu},
-  title = {Prompt Drift Lab: Frozen Artifact for Auditable Prompt-Drift Evaluation},
-  year = {2026},
-  howpublished = {\url{https://github.com/prompt-drift-lab/prompt-drift-lab}}
+@misc{promptdriftlab2026,
+  author       = {Yuchen Zhu},
+  title        = {Prompt Drift Lab: Auditing Structured Compliance under Benign Prompt Drift},
+  year         = {2026},
+  howpublished = {\url{https://github.com/prompt-drift-lab/prompt-drift-lab}},
 }
 ```
 
 ---
 
-## 开源协议
+## 协议
 
-**待办**: 代码库根目录下目前还没有显式声明全局 LICENSE 文件（常用选择：针对代码工具使用 MIT 或 Apache 2.0，针对数据工件使用 CC-BY 4.0）。（注意：`supplement/tools/LICENSE` 已存在，如果使用离线工具代码请直接查阅）。
+- **工具代码** (`reproducibility/03_evaluation_rules/tools/*`)：MIT License
+- **数据工件** (`reproducibility/04_results/*`)：CC-BY 4.0
+
+---
+
+## 联系���式
+
+- GitHub: [@Yuchen-J](https://github.com/Yuchen-J)
+- 项目主页: [prompt-drift-lab](https://github.com/prompt-drift-lab/prompt-drift-lab)
+
+有问题或建议，欢迎提 Issue！
