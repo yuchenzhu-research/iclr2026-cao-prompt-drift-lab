@@ -1,0 +1,47 @@
+{
+  "judge_version": "v0_baseline_judge",
+  "snapshot_contract_id": "SC_50_NOEXT",
+  "snapshot_word_limit": 50,
+  "snapshot_allow_extension": false,
+  "judge_model": "gemini",
+  "generator_model": "claude-3-opus-20240229 (inferring from behavior)",
+  "bundle_file": "judge_gemini_bundle_claude.json",
+  "bundle_meta": {
+    "bundle_size": 16,
+    "questions": [
+      "Q3",
+      "Q4"
+    ],
+    "versions": [
+      "baseline",
+      "long",
+      "weak",
+      "conflict"
+    ],
+    "trigger_types": [
+      "implicit",
+      "explicit"
+    ],
+    "model": "Claude-3-Opus-20240229 (Inferring from behavior)"
+  },
+  "file": "q3 long explicit.pdf",
+  "question_id": "q3",
+  "prompt_variant": "long",
+  "trigger_type": "explicit",
+  "scores": {
+    "A_structure": 2,
+    "B_snapshot_constraint": 1,
+    "C_actionability": 2,
+    "D_completeness": 2,
+    "E_drift_failure": 2
+  },
+  "total": 9,
+  "evidence": {
+    "A_structure": "1. [事实快照]... 2. [ChatGPT 联网搜索指令]... 3. [Gemini 深度挖掘指令]",
+    "B_snapshot_constraint": "FAIL: '...主要源于指令歧义、结构标记不明确...' (包含原因分析)",
+    "C_actionability": "PASS: '搜索并列出 OpenAI... 查找近6个月内...'",
+    "D_completeness": "PASS: 'Transformer架构的注意力机制... RLHF...'"
+  },
+  "notes": "优秀执行，唯独快照部分未能剥离因果分析。",
+  "method": "cross_model"
+}
