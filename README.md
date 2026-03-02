@@ -133,7 +133,14 @@ Failures aren't "noise"—they're **evidence of protocol brittleness**.
 
 ---
 
-## ⚡ Quickstart: Reproduce Core Results
+## ⚡ Quickstart: Reproducibility Boundary
+
+**Upstream (NOT reproducible):**
+- Record JSON → `scores_long.csv` + `scores_grouped.csv`
+- CSVs are **frozen artifacts** and serve as authoritative numeric sources.
+
+**Downstream (REPRODUCIBLE):**
+- `scores_long.csv` → PDF figures (deterministic)
 
 ### Setup
 
@@ -144,26 +151,28 @@ python -m pip install -r reproducibility/tools/requirements.txt
 
 > Dependencies: NumPy, Pandas, Matplotlib, Seaborn
 
-### Step 1: Generate Authoritative CSVs
+### CSV → Figures (reproducible)
+
+```bash
+# Generate all figures from frozen CSV tables
+for f in reproducibility/tools/figures/make_fig*.py; do
+  python "$f" --out_dir paper_anon_submission/figures
+done
+```
+
+**Optional**: materialize record-level JSON for audit/debugging:
 
 ```bash
 python -u reproducibility/tools/ingest/materialize_records.py \
-  --overwrite \
-  --runs v0_baseline_judge v1_paraphrase_judge v2_schema_strict_judge
+  --runs v0_baseline_judge v1_paraphrase_judge v2_schema_strict_judge \
+  --overwrite
 ```
 
-**Outputs:**
-- `reproducibility/04_results/03_processed_evaluations/<judge_version>/summary_tables/scores_long.csv`
-- `reproducibility/04_results/03_processed_evaluations/<judge_version>/summary_tables/scores_grouped.csv`
+Outputs:
+- `valid_evaluations/**/*.json` (optional audit records)
+- `run_meta.json`
 
-### Step 2: Regenerate Paper Figures
-
-```bash
-python reproducibility/tools/figures/make_fig1_heatmap_v1_schema_failure_cliff.py
-python reproducibility/tools/figures/make_fig5_judge_comparison_v0_v1_v2.py
-```
-
-> 📁 Figures output to `paper_anon_submission/figures/`
+**Note**: CSV tables (`scores_long.csv`, `scores_grouped.csv`) are **frozen** and not regenerated.
 
 ---
 

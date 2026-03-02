@@ -69,39 +69,39 @@ Notes:
 
 ---
 
-## Optional reproducibility (local; deterministic)
+## Reproducibility boundary
 
-The shipped tables are sufficient for inspection. The commands below are a local sanity check that tables can be regenerated from preserved judge bundles.
+**Upstream (NOT reproducible):**
+- Record JSON → `scores_long.csv` + `scores_grouped.csv`
+- These CSV tables are **frozen artifacts** and treated as authoritative numeric sources.
+
+**Downstream (REPRODUCIBLE):**
+- `scores_long.csv` → PDF figures (deterministic)
 
 Run from the repository root:
 
+### CSV → Figures (reproducible)
 ```bash
 python -m pip install -r reproducibility/tools/requirements.txt
 
-# 1) materialize per-file records (valid_evaluations/record_*.json)
-python reproducibility/tools/ingest/reproduce_valid_evaluations.py \
+# Generate all figures from frozen CSV tables
+for f in reproducibility/tools/figures/make_fig*.py; do
+  python "$f" --out_dir paper_anon_submission/figures
+done
+```
+
+**Optional**: materialize per-file records for audit/debugging:
+```bash
+python reproducibility/tools/ingest/materialize_records.py \
   --runs v0_baseline_judge v1_paraphrase_judge v2_schema_strict_judge \
   --overwrite
-
-# 2) regenerate per-judge summary tables (scores_long.csv, scores_grouped.csv)
-python -u reproducibility/tools/ingest/materialize_records.py \
-  --overwrite \
-  --runs v0_baseline_judge v1_paraphrase_judge v2_schema_strict_judge
 ```
 
 Expected outputs (for each judge version):
-- `reproducibility/04_results/03_processed_evaluations/<judge_version>/summary_tables/scores_long.csv`
-- `reproducibility/04_results/03_processed_evaluations/<judge_version>/summary_tables/scores_grouped.csv`
-- `reproducibility/04_results/03_processed_evaluations/<judge_version>/summary_tables/run_meta.json`
+- `valid_evaluations/**/*.json` (optional audit records)
+- `run_meta.json`
 
-Optional figure regeneration:
-
-```bash
-python reproducibility/tools/figures/make_fig1_heatmap_v1_schema_failure_cliff.py
-python reproducibility/tools/figures/make_fig5_judge_comparison_v0_v1_v2.py
-```
-
-Figures are written under `paper_anon_submission/figures/`.
+Tables (`scores_long.csv`, `scores_grouped.csv`) are **frozen** and not regenerated.
 
 ---
 # reproducibility/README.md

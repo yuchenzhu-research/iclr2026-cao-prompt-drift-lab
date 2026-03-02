@@ -133,7 +133,14 @@
 
 ---
 
-## ⚡ 快速上手：复现核心结果
+## ⚡ 快速上手：复现边界说明
+
+**上游（不可复现）：**
+- Record JSON → `scores_long.csv` + `scores_grouped.csv`
+- **CSV 评分表是冻结的审计产物**，作为权威数值来源
+
+**下游（可复现）：**
+- `scores_long.csv` → PDF 图表（确定性）
 
 ### 环境准备
 
@@ -144,26 +151,28 @@ python -m pip install -r reproducibility/tools/requirements.txt
 
 > 依赖：NumPy、Pandas、Matplotlib、Seaborn
 
-### 步骤 1：生成权威评分表
+### 从 CSV 复现论文图表（可复现）
+
+```bash
+# 一键生成所有图表
+for f in reproducibility/tools/figures/make_fig*.py; do
+  python "$f" --out_dir paper_anon_submission/figures
+done
+```
+
+**可选**：生成记录级 JSON 用于审计/调试：
 
 ```bash
 python -u reproducibility/tools/ingest/materialize_records.py \
-  --overwrite \
-  --runs v0_baseline_judge v1_paraphrase_judge v2_schema_strict_judge
+  --runs v0_baseline_judge v1_paraphrase_judge v2_schema_strict_judge \
+  --overwrite
 ```
 
-**输出文件：**
-- `reproducibility/04_results/03_processed_evaluations/<judge_version>/summary_tables/scores_long.csv`
-- `reproducibility/04_results/03_processed_evaluations/<judge_version>/summary_tables/scores_grouped.csv`
+输出：
+- `valid_evaluations/**/*.json`（可选审计记录）
+- `run_meta.json`
 
-### 步骤 2：重新绘制论文图表
-
-```bash
-python reproducibility/tools/figures/make_fig1_heatmap_v1_schema_failure_cliff.py
-python reproducibility/tools/figures/make_fig5_judge_comparison_v0_v1_v2.py
-```
-
-> 📁 图表输出到 `paper_anon_submission/figures/`
+**说明**：CSV 评分表（`scores_long.csv`、`scores_grouped.csv`）是冻结的，不重新生成。
 
 ---
 
