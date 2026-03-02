@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  1 MAR 2026 22:53
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  2 MAR 2026 09:29
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -281,7 +281,7 @@ LaTeX Font Info:    Overwriting math alphabet `\mathsfit' in version `bold'
 (Font)                  OT1/phv/m/sl --> OT1/phv/bx/n on input line 314.
 )
 LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 3
-1.
+4.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
@@ -293,20 +293,20 @@ File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
 (./paper.aux)
 \openout1 = `paper.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 34.
+LaTeX Font Info:    ... okay on input line 34.
 
 (/usr/local/texlive/2025/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -330,20 +330,20 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-LaTeX Info: Redefining \microtypecontext on input line 31.
-Package microtype Info: Applying patch `item' on input line 31.
-Package microtype Info: Applying patch `toc' on input line 31.
-Package microtype Info: Applying patch `eqnum' on input line 31.
-Package microtype Info: Applying patch `footnote' on input line 31.
-Package microtype Info: Applying patch `verbatim' on input line 31.
-LaTeX Info: Redefining \microtypesetup on input line 31.
+LaTeX Info: Redefining \microtypecontext on input line 34.
+Package microtype Info: Applying patch `item' on input line 34.
+Package microtype Info: Applying patch `toc' on input line 34.
+Package microtype Info: Applying patch `eqnum' on input line 34.
+Package microtype Info: Applying patch `footnote' on input line 34.
+Package microtype Info: Applying patch `verbatim' on input line 34.
+LaTeX Info: Redefining \microtypesetup on input line 34.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 31.
+LaTeX Info: Redefining \showhyphens on input line 34.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -355,7 +355,7 @@ File: mt-ptm.cfg 2006/04/20 v1.7 microtype config. file: Times (RS)
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
 (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msa on input line 33.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 36.
 
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
@@ -364,7 +364,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 (/usr/local/texlive/2025/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 33.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 36.
 
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
@@ -377,10 +377,10 @@ File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 File: figures/fig_pipeline_overview.pdf Graphic file (type pdf)
 <use figures/fig_pipeline_overview.pdf>
 Package pdftex.def Info: figures/fig_pipeline_overview.pdf  used on input line 
-59.
+62.
 (pdftex.def)             Requested size: 397.48499pt x 202.02893pt.
-LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 6
-7.
+LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 7
+0.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
@@ -393,7 +393,7 @@ ocal/texlive/2025/texmf-dist/fonts/enc/dvips/base/8r.enc}
 
 [2 <./figures/fig_pipeline_overview.pdf>]
 LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 1
-03.
+06.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
@@ -408,7 +408,7 @@ Package microtype Info: Loading generic protrusion settings for font family
 <figures/fig2_heatmap_v0.pdf, id=37, 487.70644pt x 295.2518pt>
 File: figures/fig2_heatmap_v0.pdf Graphic file (type pdf)
 <use figures/fig2_heatmap_v0.pdf>
-Package pdftex.def Info: figures/fig2_heatmap_v0.pdf  used on input line 185.
+Package pdftex.def Info: figures/fig2_heatmap_v0.pdf  used on input line 188.
 (pdftex.def)             Requested size: 365.68546pt x 221.38873pt.
 
 
@@ -418,25 +418,25 @@ Package pdftex.def Info: figures/fig2_heatmap_v0.pdf  used on input line 185.
 File: figures/fig3_dimension_breakdown_chatgpt.pdf Graphic file (type pdf)
 <use figures/fig3_dimension_breakdown_chatgpt.pdf>
 Package pdftex.def Info: figures/fig3_dimension_breakdown_chatgpt.pdf  used on 
-input line 206.
+input line 209.
 (pdftex.def)             Requested size: 127.1981pt x 75.22905pt.
 <figures/fig3_dimension_breakdown_claude.pdf, id=42, 498.2891pt x 294.71118pt>
 File: figures/fig3_dimension_breakdown_claude.pdf Graphic file (type pdf)
 <use figures/fig3_dimension_breakdown_claude.pdf>
 Package pdftex.def Info: figures/fig3_dimension_breakdown_claude.pdf  used on i
-nput line 207.
+nput line 210.
 (pdftex.def)             Requested size: 127.1981pt x 75.22905pt.
 <figures/fig3_dimension_breakdown_gemini.pdf, id=43, 498.2891pt x 294.71118pt>
 File: figures/fig3_dimension_breakdown_gemini.pdf Graphic file (type pdf)
 <use figures/fig3_dimension_breakdown_gemini.pdf>
 Package pdftex.def Info: figures/fig3_dimension_breakdown_gemini.pdf  used on i
-nput line 208.
+nput line 211.
 (pdftex.def)             Requested size: 127.1981pt x 75.22905pt.
 <figures/fig4_dimension_failure_rate.pdf, id=44, 426.00467pt x 280.25716pt>
 File: figures/fig4_dimension_failure_rate.pdf Graphic file (type pdf)
 <use figures/fig4_dimension_failure_rate.pdf>
 Package pdftex.def Info: figures/fig4_dimension_failure_rate.pdf  used on input
- line 215.
+ line 218.
 (pdftex.def)             Requested size: 127.1981pt x 81.88185pt.
 
 
@@ -445,7 +445,7 @@ Package pdftex.def Info: figures/fig4_dimension_failure_rate.pdf  used on input
 File: figures/fig5_judge_comparison.pdf Graphic file (type pdf)
 <use figures/fig5_judge_comparison.pdf>
 Package pdftex.def Info: figures/fig5_judge_comparison.pdf  used on input line 
-272.
+275.
 (pdftex.def)             Requested size: 365.68546pt x 206.42274pt.
 
 
