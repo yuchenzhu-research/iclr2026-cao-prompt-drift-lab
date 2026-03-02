@@ -6,7 +6,7 @@
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-yellow?style=flat-square)](https://creativecommons.org/licenses/by/4.0/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green?style=flat-square)](https://opensource.org/licenses/MIT)
 ![Status](https://img.shields.io/badge/Status-Audit-blue?style=flat-square)
-![Paper](https://img.shields.io/badge/Paper-ICLR%202026-red?style=flat-square&logo=arXiv)
+![Paper](https://img.shields.io/badge/Paper-ICLR%202026%20Workshop-red?style=flat-square&logo=arXiv)
 
 **Catch, Adapt, and Operate: Monitoring ML Models Under Drift Workshop**
 
