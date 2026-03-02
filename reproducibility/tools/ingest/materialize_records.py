@@ -265,7 +265,7 @@ def main():
     for r in args.runs:
         if r == "v0_baseline_judge":
             print("[WARN] Running v0_baseline_judge (legacy / not reproducible). Outputs are non-authoritative.")
-        process_one_run(repo_root, r, overwrite=args.overwrite)
+        process_one_run(reproducibility_root, r, overwrite=args.overwrite)
 
 
 if __name__ == "__main__":

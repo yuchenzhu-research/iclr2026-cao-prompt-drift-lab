@@ -85,7 +85,7 @@ python reproducibility/tools/ingest/reproduce_valid_evaluations.py \
 
 # 2) regenerate per-judge summary tables (scores_long.csv, scores_grouped.csv)
 python -u reproducibility/tools/ingest/materialize_records.py \
-  --ack-legacy --overwrite \
+  --overwrite \
   --runs v0_baseline_judge v1_paraphrase_judge v2_schema_strict_judge
 ```
 
@@ -97,8 +97,8 @@ Expected outputs (for each judge version):
 Optional figure regeneration:
 
 ```bash
-python reproducibility/tools/figures/make_figure1_schema_failure_cliff.py
-python reproducibility/tools/figures/make_figure6_judge_comparison.py
+python reproducibility/tools/figures/make_fig1_heatmap_v1_schema_failure_cliff.py
+python reproducibility/tools/figures/make_fig5_judge_comparison_v0_v1_v2.py
 ```
 
 Figures are written under `paper_anon_submission/figures/`.
