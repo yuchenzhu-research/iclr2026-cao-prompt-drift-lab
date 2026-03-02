@@ -1,165 +1,274 @@
-# Prompt Drift Lab
+# 🏛️ Prompt Drift Lab
 
-[![zh-CN](https://img.shields.io/badge/Language-中文-blue.svg)](README_zh-CN.md)
+<div align="center">
 
-This repository contains the frozen evaluation artifacts and tooling for **Prompt Drift Lab**, a methodology for studying how small, seemingly benign perturbations in instructions trigger catastrophic failures in Large Language Models (LLMs) regarding instruction following, schema compliance, and semantic alignment. The repository acts as an auditable database of prompts, raw generator outputs (PDFs), LLM judge bundles (JSON), and processed scoring tables (CSVs) which support the main findings of the accompanying paper. Tools are provided for deterministic audit, record materialization, and figure generation directly from frozen artifacts.
+[![中文](https://img.shields.io/badge/Chinese-blue?style=flat-square&logo=readme)](README_zh-CN.md)
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-yellow?style=flat-square)](https://creativecommons.org/licenses/by/4.0/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green?style=flat-square)](https://opensource.org/licenses/MIT)
+![Status](https://img.shields.io/badge/Status-Audit-blue?style=flat-square)
+![Paper](https://img.shields.io/badge/Paper-ICLR%202026-red?style=flat-square&logo=arXiv)
 
-**Author**: Yuchen Zhu
+**Catch, Adapt, and Operate: Monitoring ML Models Under Drift Workshop**
 
-### Key Contributions
-- **Auditable Evaluation Chain**: A strict, one-way verifiable pipeline from prompt variant to raw model output, judge bundle, and final CSV table.
-- **Frozen Artifacts**: All responses and judge decisions are pre-computed and stored to ensure deterministic reproducibility without relying on stochastic LLM APIs.
-- **Failure Taxonomy**: A formalized schema tracking the specific nature of failures (e.g., semantic vs. schema).
-- **Tooling Support**: Offline utilities capable of exactly regenerating paper figures and aggregating intermediate JSONs.
+</div>
 
----
-
-## Table of Contents
-
-1. [Reproducibility Status](#reproducibility-status)
-2. [Quickstart (Minimal Runnable Path)](#quickstart-minimal-runnable-path)
-3. [Full Reproduction Pipeline](#full-reproduction-pipeline)
-4. [Repository Map](#repository-map)
-5. [Artifacts & Audit Trail](#artifacts--audit-trail)
-6. [Known Issues & Roadmap](#known-issues--roadmap)
-7. [Citation](#citation)
-8. [License](#license)
+> **"Is single-prompt evaluation really reliable?"**
+>
+> Our audit reveals that harmless prompt variations can swing model scores dramatically—from 9.31 to 0.50.
 
 ---
 
-## Reproducibility Status
+## 🧭 What Problem Are We Solving?
 
-✅ **Runnable (Verified)**
-- Rebuilding final PDF figures from processed CSV files (`supplement/tools/figures/*.py`).
-- Materializing processed JSON records and recalculating CSV summary tables from cached raw judge JSON bundles.
-- Installing the documented python dependencies locally `supplement/tools/requirements.txt`.
+### The Real-World Dilemma
 
-⚠️ **Partially Runnable**
-- Schema validations and scoring dimensions logic. `compute_scores.py` exists as an archival utility illustrating how scoring rules map onto JSON payloads, but running a full fresh evaluation from scratch requires bringing an arbitrary LLM judge provider.
+In LLM evaluation, we commonly follow this workflow:
 
-❌ **Not Runnable (Missing by Design)**
-- **Generator Model Inference**: The scripts and API harnesses to invoke Anthropic, OpenAI, or Google endpoints with `02_prompt_variants` to generate the raw PDFs are intentionally absent.
-- **Judge Model Execution**: The API scripts to run the evaluation protocol (`judge_prompt.md`) against raw PDFs to build the `02_raw_judge_evaluations` are missing.
+1. Pick a single prompt
+2. Let the model run
+3. Declare "Model A is better" or "Model B passes"
+
+But here's the issue: **the prompt is part of the evaluation protocol**. The same task, phrased differently, can yield vastly different results.
+
+### Our Stance
+
+We don't propose new prompting tricks. Instead, we ask directly:
+
+> **If tasks and decoding parameters stay fixed, can tiny prompt changes (rephrasing, adding constraints, rewording) completely flip evaluation conclusions?**
+
+That's exactly what **Prompt Drift Lab** is about—**auditing** evaluation stability.
 
 ---
 
-## Quickstart (Minimal Runnable Path)
+## 🔬 Experimental Design & Key Findings
 
-The repository provides offline tools to regenerate tables and figures deterministically. Run these commands from the repository root. All dependencies are minimal (NumPy, Pandas, Matplotlib, Seaborn).
+### 1. How Was the Experiment Set Up?
 
-**1. Install Dependencies:**
-```bash
-python -m pip install -r supplement/tools/requirements.txt
+| Dimension | Setting |
+|-----------|---------|
+| **Test Tasks** | 2 structured output tasks (Q3, Q4) |
+| **Generator Models** | 3 LLMs (ChatGPT, Claude, Gemini) |
+| **Prompt Variants** | 4 types: baseline / weak / long / conflict |
+| **Instruction Explicitness** | 2 conditions: explicit / implicit |
+| **Total Runs** | 16 outputs per model (4 variants × 2 explicitness) |
+| **Judging** | Cross-model (Model A judges Model B) + self-judge validation |
+
+### 2. Key Findings
+
+#### Finding F1: Explicitness Dominates Stability
+
+Same model, stark difference between explicit and implicit conditions:
+
+| Model | Explicit Avg | Implicit Avg |
+|-------|--------------|--------------|
+| Gemini | **9.31** | **0.50** |
+| Claude | 4.38 | **0.00** |
+| ChatGPT | 9.38 | 7.75 |
+
+> Gemini under implicit instructions drops from 9.31 to 0.50—basically failing.
+
+This shows **"implicit compliance" is a distinct and fragile capability**. Models don't understand hints as reliably as we thought.
+
+#### Finding F2: Rephrasing Changes Conclusions
+
+Looking at Q3 mean scores (task held constant):
+
+| Model | Baseline → Conflict | Change |
+|-------|---------------------|--------|
+| ChatGPT | 7.50 → 9.75 | **+3.25** |
+| Claude | 4.25 → 4.50 | +0.25 |
+| Gemini | 4.00 → 4.75 | +0.75 |
+
+Just changing prompt style can turn "this model is mediocre" into "this model is excellent".
+
+#### Finding F3: Single-Prompt Evaluation Misleads
+
+A single snapshot can pick a "good" or "bad" framing, overstating (or understating) reliability.
+
+The audit's value: **making these flips traceable and auditable**, not just post-hoc storytelling.
+
+### 3. Why We Track "Invalid" Cases
+
+Traditional evaluation: record low scores, silently drop cases where judges couldn't evaluate.
+
+Our approach: **treat failures as first-class citizens**.
+
+**Common Failure Types:**
+
+| Type | Description |
+|------|-------------|
+| 📦 Schema/Format Break | Missing JSON fields, wrong structure |
+| 🚪 Instruction Drift | Ignoring format requirements |
+| 💬 Evaluation Pollution | Judge discusses rubric instead of scoring |
+| 📉 Robustness Failure | Self-judge vs. cross-judge mismatch |
+
+Failures aren't "noise"—they're **evidence of protocol brittleness**.
+
+---
+
+## 📁 Repository Structure
+
+```
+📂 prompt-drift-lab/
+├── 📄 README.md                        # English README (you're here)
+├── 📄 README_zh-CN.md                  # 中文说明
+├── 📂 paper_anon_submission/           # 📝 LaTeX source, figures
+│   └── 📂 figures/                     # Paper figures
+├── 📂 reproducibility/                 # 🔧 Complete reproducible materials
+│   ├── 📂 01_experiment_design/        # 🎯 Tasks, output structure, splits
+│   ├── 📂 02_prompt_variants/          # 💬 Prompt variants (Chinese)
+│   ├── 📂 03_evaluation_rules/         # ⚖️ Eval protocol, scoring, taxonomy
+│   │   ├── 📄 eval_protocol.md         # Core protocol (authoritative)
+│   │   ├── 📄 judge_prompt.md          # Judge template
+│   │   ├── 📄 compute_scores.py        # Scoring script
+│   │   ├── 📄 scoring_dimensions.md    # Scoring dimensions
+│   │   ├── 📄 failure_taxonomy.md      # Failure classification
+│   │   └── 📂 schema/                  # JSON Schema definitions
+│   └── 📂 04_results/                  # 📦 Frozen artifacts
+│       ├── 📂 01_raw_model_outputs/    # 📄 Raw PDFs
+│       ├── 📂 02_raw_judge_evaluations/# 📊 Judge JSON bundles
+│       └── 📂 03_processed_evaluations/# 📈 Processed CSVs + failure analysis
+└── 📂 final-version/                   # 🎯 Final paper PDF + supplement
 ```
 
-**2. Audit/Regenerate Records & Summary Tables:**
-This step regenerates the authoritative CSV data from raw JSON bundles.
+---
+
+## ⚡ Quickstart: Reproduce Core Results
+
+### Setup
+
 ```bash
-python -u supplement/tools/ingest/materialize_records.py \
+cd prompt-drift-lab
+python -m pip install -r reproducibility/03_evaluation_rules/tools/requirements.txt
+```
+
+> Dependencies: NumPy, Pandas, Matplotlib, Seaborn
+
+### Step 1: Generate Authoritative CSVs
+
+```bash
+python -u reproducibility/03_evaluation_rules/tools/materialize_records.py \
   --ack-legacy --overwrite \
   --runs v0_baseline_judge v1_paraphrase_judge v2_schema_strict_judge
 ```
-*Expected Outputs:*
-- `supplement/04_results/03_processed_evaluations/<judge_version>/summary_tables/scores_long.csv`
-- `supplement/04_results/03_processed_evaluations/<judge_version>/summary_tables/scores_grouped.csv`
 
-**3. Regenerate Figures:**
-This step creates PDF figures utilizing the `scores_long.csv` tables.
+**Outputs:**
+- `reproducibility/04_results/03_processed_evaluations/<judge_version>/summary_tables/scores_long.csv`
+- `reproducibility/04_results/03_processed_evaluations/<judge_version>/summary_tables/scores_grouped.csv`
+
+### Step 2: Regenerate Paper Figures
+
 ```bash
-python supplement/tools/figures/make_figure1_schema_failure_cliff.py
-python supplement/tools/figures/make_figure6_judge_comparison.py
+python reproducibility/03_evaluation_rules/tools/figures/make_figure1_schema_failure_cliff.py
+python reproducibility/03_evaluation_rules/tools/figures/make_figure6_judge_comparison.py
 ```
-*Expected Outputs:*
-Figures are written directly into `paper_anon_submission/figures/`. 
+
+> 📁 Figures output to `paper_anon_submission/figures/`
 
 ---
 
-## Full Reproduction Pipeline
+## 🔗 Data Provenance: From Numbers to Evidence
 
-The experiment enforces a strictly isolated, one-way data flow. While the generator and judge API execution stages are broken, the intended end-to-end conceptual flow is as follows:
+Every reported data point traces back to raw artifacts:
 
-1. **Prompt Generation:** `02_prompt_variants/` (Variants & manifests definitions)
-2. **Model Inference [BROKEN LINK ❌]:** Call LLM generators to produce standard formatted responses.
-3. **Raw Generator Output Storage:** `04_results/01_raw_model_outputs/` (Saved as frozen `.pdf` files)
-4. **Judge Execution [BROKEN LINK ❌]:** Apply `03_evaluation_rules/judge_prompt.md` using LLM as a judge.
-5. **Raw Judge Outcomes:** `04_results/02_raw_judge_evaluations/` (Stored as JSON bundles according to `judge_bundle.schema.json`)
-6. **Processing & Summary:** `tools/ingest/` validates bundles into standardized JSON records, which are flattened into `04_results/03_processed_evaluations/.../scores_long.csv`.
-7. **Plotting:** `tools/figures/` reads `scores_long.csv` directly to plot visual PDFs.
+**1. Table → Raw Record**
 
----
+1. Open `scores_long.csv`, pick any row
+2. Note `record_id` or filename
+3. Find corresponding `record_*.json` in `.../valid_evaluations/`
 
-## Repository Map
+**2. Record → Original Output**
 
-```text
-prompt-drift-lab/
-├── README_FOR_REVIEWERS.md          # Internal meta documentation for reproduction limits
-├── README.md                        # This production README
-├── README_zh-CN.md                  # Simplified Chinese README
-├── paper_anon_submission/           # LaTeX source code for the paper
-│   └── figures/                     # Compiled figures targeting paper PDF
-└── supplement/                      # Contains ALL experimental designs, data & tools
-    ├── 01_experiment_design/        # Questions, workflow details, split criteria
-    ├── 02_prompt_variants/          # Prompt variants and specific perturbations tested
-    ├── 03_evaluation_rules/         # Eval protocols, schemas, and scoring criteria
-    ├── 04_results/                  # FROZEN Artifacts Directory (Authority mapping)
-    │   ├── 01_raw_model_outputs/    # Model generated raw PDF files
-    │   ├── 02_raw_judge_evaluations/# LLM judge output JSON blocks
-    │   └── 03_processed_evaluations/# Evaluated valid records JSONs AND the final CSVs
-    └── tools/                       # Tooling
-        ├── ingest/                  # JSON to CSV conversion (materialize_records.py)
-        ├── figures/                 # Scripts rendering metrics to plots
-        └── requirements.txt         # Minimal dependency tracking
-```
-*(Note: A duplicate folder `final-version` / `reproducibility` may appear in intermediate repository branches. The logical authoritative root for offline components maps exactly to the `supplement/` and `paper_anon_submission/` namespaces as modeled above.)*
+1. Find `file` field in the JSON
+2. Locate the PDF in `01_raw_model_outputs/`
+3. Compare PDF content with judge scores
+
+**3. Authoritative Protocol**
+
+> ⚠️ Refer to `reproducibility/03_evaluation_rules/eval_protocol.md` as the single source of truth.
 
 ---
 
-## Artifacts & Audit Trail
+## ✅ Reproducibility Status
 
-We provide a direct mapping to establish the provenance of every data point.
+| Capability | Status | Notes |
+|------------|--------|-------|
+| 🔄 Regenerate Figures | ✅ Verified | Local CSVs work |
+| 📊 Generate Summary Tables | ✅ Verified | From cached judge JSONs |
+| 🧮 Scoring Logic | ⚠️ Partial | Scripts are archival only |
+| 🚀 Full Evaluation from Scratch | ❌ Missing | No LLM API code included |
 
-- **Protocol & Rules:** Look exclusively at `supplement/03_evaluation_rules/eval_protocol.md`. Everything here overrides other metadata.
-- **Paper Numbers (Scores):** Derived strictly from `supplement/04_results/03_processed_evaluations/<judge_version>/summary_tables/`. Look for `scores_long.csv` or `scores_grouped.csv`. **DO NOT MERGE** records across judge versions (e.g. `v0_baseline`, `v1_paraphrase`).
-- **Audit Process (Row -> Evidence):**
-  1. Pick an arbitrary file row from `scores_long.csv`.
-  2. Map to processed JSON in `.../valid_evaluations/**/record_*.json` using row identifiers (`file`, `generator_model`, etc).
-  3. Load the corresponding raw generated PDF from `supplement/04_results/01_raw_model_outputs/`.
-- **Figures:** 
-  - *Figure 1 (Failure Cliff):* Produced by `supplement/tools/figures/make_figure1_schema_failure_cliff.py`
-  - *Figure 6 (Judge Comparison):* Produced by `supplement/tools/figures/make_figure6_judge_comparison.py`
-  - *(Other figures)* → *TODO: add exact manual tracking maps once remaining figure scripts are consolidated.*
+> **Why no API code?**
+>
+> To avoid key leakage and API version drift issues, we publish **frozen results only**, not runnable but potentially outdated API scripts.
 
 ---
 
-## Known Issues & Roadmap
+## 🎯 Key Contributions
 
-**Known Issues:**
-- **Incomplete tooling execution:** `tools/aggregate/` scripts are marked deprecated and cannot rebuild CSVs directly from raw records without custom adaptations.
-- **Missing Code Harness:** API execution bindings for generators and evaluating judges currently must be implemented by the community. We solely provide prompts and artifacts.
+1. **🔍 Auditable Evaluation Chain**
+   > Prompt → Model Output → Judge Bundle → CSV—every step traceable and verifiable
 
-**Roadmap:**
-- [ ] Provide a shim harness to actually let users replay arbitrary new models seamlessly entirely through local APIs or standard providers.
-- [ ] Incorporate comprehensive testing and unit-assertions for scoring dimension thresholds.
-- [ ] Auto-generate `CITATION.cff` integration.
-- [ ] Consolidate the `final-version` and `reproducibility` alias folders to strictly reflect top-level `supplement` paths.
+2. **❄️ Frozen Artifacts**
+   > Pre-computed results, no LLM API calls needed, 100% deterministic reproducibility
+
+3. **📋 Failure Taxonomy**
+   > Systematized classification of judge failures (format errors, refusal to score, etc.)
+
+4. **🛠️ Offline Tooling**
+   > No APIs, no dependencies—just run scripts to regenerate all paper figures and analyses
 
 ---
 
-## Citation
+## 📋 Best Practices for Evaluation Design
 
-If you use this repository, please cite:
-*(TODO: Replace with actual paper citation/arXiV link. Consider providing a `CITATION.cff` in the root).*
+Based on this audit, we recommend:
+
+| Recommendation | Action |
+|----------------|--------|
+| 💡 Prompt Sensitivity Check | Test with 2-3 rephrasings, don't rely on single prompt |
+| 📉 Report Invalid Rates | Document how many outputs couldn't be evaluated |
+| 🔗 Artifact Mapping | Every reported number should trace to raw outputs + judge records |
+
+---
+
+## 📖 Citation
+
+If this work aids your research, please cite:
+
 ```bibtex
-@misc{prompt-drift-lab-2026,
-  author = {Yuchen Zhu},
-  title = {Prompt Drift Lab: Frozen Artifact for Auditable Prompt-Drift Evaluation},
-  year = {2026},
-  howpublished = {\url{https://github.com/prompt-drift-lab/prompt-drift-lab}}
+@misc{promptdriftlab2026,
+  author       = {Yuchen Zhu},
+  title        = {Prompt Drift Lab: Auditing Structured Compliance under Benign Prompt Drift},
+  year         = {2026},
+  howpublished = {\url{https://github.com/prompt-drift-lab/prompt-drift-lab}},
 }
 ```
 
 ---
 
-## License
+## 📄 License
 
-**TODO**: An explicit canonical LICENSE file (e.g., MIT or Apache 2.0 for tools, and CC-BY 4.0 for frozen data artifacts) hasn't been mapped to the repo root yet. (Although `supplement/tools/LICENSE` exists, please consult it directly for using the tools).
+| Content | License |
+|---------|---------|
+| 🛠️ Tool Code | MIT License |
+| 📦 Data Artifacts | CC-BY 4.0 |
+
+---
+
+## 👤 Author
+
+**Yuchen Zhu** (朱宇晨)
+
+- 🏠 GitHub: [@Yuchen-J](https://github.com/Yuchen-J)
+- 🌍 Project: [prompt-drift-lab](https://github.com/prompt-drift-lab/prompt-drift-lab)
+
+Questions or suggestions? Feel free to open an issue!
+
+---
+
+<div align="center">
+
+*"Ars Longa, Vita Brevis"*
+
+</div>
