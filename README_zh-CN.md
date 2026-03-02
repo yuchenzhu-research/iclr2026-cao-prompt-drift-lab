@@ -241,7 +241,7 @@ python reproducibility/03_evaluation_rules/tools/figures/make_figure6_judge_comp
   author       = {Yuchen Zhu},
   title        = {Prompt Drift Lab: Auditing Structured Compliance under Benign Prompt Drift},
   year         = {2026},
-  howpublished = {\url{https://github.com/prompt-drift-lab/prompt-drift-lab}},
+  howpublished = {\url{https://github.com/yuchenzhu-research/iclr2026-cao-prompt-drift-lab}},
 }
 ```
 
@@ -260,8 +260,8 @@ python reproducibility/03_evaluation_rules/tools/figures/make_figure6_judge_comp
 
 **朱宇晨** (Yuchen Zhu)
 
-- 🏠 GitHub: [@Yuchen-J](https://github.com/Yuchen-J)
-- 🌍 项目主页: [prompt-drift-lab](https://github.com/prompt-drift-lab/prompt-drift-lab)
+- 🏠 GitHub: [@yuchenzhu-research](https://github.com/yuchenzhu-research)
+- 🌍 项目主页: [iclr2026-cao-prompt-drift-lab](https://github.com/yuchenzhu-research/iclr2026-cao-prompt-drift-lab)
 
 有问题或建议，欢迎提 Issue！
 

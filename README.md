@@ -241,7 +241,7 @@ If this work aids your research, please cite:
   author       = {Yuchen Zhu},
   title        = {Prompt Drift Lab: Auditing Structured Compliance under Benign Prompt Drift},
   year         = {2026},
-  howpublished = {\url{https://github.com/prompt-drift-lab/prompt-drift-lab}},
+  howpublished = {\url{https://github.com/yuchenzhu-research/iclr2026-cao-prompt-drift-lab}},
 }
 ```
 
@@ -260,8 +260,8 @@ If this work aids your research, please cite:
 
 **Yuchen Zhu** (朱宇晨)
 
-- 🏠 GitHub: [@Yuchen-J](https://github.com/Yuchen-J)
-- 🌍 Project: [prompt-drift-lab](https://github.com/prompt-drift-lab/prompt-drift-lab)
+- 🏠 GitHub: [@yuchenzhu-research](https://github.com/yuchenzhu-research)
+- 🌍 Project: [iclr2026-cao-prompt-drift-lab](https://github.com/yuchenzhu-research/iclr2026-cao-prompt-drift-lab)
 
 Questions or suggestions? Feel free to open an issue!
 
