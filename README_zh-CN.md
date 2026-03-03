@@ -1,18 +1,22 @@
-# Prompt Drift Lab
-
 <div align="center">
 
 # Prompt Drift Lab
 
 **Catch, Adapt, and Operate: Monitoring ML Models Under Drift Workshop**
 
----
+<p align="center">
+  <a href="https://creativecommons.org/licenses/by/4.0/"><img src="https://img.shields.io/badge/License-CC%20BY%204.0-yellow?style=flat-square" alt="License: CC BY 4.0" /></a>
+  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="License: MIT" /></a>
+  <img src="https://img.shields.io/badge/Status-Audit-blue?style=flat-square" alt="Status" />
+  <img src="https://img.shields.io/badge/Paper-ICLR%202026%20Workshop-red?style=flat-square&logo=arXiv" alt="Paper" />
+</p>
 
-[![EN](https://img.shields.io/badge/English-blue?style=flat-square&logo=readme)](README.md)
-[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-yellow?style=flat-square)](https://creativecommons.org/licenses/by/4.0/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green?style=flat-square)](https://opensource.org/licenses/MIT)
-![Status](https://img.shields.io/badge/Status-Audit-blue?style=flat-square)
-![Paper](https://img.shields.io/badge/Paper-ICLR%202026%20Workshop-red?style=flat-square&logo=arXiv)
+<p align="center">
+  <strong>
+    简体中文 |
+    <a href="README.md">English</a>
+  </strong>
+</p>
 
 </div>
 
