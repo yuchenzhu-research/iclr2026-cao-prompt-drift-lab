@@ -1,14 +1,18 @@
-# 🏛️ Prompt Drift Lab
+# Prompt Drift Lab
 
 <div align="center">
+
+# Prompt Drift Lab
+
+**Catch, Adapt, and Operate: Monitoring ML Models Under Drift Workshop**
+
+---
 
 [![中文](https://img.shields.io/badge/Chinese-blue?style=flat-square&logo=readme)](README_zh-CN.md)
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-yellow?style=flat-square)](https://creativecommons.org/licenses/by/4.0/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green?style=flat-square)](https://opensource.org/licenses/MIT)
 ![Status](https://img.shields.io/badge/Status-Audit-blue?style=flat-square)
 ![Paper](https://img.shields.io/badge/Paper-ICLR%202026%20Workshop-red?style=flat-square&logo=arXiv)
-
-**Catch, Adapt, and Operate: Monitoring ML Models Under Drift Workshop**
 
 </div>
 
@@ -124,10 +128,20 @@ Failures aren't "noise"—they're **evidence of protocol brittleness**.
 │   │   ├── 📄 scoring_dimensions.md    # Scoring dimensions
 │   │   ├── 📄 failure_taxonomy.md      # Failure classification
 │   │   └── 📂 schema/                  # JSON Schema definitions
-│   └── 📂 04_results/                  # 📦 Frozen artifacts
-│       ├── 📂 01_raw_model_outputs/    # 📄 Raw PDFs
-│       ├── 📂 02_raw_judge_evaluations/# 📊 Judge JSON bundles
-│       └── 📂 03_processed_evaluations/# 📈 Processed CSVs + failure analysis
+│   ├── 📂 04_results/                  # 📦 Frozen artifacts
+│   │   ├── 📂 01_raw_model_outputs/    # 📄 Raw PDFs
+│   │   ├── 📂 02_raw_judge_evaluations/# 📊 Judge JSON bundles
+│   │   └── 📂 03_processed_evaluations/# 📈 Processed CSVs + failure analysis
+│   ├── 📂 05_methodological_addenda_and_controls/  # 📖 Design rationale & comparisons
+│   │   └── 📄 a_b_comparative_rationale.md
+│   └── 📂 tools/                       # 🛠️ Offline audit & figure generation
+│       ├── 📂 figures/                 # CSV → PDF figure scripts
+│       ├── 📂 ingest/                  # Audit utilities (optional)
+│       ├── 📂 aggregate/               # Deprecated aggregation notes
+│       ├── 📂 validation_utils/        # Schema validation
+│       ├── 📂 scoring_utils/           # Rubric scoring helpers
+│       ├── 📂 analysis_utils/          # Analysis helpers
+│       └── 📂 examples/                # Minimal examples
 └── 📂 final-version/                   # 🎯 Final paper PDF + supplement
 ```
 

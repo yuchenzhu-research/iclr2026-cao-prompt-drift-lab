@@ -1,14 +1,18 @@
-# 🏛️ Prompt Drift Lab
+# Prompt Drift Lab
 
 <div align="center">
+
+# Prompt Drift Lab
+
+**Catch, Adapt, and Operate: Monitoring ML Models Under Drift Workshop**
+
+---
 
 [![EN](https://img.shields.io/badge/English-blue?style=flat-square&logo=readme)](README.md)
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-yellow?style=flat-square)](https://creativecommons.org/licenses/by/4.0/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green?style=flat-square)](https://opensource.org/licenses/MIT)
 ![Status](https://img.shields.io/badge/Status-Audit-blue?style=flat-square)
 ![Paper](https://img.shields.io/badge/Paper-ICLR%202026%20Workshop-red?style=flat-square&logo=arXiv)
-
-**Catch, Adapt, and Operate: Monitoring ML Models Under Drift Workshop**
 
 </div>
 
@@ -124,10 +128,20 @@
 │   │   ├── 📄 scoring_dimensions.md    # 评分维度说明
 │   │   ├── 📄 failure_taxonomy.md      # 失效类型分类
 │   │   └── 📂 schema/                  # JSON Schema 定义
-│   └── 📂 04_results/                  # 📦 冻结的实验数据
-│       ├── 📂 01_raw_model_outputs/    # 📄 模型原始输出（PDF）
-│       ├── 📂 02_raw_judge_evaluations/# 📊 法官评分原始结果（JSON）
-│       └── 📂 03_processed_evaluations/# 📈 处理后的评分数据（CSV）+ 失效分析
+│   ├── 📂 04_results/                  # 📦 冻结的实验数据
+│   │   ├── 📂 01_raw_model_outputs/    # 📄 模型原始输出（PDF）
+│   │   ├── 📂 02_raw_judge_evaluations/# 📊 法官评分原始结果（JSON）
+│   │   └── 📂 03_processed_evaluations/# 📈 处理后的评分数据（CSV）+ 失效分析
+│   ├── 📂 05_methodological_addenda_and_controls/  # 📖 设计意图与比较边界说明
+│   │   └── 📄 a_b_comparative_rationale.md
+│   └── 📂 tools/                       # 🛠️ 离线审计与图表生成工具
+│       ├── 📂 figures/                 # CSV → PDF 图表生成脚本
+│       ├── 📂 ingest/                  # 审计工具（可选）
+│       ├── 📂 aggregate/               # 已废弃的聚合说明
+│       ├── 📂 validation_utils/        # 模式验证工具
+│       ├── 📂 scoring_utils/           # 评分规则辅助工具
+│       ├── 📂 analysis_utils/          # 分析辅助工具
+│       └── 📂 examples/                # 最小示例
 └── 📂 final-version/                   # 🎯 最终版论文 PDF + 补充材料
 ```
 
