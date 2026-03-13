@@ -118,22 +118,34 @@
 
 ```
 prompt-drift-lab/
+├── ANONYMIZATION_CHECKLIST.md          # 匿名化与发布检查清单
 ├── README.md
 ├── README_zh-CN.md
 ├── README_FOR_REVIEWERS.md
-├── paper_anon_submission/figures/      # 冻结的论文图
-├── final-version/figures/              # 发布版图集
+├── paper_anon_submission/              # 匿名投稿包与冻结图表
+├── final-version/                      # 定稿论文包与发布版图表
 └── reproducibility/
+    ├── 01_experiment_design/           # 任务设计、协议 YAML、schema 与设计笔记
+    ├── 02_prompt_variants/             # baseline / weak / long / conflict 提示词
     ├── TECHNICAL_MAP.md                # 面向工程审计的结构地图
     ├── 03_evaluation_rules/            # 权威协议与有效性规则
     ├── 04_results/                     # 原始证据与规范化结果
+    ├── 05_methodological_addenda_and_controls/  # 方法补充说明与控制项
     └── tools/                          # 离线重建、审计、作图脚本
 ```
+
+说明：
+
+- `reproducibility/04_results/03_processed_evaluations/` 是论文和图表使用的规范化结果主层。
+- `reproducibility/04_results/03_processed_evaluations_rebuilt/` 是本地重建输出目录，不作为主 artifact 结构的一部分。
+- `.DS_Store`、`__pycache__/` 这类缓存文件不属于 artifact，应忽略。
 
 推荐入口：
 
 - `README_FOR_REVIEWERS.md`：review 流程
 - `reproducibility/TECHNICAL_MAP.md`：pipeline、数量、契约
+- `reproducibility/01_experiment_design/`：任务设计与实验设置
+- `reproducibility/02_prompt_variants/`：实际测试的提示词变体
 - `reproducibility/03_evaluation_rules/eval_protocol.md`：唯一权威协议
 - `reproducibility/04_results/03_processed_evaluations/<judge_version>/summary_tables/`：论文可引用数字
 

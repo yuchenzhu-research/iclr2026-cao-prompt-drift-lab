@@ -116,24 +116,36 @@ Failures aren't "noise"—they're **evidence of protocol brittleness**.
 
 ## 📁 Repository Structure
 
-```
+``` 
 prompt-drift-lab/
+├── ANONYMIZATION_CHECKLIST.md          # anonymization and release checklist
 ├── README.md
 ├── README_zh-CN.md
 ├── README_FOR_REVIEWERS.md
-├── paper_anon_submission/figures/      # frozen paper figures
-├── final-version/figures/              # published release figures
+├── paper_anon_submission/              # anonymized paper package and frozen figures
+├── final-version/                      # camera-ready package and published figures
 └── reproducibility/
+    ├── 01_experiment_design/           # tasks, protocol YAML, schemas, and design notes
+    ├── 02_prompt_variants/             # baseline / weak / long / conflict prompt files
     ├── TECHNICAL_MAP.md                # engineering-facing artifact map
     ├── 03_evaluation_rules/            # authoritative protocol and validity rules
     ├── 04_results/                     # raw evidence + canonical processed outputs
+    ├── 05_methodological_addenda_and_controls/  # rationale and methodological notes
     └── tools/                          # offline rebuild, audit, and figure scripts
 ```
+
+Notes:
+
+- `reproducibility/04_results/03_processed_evaluations/` is the canonical processed layer used by the paper and figures.
+- `reproducibility/04_results/03_processed_evaluations_rebuilt/` is a local rebuild target and is intentionally excluded from the main artifact map.
+- Cache files such as `.DS_Store` and `__pycache__/` are non-artifact noise and should be ignored.
 
 Recommended entry points:
 
 - `README_FOR_REVIEWERS.md` for review flow
 - `reproducibility/TECHNICAL_MAP.md` for pipeline, counts, and contracts
+- `reproducibility/01_experiment_design/` for task design and experiment setup
+- `reproducibility/02_prompt_variants/` for the actual prompt variants under test
 - `reproducibility/03_evaluation_rules/eval_protocol.md` for normative protocol
 - `reproducibility/04_results/03_processed_evaluations/<judge_version>/summary_tables/` for paper-citable numbers
 
