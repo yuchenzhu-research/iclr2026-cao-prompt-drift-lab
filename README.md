@@ -62,11 +62,11 @@ That's exactly what **Prompt Drift Lab** is about—**auditing** evaluation stab
 | **Total Runs** | 16 outputs per model (4 variants × 2 explicitness) |
 | **Judging** | Cross-model (Model A judges Model B) + self-judge validation |
 
-Question IDs follow the benchmark files in [`reproducibility/01_experiment_design/eval_questions_ZH.jsonl`](/Users/yuchenzhu/Desktop/github/ICLR2026/reproducibility/01_experiment_design/eval_questions_ZH.jsonl) and [`reproducibility/01_experiment_design/eval_questions_EN.jsonl`](/Users/yuchenzhu/Desktop/github/ICLR2026/reproducibility/01_experiment_design/eval_questions_EN.jsonl). The Chinese file is authoritative; the English file is a reviewer-facing translation. Q1-Q2 were used only to iterate prompt variants and sanity-check execution, while all reported numbers in this repository are derived from the held-out pair Q3-Q4.
+Question IDs come from the four-question benchmark defined under `reproducibility/01_experiment_design/`. The authoritative semantics are stored in `eval_questions_ZH.jsonl`, with `eval_questions_EN.jsonl` provided as a reviewer-facing translation. Q1-Q2 were used only for prompt iteration and sanity checks, while all reported numbers in this repository are derived from the held-out pair Q3-Q4.
 
-The preserved raw output directories are [`openai_gpt-5.2_extended-thinking`](/Users/yuchenzhu/Desktop/github/ICLR2026/reproducibility/04_results/01_raw_model_outputs/openai_gpt-5.2_extended-thinking), [`google_gemini-3-pro`](/Users/yuchenzhu/Desktop/github/ICLR2026/reproducibility/04_results/01_raw_model_outputs/google_gemini-3-pro), and [`anthropic_claude-sonnet-4.5_extended-thinking`](/Users/yuchenzhu/Desktop/github/ICLR2026/reproducibility/04_results/01_raw_model_outputs/anthropic_claude-sonnet-4.5_extended-thinking). The initial `v0_baseline_judge` condition includes all three generators. Later bundles, `v1_paraphrase_judge` and `v2_schema_strict_judge`, intentionally retain only GPT-5.2 and Gemini 3 Pro because Claude underperformed sharply in this task family during `v0` (`24/32` zero-score cases in the canonical table) and was dropped from the follow-up comparison by design.
+Preserved generator outputs are archived under `reproducibility/04_results/01_raw_model_outputs/` as `openai_gpt-5.2_extended-thinking`, `google_gemini-3-pro`, and `anthropic_claude-sonnet-4.5_extended-thinking`. The initial `v0_baseline_judge` condition includes all three generators. Later bundles, `v1_paraphrase_judge` and `v2_schema_strict_judge`, intentionally retain only GPT-5.2 and Gemini 3 Pro because Claude underperformed sharply in this task family during `v0` (`24/32` zero-score cases in the canonical table) and was dropped from the follow-up comparison by design.
 
-In this repository, `explicit` means the prompt directly names the required three-section output contract and ordering, while `implicit` keeps the same task and target structure but signals it more indirectly through softer or less literal constraint wording. That distinction is defined at the prompt-design layer in [`reproducibility/02_prompt_variants/`](/Users/yuchenzhu/Desktop/github/ICLR2026/reproducibility/02_prompt_variants) and tracked as `trigger_type` throughout the raw and processed artifacts.
+In this repository, `explicit` means the prompt directly names the required three-section output contract and ordering, while `implicit` keeps the same task and target structure but signals it more indirectly through softer or less literal constraint wording. This distinction comes from the prompt-design layer in `reproducibility/02_prompt_variants/` and is tracked as `trigger_type` throughout the raw and processed artifacts.
 
 ### 2. Key Findings
 
@@ -273,7 +273,7 @@ If this work aids your research, please cite:
 ```bibtex
 @misc{promptdriftlab2026,
   author       = {Yuchen Zhu},
-  title        = {Prompt Drift Lab: Auditing Structured Compliance under Benign Prompt Drift},
+  title        = {{PROMPT-LEVEL DRIFT AS AN OPERATIONAL MONITORING PROBLEM: SCHEMA FAILURE CLIFFS AND JUDGE-VERSION RISK IN ARTIFACT-GROUNDED EVALUATION}},
   year         = {2026},
   howpublished = {\url{https://github.com/yuchenzhu-research/iclr2026-cao-prompt-drift-lab}},
 }
