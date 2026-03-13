@@ -127,10 +127,10 @@ prompt-drift-lab/
 └── reproducibility/
     ├── 01_experiment_design/           # tasks, protocol YAML, schemas, and design notes
     ├── 02_prompt_variants/             # baseline / weak / long / conflict prompt files
-    ├── TECHNICAL_MAP.md                # engineering-facing artifact map
     ├── 03_evaluation_rules/            # authoritative protocol and validity rules
     ├── 04_results/                     # raw evidence + canonical processed outputs
     ├── 05_methodological_addenda_and_controls/  # rationale and methodological notes
+    ├── TECHNICAL_MAP.md                # engineering-facing artifact map
     └── tools/                          # offline rebuild, audit, and figure scripts
 ```
 

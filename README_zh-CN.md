@@ -127,10 +127,10 @@ prompt-drift-lab/
 └── reproducibility/
     ├── 01_experiment_design/           # 任务设计、协议 YAML、schema 与设计笔记
     ├── 02_prompt_variants/             # baseline / weak / long / conflict 提示词
-    ├── TECHNICAL_MAP.md                # 面向工程审计的结构地图
     ├── 03_evaluation_rules/            # 权威协议与有效性规则
     ├── 04_results/                     # 原始证据与规范化结果
     ├── 05_methodological_addenda_and_controls/  # 方法补充说明与控制项
+    ├── TECHNICAL_MAP.md                # 面向工程审计的结构地图
     └── tools/                          # 离线重建、审计、作图脚本
 ```
 
