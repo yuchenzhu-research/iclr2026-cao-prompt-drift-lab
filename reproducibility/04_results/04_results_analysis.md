@@ -56,10 +56,7 @@ Common fields include:
 - `question_id`
 - `judge_version`
 
-Some fields may be setting-dependent:
-- `prompt_variant` and `trigger_type` are reliably populated in v0, but may be empty for v1/v2.
-
-When a field is empty for a judge version, aggregation/tracing must not assume it as a required join key.
+`prompt_variant` and `trigger_type` are part of the canonical slice keys for all shipped judge versions.
 
 ---
 
@@ -104,13 +101,13 @@ Each row in `scores_long.csv` corresponds to exactly one processed record JSON s
 Recommended match strategy:
 
 - **Primary key (preferred when present):** `record.file`
-  - If `record.file` is repo-relative (common in v1/v2), it can directly identify the raw PDF under `01_raw_model_outputs/`.
+  - Canonical rebuilds also populate `record.raw_pdf`, which directly identifies the preserved PDF under `01_raw_model_outputs/`.
 
 - **Fallback keys:** fields that are present in both `scores_long.csv` and the record JSON, typically:
   - `generator_model`
   - `question_id`
   - (optionally) `judge_model` / bundle metadata fields
-  - `prompt_variant` / `trigger_type` **only when populated for that judge version**
+  - `prompt_variant` / `trigger_type`
 
 ### Processed record JSON → raw PDF
 
@@ -118,8 +115,8 @@ Raw PDFs are stored under:
 - `reproducibility/04_results/01_raw_model_outputs/`
 
 `record.file` semantics:
-- **v1/v2:** `record.file` is intended to be a repo-relative pointer under `01_raw_model_outputs/`.
-- **v0:** `record.file` may be a bundle identifier (not a repo path). In this case, locate the raw PDF by using the available row-level fields (e.g., `question_id`, and any populated variant/trigger fields) and searching under the appropriate `01_raw_model_outputs/` subdirectory.
+- `record.file` preserves the original bundle-side file label.
+- Canonical rebuilds additionally store `record.raw_pdf` as the normalized repo-relative PDF path.
 
 **Naming conventions**
 - Where a naming template is used (e.g., `q{question_id}_...pdf`), treat it as a convenience for navigation, not as a hard contract.

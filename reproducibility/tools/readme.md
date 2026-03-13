@@ -1,24 +1,24 @@
 # Tools readme
 
-This directory contains deterministic, offline utilities used to **audit** and **render figures** from shipped artifacts.
+This directory contains deterministic, offline utilities for the reproducibility bundle.
 No API calls, no model execution, no randomness.
 
-## Reproducibility boundary (IMPORTANT！！！)
+## Canonical pipeline
 
-**Reproduction for this submission starts from the shipped evaluation tables (`scores_long.csv`).**
+The supported offline rebuild path is:
 
-Authoritative CSV tables:
+```text
+02_raw_judge_evaluations/*.json
+-> valid_evaluations/main_method_cross_model/record_*.json
+-> summary_tables/scores_long.csv + scores_grouped.csv
+-> figures/*.pdf
+```
 
-- `reproducibility/04_results/03_processed_evaluations/v0_baseline_judge/summary_tables/scores_long.csv`
-- `reproducibility/04_results/03_processed_evaluations/v1_paraphrase_judge/summary_tables/scores_long.csv`
-- `reproducibility/04_results/03_processed_evaluations/v2_schema_strict_judge/summary_tables/scores_long.csv`
+`v0` contains `chatgpt`, `gemini`, and `claude`.
+`v1` / `v2` contain only `chatgpt` and `gemini`.
 
-All paper figures are reproducible from these CSVs (**CSV → Figures**).
-
-### What is out of scope
-
-Regenerating `scores_long.csv` from upstream raw judge bundles / intermediate records is **not supported** for this submission.
-See `reproducibility/tools/aggregate/README.md` for the deprecated aggregation note.
+The pipeline is deterministic because it only normalizes preserved artifacts.
+It does **not** claim that LLM judging itself is reproducible.
 
 ## v0 / v1 / v2 meaning
 
@@ -31,9 +31,9 @@ See `reproducibility/tools/aggregate/README.md` for the deprecated aggregation n
 
 ```text
 reproducibility/tools/
-  figures/             # scores_long.csv → PDF figures (reproducible)
-  ingest/              # optional audit utilities (raw bundles → record JSON)
-  aggregate/           # deprecated/historical notes (no supported CSV regen)
+  figures/             # scores_long.csv → PDF figures
+  ingest/              # raw bundles → record JSON
+  aggregate/           # deprecated/historical notes
   validation_utils/    # schema validation / consistency checks
   scoring_utils/       # rubric scoring helpers (deterministic)
   analysis_utils/      # lightweight analysis helpers (grouping, pivots)
@@ -48,7 +48,27 @@ reproducibility/tools/
 
 Run from repository root:
 
-### 1) Figures (reproducible): CSV → PDF
+### 1) Full rebuild from raw judge bundles
+
+One command:
+
+```bash
+python reproducibility/tools/reproduce_valid_evaluations.py --from_raw --overwrite_records
+```
+
+This does two deterministic steps:
+
+1. `reproducibility/tools/ingest/materialize_records.py`
+   - reads `04_results/02_raw_judge_evaluations/**/judge_*.json`
+   - writes canonical `record_*.json`
+   - normalizes generator/judge families (`chatgpt`, `gemini`, `claude`)
+   - derives `total` when raw bundles omit it or place it under `scores.total`
+
+2. `reproducibility/tools/reproduce_valid_evaluations.py`
+   - reads those `record_*.json`
+   - writes `scores_long.csv` and `scores_grouped.csv`
+
+### 2) Figures: CSV → PDF
 
 All figure scripts read directly from the shipped `scores_long.csv` tables and write PDFs under:
 
@@ -61,13 +81,13 @@ python reproducibility/tools/figures/make_fig2_heatmap_v0_implicit_collapse.py
 
 See `reproducibility/tools/figures/README.md` for the script → input CSV → output PDF mapping.
 
-### 2) Ingest (optional audit only)
+### 3) Record-only rebuild
 
-The ingest utilities materialize record-level JSON from raw bundles for auditing/debugging.
-They are **not required** for reproducing figures or paper numbers.
+If you only want the record JSON layer:
 
-Entry point:
-- `reproducibility/tools/ingest/materialize_records.py`
+```bash
+python reproducibility/tools/ingest/materialize_records.py --overwrite
+```
 
 ---
 

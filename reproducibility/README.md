@@ -107,7 +107,7 @@ Target chain:
 **Important notes:**
 - Processed record JSON filenames are **not a contract** and may be hash-based.
 - Locate records by matching JSON fields (e.g., `file`, `generator_model`, `judge_model`, `question_id`) rather than filename patterns.
-- `prompt_variant` / `trigger_type` are reliably populated in v0, but may be empty for v1/v2; do not assume they are required join keys.
+- The canonical rebuild path normalizes `prompt_variant` / `trigger_type` for all shipped judge versions.
 
 4) Open the raw PDF under:
 - `reproducibility/04_results/01_raw_model_outputs/`

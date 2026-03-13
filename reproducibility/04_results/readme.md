@@ -58,4 +58,4 @@ Figures are not stored under `04_results/`.
 3) From a `scores_long.csv` row, use join keys such as `file`, `generator_model`, `prompt_variant`, `question_id`, `trigger_type` as applicable.
 4) Locate the matching `record_*.json` under:
    - `reproducibility/04_results/03_processed_evaluations/<judge_version>/valid_evaluations/`
-5) Open the raw PDF under `01_raw_model_outputs/` using the resolution rule documented in `04_results_analysis.md`.
+5) Prefer `record.raw_pdf` when present; otherwise open the raw PDF under `01_raw_model_outputs/` using the resolution rule documented in `04_results_analysis.md`.

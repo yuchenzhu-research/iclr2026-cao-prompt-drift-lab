@@ -1,5 +1,7 @@
 from pathlib import Path
 import pandas as pd
+import matplotlib
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
@@ -27,6 +29,11 @@ parser.add_argument(
     type=Path,
     default=reproducibility_dir / "tools" / "figures",
     help="Output directory for figures (default: reproducibility/tools/figures)"
+)
+parser.add_argument(
+    "--show",
+    action="store_true",
+    help="display the figure window after saving",
 )
 args = parser.parse_args()
 
@@ -121,7 +128,9 @@ plt.tight_layout()
 # Save
 # --------------------------------------------------
 plt.savefig(OUT_FIG, bbox_inches="tight")
-plt.show()
+if args.show:
+    plt.show()
+plt.close()
 
 print(f"[Fig1] INPUT: {DATA_PATH}")
 print(f"[Fig1] generator_family counts:\n{df['generator_family'].value_counts()}")

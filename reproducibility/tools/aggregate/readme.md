@@ -2,37 +2,35 @@
 
 > **Status: DEPRECATED / HISTORICAL.**
 >
-> This directory is kept for documentation only.
+> This directory is kept only to explain older assumptions that caused the
+> processed tables to drift.
 >
-> **Reproduction for this artifact starts from the shipped summary tables (`scores_long.csv`).**
-> We do **not** support regenerating these CSV tables from upstream raw bundles / intermediate records.
+> Canonical rebuild now lives in:
+> `reproducibility/tools/reproduce_valid_evaluations.py --from_raw`
 
 ---
 
-## Reproducibility boundary
+## What this directory means now
 
-**The only authoritative evaluation tables are the shipped `scores_long.csv` files (manually audited/fixed by the authors):**
+Earlier drafts mixed together several unstable ideas:
 
-- `reproducibility/04_results/03_processed_evaluations/v0_baseline_judge/summary_tables/scores_long.csv`
-- `reproducibility/04_results/03_processed_evaluations/v1_paraphrase_judge/summary_tables/scores_long.csv`
-- `reproducibility/04_results/03_processed_evaluations/v2_schema_strict_judge/summary_tables/scores_long.csv`
+- model-name normalization based on inconsistent metadata
+- filename parsing that assumed `versions` / `trigger_types` were always present
+- `total` handling that broke when bundles omitted top-level totals
 
-All paper figures are reproducible from these CSVs.
+Those behaviors are no longer the canonical path. The supported rebuild path is:
 
-### What is *not* reproducible in this submission
+```text
+raw judge bundles -> record_*.json -> scores_long.csv / scores_grouped.csv
+```
 
-We do **not** claim reproducibility for the upstream step that would regenerate `scores_long.csv` from:
-
-- raw judge bundles (e.g., `04_results/02_raw_judge_evaluations/...`)
-- intermediate `valid_evaluations/record_*.json`
-
-This upstream aggregation step was used during early development and is **out of scope** for artifact reproduction.
+via `reproducibility/tools/reproduce_valid_evaluations.py --from_raw`.
 
 ---
 
-## How reviewers should reproduce figures
+## How figures should be reproduced
 
-Reproduction is limited to the following deterministic pipeline:
+Figure rendering remains the downstream deterministic pipeline:
 
 ```
 (scores_long.csv tables; v0/v1/v2)  →  figure scripts  →  PDF figures
@@ -42,28 +40,7 @@ See `reproducibility/tools/figures/README.md` for the script-to-figure mapping a
 
 ---
 
-## Rationale
-
-During development, the aggregation step (raw bundles/records → `scores_long.csv`) involved evolving conventions:
-
-- generator model naming normalization
-- column completion (`prompt_variant`, `trigger_type`)
-- `total` score aggregation consistency
-
-The shipped `scores_long.csv` tables are treated as **frozen artifacts** because they were manually audited and corrected to ensure:
-
-- consistent columns and types
-- correct `total` computation
-- correct inclusion of non-zero ChatGPT data
-
----
-
 ## Non-goals
 
-- This directory does **not** provide a supported entry point to regenerate CSV tables.
-- Reviewers are **not expected** to run any aggregation scripts.
-
-If you are looking for reproduction steps, start from:
-
-- `reproducibility/04_results/03_processed_evaluations/*/summary_tables/scores_long.csv`
-- and run `reproducibility/tools/figures/*.py`.
+- This directory does not define the live pipeline.
+- No script here should be treated as an execution entry point.

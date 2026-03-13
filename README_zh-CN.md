@@ -153,9 +153,9 @@
 
 ## ⚡ 快速上手：复现边界说明
 
-**上游（不可复现）：**
-- Record JSON → `scores_long.csv` + `scores_grouped.csv`
-- **CSV 评分表是冻结的审计产物**，作为权威数值来源
+**离线重建链路（可复现）：**
+- raw judge bundles → record JSON → `scores_long.csv` + `scores_grouped.csv`
+- 这一层只是确定性归一化，不会重新执行 judge
 
 **下游（可复现）：**
 - `scores_long.csv` → PDF 图表（确定性）
@@ -178,19 +178,17 @@ for f in reproducibility/tools/figures/make_fig*.py; do
 done
 ```
 
-**可选**：生成记录级 JSON 用于审计/调试：
+**从保留的 raw judge bundles 一键重建：**
 
 ```bash
-python -u reproducibility/tools/ingest/materialize_records.py \
-  --runs v0_baseline_judge v1_paraphrase_judge v2_schema_strict_judge \
-  --overwrite
+python reproducibility/tools/reproduce_valid_evaluations.py --from_raw --overwrite_records
 ```
 
 输出：
-- `valid_evaluations/**/*.json`（可选审计记录）
+- `valid_evaluations/**/*.json`
+- `scores_long.csv`
+- `scores_grouped.csv`
 - `run_meta.json`
-
-**说明**：CSV 评分表（`scores_long.csv`、`scores_grouped.csv`）是冻结的，不重新生成。
 
 ---
 

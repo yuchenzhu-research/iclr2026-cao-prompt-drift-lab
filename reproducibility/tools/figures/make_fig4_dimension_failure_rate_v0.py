@@ -1,4 +1,6 @@
 import pandas as pd
+import matplotlib
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from pathlib import Path
 import argparse
@@ -16,6 +18,11 @@ parser.add_argument(
     type=Path,
     default=reproducibility_dir / "tools" / "figures",
     help="Output directory for figures (default: reproducibility/tools/figures)"
+)
+parser.add_argument(
+    "--show",
+    action="store_true",
+    help="display the figure window after saving",
 )
 args = parser.parse_args()
 
@@ -108,6 +115,8 @@ plt.tight_layout()
 # write to output directory
 fig_path = out_dir / "fig4_dimension_failure_rate.pdf"
 plt.savefig(fig_path, bbox_inches="tight")
-plt.show()
+if args.show:
+    plt.show()
+plt.close()
 
 print(f"[Fig4 dimension failure rate] Saved: {fig_path}")

@@ -71,9 +71,9 @@ Notes:
 
 ## Reproducibility boundary
 
-**Upstream (NOT reproducible):**
-- Record JSON → `scores_long.csv` + `scores_grouped.csv`
-- These CSV tables are **frozen artifacts** and treated as authoritative numeric sources.
+**Offline rebuild (reproducible):**
+- raw judge bundles → record JSON → `scores_long.csv` + `scores_grouped.csv`
+- this path is deterministic and does not re-run judging
 
 **Downstream (REPRODUCIBLE):**
 - `scores_long.csv` → PDF figures (deterministic)
@@ -90,18 +90,16 @@ for f in reproducibility/tools/figures/make_fig*.py; do
 done
 ```
 
-**Optional**: materialize per-file records for audit/debugging:
+**Full rebuild from preserved raw judge bundles:**
 ```bash
-python reproducibility/tools/ingest/materialize_records.py \
-  --runs v0_baseline_judge v1_paraphrase_judge v2_schema_strict_judge \
-  --overwrite
+python reproducibility/tools/reproduce_valid_evaluations.py --from_raw --overwrite_records
 ```
 
 Expected outputs (for each judge version):
-- `valid_evaluations/**/*.json` (optional audit records)
+- `valid_evaluations/**/*.json`
+- `scores_long.csv`
+- `scores_grouped.csv`
 - `run_meta.json`
-
-Tables (`scores_long.csv`, `scores_grouped.csv`) are **frozen** and not regenerated.
 
 ---
 # reproducibility/README.md

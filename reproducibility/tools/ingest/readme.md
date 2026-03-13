@@ -1,96 +1,64 @@
-# Ingest: Materialize Processed Evaluation Records (Optional Audit Utility)
+# Ingest: Materialize Processed Evaluation Records
 
-This directory contains **offline ingestion utilities** used to materialize standardized processed records
-(`valid_evaluations/**/*.json`) from raw judge evaluation bundles.
+This directory contains deterministic, offline utilities that normalize preserved
+judge bundles into canonical record JSON files.
 
-**Scope / contract**
-- This ingest step produces **record-level** artifacts only (JSON + optional exclusions log).
-- **Do not** treat this step as a table generator. Any `summary_tables/*.csv` shipped with the repo are
-  treated as **provided artifacts**.
+## Scope
 
----
+- `materialize_records.py` handles only:
+  - `raw judge bundles -> valid_evaluations/main_method_cross_model/record_*.json`
+- `reproducibility/tools/reproduce_valid_evaluations.py --from_raw` is the canonical
+  full rebuild entry point when you want:
+  - `raw judge bundles -> record JSON -> summary tables`
 
-## Reproducibility boundary (important)
+The scripts never call a model and never regenerate judge outputs.
 
-For this submission, **reproduction starts from the shipped evaluation tables**:
+## Canonical usage
 
-- `reproducibility/04_results/03_processed_evaluations/v0_baseline_judge/summary_tables/scores_long.csv`
-- `reproducibility/04_results/03_processed_evaluations/v1_paraphrase_judge/summary_tables/scores_long.csv`
-- `reproducibility/04_results/03_processed_evaluations/v2_schema_strict_judge/summary_tables/scores_long.csv`
-
-All paper figures are reproducible from these CSVs (see `reproducibility/tools/figures/`).
-
-We provide ingest utilities only as an **optional audit tool** to inspect record-level JSON derived from
-raw judge bundles. Regenerating `scores_long.csv` from raw bundles/records is **out of scope** and **not supported**
-for artifact reproduction.
-
----
-
-## What this step does
-
-- Reads raw judge evaluation bundles under:
-  - `reproducibility/04_results/02_raw_judge_evaluations/`
-- Applies consistent parsing + validation + filtering to produce standardized records.
-- Writes record-level outputs under:
-  - `reproducibility/04_results/03_processed_evaluations/<judge_version>/valid_evaluations/**/*.json`
-
-These JSON files can serve as an **audit anchor** for debugging and spot-checking.
-
----
-
-## Entry point
-
-### `materialize_records.py`
-
-**Recommended run (from repo root):**
+Full rebuild:
 
 ```bash
-python reproducibility/tools/ingest/materialize_records.py
+python reproducibility/tools/reproduce_valid_evaluations.py --from_raw --overwrite_records
 ```
 
-By default, the script attempts to materialize records for:
-- `v0_baseline_judge`
-- `v1_paraphrase_judge`
-- `v2_schema_strict_judge`
+Record-only rebuild:
 
-If a raw input directory is missing for a run, it will print a warning and skip that run.
+```bash
+python reproducibility/tools/ingest/materialize_records.py --overwrite
+```
 
----
+## What gets normalized
 
-## Inputs and outputs
+- judge / generator model families are canonicalized to:
+  - `chatgpt`
+  - `gemini`
+  - `claude`
+- raw file labels are parsed into:
+  - `question_id`
+  - `prompt_variant`
+  - `trigger_type`
+- `total` is sourced in this order:
+  - `item.total`
+  - `scores.total`
+  - derived sum of the five rubric dimensions
 
-### Inputs
+This is important because the preserved bundles are not perfectly uniform:
+- `v0` uses three generator families: `chatgpt`, `gemini`, `claude`
+- `v1` / `v2` only include `chatgpt` and `gemini`
+- some bundles omit top-level `total`
+- some bundles store totals under `scores.total`
+- some bundle metadata uses inconsistent model labels
 
-Raw judge bundles are organized by setting:
+## Inputs
 
-- Diagnostic bundles:
-  - `reproducibility/04_results/02_raw_judge_evaluations/diagnostic/...`
-- Final bundles:
-  - `reproducibility/04_results/02_raw_judge_evaluations/final/...`
+- `reproducibility/04_results/02_raw_judge_evaluations/diagnostic/...`
+- `reproducibility/04_results/02_raw_judge_evaluations/final/...`
 
-### Outputs
+## Outputs
 
-Processed records are written to:
-
-- `reproducibility/04_results/03_processed_evaluations/<judge_version>/valid_evaluations/**/*.json`
-
-Exclusions (audit):
-- `excluded_records.jsonl` is optional and only present when exclusions are non-empty.
-- If absent, treat this as **0 exclusions**.
-- If present, it is stored under:
+- `reproducibility/04_results/03_processed_evaluations/<judge_version>/valid_evaluations/main_method_cross_model/record_*.json`
+- optional exclusions log:
   - `reproducibility/04_results/03_processed_evaluations/<judge_version>/summary_tables/excluded_records.jsonl`
 
-> Note: This script intentionally does **not** generate `scores_long.csv` / `scores_grouped.csv`.
-> If such tables exist under `summary_tables/`, they are shipped artifacts.
-
----
-
-## Repro checklist (audit-only)
-
-- [ ] Run from repo root so relative paths are stable.
-- [ ] Execute:
-  - `python reproducibility/tools/ingest/materialize_records.py`
-- [ ] Verify outputs exist:
-  - `reproducibility/04_results/03_processed_evaluations/<judge_version>/valid_evaluations/**/*.json`
-- [ ] Confirm you are not regenerating tables:
-  - Do not add scripts that overwrite `summary_tables/*.csv` in the reproducibility path.
+`materialize_records.py` does not write `scores_long.csv` or `scores_grouped.csv`.
+Those tables are written by the top-level rebuild script.

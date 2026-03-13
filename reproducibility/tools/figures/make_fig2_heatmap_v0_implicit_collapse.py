@@ -1,5 +1,7 @@
 from pathlib import Path
 import pandas as pd
+import matplotlib
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import seaborn as sns
 import argparse
@@ -31,6 +33,11 @@ parser.add_argument(
     type=Path,
     default=reproducibility_dir / "tools" / "figures",
     help="Output directory for figures (default: reproducibility/tools/figures)"
+)
+parser.add_argument(
+    "--show",
+    action="store_true",
+    help="display the figure window after saving",
 )
 args = parser.parse_args()
 
@@ -116,5 +123,7 @@ out_path = out_dir / "fig2_heatmap_v0.pdf"
 
 plt.tight_layout()
 plt.savefig(out_path, bbox_inches="tight")
-plt.show()
+if args.show:
+    plt.show()
+plt.close()
 print(f"[Fig2] Saved: {out_path}")

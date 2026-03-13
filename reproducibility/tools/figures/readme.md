@@ -5,8 +5,10 @@ This directory contains **figure-generation scripts** that render the paper/repr
 - processed evaluation records (`**/*.json`, filenames are not a contract), and
 - precomputed summary tables (`summary_tables/*.csv`, paper-citable numeric source).
 
-> Aggregation/scoring outputs are **frozen** and already provided.
-> Figure scripts must **not** recompute aggregation/scoring; they only read artifacts and render plots.
+> Figure scripts must **not** recompute aggregation/scoring.
+> They only read the processed artifacts already present under `03_processed_evaluations/`,
+> whether those tables are the shipped copies or were rebuilt upstream via
+> `reproducibility/tools/reproduce_valid_evaluations.py --from_raw`.
 
 ---
 
@@ -34,6 +36,9 @@ Typical files include:
 
 - `scores_long.csv`
 - `scores_grouped.csv`
+
+All figure scripts save PDFs without opening a GUI window by default.
+If you want an interactive preview, pass `--show`.
 
 ---
 

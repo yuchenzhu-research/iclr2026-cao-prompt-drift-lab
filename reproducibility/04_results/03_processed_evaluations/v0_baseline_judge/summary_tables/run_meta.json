@@ -2,5 +2,10 @@
   "judge_version": "v0_baseline_judge",
   "snapshot_contract_id": "SC_50_NOEXT",
   "snapshot_word_limit": 50,
-  "snapshot_allow_extension": false
+  "snapshot_allow_extension": false,
+  "n_records": 96,
+  "n_grouped_rows": 96,
+  "n_excluded": 0,
+  "generated_by": "reproducibility/tools/reproduce_valid_evaluations.py",
+  "pipeline": "raw judge bundles -> record JSON -> summary tables"
 }
