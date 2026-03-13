@@ -117,48 +117,29 @@ Failures aren't "noise"—they're **evidence of protocol brittleness**.
 ## 📁 Repository Structure
 
 ```
-📂 prompt-drift-lab/
-├── 📄 README.md                        # English README (you're here)
-├── 📄 README_zh-CN.md                  # 中文说明
-├── 📂 paper_anon_submission/           # 📝 LaTeX source, figures
-│   └── 📂 figures/                     # Paper figures
-├── 📂 reproducibility/                 # 🔧 Complete reproducible materials
-│   ├── 📂 01_experiment_design/        # 🎯 Tasks, output structure, splits
-│   ├── 📂 02_prompt_variants/          # 💬 Prompt variants (Chinese)
-│   ├── 📂 03_evaluation_rules/         # ⚖️ Eval protocol, scoring, taxonomy
-│   │   ├── 📄 eval_protocol.md         # Core protocol (authoritative)
-│   │   ├── 📄 judge_prompt.md          # Judge template
-│   │   ├── 📄 compute_scores.py        # Scoring script
-│   │   ├── 📄 scoring_dimensions.md    # Scoring dimensions
-│   │   ├── 📄 failure_taxonomy.md      # Failure classification
-│   │   └── 📂 schema/                  # JSON Schema definitions
-│   ├── 📂 04_results/                  # 📦 Frozen artifacts
-│   │   ├── 📂 01_raw_model_outputs/    # 📄 Raw PDFs
-│   │   ├── 📂 02_raw_judge_evaluations/# 📊 Judge JSON bundles
-│   │   └── 📂 03_processed_evaluations/# 📈 Processed CSVs + failure analysis
-│   ├── 📂 05_methodological_addenda_and_controls/  # 📖 Design rationale & comparisons
-│   │   └── 📄 a_b_comparative_rationale.md
-│   └── 📂 tools/                       # 🛠️ Offline audit & figure generation
-│       ├── 📂 figures/                 # CSV → PDF figure scripts
-│       ├── 📂 ingest/                  # Audit utilities (optional)
-│       ├── 📂 aggregate/               # Deprecated aggregation notes
-│       ├── 📂 validation_utils/        # Schema validation
-│       ├── 📂 scoring_utils/           # Rubric scoring helpers
-│       ├── 📂 analysis_utils/          # Analysis helpers
-│       └── 📂 examples/                # Minimal examples
-└── 📂 final-version/                   # 🎯 Final paper PDF + supplement
+prompt-drift-lab/
+├── README.md
+├── README_zh-CN.md
+├── README_FOR_REVIEWERS.md
+├── paper_anon_submission/figures/      # frozen paper figures
+├── final-version/figures/              # published release figures
+└── reproducibility/
+    ├── TECHNICAL_MAP.md                # engineering-facing artifact map
+    ├── 03_evaluation_rules/            # authoritative protocol and validity rules
+    ├── 04_results/                     # raw evidence + canonical processed outputs
+    └── tools/                          # offline rebuild, audit, and figure scripts
 ```
+
+Recommended entry points:
+
+- `README_FOR_REVIEWERS.md` for review flow
+- `reproducibility/TECHNICAL_MAP.md` for pipeline, counts, and contracts
+- `reproducibility/03_evaluation_rules/eval_protocol.md` for normative protocol
+- `reproducibility/04_results/03_processed_evaluations/<judge_version>/summary_tables/` for paper-citable numbers
 
 ---
 
-## ⚡ Quickstart: Reproducibility Boundary
-
-**Offline rebuild (reproducible):**
-- raw judge bundles → record JSON → `scores_long.csv` + `scores_grouped.csv`
-- this normalization step is deterministic and does not re-run judging
-
-**Downstream (REPRODUCIBLE):**
-- `scores_long.csv` → PDF figures (deterministic)
+## ⚡ Quickstart: Verification and Rebuild
 
 ### Setup
 
@@ -167,93 +148,102 @@ cd prompt-drift-lab
 python -m pip install -r reproducibility/tools/requirements.txt
 ```
 
-> Dependencies: NumPy, Pandas, Matplotlib, Seaborn
+Standard Python dependencies: NumPy, Pandas, Matplotlib, Seaborn.
 
-### CSV → Figures (reproducible)
+### One-command release verification
 
 ```bash
-# Generate all figures from frozen CSV tables
-for f in reproducibility/tools/figures/make_fig*.py; do
-  python "$f" --out_dir paper_anon_submission/figures
-done
+python reproducibility/tools/verify_release_bundle.py
 ```
 
-**Full rebuild from preserved raw judge bundles:**
+This command:
+
+- rebuilds processed artifacts into a temp directory
+- runs the structural audit
+- smoke-tests all figure scripts
+- verifies that `paper_anon_submission/figures/` is byte-identical to `final-version/figures/`
+
+### Full offline rebuild from preserved judge bundles
 
 ```bash
 python reproducibility/tools/reproduce_valid_evaluations.py --from_raw --overwrite_records
 ```
 
 Outputs:
+
 - `valid_evaluations/main_method_cross_model/record_*.json`
 - `scores_long.csv`
 - `scores_grouped.csv`
 - `run_meta.json`
 
+### Regenerate figures
+
+```bash
+for f in reproducibility/tools/figures/make_fig*.py; do
+  python "$f" --out_dir paper_anon_submission/figures
+done
+```
+
 ---
 
 ## 🔗 Data Provenance: From Numbers to Evidence
 
-Every reported data point traces back to raw artifacts:
+Every reported value is traceable through a fixed artifact chain:
 
-**1. Table → Raw Record**
+```text
+scores_grouped.csv
+→ scores_long.csv
+→ valid_evaluations/main_method_cross_model/record_*.json
+→ 01_raw_model_outputs/*.pdf
+```
 
-1. Open `scores_long.csv`, pick any row
-2. Note `record_id` or filename
-3. Find corresponding `record_*.json` in `.../valid_evaluations/main_method_cross_model/`
+Authoritative interpretation rules:
 
-**2. Record → Original Output**
-
-1. Find `file` field in the JSON
-2. Locate the PDF in `01_raw_model_outputs/`
-3. Compare PDF content with judge scores
-
-**3. Authoritative Protocol**
-
-> ⚠️ Refer to `reproducibility/03_evaluation_rules/eval_protocol.md` as the single source of truth.
+- Protocol and validity criteria: `reproducibility/03_evaluation_rules/eval_protocol.md`
+- Numeric authority: `reproducibility/04_results/03_processed_evaluations/<judge_version>/summary_tables/`
+- Do not merge results across different judge versions (`v0`, `v1`, `v2`)
 
 ---
 
-## ✅ Reproducibility Status
+## ✅ Release Status
 
 | Capability | Status | Notes |
 |------------|--------|-------|
-| 🔄 Regenerate Figures | ✅ Verified | Local CSVs work |
-| 📊 Generate Summary Tables | ✅ Verified | From cached judge JSONs |
-| 🧮 Scoring Logic | ⚠️ Partial | Scripts are archival only |
-| 🚀 Full Evaluation from Scratch | ❌ Missing | No LLM API code included |
+| Release verification | ✅ Verified | `verify_release_bundle.py` rebuilds in temp space and checks release-figure hashes |
+| Offline artifact rebuild | ✅ Verified | preserved judge bundles → canonical records → summary tables |
+| Figure regeneration | ✅ Verified | `scores_long.csv` → PDF figures |
+| Live API replay | Out of scope by design | no vendor API keys or live judging scripts are shipped |
 
-> **Why no API code?**
->
-> To avoid key leakage and API version drift issues, we publish **frozen results only**, not runnable but potentially outdated API scripts.
+This repository supports **artifact-scope reproducibility**. It does not claim replayability against changing external model APIs.
 
 ---
 
-## 🎯 Key Contributions
+## 🎯 Why This Artifact Matters
 
-1. **🔍 Auditable Evaluation Chain**
-   > Prompt → Model Output → Judge Bundle → CSV—every step traceable and verifiable
+1. **Workshop-facing story**
+   Prompt drift is not cosmetic. Small wording changes can flip evaluation conclusions under otherwise fixed conditions.
 
-2. **❄️ Frozen Artifacts**
-   > Pre-computed results, no LLM API calls needed, 100% deterministic reproducibility
+2. **Industry-facing traceability**
+   The bundle is structured like an audit package: raw evidence, normalized records, authoritative tables, and release verification are all separated by contract.
 
-3. **📋 Failure Taxonomy**
-   > Systematized classification of judge failures (format errors, refusal to score, etc.)
+3. **Operational lesson**
+   A low score and an invalid evaluation are different events. This repository preserves both, instead of collapsing them into a single failure bucket.
 
-4. **🛠️ Offline Tooling**
-   > No APIs, no dependencies—just run scripts to regenerate all paper figures and analyses
+4. **Release discipline**
+   The shipped figure set under `final-version/figures/` is mirrored in `paper_anon_submission/figures/` and checked by an explicit verification command.
 
 ---
 
-## 📋 Best Practices for Evaluation Design
+## 📋 Practical Recommendations
 
 Based on this audit, we recommend:
 
 | Recommendation | Action |
 |----------------|--------|
-| 💡 Prompt Sensitivity Check | Test with 2-3 rephrasings, don't rely on single prompt |
-| 📉 Report Invalid Rates | Document how many outputs couldn't be evaluated |
-| 🔗 Artifact Mapping | Every reported number should trace to raw outputs + judge records |
+| Prompt sensitivity check | Test with 2-3 semantically equivalent prompt phrasings |
+| Invalid-rate reporting | Track exclusion causes separately from low scores |
+| Artifact contracts | Make every reported number traceable to raw evidence |
+| Release verification | Add a temp-directory verification command before publication |
 
 ---
 

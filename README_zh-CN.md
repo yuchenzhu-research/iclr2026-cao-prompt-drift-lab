@@ -117,48 +117,29 @@
 ## 📁 代码库结构
 
 ```
-📂 prompt-drift-lab/
-├── 📄 README.md                        # 英文说明
-├── 📄 README_zh-CN.md                  # 中文说明（你正在看）
-├── 📂 paper_anon_submission/           # 📝 论文 LaTeX 源码、图表
-│   └── 📂 figures/                     # 论文插图
-├── 📂 reproducibility/                 # 🔧 完整可复现的实验材料
-│   ├── 📂 01_experiment_design/        # 🎯 实验设计：任务定义、输出结构、分割策略
-│   ├── 📂 02_prompt_variants/          # 💬 提示词变体（中文） + 变体清单
-│   ├── 📂 03_evaluation_rules/         # ⚖️ 评估协议、评分维度、失效分类法
-│   │   ├── 📄 eval_protocol.md         # 核心协议（权威版本）
-│   │   ├── 📄 judge_prompt.md          # 法官提示词模板
-│   │   ├── 📄 compute_scores.py        # 评分计算脚本
-│   │   ├── 📄 scoring_dimensions.md    # 评分维度说明
-│   │   ├── 📄 failure_taxonomy.md      # 失效类型分类
-│   │   └── 📂 schema/                  # JSON Schema 定义
-│   ├── 📂 04_results/                  # 📦 冻结的实验数据
-│   │   ├── 📂 01_raw_model_outputs/    # 📄 模型原始输出（PDF）
-│   │   ├── 📂 02_raw_judge_evaluations/# 📊 法官评分原始结果（JSON）
-│   │   └── 📂 03_processed_evaluations/# 📈 处理后的评分数据（CSV）+ 失效分析
-│   ├── 📂 05_methodological_addenda_and_controls/  # 📖 设计意图与比较边界说明
-│   │   └── 📄 a_b_comparative_rationale.md
-│   └── 📂 tools/                       # 🛠️ 离线审计与图表生成工具
-│       ├── 📂 figures/                 # CSV → PDF 图表生成脚本
-│       ├── 📂 ingest/                  # 审计工具（可选）
-│       ├── 📂 aggregate/               # 已废弃的聚合说明
-│       ├── 📂 validation_utils/        # 模式验证工具
-│       ├── 📂 scoring_utils/           # 评分规则辅助工具
-│       ├── 📂 analysis_utils/          # 分析辅助工具
-│       └── 📂 examples/                # 最小示例
-└── 📂 final-version/                   # 🎯 最终版论文 PDF + 补充材料
+prompt-drift-lab/
+├── README.md
+├── README_zh-CN.md
+├── README_FOR_REVIEWERS.md
+├── paper_anon_submission/figures/      # 冻结的论文图
+├── final-version/figures/              # 发布版图集
+└── reproducibility/
+    ├── TECHNICAL_MAP.md                # 面向工程审计的结构地图
+    ├── 03_evaluation_rules/            # 权威协议与有效性规则
+    ├── 04_results/                     # 原始证据与规范化结果
+    └── tools/                          # 离线重建、审计、作图脚本
 ```
+
+推荐入口：
+
+- `README_FOR_REVIEWERS.md`：review 流程
+- `reproducibility/TECHNICAL_MAP.md`：pipeline、数量、契约
+- `reproducibility/03_evaluation_rules/eval_protocol.md`：唯一权威协议
+- `reproducibility/04_results/03_processed_evaluations/<judge_version>/summary_tables/`：论文可引用数字
 
 ---
 
-## ⚡ 快速上手：复现边界说明
-
-**离线重建链路（可复现）：**
-- raw judge bundles → record JSON → `scores_long.csv` + `scores_grouped.csv`
-- 这一层只是确定性归一化，不会重新执行 judge
-
-**下游（可复现）：**
-- `scores_long.csv` → PDF 图表（确定性）
+## ⚡ 快速上手：验证与重建
 
 ### 环境准备
 
@@ -167,93 +148,102 @@ cd prompt-drift-lab
 python -m pip install -r reproducibility/tools/requirements.txt
 ```
 
-> 依赖：NumPy、Pandas、Matplotlib、Seaborn
+标准 Python 依赖：NumPy、Pandas、Matplotlib、Seaborn。
 
-### 从 CSV 复现论文图表（可复现）
+### 一键做发布验收
 
 ```bash
-# 一键生成所有图表
-for f in reproducibility/tools/figures/make_fig*.py; do
-  python "$f" --out_dir paper_anon_submission/figures
-done
+python reproducibility/tools/verify_release_bundle.py
 ```
 
-**从保留的 raw judge bundles 一键重建：**
+这个命令会：
+
+- 在临时目录里重建 processed artifacts
+- 跑结构审计
+- smoke test 全部 figure 脚本
+- 校验 `paper_anon_submission/figures/` 与 `final-version/figures/` 字节一致
+
+### 从保留的 judge bundles 离线重建
 
 ```bash
 python reproducibility/tools/reproduce_valid_evaluations.py --from_raw --overwrite_records
 ```
 
 输出：
+
 - `valid_evaluations/main_method_cross_model/record_*.json`
 - `scores_long.csv`
 - `scores_grouped.csv`
 - `run_meta.json`
 
+### 重新生成图表
+
+```bash
+for f in reproducibility/tools/figures/make_fig*.py; do
+  python "$f" --out_dir paper_anon_submission/figures
+done
+```
+
 ---
 
 ## 🔗 数据溯源：从数字到证据
 
-每一个报告的数据点都可以追溯到原始工件：
+每一个报告值都能沿着固定链路回溯：
 
-**1. 从表格到原始记录**
+```text
+scores_grouped.csv
+→ scores_long.csv
+→ valid_evaluations/main_method_cross_model/record_*.json
+→ 01_raw_model_outputs/*.pdf
+```
 
-1. 打开 `scores_long.csv`，选择任意一行
-2. 记住 `record_id` 或文件名
-3. 在 `.../valid_evaluations/main_method_cross_model/` 找对应的 `record_*.json`
+解释规则以这三条为准：
 
-**2. 从记录到原始输出**
-
-1. 从 JSON 中找到 `file` 字段
-2. 在 `01_raw_model_outputs/` 找到同名 PDF
-3. 对比 PDF 内容和评分是否一致
-
-**3. 评估协议的权威版本**
-
-> ⚠️ 以 `reproducibility/03_evaluation_rules/eval_protocol.md` 为准，这是唯一权威文档。
+- 协议与有效性标准：`reproducibility/03_evaluation_rules/eval_protocol.md`
+- 数值权威层：`reproducibility/04_results/03_processed_evaluations/<judge_version>/summary_tables/`
+- 不同 judge version（`v0`、`v1`、`v2`）之间不能混合汇总
 
 ---
 
-## ✅ 可复现性状态
+## ✅ 发布状态
 
 | 能力 | 状态 | 说明 |
 |------|------|------|
-| 🔄 绑定论文图表 | ✅ 可复现 | 本地 CSV 即可生成 |
-| 📊 生成汇总表格 | ✅ 可复现 | 从缓存法官 JSON 生成 |
-| 🧮 评分逻辑验证 | ⚠️ 部分 | 脚本仅作存档参考 |
-| 🚀 从零运行完整评估 | ❌ 不可复现 | 缺少 LLM API 调用代码 |
+| 发布验收 | ✅ 已验证 | `verify_release_bundle.py` 会临时重建并检查发布图哈希 |
+| 离线 artifact 重建 | ✅ 已验证 | preserved judge bundles → canonical records → summary tables |
+| 图表重生成 | ✅ 已验证 | `scores_long.csv` → PDF 图表 |
+| 在线 API 重放 | 设计上不包含 | 仓库不提供供应商 API key 或在线 judge 脚本 |
 
-> **为什么没有 API 代码？**
->
-> 为了避免密钥泄露和 API 版本变动带来的复现问题，我们选择**只开源冻结的结果**，而非可运行但可能过时的 API 代码。
+这个仓库支持的是 **artifact-scope reproducibility**，不是针对持续变化的外部模型 API 做逐次重放。
 
 ---
 
-## 🎯 主要贡献
+## 🎯 这个工件为什么重要
 
-1. **🔍 可审计的评估链条**
-   > 从提示词 → 模型输出 → 法官评分 → 最终 CSV，每一步都可追溯验证
+1. **对 workshop 叙事有价值**
+   Prompt drift 不是修辞细节，小改措辞就可能直接翻转评估结论。
 
-2. **❄️ 冻结的实验工件**
-   > 所有结果预先生成并存储，不依赖任何 LLM API，确保 100% 确定可复现
+2. **对工业界有审计价值**
+   这个包按审计交付思路拆层：原始证据、规范化记录、权威表格、发布验收各自有清晰边界。
 
-3. **📋 失效分类法**
-   > 将法官失效（格式错误、拒绝评分等）系统化分类，让"评不了"本身成为一种证据
+3. **对运营监控有方法价值**
+   低分和 invalid evaluation 不是一回事。本仓库把两者拆开保存，而不是混成一个失败桶。
 
-4. **🛠️ 离线工具支持**
-   > 无需 API，无外部依赖，直接在本地复现论文所有图表和分析
+4. **对发布流程有工程价值**
+   `final-version/figures/` 是发布图集，`paper_anon_submission/figures/` 是镜像副本，并有单独校验命令。
 
 ---
 
-## 📋 研究启示：如何做更好的评估？
+## 📋 研究启示：如何把评估做得更稳
 
 基于本审计工作，我们建议评估协议设计者：
 
 | 建议 | 要做什么 |
 |------|----------|
-| 💡 提示词敏感度检查 | 用 2-3 个同类说法测试，不要只用一个提示词 |
-| 📉 失效率报告 | 说明有多少比例的输出因格式/协议问题无法评估 |
-| 🔗 工件映射 | 每个报告的数字都要能追溯到原始输出和法官记录 |
+| 提示词敏感度检查 | 用 2-3 个语义等价说法测试，不要只押一个 prompt |
+| 失效率报告 | 把 exclusion cause 和低分结果分开报告 |
+| 工件契约 | 每个报告数字都必须可回溯到原始证据 |
+| 发布验收 | 在发布前加入 temp-directory verification 命令 |
 
 ---
 
@@ -276,7 +266,7 @@ python reproducibility/tools/reproduce_valid_evaluations.py --from_raw --overwri
 
 | 内容 | 协议 |
 |------|------|
-| 🛠️ 工具代码 (`reproducibility/03_evaluation_rules/tools/*`) | MIT License |
+| 🛠️ 工具代码 (`reproducibility/tools/*`) | MIT License |
 | 📦 数据工件 (`reproducibility/04_results/*`) | CC-BY 4.0 |
 
 ---
