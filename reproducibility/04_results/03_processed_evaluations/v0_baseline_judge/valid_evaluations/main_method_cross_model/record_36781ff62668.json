@@ -1,0 +1,53 @@
+{
+  "record_id": "record_36781ff62668",
+  "judge_version": "v0_baseline_judge",
+  "snapshot_contract_id": "SC_50_NOEXT",
+  "snapshot_word_limit": 50,
+  "snapshot_allow_extension": false,
+  "judge_model": "claude",
+  "generator_model": "chatgpt",
+  "source_bundle": "judge_claude_bundle_chatgpt.json",
+  "bundle_file": "judge_claude_bundle_chatgpt.json",
+  "bundle_meta": {
+    "bundle_size": 16,
+    "questions": [
+      "Q3",
+      "Q4"
+    ],
+    "versions": [
+      "baseline",
+      "long",
+      "weak",
+      "conflict"
+    ],
+    "trigger_types": [
+      "implicit",
+      "explicit"
+    ],
+    "model": "claude"
+  },
+  "file": "q3 baseline implicit.pdf",
+  "raw_pdf": "04_results/01_raw_model_outputs/openai_gpt-5.2_extended-thinking/q3_baseline_implicit.pdf",
+  "question_id": "q3",
+  "prompt_variant": "baseline",
+  "trigger_type": "implicit",
+  "scores": {
+    "A_structure": 0,
+    "B_snapshot_constraint": 0,
+    "C_actionability": 0,
+    "D_completeness": 0,
+    "E_drift_failure": 0
+  },
+  "total": 0,
+  "total_source": "item.total",
+  "evidence": {
+    "A_structure": "为什么会这样（最常见的8个原因）...你这份提示词的关键结构性问题（点名）...怎么让它更稳（可执行清单，按优先级）",
+    "B_snapshot_constraint": "无三段式结构，无法评分",
+    "C_actionability": "无三段式结构，无法评分",
+    "D_completeness": "无三段式结构，无法评分",
+    "E_drift_failure": "整体是诊断/修复文章，完全不符合三段式"
+  },
+  "notes": "完全退化为分析文章，未执行三段式协议",
+  "method": "cross_model",
+  "is_valid": true
+}

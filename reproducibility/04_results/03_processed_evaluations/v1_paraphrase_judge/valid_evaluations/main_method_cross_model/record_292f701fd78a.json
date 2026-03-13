@@ -1,0 +1,40 @@
+{
+  "record_id": "record_292f701fd78a",
+  "judge_version": "v1_paraphrase_judge",
+  "snapshot_contract_id": "SC_150_EXT",
+  "snapshot_word_limit": 150,
+  "snapshot_allow_extension": true,
+  "judge_model": "gemini",
+  "generator_model": "chatgpt",
+  "source_bundle": "judge_gemini_bundle_chatgpt.json",
+  "bundle_file": "judge_gemini_bundle_chatgpt.json",
+  "bundle_meta": {
+    "total_files": 16,
+    "evaluated_at": "2026-01-14",
+    "judge_role": "Strict Research-grade LLM-as-Judge"
+  },
+  "file": "q3_conflict_explicit.pdf",
+  "raw_pdf": "04_results/01_raw_model_outputs/openai_gpt-5.2_extended-thinking/q3_conflict_explicit.pdf",
+  "question_id": "q3",
+  "prompt_variant": "conflict",
+  "trigger_type": "explicit",
+  "scores": {
+    "A_structure": 2,
+    "B_snapshot_constraint": 2,
+    "C_actionability": 2,
+    "D_completeness": 2,
+    "E_drift_failure": 0
+  },
+  "total": 8,
+  "total_source": "derived_from_dimensions",
+  "evidence": {
+    "A_structure": "结构完整 [cite: 74, 76, 88]",
+    "B_snapshot_constraint": "多次要求固定格式输出 [cite: 75]",
+    "C_actionability": "检索式包含关键词与来源 [cite: 80]",
+    "D_completeness": "覆盖机制、实验、改进 [cite: 94-98]",
+    "E_drift_failure": "严格对齐格式要求"
+  },
+  "notes": null,
+  "method": "cross_model",
+  "is_valid": true
+}

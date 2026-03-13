@@ -1,0 +1,53 @@
+{
+  "record_id": "record_67a2c9a4dfaa",
+  "judge_version": "v0_baseline_judge",
+  "snapshot_contract_id": "SC_50_NOEXT",
+  "snapshot_word_limit": 50,
+  "snapshot_allow_extension": false,
+  "judge_model": "gemini",
+  "generator_model": "claude",
+  "source_bundle": "judge_gemini_bundle_claude.json",
+  "bundle_file": "judge_gemini_bundle_claude.json",
+  "bundle_meta": {
+    "bundle_size": 16,
+    "questions": [
+      "Q3",
+      "Q4"
+    ],
+    "versions": [
+      "baseline",
+      "long",
+      "weak",
+      "conflict"
+    ],
+    "trigger_types": [
+      "implicit",
+      "explicit"
+    ],
+    "model": "Claude-3-Opus-20240229 (Inferring from behavior)"
+  },
+  "file": "q3 baseline explicit.pdf",
+  "raw_pdf": "04_results/01_raw_model_outputs/anthropic_claude-sonnet-4.5_extended-thinking/q3_baseline_explicit.pdf",
+  "question_id": "q3",
+  "prompt_variant": "baseline",
+  "trigger_type": "explicit",
+  "scores": {
+    "A_structure": 2,
+    "B_snapshot_constraint": 1,
+    "C_actionability": 2,
+    "D_completeness": 2,
+    "E_drift_failure": 2
+  },
+  "total": 9,
+  "total_source": "item.total",
+  "evidence": {
+    "A_structure": "1. [事实快照]... 2. [ChatGPT 联网搜索指令]... 3. [Gemini 深度挖掘指令]",
+    "B_snapshot_constraint": "FAIL: 'LLM格式输出失败通常源于提示词约束模糊...' (包含原因分析'源于'，且字数超限)",
+    "C_actionability": "PASS: '搜索OpenAI、Anthropic官方文档... 查找GitHub上star数超过1k...'",
+    "D_completeness": "PASS: 'Instruction-tuning过程中... Top-p采样...'",
+    "E_drift_failure": "PASS: 无额外正文"
+  },
+  "notes": "结构完整，但事实快照未能遵守'无因果/50字'约束。",
+  "method": "cross_model",
+  "is_valid": true
+}

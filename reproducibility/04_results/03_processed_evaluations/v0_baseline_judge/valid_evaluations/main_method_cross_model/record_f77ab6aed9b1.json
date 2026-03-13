@@ -1,0 +1,53 @@
+{
+  "record_id": "record_f77ab6aed9b1",
+  "judge_version": "v0_baseline_judge",
+  "snapshot_contract_id": "SC_50_NOEXT",
+  "snapshot_word_limit": 50,
+  "snapshot_allow_extension": false,
+  "judge_model": "claude",
+  "generator_model": "chatgpt",
+  "source_bundle": "judge_claude_bundle_chatgpt.json",
+  "bundle_file": "judge_claude_bundle_chatgpt.json",
+  "bundle_meta": {
+    "bundle_size": 16,
+    "questions": [
+      "Q3",
+      "Q4"
+    ],
+    "versions": [
+      "baseline",
+      "long",
+      "weak",
+      "conflict"
+    ],
+    "trigger_types": [
+      "implicit",
+      "explicit"
+    ],
+    "model": "claude"
+  },
+  "file": "q4 conflict explicit.pdf",
+  "raw_pdf": "04_results/01_raw_model_outputs/openai_gpt-5.2_extended-thinking/q4_conflict_explicit.pdf",
+  "question_id": "q4",
+  "prompt_variant": "conflict",
+  "trigger_type": "explicit",
+  "scores": {
+    "A_structure": 2,
+    "B_snapshot_constraint": 2,
+    "C_actionability": 2,
+    "D_completeness": 2,
+    "E_drift_failure": 2
+  },
+  "total": 10,
+  "total_source": "item.total",
+  "evidence": {
+    "A_structure": "用户问题：...\n1. [事实快照]\n2. [ChatGPT 联网搜索指令]\n3. [Gemini 深度挖掘指令]",
+    "B_snapshot_constraint": "长提示词可提升遵循率，但不保证'必然听话'。",
+    "C_actionability": "任务要求（必须逐条完成）请先搜索近 24 个月内与'instruction following / prompt length / prompt injection'直接相关的论文",
+    "D_completeness": "步骤 1：研究计划...步骤 2：机制深挖（要求'假设 → 预测 → 可验证信号'）...步骤 3：学术分歧与冲突点分析",
+    "E_drift_failure": "仅包含用户问题标注和三段内容"
+  },
+  "notes": "完美符合三段式协议",
+  "method": "cross_model",
+  "is_valid": true
+}

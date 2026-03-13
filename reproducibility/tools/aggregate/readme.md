@@ -36,7 +36,7 @@ Figure rendering remains the downstream deterministic pipeline:
 (scores_long.csv tables; v0/v1/v2)  →  figure scripts  →  PDF figures
 ```
 
-See `reproducibility/tools/figures/README.md` for the script-to-figure mapping and one-command reproduction instructions.
+See `reproducibility/tools/figures/readme.md` for the script-to-figure mapping and one-command reproduction instructions.
 
 ---
 

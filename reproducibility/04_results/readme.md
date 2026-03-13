@@ -13,7 +13,7 @@ This directory is the paper evidence store. It contains preserved artifacts and 
 
 - `01_raw_model_outputs/` — frozen generator outputs (PDF).
 - `02_raw_judge_evaluations/` — preserved judge bundles (JSON) produced from those PDFs.
-- `03_processed_evaluations/` — canonical processed records and summary tables organized by judge version.
+- `03_processed_evaluations/` — canonical processed records (`valid_evaluations/main_method_cross_model/record_*.json`) and summary tables organized by judge version.
 - `04_results_analysis.md` — provenance note describing how paper numbers map to files and how to trace rows back to raw evidence.
 
 ## One-way data flow
@@ -57,5 +57,5 @@ Figures are not stored under `04_results/`.
 2) Locate supporting row(s) in `scores_long.csv`.
 3) From a `scores_long.csv` row, use join keys such as `file`, `generator_model`, `prompt_variant`, `question_id`, `trigger_type` as applicable.
 4) Locate the matching `record_*.json` under:
-   - `reproducibility/04_results/03_processed_evaluations/<judge_version>/valid_evaluations/`
+   - `reproducibility/04_results/03_processed_evaluations/<judge_version>/valid_evaluations/main_method_cross_model/`
 5) Prefer `record.raw_pdf` when present; otherwise open the raw PDF under `01_raw_model_outputs/` using the resolution rule documented in `04_results_analysis.md`.

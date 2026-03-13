@@ -185,7 +185,7 @@ python reproducibility/tools/reproduce_valid_evaluations.py --from_raw --overwri
 ```
 
 输出：
-- `valid_evaluations/**/*.json`
+- `valid_evaluations/main_method_cross_model/record_*.json`
 - `scores_long.csv`
 - `scores_grouped.csv`
 - `run_meta.json`
@@ -200,7 +200,7 @@ python reproducibility/tools/reproduce_valid_evaluations.py --from_raw --overwri
 
 1. 打开 `scores_long.csv`，选择任意一行
 2. 记住 `record_id` 或文件名
-3. 在 `.../valid_evaluations/` 找对应的 `record_*.json`
+3. 在 `.../valid_evaluations/main_method_cross_model/` 找对应的 `record_*.json`
 
 **2. 从记录到原始输出**
 

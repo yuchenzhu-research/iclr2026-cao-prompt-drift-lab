@@ -1,0 +1,40 @@
+{
+  "record_id": "record_21d570ddbe89",
+  "judge_version": "v1_paraphrase_judge",
+  "snapshot_contract_id": "SC_150_EXT",
+  "snapshot_word_limit": 150,
+  "snapshot_allow_extension": true,
+  "judge_model": "gemini",
+  "generator_model": "chatgpt",
+  "source_bundle": "judge_gemini_bundle_chatgpt.json",
+  "bundle_file": "judge_gemini_bundle_chatgpt.json",
+  "bundle_meta": {
+    "total_files": 16,
+    "evaluated_at": "2026-01-14",
+    "judge_role": "Strict Research-grade LLM-as-Judge"
+  },
+  "file": "q4_weak_implicit.pdf",
+  "raw_pdf": "04_results/01_raw_model_outputs/openai_gpt-5.2_extended-thinking/q4_weak_implicit.pdf",
+  "question_id": "q4",
+  "prompt_variant": "weak",
+  "trigger_type": "implicit",
+  "scores": {
+    "A_structure": 2,
+    "B_snapshot_constraint": 2,
+    "C_actionability": 2,
+    "D_completeness": 2,
+    "E_drift_failure": 0
+  },
+  "total": 8,
+  "total_source": "derived_from_dimensions",
+  "evidence": {
+    "A_structure": "结构完整 [cite: 339, 341, 347]",
+    "B_snapshot_constraint": "提示词越长不必然越听话 [cite: 340]",
+    "C_actionability": "检索式与证据地图 [cite: 344, 346]",
+    "D_completeness": "包含预测与策略对照表 [cite: 352, 354]",
+    "E_drift_failure": "遵循约束"
+  },
+  "notes": null,
+  "method": "cross_model",
+  "is_valid": true
+}

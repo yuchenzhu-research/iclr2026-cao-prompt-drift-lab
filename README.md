@@ -185,7 +185,7 @@ python reproducibility/tools/reproduce_valid_evaluations.py --from_raw --overwri
 ```
 
 Outputs:
-- `valid_evaluations/**/*.json`
+- `valid_evaluations/main_method_cross_model/record_*.json`
 - `scores_long.csv`
 - `scores_grouped.csv`
 - `run_meta.json`
@@ -200,7 +200,7 @@ Every reported data point traces back to raw artifacts:
 
 1. Open `scores_long.csv`, pick any row
 2. Note `record_id` or filename
-3. Find corresponding `record_*.json` in `.../valid_evaluations/`
+3. Find corresponding `record_*.json` in `.../valid_evaluations/main_method_cross_model/`
 
 **2. Record → Original Output**
 

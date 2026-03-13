@@ -1,19 +1,25 @@
 # 03_processed_evaluations — Processed Evaluations
 
 This directory stores **deterministic, derived artifacts** produced from preserved judge outputs.
-It is the canonical source for **paper-citable numeric tables** and **audit-only record traces**.
+It contains both the **paper-citable numeric layer** and the **canonical normalized record layer**
+used to rebuild those tables from raw judge bundles.
 
 ---
 
 ## Reproducibility boundary
 
-**All reproducible results and figures start from:**
+**All paper-citable numeric analysis starts from:**
 
 ```
 */summary_tables/scores_long.csv
 ```
 
-No figure script reads record-level JSON files directly.
+Figure scripts read `scores_long.csv`.
+The rebuild path uses canonical records under:
+
+```
+*/valid_evaluations/main_method_cross_model/record_*.json
+```
 
 ---
 
@@ -32,8 +38,12 @@ Within each judge directory:
 - `summary_tables/`  
   Authoritative, paper-citable numeric tables (CSV/JSON). **This is the only normative source for analysis.**
 
-- `valid_evaluations/`  
-  Record-level processed evaluations. **Audit-only; not used for reproduction.**
+- `valid_evaluations/main_method_cross_model/`
+  Canonical normalized record JSON used by the active offline rebuild path:
+  `raw bundles -> record_*.json -> summary_tables/*.csv`
+
+- `valid_evaluations/` siblings outside `main_method_cross_model/`
+  Historical residue kept only for audit context. These paths are not consumed by the current rebuild or figure scripts.
 
 - `invalid_evaluations/` (optional)  
   Records excluded by evaluation rules, when applicable.
@@ -42,31 +52,25 @@ Within each judge directory:
 
 ## Important note on v0_baseline_judge
 
-The `v0_baseline_judge` directory reflects an **earlier iteration of the evaluation pipeline**.
+The `v0_baseline_judge` directory includes an **earlier iteration of the record-export layout**.
 
 As a result:
 
-- Record-level files under `v0_baseline_judge/valid_evaluations/` may contain:
-  - historical or inferred model identifiers (e.g., `unknown_*`, legacy Gemini variants)
-  - intermediate naming conventions that are no longer used in later versions
+- Only `v0_baseline_judge/valid_evaluations/main_method_cross_model/record_*.json`
+  is canonical for the current rebuild path.
+- Additional JSON files under `v0_baseline_judge/valid_evaluations/` root and
+  `supporting_method_self_eval/` are preserved historical residue.
+- Those historical files may contain inferred model identifiers (e.g., `unknown_*`)
+  and earlier naming conventions.
 
-These artifacts are preserved **for auditability only**.
-
-> **They are NOT used for computing any paper numbers or figures.**
-
-For authoritative v0 results, consumers **must** use:
-
-```
-v0_baseline_judge/summary_tables/scores_long.csv
-```
-
-Model usage is normalized and finalized at the summary-table level.
+Historical residue is preserved **for auditability only**.
+It is not read by the current rebuild scripts or figure scripts.
 
 ---
 
 ## v1 / v2 judge runs
 
-`v1_paraphrase_judge` and `v2_schema_strict_judge` were produced after the evaluation contract
+`v1_paraphrase_judge` and `v2_schema_strict_judge` were produced after the record contract
 was stabilized.
 
 - Record-level naming is consistent
@@ -92,6 +96,7 @@ Any other files in this directory should be treated as **non-normative supportin
 - Source inputs: `reproducibility/04_results/02_raw_judge_evaluations/`
 - Processing scripts: `reproducibility/tools/`
 - No model inference is executed in this stage
+- Structural audit command: `python reproducibility/tools/audit_reproducibility_bundle.py`
 
 ---
 

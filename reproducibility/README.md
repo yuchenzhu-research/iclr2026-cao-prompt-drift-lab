@@ -23,6 +23,9 @@ All paper-citable numbers are backed by stored artifacts and are traceable to pr
 
 This `reproducibility/README.md` is **non-normative** (index/explainer only). It must not override the two items above.
 
+Technical audit entry point:
+- `reproducibility/TECHNICAL_MAP.md`
+
 ---
 
 ## 30-second navigation (no code)
@@ -102,7 +105,7 @@ Target chain:
 - `.../<judge_version>/summary_tables/scores_long.csv`
 
 3) Locate the corresponding processed record JSON under:
-- `.../<judge_version>/valid_evaluations/**/*.json`
+- `.../<judge_version>/valid_evaluations/main_method_cross_model/record_*.json`
 
 **Important notes:**
 - Processed record JSON filenames are **not a contract** and may be hash-based.

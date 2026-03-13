@@ -1,0 +1,41 @@
+{
+  "record_id": "record_f2d8fb02598a",
+  "judge_version": "v1_paraphrase_judge",
+  "snapshot_contract_id": "SC_150_EXT",
+  "snapshot_word_limit": 150,
+  "snapshot_allow_extension": true,
+  "judge_model": "chatgpt",
+  "generator_model": "gemini",
+  "source_bundle": "judge_chatgpt_bundle_gemini.json",
+  "bundle_file": "judge_chatgpt_bundle_gemini.json",
+  "bundle_meta": {
+    "judge_role": "LLM-as-Judge (realigned to analysis-allowed snapshot)",
+    "n_files": 16,
+    "evaluation_note": "150字内分析性摘要允许；仍严格三段式",
+    "file_name_usage": "alignment only"
+  },
+  "file": "q3_baseline_explicit.pdf",
+  "raw_pdf": "04_results/01_raw_model_outputs/google_gemini-3-pro/q3_baseline_explicit.pdf",
+  "question_id": "q3",
+  "prompt_variant": "baseline",
+  "trigger_type": "explicit",
+  "scores": {
+    "A_structure": 2,
+    "B_snapshot_constraint": 2,
+    "C_actionability": 2,
+    "D_completeness": 2,
+    "E_drift_failure": 1
+  },
+  "total": 9,
+  "total_source": "item.total",
+  "evidence": {
+    "A_structure": "1. [事实快照]",
+    "B_snapshot_constraint": "格式遵循失败主要源于",
+    "C_actionability": "请利用联网搜索功能",
+    "D_completeness": "请执行以下步骤",
+    "E_drift_failure": "附录：故障诊断与分析"
+  },
+  "notes": "轻微段外扩展",
+  "method": "cross_model",
+  "is_valid": true
+}

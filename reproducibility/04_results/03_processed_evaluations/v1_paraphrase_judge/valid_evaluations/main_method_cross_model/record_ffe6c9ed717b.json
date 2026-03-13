@@ -1,0 +1,41 @@
+{
+  "record_id": "record_ffe6c9ed717b",
+  "judge_version": "v1_paraphrase_judge",
+  "snapshot_contract_id": "SC_150_EXT",
+  "snapshot_word_limit": 150,
+  "snapshot_allow_extension": true,
+  "judge_model": "chatgpt",
+  "generator_model": "gemini",
+  "source_bundle": "judge_chatgpt_bundle_gemini.json",
+  "bundle_file": "judge_chatgpt_bundle_gemini.json",
+  "bundle_meta": {
+    "judge_role": "LLM-as-Judge (realigned to analysis-allowed snapshot)",
+    "n_files": 16,
+    "evaluation_note": "150字内分析性摘要允许；仍严格三段式",
+    "file_name_usage": "alignment only"
+  },
+  "file": "q4_conflict_implicit.pdf",
+  "raw_pdf": "04_results/01_raw_model_outputs/google_gemini-3-pro/q4_conflict_implicit.pdf",
+  "question_id": "q4",
+  "prompt_variant": "conflict",
+  "trigger_type": "implicit",
+  "scores": {
+    "A_structure": 2,
+    "B_snapshot_constraint": 1,
+    "C_actionability": 2,
+    "D_completeness": 2,
+    "E_drift_failure": 0
+  },
+  "total": 7,
+  "total_source": "item.total",
+  "evidence": {
+    "A_structure": "[事实快照]",
+    "B_snapshot_constraint": "字数受限",
+    "C_actionability": "深度分析",
+    "D_completeness": "对比",
+    "E_drift_failure": "冲突点"
+  },
+  "notes": "隐性冲突",
+  "method": "cross_model",
+  "is_valid": true
+}

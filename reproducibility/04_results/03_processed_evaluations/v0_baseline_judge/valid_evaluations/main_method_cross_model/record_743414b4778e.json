@@ -1,0 +1,53 @@
+{
+  "record_id": "record_743414b4778e",
+  "judge_version": "v0_baseline_judge",
+  "snapshot_contract_id": "SC_50_NOEXT",
+  "snapshot_word_limit": 50,
+  "snapshot_allow_extension": false,
+  "judge_model": "claude",
+  "generator_model": "gemini",
+  "source_bundle": "judge_claude_bundle_gemini.json",
+  "bundle_file": "judge_claude_bundle_gemini.json",
+  "bundle_meta": {
+    "bundle_size": 16,
+    "questions": [
+      "Q3",
+      "Q4"
+    ],
+    "versions": [
+      "baseline",
+      "long",
+      "weak",
+      "conflict"
+    ],
+    "trigger_types": [
+      "implicit",
+      "explicit"
+    ],
+    "model": "claude"
+  },
+  "file": "q3 weak implicit.pdf",
+  "raw_pdf": "04_results/01_raw_model_outputs/google_gemini-3-pro/q3_weak_implicit.pdf",
+  "question_id": "q3",
+  "prompt_variant": "weak",
+  "trigger_type": "implicit",
+  "scores": {
+    "A_structure": 0,
+    "B_snapshot_constraint": 0,
+    "C_actionability": 0,
+    "D_completeness": 0,
+    "E_drift_failure": 0
+  },
+  "total": 0,
+  "total_source": "item.total",
+  "evidence": {
+    "A_structure": "提示词失效原因分析与优化报告\n第一部分：用户原始问题与提示词\n第二部分：为什么原来的提示词会失败？\n第三部分：优化后的强约束版本\n第四部分：实际测试对比",
+    "B_snapshot_constraint": "N/A - 结构失败",
+    "C_actionability": "N/A - 结构失败",
+    "D_completeness": "N/A - 结构失败",
+    "E_drift_failure": "N/A - 结构失败"
+  },
+  "notes": "完全退化为优化报告，包含失败原因分析、优化建议、测试对比等大量越界内容",
+  "method": "cross_model",
+  "is_valid": true
+}

@@ -1,0 +1,50 @@
+{
+  "record_id": "record_020dd9265466",
+  "judge_version": "v0_baseline_judge",
+  "snapshot_contract_id": "SC_50_NOEXT",
+  "snapshot_word_limit": 50,
+  "snapshot_allow_extension": false,
+  "judge_model": "gemini",
+  "generator_model": "claude",
+  "source_bundle": "judge_gemini_bundle_claude.json",
+  "bundle_file": "judge_gemini_bundle_claude.json",
+  "bundle_meta": {
+    "bundle_size": 16,
+    "questions": [
+      "Q3",
+      "Q4"
+    ],
+    "versions": [
+      "baseline",
+      "long",
+      "weak",
+      "conflict"
+    ],
+    "trigger_types": [
+      "implicit",
+      "explicit"
+    ],
+    "model": "Claude-3-Opus-20240229 (Inferring from behavior)"
+  },
+  "file": "q4 baseline implicit.pdf",
+  "raw_pdf": "04_results/01_raw_model_outputs/anthropic_claude-sonnet-4.5_extended-thinking/q4_baseline_implicit.pdf",
+  "question_id": "q4",
+  "prompt_variant": "baseline",
+  "trigger_type": "implicit",
+  "scores": {
+    "A_structure": 0,
+    "B_snapshot_constraint": 0,
+    "C_actionability": 0,
+    "D_completeness": 0,
+    "E_drift_failure": 0
+  },
+  "total": 0,
+  "total_source": "item.total",
+  "evidence": {
+    "A_structure": "MISSING",
+    "E_drift_failure": "CRITICAL: '核心观点:提示词长度与模型服从性没有必然关系... 为什么长提示词不能保证听话?'"
+  },
+  "notes": "Q4全线崩溃：模型优先回答了用户的'元问题'，完全无视了格式协议。",
+  "method": "cross_model",
+  "is_valid": true
+}

@@ -1,0 +1,53 @@
+{
+  "record_id": "record_1c7f0fcced50",
+  "judge_version": "v0_baseline_judge",
+  "snapshot_contract_id": "SC_50_NOEXT",
+  "snapshot_word_limit": 50,
+  "snapshot_allow_extension": false,
+  "judge_model": "claude",
+  "generator_model": "chatgpt",
+  "source_bundle": "judge_claude_bundle_chatgpt.json",
+  "bundle_file": "judge_claude_bundle_chatgpt.json",
+  "bundle_meta": {
+    "bundle_size": 16,
+    "questions": [
+      "Q3",
+      "Q4"
+    ],
+    "versions": [
+      "baseline",
+      "long",
+      "weak",
+      "conflict"
+    ],
+    "trigger_types": [
+      "implicit",
+      "explicit"
+    ],
+    "model": "claude"
+  },
+  "file": "q3 long explicit.pdf",
+  "raw_pdf": "04_results/01_raw_model_outputs/openai_gpt-5.2_extended-thinking/q3_long_explicit.pdf",
+  "question_id": "q3",
+  "prompt_variant": "long",
+  "trigger_type": "explicit",
+  "scores": {
+    "A_structure": 2,
+    "B_snapshot_constraint": 2,
+    "C_actionability": 2,
+    "D_completeness": 2,
+    "E_drift_failure": 2
+  },
+  "total": 10,
+  "total_source": "item.total",
+  "evidence": {
+    "A_structure": "1. [事实快照]\n2. [ChatGPT 联网搜索指令]\n3. [Gemini 深度挖掘指令]",
+    "B_snapshot_constraint": "Q：长提示词≠必然听话；格式/指令仍可能被忽略或漂移。",
+    "C_actionability": "请先搜索并收集近 24 个月内的高质量来源...请交叉验证：同一结论至少由 2 个独立来源支持",
+    "D_completeness": "1) 研究计划：给出 2–3 个可检验假设...2) 机制深挖（不要停留在经验层）...3) 分歧点分析",
+    "E_drift_failure": "仅包含三段式内容"
+  },
+  "notes": "完美符合三段式协议",
+  "method": "cross_model",
+  "is_valid": true
+}

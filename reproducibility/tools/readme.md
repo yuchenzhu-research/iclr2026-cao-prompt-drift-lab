@@ -3,6 +3,19 @@
 This directory contains deterministic, offline utilities for the reproducibility bundle.
 No API calls, no model execution, no randomness.
 
+## Supported entry points
+
+- `reproducibility/tools/audit_reproducibility_bundle.py`
+  - read-only structural audit for counts, contracts, and historical residue
+- `reproducibility/tools/verify_release_bundle.py`
+  - temp-directory verification for rebuild + figure smoke test + release-figure hash check
+- `reproducibility/tools/reproduce_valid_evaluations.py`
+  - canonical rebuild entry point
+- `reproducibility/tools/ingest/materialize_records.py`
+  - record-only rebuild
+- `reproducibility/tools/ingest/reproduce_valid_evaluations.py`
+  - deprecated compatibility wrapper; do not use as a new entry point
+
 ## Canonical pipeline
 
 The supported offline rebuild path is:
@@ -19,6 +32,20 @@ The supported offline rebuild path is:
 
 The pipeline is deterministic because it only normalizes preserved artifacts.
 It does **not** claim that LLM judging itself is reproducible.
+
+Quick audit command:
+
+```bash
+python reproducibility/tools/audit_reproducibility_bundle.py
+```
+
+One-command release verification:
+
+```bash
+python reproducibility/tools/verify_release_bundle.py
+```
+
+This leaves the git worktree untouched because it rebuilds into a temp directory.
 
 ## v0 / v1 / v2 meaning
 
@@ -56,6 +83,12 @@ One command:
 python reproducibility/tools/reproduce_valid_evaluations.py --from_raw --overwrite_records
 ```
 
+If you want a clean verification run without rewriting tracked artifacts, use:
+
+```bash
+python reproducibility/tools/verify_release_bundle.py
+```
+
 This does two deterministic steps:
 
 1. `reproducibility/tools/ingest/materialize_records.py`
@@ -79,7 +112,7 @@ Example:
 python reproducibility/tools/figures/make_fig2_heatmap_v0_implicit_collapse.py
 ```
 
-See `reproducibility/tools/figures/README.md` for the script → input CSV → output PDF mapping.
+See `reproducibility/tools/figures/readme.md` for the script → input CSV → output PDF mapping.
 
 ### 3) Record-only rebuild
 

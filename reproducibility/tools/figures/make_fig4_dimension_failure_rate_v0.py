@@ -1,3 +1,7 @@
+from _runtime import configure_headless_matplotlib_env
+
+configure_headless_matplotlib_env()
+
 import pandas as pd
 import matplotlib
 matplotlib.use("Agg")

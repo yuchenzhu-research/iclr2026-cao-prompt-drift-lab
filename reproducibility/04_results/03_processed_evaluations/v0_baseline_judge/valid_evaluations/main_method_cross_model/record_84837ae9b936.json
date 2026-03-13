@@ -1,0 +1,49 @@
+{
+  "record_id": "record_84837ae9b936",
+  "judge_version": "v0_baseline_judge",
+  "snapshot_contract_id": "SC_50_NOEXT",
+  "snapshot_word_limit": 50,
+  "snapshot_allow_extension": false,
+  "judge_model": "chatgpt",
+  "generator_model": "gemini",
+  "source_bundle": "judge_chatgpt_bundle_gemini.json",
+  "bundle_file": "judge_chatgpt_bundle_gemini.json",
+  "bundle_meta": {
+    "bundle_size": 16,
+    "questions": [
+      "Q3",
+      "Q4"
+    ],
+    "versions": [
+      "baseline",
+      "long",
+      "weak",
+      "conflict"
+    ],
+    "trigger_types": [
+      "implicit",
+      "explicit"
+    ],
+    "model": "unknown"
+  },
+  "file": "q4 weak implicit.pdf",
+  "raw_pdf": "04_results/01_raw_model_outputs/google_gemini-3-pro/q4_weak_implicit.pdf",
+  "question_id": "q4",
+  "prompt_variant": "weak",
+  "trigger_type": "implicit",
+  "scores": {
+    "A_structure": 0,
+    "B_snapshot_constraint": 0,
+    "C_actionability": 0,
+    "D_completeness": 0,
+    "E_drift_failure": 0
+  },
+  "total": 0,
+  "total_source": "item.total",
+  "evidence": {
+    "A_structure": "议题：提示词越长，模型越“听话”？ 一、 对观点的简短结论 这个说法是过于简化的误解。长度可以帮助提供更多上下文，但不等于控制力。"
+  },
+  "notes": "未按三段式输出（或三段式仅出现在后文模板/建议中，视为失败）",
+  "method": "cross_model",
+  "is_valid": true
+}

@@ -1,9 +1,6 @@
 # Figures: Render Plots from Frozen Artifacts
 
-This directory contains **figure-generation scripts** that render the paper/reproducibility plots from **already-provided artifacts**:
-
-- processed evaluation records (`**/*.json`, filenames are not a contract), and
-- precomputed summary tables (`summary_tables/*.csv`, paper-citable numeric source).
+This directory contains **figure-generation scripts** that render the paper/reproducibility plots from **already-provided summary tables**.
 
 > Figure scripts must **not** recompute aggregation/scoring.
 > They only read the processed artifacts already present under `03_processed_evaluations/`,
@@ -14,16 +11,6 @@ This directory contains **figure-generation scripts** that render the paper/repr
 
 ## Inputs
 
-### Processed records
-
-Figure scripts may read processed record files from:
-
-- `reproducibility/04_results/03_processed_evaluations/<judge_version>/valid_evaluations/**/*.json`
-
-**Notes**:
-- Record JSON filenames are **not a contract** and may be hash-based.
-- Scripts should locate records via JSON fields (e.g., `file`, `generator_model`, `judge_model`) rather than filename patterns.
-
 ### Precomputed summary tables
 
 Precomputed tables live under judge-specific directories:
@@ -32,13 +19,14 @@ Precomputed tables live under judge-specific directories:
 - `reproducibility/04_results/03_processed_evaluations/v1_paraphrase_judge/summary_tables/`
 - `reproducibility/04_results/03_processed_evaluations/v2_schema_strict_judge/summary_tables/`
 
-Typical files include:
+All shipped figure scripts read:
 
 - `scores_long.csv`
-- `scores_grouped.csv`
 
 All figure scripts save PDFs without opening a GUI window by default.
 If you want an interactive preview, pass `--show`.
+The scripts also redirect matplotlib/fontconfig caches to a writable temp directory
+when the default user cache locations are not writable.
 
 ---
 
@@ -111,3 +99,19 @@ Paper figures (`paper_anon_submission/figures/*.pdf`) are **frozen snapshots** o
 2. Run scripts with `--out_dir paper_anon_submission/figures` to regenerate.
 
 Do not mix outputs from different script versions when compiling the paper.
+
+## Release acceptance
+
+For this repository, the published figure bundle is:
+
+- `final-version/figures/`
+
+The same frozen PDFs are mirrored under:
+
+- `paper_anon_submission/figures/`
+
+To verify the shipped release bundle and smoke-test all figure scripts in one command:
+
+```bash
+python reproducibility/tools/verify_release_bundle.py
+```

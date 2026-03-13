@@ -18,6 +18,7 @@ Everything else is explanatory.
 
 - Reviewer entry: this file (`README_FOR_REVIEWERS.md`)
 - Supplement index (directory map): `reproducibility/README.md`
+- Technical audit map: `reproducibility/TECHNICAL_MAP.md`
 - Canonical results store: `reproducibility/04_results/`
 
 Top-level layout:
@@ -52,7 +53,7 @@ Interpret tables only under the cited `<judge_version>`.
 A) From `scores_long.csv` to `record_*.json`
 
 Each row in `scores_long.csv` corresponds to one processed record:
-- `reproducibility/04_results/03_processed_evaluations/<judge_version>/valid_evaluations/**/record_*.json`
+- `reproducibility/04_results/03_processed_evaluations/<judge_version>/valid_evaluations/main_method_cross_model/record_*.json`
 
 Join keys are the columns present in the tables (e.g., `file`, `generator_model`, `question_id`, `prompt_variant`, `trigger_type`). Use the row’s identifiers to locate the matching record file.
 
@@ -75,8 +76,19 @@ Notes:
 - raw judge bundles → record JSON → `scores_long.csv` + `scores_grouped.csv`
 - this path is deterministic and does not re-run judging
 
+**Offline structural audit (reproducible):**
+```bash
+python reproducibility/tools/audit_reproducibility_bundle.py --strict
+```
+
+**Release verification (reproducible, temp-directory, no dirty worktree):**
+```bash
+python reproducibility/tools/verify_release_bundle.py
+```
+
 **Downstream (REPRODUCIBLE):**
 - `scores_long.csv` → PDF figures (deterministic)
+- published release figures are frozen under `final-version/figures/` and mirrored in `paper_anon_submission/figures/`
 
 Run from the repository root:
 
@@ -96,7 +108,7 @@ python reproducibility/tools/reproduce_valid_evaluations.py --from_raw --overwri
 ```
 
 Expected outputs (for each judge version):
-- `valid_evaluations/**/*.json`
+- `valid_evaluations/main_method_cross_model/record_*.json`
 - `scores_long.csv`
 - `scores_grouped.csv`
 - `run_meta.json`
