@@ -54,12 +54,15 @@ That's exactly what **Prompt Drift Lab** is about—**auditing** evaluation stab
 
 | Dimension | Setting |
 |-----------|---------|
-| **Test Tasks** | 2 structured output tasks (Q3, Q4) |
+| **Question Split** | 4 fixed questions total: Q1-Q2 for prompt iteration and sanity checks, Q3-Q4 as the held-out evaluation set |
+| **Reported Tasks** | 2 structured output tasks (Q3, Q4) |
 | **Generator Models** | 3 LLMs (ChatGPT, Claude, Gemini) |
 | **Prompt Variants** | 4 types: baseline / weak / long / conflict |
 | **Instruction Explicitness** | 2 conditions: explicit / implicit |
 | **Total Runs** | 16 outputs per model (4 variants × 2 explicitness) |
 | **Judging** | Cross-model (Model A judges Model B) + self-judge validation |
+
+Question IDs follow the benchmark files in [`reproducibility/01_experiment_design/eval_questions_ZH.jsonl`](/Users/yuchenzhu/Desktop/github/ICLR2026/reproducibility/01_experiment_design/eval_questions_ZH.jsonl) and [`reproducibility/01_experiment_design/eval_questions_EN.jsonl`](/Users/yuchenzhu/Desktop/github/ICLR2026/reproducibility/01_experiment_design/eval_questions_EN.jsonl). The Chinese file is authoritative; the English file is a reviewer-facing translation. Q1-Q2 were used only to iterate prompt variants and sanity-check execution, while all reported numbers in this repository are derived from the held-out pair Q3-Q4.
 
 ### 2. Key Findings
 

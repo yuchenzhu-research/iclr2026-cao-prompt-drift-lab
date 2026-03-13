@@ -54,12 +54,15 @@
 
 | 维度 | 设置 |
 |------|------|
-| **测试任务** | 2 个结构化输出任务 (Q3、Q4) |
+| **问题划分** | 总共 4 个固定问题：Q1-Q2 只用于提示词迭代与 sanity check，Q3-Q4 才是正式保留的评测集 |
+| **报告任务** | 2 个结构化输出任务 (Q3、Q4) |
 | **生成模型** | 3 个主流 LLM（ChatGPT、Claude、Gemini） |
 | **提示词变体** | 4 种：baseline / weak / long / conflict |
 | **指令明确性** | 2 种：explicit（直接说明格式）/ implicit（间接暗示） |
 | **总测试量** | 每个模型 16 个输出（4 变体 × 2 明确性） |
 | **裁判方式** | 交叉模型裁判（Model A 评价 Model B）+ 自评交叉验证 |
+
+这里的 question ID 来自 [`reproducibility/01_experiment_design/eval_questions_ZH.jsonl`](/Users/yuchenzhu/Desktop/github/ICLR2026/reproducibility/01_experiment_design/eval_questions_ZH.jsonl) 和 [`reproducibility/01_experiment_design/eval_questions_EN.jsonl`](/Users/yuchenzhu/Desktop/github/ICLR2026/reproducibility/01_experiment_design/eval_questions_EN.jsonl)。其中中文文件是权威语义定义，英文文件是给 reviewer 阅读的参考翻译。`Q1-Q2` 只用于前期调 prompt 和执行层面的 sanity check，仓库里所有正式报告的数字都只来自保留评测集 `Q3-Q4`。
 
 ### 2. 核心发现
 
