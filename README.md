@@ -56,13 +56,17 @@ That's exactly what **Prompt Drift Lab** is about—**auditing** evaluation stab
 |-----------|---------|
 | **Question Split** | 4 fixed questions total: Q1-Q2 for prompt iteration and sanity checks, Q3-Q4 as the held-out evaluation set |
 | **Reported Tasks** | 2 structured output tasks (Q3, Q4) |
-| **Generator Models** | 3 LLMs (ChatGPT, Claude, Gemini) |
+| **Generator Models** | OpenAI GPT-5.2 with extended thinking, Google Gemini 3 Pro, and Anthropic Claude Sonnet 4.5 with extended thinking |
 | **Prompt Variants** | 4 types: baseline / weak / long / conflict |
-| **Instruction Explicitness** | 2 conditions: explicit / implicit |
+| **Instruction Explicitness** | 2 conditions: explicit (direct structure signaling) / implicit (indirect or softer structure signaling) |
 | **Total Runs** | 16 outputs per model (4 variants × 2 explicitness) |
 | **Judging** | Cross-model (Model A judges Model B) + self-judge validation |
 
 Question IDs follow the benchmark files in [`reproducibility/01_experiment_design/eval_questions_ZH.jsonl`](/Users/yuchenzhu/Desktop/github/ICLR2026/reproducibility/01_experiment_design/eval_questions_ZH.jsonl) and [`reproducibility/01_experiment_design/eval_questions_EN.jsonl`](/Users/yuchenzhu/Desktop/github/ICLR2026/reproducibility/01_experiment_design/eval_questions_EN.jsonl). The Chinese file is authoritative; the English file is a reviewer-facing translation. Q1-Q2 were used only to iterate prompt variants and sanity-check execution, while all reported numbers in this repository are derived from the held-out pair Q3-Q4.
+
+The preserved raw output directories are [`openai_gpt-5.2_extended-thinking`](/Users/yuchenzhu/Desktop/github/ICLR2026/reproducibility/04_results/01_raw_model_outputs/openai_gpt-5.2_extended-thinking), [`google_gemini-3-pro`](/Users/yuchenzhu/Desktop/github/ICLR2026/reproducibility/04_results/01_raw_model_outputs/google_gemini-3-pro), and [`anthropic_claude-sonnet-4.5_extended-thinking`](/Users/yuchenzhu/Desktop/github/ICLR2026/reproducibility/04_results/01_raw_model_outputs/anthropic_claude-sonnet-4.5_extended-thinking). The initial `v0_baseline_judge` condition includes all three generators. Later bundles, `v1_paraphrase_judge` and `v2_schema_strict_judge`, intentionally retain only GPT-5.2 and Gemini 3 Pro because Claude underperformed sharply in this task family during `v0` (`24/32` zero-score cases in the canonical table) and was dropped from the follow-up comparison by design.
+
+In this repository, `explicit` means the prompt directly names the required three-section output contract and ordering, while `implicit` keeps the same task and target structure but signals it more indirectly through softer or less literal constraint wording. That distinction is defined at the prompt-design layer in [`reproducibility/02_prompt_variants/`](/Users/yuchenzhu/Desktop/github/ICLR2026/reproducibility/02_prompt_variants) and tracked as `trigger_type` throughout the raw and processed artifacts.
 
 ### 2. Key Findings
 

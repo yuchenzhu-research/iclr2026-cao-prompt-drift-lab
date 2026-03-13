@@ -56,13 +56,17 @@
 |------|------|
 | **问题划分** | 总共 4 个固定问题：Q1-Q2 只用于提示词迭代与 sanity check，Q3-Q4 才是正式保留的评测集 |
 | **报告任务** | 2 个结构化输出任务 (Q3、Q4) |
-| **生成模型** | 3 个主流 LLM（ChatGPT、Claude、Gemini） |
+| **生成模型** | OpenAI GPT-5.2 with extended thinking、Google Gemini 3 Pro、Anthropic Claude Sonnet 4.5 with extended thinking |
 | **提示词变体** | 4 种：baseline / weak / long / conflict |
-| **指令明确性** | 2 种：explicit（直接说明格式）/ implicit（间接暗示） |
+| **指令明确性** | 2 种：explicit（直接点明三段结构和顺序）/ implicit（用更间接、更弱的约束来传达结构要求） |
 | **总测试量** | 每个模型 16 个输出（4 变体 × 2 明确性） |
 | **裁判方式** | 交叉模型裁判（Model A 评价 Model B）+ 自评交叉验证 |
 
 这里的 question ID 来自 [`reproducibility/01_experiment_design/eval_questions_ZH.jsonl`](/Users/yuchenzhu/Desktop/github/ICLR2026/reproducibility/01_experiment_design/eval_questions_ZH.jsonl) 和 [`reproducibility/01_experiment_design/eval_questions_EN.jsonl`](/Users/yuchenzhu/Desktop/github/ICLR2026/reproducibility/01_experiment_design/eval_questions_EN.jsonl)。其中中文文件是权威语义定义，英文文件是给 reviewer 阅读的参考翻译。`Q1-Q2` 只用于前期调 prompt 和执行层面的 sanity check，仓库里所有正式报告的数字都只来自保留评测集 `Q3-Q4`。
+
+仓库里保留的原始生成输出目录分别是 [`openai_gpt-5.2_extended-thinking`](/Users/yuchenzhu/Desktop/github/ICLR2026/reproducibility/04_results/01_raw_model_outputs/openai_gpt-5.2_extended-thinking)、[`google_gemini-3-pro`](/Users/yuchenzhu/Desktop/github/ICLR2026/reproducibility/04_results/01_raw_model_outputs/google_gemini-3-pro)、[`anthropic_claude-sonnet-4.5_extended-thinking`](/Users/yuchenzhu/Desktop/github/ICLR2026/reproducibility/04_results/01_raw_model_outputs/anthropic_claude-sonnet-4.5_extended-thinking)。最初的 `v0_baseline_judge` 包含这三个生成模型；后续的 `v1_paraphrase_judge` 和 `v2_schema_strict_judge` 则是有意只保留 GPT-5.2 和 Gemini 3 Pro，因为 Claude 在 `v0` 这类任务上的表现明显偏弱，在 canonical table 里有 `24/32` 条是零分，所以后续对比不再继续纳入它。
+
+在这个仓库里，`explicit` 不是模型参数，而是提示词层面的“结构信号是否直接写明”：`explicit` 会直接指定必须输出的三段结构及其顺序；`implicit` 则保持同样的任务目标，但用更间接、更弱的措辞去传达这个结构要求。这个区分来自 [`reproducibility/02_prompt_variants/`](/Users/yuchenzhu/Desktop/github/ICLR2026/reproducibility/02_prompt_variants) 的 prompt 设计，并在 raw / processed artifacts 里统一记录为 `trigger_type`。
 
 ### 2. 核心发现
 
