@@ -1,5 +1,3 @@
-# README_FOR_REVIEWERS.md
-
 # Prompt Drift Lab — Frozen Artifact for Auditable Prompt-Drift Evaluation
 
 This repository is a frozen artifact pack for studying **prompt drift**: small prompt perturbations that trigger failures in instruction following, schema compliance, and semantic alignment.
@@ -30,7 +28,7 @@ Top-level layout:
 ## 30-second check
 
 1) Choose a judge version under:
-`\reproducibility/04_results/03_processed_evaluations/`
+`reproducibility/04_results/03_processed_evaluations/`
 
 This artifact includes:
 - `v0_baseline_judge/`
@@ -112,22 +110,3 @@ Expected outputs (for each judge version):
 - `scores_long.csv`
 - `scores_grouped.csv`
 - `run_meta.json`
-
----
-# reproducibility/README.md
-
-# Supplement index
-
-This directory is an index over frozen study materials. It does not override the normative rules or the canonical numeric sources.
-
-Authority
-- Rules and validity criteria: `reproducibility/03_evaluation_rules/`
-- Paper-citable numbers: `reproducibility/04_results/03_processed_evaluations/<judge_version>/summary_tables/`
-
-Directory map
-- `01_experiment_design/` — experimental design notes and frozen study framing
-- `02_prompt_variants/` — prompt variants used in controlled perturbations
-- `03_evaluation_rules/` — evaluation protocol, schema constraints, validity criteria
-- `04_results/` — preserved artifacts and canonical processed tables
-- `05_methodological_addenda_and_controls/` — non-authoritative methodological notes and comparison boundaries
-- `tools/` — deterministic utilities for regenerating records/tables/figures from preserved artifacts
