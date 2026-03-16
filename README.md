@@ -7,7 +7,7 @@
 <p align="center">
   <a href="https://creativecommons.org/licenses/by/4.0/"><img src="https://img.shields.io/badge/License-CC%20BY%204.0-yellow?style=flat-square" alt="License: CC BY 4.0" /></a>
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="License: MIT" /></a>
-  <img src="https://img.shields.io/badge/Release-Verified-blue?style=flat-square" alt="Release: Verified" />
+  <img src="https://img.shields.io/badge/Status-Artifact%20Bundle-blue?style=flat-square" alt="Status: Artifact Bundle" />
   <img src="https://img.shields.io/badge/Paper-ICLR%202026%20Workshop-red?style=flat-square&logo=arXiv" alt="Paper" />
 </p>
 
@@ -65,6 +65,8 @@ That's exactly what **Prompt Drift Lab** is about—**auditing** evaluation stab
 Question IDs come from the four-question benchmark defined under `reproducibility/01_experiment_design/`. The authoritative semantics are stored in `eval_questions_ZH.jsonl`, with `eval_questions_EN.jsonl` provided as a reviewer-facing translation. Q1-Q2 were used only for prompt iteration and sanity checks, while all reported numbers in this repository are derived from the held-out pair Q3-Q4.
 
 Preserved generator outputs are archived under `reproducibility/04_results/01_raw_model_outputs/` as `openai_gpt-5.2_extended-thinking`, `google_gemini-3-pro`, and `anthropic_claude-sonnet-4.5_extended-thinking`. The initial `v0_baseline_judge` condition includes all three generators. Later bundles, `v1_paraphrase_judge` and `v2_schema_strict_judge`, intentionally retain only GPT-5.2 and Gemini 3 Pro because Claude underperformed sharply in this task family during `v0` (`24/32` zero-score cases in the canonical table) and was dropped from the follow-up comparison by design.
+
+Below, `ChatGPT`, `Gemini`, and `Claude` are shorthand labels for these three preserved generator snapshots. Judge-version shorthand is also fixed: `v0` = baseline judge prompt, `v1` = paraphrased judge prompt, and `v2` = schema-strict judge prompt.
 
 In this repository, `explicit` means the prompt directly names the required three-section output contract and ordering, while `implicit` keeps the same task and target structure but signals it more indirectly through softer or less literal constraint wording. This distinction comes from the prompt-design layer in `reproducibility/02_prompt_variants/` and is tracked as `trigger_type` throughout the raw and processed artifacts.
 
@@ -169,18 +171,17 @@ python -m pip install -r reproducibility/tools/requirements.txt
 
 Standard Python dependencies: NumPy, Pandas, Matplotlib, Seaborn.
 
-### One-command release verification
+### One-command artifact audit
 
 ```bash
-python reproducibility/tools/verify_release_bundle.py
+python reproducibility/tools/audit_reproducibility_bundle.py --strict
 ```
 
 This command:
 
-- rebuilds processed artifacts into a temp directory
-- runs the structural audit
-- smoke-tests all figure scripts
-- verifies that `paper_anon_submission/figures/` is byte-identical to `final-version/figures/`
+- checks bundle and table counts against the shipped snapshot
+- validates canonical record / summary-table structure
+- confirms judge-version invariants without assuming synchronized figure directories
 
 ### Full offline rebuild from preserved judge bundles
 
@@ -198,10 +199,14 @@ Outputs:
 ### Regenerate figures
 
 ```bash
+OUT_DIR=/tmp/prompt_drift_figures
+mkdir -p "$OUT_DIR"
 for f in reproducibility/tools/figures/make_fig*.py; do
-  python "$f" --out_dir paper_anon_submission/figures
+  python "$f" --out_dir "$OUT_DIR"
 done
 ```
+
+Use a scratch directory by default. `paper_anon_submission/figures/` preserves the anonymized-paper snapshot, while `final-version/figures/` preserves the current camera-ready figure set.
 
 ---
 
@@ -224,13 +229,14 @@ Authoritative interpretation rules:
 
 ---
 
-## ✅ Release Status
+## ✅ Artifact Status
 
 | Capability | Status | Notes |
 |------------|--------|-------|
-| Release verification | ✅ Verified | `verify_release_bundle.py` rebuilds in temp space and checks release-figure hashes |
+| Bundle audit | ✅ Verified | `audit_reproducibility_bundle.py --strict` checks counts, contracts, and judge-version invariants |
 | Offline artifact rebuild | ✅ Verified | preserved judge bundles → canonical records → summary tables |
-| Figure regeneration | ✅ Verified | `scores_long.csv` → PDF figures |
+| Figure regeneration | ✅ Verified | `scores_long.csv` → PDF figures in a scratch directory or explicit target |
+| Figure-directory synchronization | Not assumed | `paper_anon_submission/figures/` preserves the anonymized-paper snapshot; `final-version/figures/` preserves the current camera-ready figure set |
 | Live API replay | Out of scope by design | no vendor API keys or live judging scripts are shipped |
 
 This repository supports **artifact-scope reproducibility**. It does not claim replayability against changing external model APIs.
@@ -243,13 +249,13 @@ This repository supports **artifact-scope reproducibility**. It does not claim r
    Prompt drift is not cosmetic. Small wording changes can flip evaluation conclusions under otherwise fixed conditions.
 
 2. **Industry-facing traceability**
-   The bundle is structured like an audit package: raw evidence, normalized records, authoritative tables, and release verification are all separated by contract.
+   The bundle is structured like an audit package: raw evidence, normalized records, authoritative tables, and audit entry points are all separated by contract.
 
 3. **Operational lesson**
    A low score and an invalid evaluation are different events. This repository preserves both, instead of collapsing them into a single failure bucket.
 
-4. **Release discipline**
-   The shipped figure set under `final-version/figures/` is mirrored in `paper_anon_submission/figures/` and checked by an explicit verification command.
+4. **Snapshot discipline**
+   The repository preserves separate figure snapshots for anonymized-paper and camera-ready contexts instead of assuming they must remain byte-identical.
 
 ---
 
@@ -262,7 +268,7 @@ Based on this audit, we recommend:
 | Prompt sensitivity check | Test with 2-3 semantically equivalent prompt phrasings |
 | Invalid-rate reporting | Track exclusion causes separately from low scores |
 | Artifact contracts | Make every reported number traceable to raw evidence |
-| Release verification | Add a temp-directory verification command before publication |
+| Artifact audit | Add a strict structural audit command before publication or handoff |
 
 ---
 

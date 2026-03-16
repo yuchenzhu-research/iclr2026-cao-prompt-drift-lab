@@ -79,14 +79,16 @@ Notes:
 python reproducibility/tools/audit_reproducibility_bundle.py --strict
 ```
 
-**Release verification (reproducible, temp-directory, no dirty worktree):**
+**Bundle audit (reproducible):**
 ```bash
-python reproducibility/tools/verify_release_bundle.py
+python reproducibility/tools/audit_reproducibility_bundle.py --strict
 ```
 
 **Downstream (REPRODUCIBLE):**
 - `scores_long.csv` → PDF figures (deterministic)
-- published release figures are frozen under `final-version/figures/` and mirrored in `paper_anon_submission/figures/`
+- `paper_anon_submission/figures/` preserves the anonymized-paper snapshot
+- `final-version/figures/` preserves the current camera-ready figure set
+- the two figure directories are not required to remain byte-identical
 
 Run from the repository root:
 
@@ -94,9 +96,12 @@ Run from the repository root:
 ```bash
 python -m pip install -r reproducibility/tools/requirements.txt
 
-# Generate all figures from frozen CSV tables
+OUT_DIR=/tmp/prompt_drift_figures
+mkdir -p "$OUT_DIR"
+
+# Generate all figures from frozen CSV tables into a scratch directory
 for f in reproducibility/tools/figures/make_fig*.py; do
-  python "$f" --out_dir paper_anon_submission/figures
+  python "$f" --out_dir "$OUT_DIR"
 done
 ```
 

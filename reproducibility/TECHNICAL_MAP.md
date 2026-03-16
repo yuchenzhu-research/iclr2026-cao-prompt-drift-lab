@@ -104,18 +104,29 @@ Useful options:
 - `--format json` for machine-readable output
 - `--strict` to exit non-zero on invariant mismatch
 
-## One-command release verification
+## Figure-snapshot policy
+
+The repository currently preserves two different figure snapshots:
+
+- `paper_anon_submission/figures/` = anonymized-paper snapshot
+- `final-version/figures/` = current camera-ready snapshot
+
+These directories are preserved for different release contexts and are not required to remain byte-identical.
+
+## Optional full release-sync check
 
 ```bash
 python reproducibility/tools/verify_release_bundle.py
 ```
 
-This command:
+Use this command only if you intentionally synchronize the anonymized-paper and camera-ready figure directories.
+
+When that condition is met, the command:
 
 - rebuilds processed artifacts into a temp directory
 - runs the structural audit on that rebuilt output
 - smoke-tests all figure scripts
-- confirms that `paper_anon_submission/figures/` is byte-identical to `final-version/figures/`
+- checks that `paper_anon_submission/figures/` is byte-identical to `final-version/figures/`
 
 ## One-command rebuild
 

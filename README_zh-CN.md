@@ -7,7 +7,7 @@
 <p align="center">
   <a href="https://creativecommons.org/licenses/by/4.0/"><img src="https://img.shields.io/badge/License-CC%20BY%204.0-yellow?style=flat-square" alt="License: CC BY 4.0" /></a>
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="License: MIT" /></a>
-  <img src="https://img.shields.io/badge/Release-Verified-blue?style=flat-square" alt="Release: Verified" />
+  <img src="https://img.shields.io/badge/Status-Artifact%20Bundle-blue?style=flat-square" alt="Status: Artifact Bundle" />
   <img src="https://img.shields.io/badge/Paper-ICLR%202026%20Workshop-red?style=flat-square&logo=arXiv" alt="Paper" />
 </p>
 
@@ -65,6 +65,8 @@
 这里的 question ID 来自 `reproducibility/01_experiment_design/` 下面定义的四题 benchmark。其中 `eval_questions_ZH.jsonl` 是权威语义定义，`eval_questions_EN.jsonl` 是给 reviewer 阅读的参考翻译。`Q1-Q2` 只用于前期调 prompt 和执行层面的 sanity check，仓库里所有正式报告的数字都只来自保留评测集 `Q3-Q4`。
 
 仓库里保留的原始生成输出位于 `reproducibility/04_results/01_raw_model_outputs/`，对应三个目录：`openai_gpt-5.2_extended-thinking`、`google_gemini-3-pro`、`anthropic_claude-sonnet-4.5_extended-thinking`。最初的 `v0_baseline_judge` 包含这三个生成模型；后续的 `v1_paraphrase_judge` 和 `v2_schema_strict_judge` 则是有意只保留 GPT-5.2 和 Gemini 3 Pro，因为 Claude 在 `v0` 这类任务上的表现明显偏弱，在 canonical table 里有 `24/32` 条是零分，所以后续对比不再继续纳入它。
+
+后文中的 `ChatGPT`、`Gemini`、`Claude` 都是对这三个保留生成快照的简称。Judge version 的简称也固定为：`v0` = baseline judge prompt，`v1` = paraphrased judge prompt，`v2` = schema-strict judge prompt。
 
 在这个仓库里，`explicit` 不是模型参数，而是提示词层面的“结构信号是否直接写明”：`explicit` 会直接指定必须输出的三段结构及其顺序；`implicit` 则保持同样的任务目标，但用更间接、更弱的措辞去传达这个结构要求。这个区分来自 `reproducibility/02_prompt_variants/` 的 prompt 设计，并在 raw / processed artifacts 里统一记录为 `trigger_type`。
 
@@ -169,18 +171,17 @@ python -m pip install -r reproducibility/tools/requirements.txt
 
 标准 Python 依赖：NumPy、Pandas、Matplotlib、Seaborn。
 
-### 一键做发布验收
+### 一键做工件审计
 
 ```bash
-python reproducibility/tools/verify_release_bundle.py
+python reproducibility/tools/audit_reproducibility_bundle.py --strict
 ```
 
 这个命令会：
 
-- 在临时目录里重建 processed artifacts
-- 跑结构审计
-- smoke test 全部 figure 脚本
-- 校验 `paper_anon_submission/figures/` 与 `final-version/figures/` 字节一致
+- 检查当前快照中的 bundle 和 table 数量
+- 校验 canonical record / summary table 结构
+- 在不假设两个 figure 目录同步的前提下确认 judge-version 契约
 
 ### 从保留的 judge bundles 离线重建
 
@@ -198,10 +199,14 @@ python reproducibility/tools/reproduce_valid_evaluations.py --from_raw --overwri
 ### 重新生成图表
 
 ```bash
+OUT_DIR=/tmp/prompt_drift_figures
+mkdir -p "$OUT_DIR"
 for f in reproducibility/tools/figures/make_fig*.py; do
-  python "$f" --out_dir paper_anon_submission/figures
+  python "$f" --out_dir "$OUT_DIR"
 done
 ```
+
+默认建议输出到临时目录。`paper_anon_submission/figures/` 保留匿名投稿版本图表，`final-version/figures/` 保留当前 camera-ready 图表。
 
 ---
 
@@ -224,13 +229,14 @@ scores_grouped.csv
 
 ---
 
-## ✅ 发布状态
+## ✅ 工件状态
 
 | 能力 | 状态 | 说明 |
 |------|------|------|
-| 发布验收 | ✅ 已验证 | `verify_release_bundle.py` 会临时重建并检查发布图哈希 |
+| 工件审计 | ✅ 已验证 | `audit_reproducibility_bundle.py --strict` 会检查数量、契约和 judge-version 不变量 |
 | 离线 artifact 重建 | ✅ 已验证 | preserved judge bundles → canonical records → summary tables |
-| 图表重生成 | ✅ 已验证 | `scores_long.csv` → PDF 图表 |
+| 图表重生成 | ✅ 已验证 | `scores_long.csv` → PDF 图表，可输出到临时目录或指定目标 |
+| figure 目录同步 | 不做默认假设 | `paper_anon_submission/figures/` 保留匿名图集，`final-version/figures/` 保留当前 camera-ready 图集 |
 | 在线 API 重放 | 设计上不包含 | 仓库不提供供应商 API key 或在线 judge 脚本 |
 
 这个仓库支持的是 **artifact-scope reproducibility**，不是针对持续变化的外部模型 API 做逐次重放。
@@ -243,13 +249,13 @@ scores_grouped.csv
    Prompt drift 不是修辞细节，小改措辞就可能直接翻转评估结论。
 
 2. **对工业界有审计价值**
-   这个包按审计交付思路拆层：原始证据、规范化记录、权威表格、发布验收各自有清晰边界。
+   这个包按审计交付思路拆层：原始证据、规范化记录、权威表格、审计入口各自有清晰边界。
 
 3. **对运营监控有方法价值**
    低分和 invalid evaluation 不是一回事。本仓库把两者拆开保存，而不是混成一个失败桶。
 
-4. **对发布流程有工程价值**
-   `final-version/figures/` 是发布图集，`paper_anon_submission/figures/` 是镜像副本，并有单独校验命令。
+4. **对快照治理有工程价值**
+   仓库明确保留匿名投稿图集和 camera-ready 图集两个快照语境，而不是默认要求它们始终字节一致。
 
 ---
 
@@ -262,7 +268,7 @@ scores_grouped.csv
 | 提示词敏感度检查 | 用 2-3 个语义等价说法测试，不要只押一个 prompt |
 | 失效率报告 | 把 exclusion cause 和低分结果分开报告 |
 | 工件契约 | 每个报告数字都必须可回溯到原始证据 |
-| 发布验收 | 在发布前加入 temp-directory verification 命令 |
+| 工件审计 | 在发布或交付前加入严格的结构审计命令 |
 
 ---
 
