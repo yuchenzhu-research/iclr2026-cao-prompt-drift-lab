@@ -94,22 +94,64 @@ wide = all_summary.pivot(index="generator_model", columns="judge", values="mean_
 wide = wide.reindex(index=expected_generators, columns=judge_labels)
 
 # === plot ===
-plt.figure(figsize=(7, 4))
-ax = plt.gca()
+import numpy as np
 
-x = range(len(expected_generators))
-width = 0.25
+fig, ax = plt.subplots(figsize=(7.2, 4.4))
 
-for i, judge in enumerate(judge_labels):
+# 两个大组中心故意拉开，不用默认 0,1
+x = np.array([0.0, 1.5])
+
+# 柱子窄一点，三根之间留空
+width = 0.20
+offsets = np.array([-0.28, 0.0, 0.28])
+
+pretty_generators = ["ChatGPT", "Gemini"]
+
+for offset, judge in zip(offsets, judge_labels):
     vals = wide[judge].values
-    ax.bar([p + i * width for p in x], vals, width=width, label=judge)
+    bars = ax.bar(
+        x + offset,
+        vals,
+        width=width,
+        label=judge,
+        edgecolor="black",
+        linewidth=0.7,
+    )
 
-ax.set_xticks([p + width for p in x])
-ax.set_xticklabels(expected_generators, rotation=25, ha="right")
-ax.set_ylabel("Mean Total Score (Implicit)  ↑ higher is better")
-ax.set_title("Judge Comparison (ChatGPT + Gemini only)")
-ax.legend(title="Judge Version")
-ax.grid(True, axis="y", linestyle="--", alpha=0.35)
+    # 可选：加数值标注
+    for bar, val in zip(bars, vals):
+        if pd.notna(val):
+            ax.text(
+                bar.get_x() + bar.get_width() / 2,
+                val + 0.12,
+                f"{val:.2f}",
+                ha="center",
+                va="bottom",
+                fontsize=8,
+            )
+
+ax.set_xticks(x)
+ax.set_xticklabels(pretty_generators, rotation=0, ha="center")
+ax.set_ylabel("Mean Total Score (Implicit)")
+ax.set_ylim(0, 10.8)
+
+# 更像论文图：去掉上右边框
+ax.spines["top"].set_visible(False)
+ax.spines["right"].set_visible(False)
+
+ax.grid(True, axis="y", linestyle="--", alpha=0.30)
+ax.set_axisbelow(True)
+
+# 图例放上面，不压住图
+ax.legend(
+    title=None,
+    ncol=3,
+    frameon=False,
+    loc="upper center",
+    bbox_to_anchor=(0.5, 1.12),
+    columnspacing=1.2,
+    handletextpad=0.5,
+)
 
 plt.tight_layout()
 fig_path = out_dir / "fig5_judge_comparison.pdf"
@@ -117,7 +159,3 @@ plt.savefig(fig_path, bbox_inches="tight")
 if args.show:
     plt.show()
 plt.close()
-
-print(f"[Fig5 judge comparison] Saved: {fig_path}")
-print("[Sanity] Mean totals (implicit):")
-print(wide)
