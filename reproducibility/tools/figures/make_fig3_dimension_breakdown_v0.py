@@ -17,6 +17,11 @@ DIMENSIONS = [
     "E_drift_failure",
 ]
 TRIGGERS = ["explicit", "implicit"]
+DISPLAY_NAMES = {
+    "chatgpt": "ChatGPT",
+    "gemini": "Gemini",
+    "claude": "Claude",
+}
 
 
 def nice_dim_label(d: str) -> str:
@@ -106,7 +111,9 @@ def main():
         ax.set_xticklabels(x_labels)
         ax.set_ylabel("Mean Dimension Score")
         ax.set_ylim(0.0, 2.05)
-        ax.set_title(f"Dimension Breakdown (Explicit vs Implicit) — {gen.capitalize()}")
+        ax.set_title(
+            f"Dimension Breakdown (Explicit vs Implicit) — {DISPLAY_NAMES.get(gen, gen)}"
+        )
         ax.legend()
         ax.grid(True, axis="y", linestyle="--", alpha=0.35)
 
