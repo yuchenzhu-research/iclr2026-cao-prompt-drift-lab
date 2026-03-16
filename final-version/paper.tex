@@ -15,6 +15,12 @@
 \hbadness=10000
 \hfuzz=20pt
 
+\setlength{\textfloatsep}{8pt plus 2pt minus 2pt}
+\setlength{\floatsep}{8pt plus 2pt minus 2pt}
+\setlength{\intextsep}{8pt plus 2pt minus 2pt}
+\setlength{\abovecaptionskip}{4pt}
+\setlength{\belowcaptionskip}{0pt}
+
 \input{math_commands.tex}
 
 \title{Prompt-Level Drift as an Operational Monitoring Problem:\\
@@ -32,15 +38,15 @@ Shanghai University \\
 \newcommand{\Edrift}{E\_drift\_failure}
 
 \begin{document}
-\raggedbottom
+\flushbottom
 \maketitle
 
 \begin{abstract}
 Prompt templates are routinely edited in deployed LLM systems and evaluation pipelines, often treated as ``non-functional'' refactors.
-We reframe \emph{prompt-level drift} as an \emph{operational monitoring} problem: minimal prompt perturbations can trigger discontinuous schema violations, degrade instruction following, and even shift conclusions when the \emph{judge prompt}—the measurement instrument—changes.
-Our analysis is conducted under a fixed evaluation snapshot, with results derived from processed evaluation records and aggregate summaries.
-Across six preserved judge bundles under a baseline judge (three judge models scoring outputs from the other two providers), reducing contract salience from explicit to implicit increases schema hard-breaks (\Astruct$=0$) from $8/48$ (16.7\%) to $34/48$ (70.8\%) and drops the mean total score from 7.69 to 2.75 (max total = 10).
-We further show judge-version sensitivity on \emph{identical preserved outputs}: for one overlapping slice (ChatGPT-judge scoring Gemini outputs under implicit triggers), the hard-break rate shifts from $8/8$ (v0) to $0/8$ (v1/v2), and the mean total score shifts from 0.0 (v0) to 8.0 (v1) to 10.0 (v2).
+We reframe \emph{prompt-level drift} as an \emph{operational monitoring} problem: minimal prompt perturbations can trigger discontinuous schema violations, degrade instruction following, and even shift conclusions when the \emph{judge prompt}---the measurement instrument---changes.
+Methodologically, we study these failures through an artifact-grounded evaluation pipeline built on a fixed evidence snapshot, where preserved outputs, versioned judge/model slices, processed records, and summary tables form a one-way audit chain.
+Across six preserved judge/model slices under a baseline judge (three judge models scoring outputs from the other two providers), reducing contract salience from explicit to implicit increases schema hard-breaks (\Astruct$=0$) from $8/48$ (16.7\%) to $34/48$ (70.8\%) and drops the mean total score from 7.69 to 2.75 (max total = 10).
+We further show judge-version sensitivity on \emph{identical preserved outputs}: for one overlapping slice (ChatGPT-as-judge scoring Gemini outputs under implicit triggers), the hard-break rate shifts from $8/8$ (v0) to $0/8$ (v1/v2), and the mean total score shifts from 0.0 (v0) to 8.0 (v1) to 10.0 (v2).
 These patterns motivate CAO-style change control: pin prompt and judge versions, monitor interface validity, and prohibit pooling metrics across judge versions.
 \end{abstract}
 
@@ -57,22 +63,23 @@ We study \emph{prompt-level drift} as an operational risk surface with three inc
 Our goal is \emph{not} to propose a new evaluator or a more robust prompt.
 Instead, we aim to make prompt drift \emph{monitorable and auditable} in a Catch--Adapt--Operate setting.
 
+Methodologically, we ground this framing in an artifact-grounded evaluation pipeline (Figure~\ref{fig:pipeline_overview}): prompt variants produce preserved raw outputs, judges produce versioned judge/model slices, and reporting is derived through processed records and summary tables.
+This one-way evidence chain makes prompt-drift incidents auditable without re-running generators or judges and turns qualitative prompt edits into monitorable operational events.
+
 \begin{figure*}[t]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_pipeline_overview.pdf}
-\caption{\textbf{Evaluation pipeline overview.} A visual summary of the one-way evidence chain from prompt variants to raw outputs, judge bundles, processed records, and summary tables.}
+\caption{\textbf{Evaluation pipeline overview.} A visual summary of the one-way evidence chain from prompt variants to raw outputs, versioned judge/model slices, processed records, and summary tables.}
 \label{fig:pipeline_overview}
 \end{figure*}
 
-\Needspace{9\baselineskip}
 \paragraph{Contributions.}
 \begin{itemize}[leftmargin=1.2em, itemsep=2pt, topsep=2pt]
   \item \textbf{Operational framing of prompt drift.} We treat prompt edits as configuration drift and define incident-level outcomes (schema hard-breaks, dimension-level degradation, judge-version sensitivity).
-  \item \textbf{Artifact-grounded evaluation and auditability.} We treat scoring rules as change-controlled configuration and report results from a fixed evaluation snapshot; all evidence needed for review appears in this PDF, and quantitative claims follow a one-way evidence chain from prompts to outputs to summaries.
-  \item \textbf{Risk patterns under minimal perturbations.} Using preserved outputs and versioned judges, we surface schema failure cliffs, broad instruction-following degradation, and judge-version sensitivity as concrete operational risks.
+  \item \textbf{Artifact-grounded evaluation pipeline.} We introduce a one-way evidence chain from prompt variants to preserved outputs, versioned judge/model slices, processed records, and summary tables, enabling auditability without re-running generators or judges.
+  \item \textbf{Operational risk patterns under minimal perturbations.} Using preserved outputs and versioned judges, we surface schema failure cliffs, broad rubric-dimension degradation, and judge-version sensitivity as concrete monitoring risks.
 \end{itemize}
 
-\FloatBarrier
 
 \section{Related Work}
 We connect three practice-facing threads: LLM-as-judge reliability, prompt robustness/interface contracts, and drift monitoring.
@@ -142,11 +149,11 @@ All quantitative claims are based solely on frozen evaluation slices (Q3--Q4).
 \subsection{One-way evidence chain}
 We maintain an explicit one-way evidence chain that supports auditability:
 \[
-\text{prompt variants} \;\rightarrow\; \text{raw outputs} \;\rightarrow\; \text{judge bundles} \;\rightarrow\;
+\text{prompt variants} \;\rightarrow\; \text{raw outputs} \;\rightarrow\; \text{judge slices} \;\rightarrow\;
 \text{processed records} \;\rightarrow\; \text{summary tables}.
 \]
 Later stages are derived views and must not mutate earlier artifacts.
-This design makes quantitative claims auditable: reported aggregates can be expanded to row-level records, which in turn link back to preserved raw outputs and judge bundles.
+This design makes quantitative claims auditable: reported aggregates can be expanded to row-level records, which in turn link back to preserved raw outputs and versioned judge/model slices.
 
 \subsection{Normative vs.\ derived artifacts}
 The protocol distinguishes:
@@ -161,13 +168,13 @@ A CAO workflow should treat normative rules as change-controlled configuration, 
 \label{sec:results}
 \noindent\textbf{Numeric source.} Unless stated otherwise, results are computed from processed summaries{} under the baseline judge version v0.
 We report both counts (for hard-breaks) and means (for total and dimension scores), and we do not pool across judge versions.
-The underlying evidence corresponds to a single-pass factorial sweep over preserved conditions (provider $\times$ question $\times$ variant $\times$ trigger), not repeated i.i.d.\ samples; denominators such as ``48'' indicate preserved evaluation records per trigger type (here: 6 judge bundles $\times$ 8 preserved outputs), not repeated sampling.
+The underlying evidence corresponds to a single-pass factorial sweep over preserved conditions (provider $\times$ question $\times$ variant $\times$ trigger), not repeated i.i.d.\ samples; denominators such as ``48'' indicate preserved evaluation records per trigger type (here: 6 judge/model slices $\times$ 8 preserved outputs), not repeated sampling.
 Accordingly, we avoid sampling-controlled significance claims and emphasize descriptive effect sizes, worst-slice behavior, and directional consistency across matched conditions.
 
 \subsection{Schema failure cliffs under minimal perturbations}
 \label{sec:cliff}
 Reducing contract salience from explicit to implicit creates a discontinuity in interface validity.
-Across six preserved judge bundles under v0 (48 scored files per trigger type; 6 bundles $\times$ 8 preserved outputs), the schema hard-break rate jumps from $8/48$ (16.7\%) under explicit triggers to $34/48$ (70.8\%) under implicit triggers.
+Across six preserved judge/model slices under v0 (48 scored files per trigger type; 6 slices $\times$ 8 preserved outputs), the schema hard-break rate jumps from $8/48$ (16.7\%) under explicit triggers to $34/48$ (70.8\%) under implicit triggers.
 This is not a gradual degradation; it is a \emph{cliff} in interface validity.
 
 This cliff is highly generator-dependent (same v0 evidence, aggregating across judges for each generator family):
@@ -263,7 +270,7 @@ For this fixed set of 8 preserved outputs:
 \end{itemize}
 All values are computed from preserved evaluation records for each judge version; no generator inference is re-run.
 Figure~\ref{fig:judge_pair} further summarizes judge-version sensitivity.
-In the fixed snapshot, v1/v2 are available for two overlapping judge/model slices: ChatGPT-as-judge on Gemini outputs and Gemini-as-judge on ChatGPT outputs, while the remaining slices are available only under v0.
+In the fixed snapshot, v1/v2 are available for two overlapping judge/model slices---ChatGPT evaluating Gemini outputs and Gemini evaluating ChatGPT outputs---while the remaining slices are available only under v0.
 
   \begin{figure}[t]
   \centering
@@ -327,29 +334,22 @@ Judge version & \texttt{judge\_version} (pinned evaluator prompt version)\\
 \section{Limitations}
 \paragraph{Scope boundary.}
 Our evidence base is intentionally narrow and fixed: we analyze preserved artifacts rather than re-running generators/judges.
-All quantitative claims are confined to the frozen evaluation slices (Q3--Q4) 
+All quantitative claims are confined to the frozen evaluation slices (Q3--Q4).
 
-\paragraph{Key Findings.} 
-Our analysis of the preserved records supports three primary claims for practitioners:
-(i) minimal reductions in contract salience can trigger \emph{discontinuous} interface validity failures (\Astruct$=0$);
-(ii) monitoring should be slice-aware, as worst-slice validity/quality can diverge from global averages and judge prompt edits can create measurement incidents, requiring versioned instrumentation.
-
-\paragraph{Scope and Generalization.} 
+\paragraph{Generalization and inference limits.}
 We stop short of claiming statistical significance or i.i.d. generalization beyond these specific slices; counts such as $8/48$ denote matched evaluation records, not repeated samples.
 We do not claim that any judge version is a ground-truth reference; observed cross-version shifts should be treated as calibration deltas requiring overlap checks.
 
 \section{Conclusion}
 Prompt-level drift is an operational monitoring problem.
-Using a fixed-snapshot evidence base, we show that small prompt perturbations can trigger schema failure cliffs, degrade rubric-dimension scores, and shift evaluation conclusions when judge prompts change.
+Using a fixed-snapshot evidence base, we show that small prompt perturbations can trigger schema failure cliffs, degrade rubric-dimension scores, and shift evaluation conclusions when judge prompts change, with substantial slice-level heterogeneity.
 These findings motivate CAO-style controls: monitor interface validity, treat prompt edits as migrations with rollback criteria, and govern judges as versioned instrumentation.
 
-\section*{Reproducibility}\vspace{-2pt}
-Code, prompts, processed evaluation snapshots, and figure-generation scripts are available at \url{https://github.com/yuchenzhu-research/iclr2026-cao-prompt-drift-lab}.
-Claims are based on frozen evaluation slices (Q3--Q4) and supported by the audit chain provided in Section~4 and Figure~1. 
-While LLMs assisted in generation, evaluation, and text refinement, all findings remain anchored to and verified against the preserved outputs from the fixed snapshot.
+\section*{Reproducibility}
+Code, prompts, processed evaluation snapshots, and figure-generation scripts are available at \url{https://github.com/yuchenzhu-research/iclr2026-cao-prompt-drift-lab}. 
+All claims are based on frozen Q3--Q4 slices and the audit chain in Section~4 and Figure~1, and were verified against preserved outputs from the fixed snapshot.
 
 \clearpage
-\setcounter{page}{9}
 \bibliographystyle{iclr2026_conference}
 \bibliography{iclr2026_conference}
 
