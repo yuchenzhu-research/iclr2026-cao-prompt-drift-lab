@@ -206,23 +206,19 @@ Figure~\ref{fig:dim_pair} summarizes dimension-level breakdown and failure rates
 
 \begin{figure*}[t]
   \centering
-  \includegraphics[width=0.32\linewidth]{figures/fig3_dimension_breakdown_chatgpt.pdf}
-  \includegraphics[width=0.32\linewidth]{figures/fig3_dimension_breakdown_claude.pdf}
-  \includegraphics[width=0.32\linewidth]{figures/fig3_dimension_breakdown_gemini.pdf}
 
-  \vspace{2pt}
-  \includegraphics[
-    width=0.32\linewidth,
-    keepaspectratio,
-    trim=0 0 0 6, clip
-  ]{figures/fig4_dimension_failure_rate.pdf}
-  \vspace{-2pt}
-  \caption{\textbf{Dimension‑level degradation under implicit triggers (v0).}
-  Top: mean scores by dimension for ChatGPT, Claude, and Gemini (left to right).
-  Bottom: failure rates (score $<2$) by dimension aggregated across generator families.
-  Numbers sourced from the fixed snapshot under v0.
-  Top panels are computed as $\mu_d(\pi)$ (Eq.~\ref{eq:dim-mean}); bottom panels as $\mathrm{DFR}_d(\pi)$ (Eq.~\ref{eq:dim-fail}) over frozen artifacts.
-}
+  \includegraphics[width=0.47\linewidth]{figures/fig3_dimension_breakdown_chatgpt.pdf}\hfill
+  \includegraphics[width=0.47\linewidth]{figures/fig3_dimension_breakdown_claude.pdf}
+
+  \vspace{4pt}
+
+  \includegraphics[width=0.47\linewidth]{figures/fig3_dimension_breakdown_gemini.pdf}\hfill
+  \includegraphics[width=0.47\linewidth]{figures/fig4_dimension_failure_rate.pdf}
+
+  \caption{\textbf{Dimension-level degradation under implicit triggers (v0).}
+  Mean scores by dimension for ChatGPT, Claude, and Gemini, plus failure rates (score $<2$) aggregated across generator families.
+  Numbers are sourced from the fixed snapshot under v0.
+  Top three panels are computed as $\mu_d(\pi)$ (Eq.~\ref{eq:dim-mean}); the failure-rate panel is computed as $\mathrm{DFR}_d(\pi)$ (Eq.~\ref{eq:dim-fail}) over frozen artifacts.}
   \label{fig:dim_pair}
 \end{figure*}
 
