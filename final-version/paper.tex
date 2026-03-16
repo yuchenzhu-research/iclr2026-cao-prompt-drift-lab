@@ -129,13 +129,12 @@ These correspond to CAO operational questions: \emph{Catch} incidents early, \em
 \subsection{Evidence-as-authority principle}
 This paper treats preserved evaluation records and fixed scoring rules as evidence; all evidence needed for review appears in this PDF.
 We do not re-run generators or judges, and we do not introduce new experiments or new measurements.
-All quantitative claims are sourced from computed from the fixed snapshot and reported in this paper:
+All quantitative claims in this paper are computed from the fixed snapshot and summarized in Figures~1--4 and Table~1.
 \begin{itemize}[leftmargin=1.2em, itemsep=1pt, topsep=2pt]
   \item per-record evidence: row-level evaluation records
   \item grouped aggregates (deterministic summaries used for reporting and plotting)
 \end{itemize}
-\noindent\textbf{Note.} These summaries are internal processing artifacts; all evidence needed for review appears in this PDF (Figures~1--4 and Table~1).
-stored under the processed evaluation directories for each judge version.
+\noindent\textbf{Note.} The processed summaries used for reporting are derived artifacts generated from preserved evaluation records under fixed scoring rules.
 \paragraph{Development vs.\ evaluation slices.}
 Earlier slices (Q1--Q2) were used only for prompt/judge iteration and are excluded from all analyses.
 All quantitative claims are based solely on frozen evaluation slices (Q3--Q4).
@@ -254,7 +253,7 @@ Operationally, judge upgrades should be gated using overlapping preserved slices
 
 \begin{sloppypar}
 The fixed snapshot includes multiple judge versions applied to overlapping preserved outputs.
-We highlight one overlapping slice with complete totals: \texttt{judge\allowbreak\_chatgpt\allowbreak\_bundle\allowbreak\_gemini\allowbreak.json} under implicit triggers.
+We highlight one overlapping slice with complete totals: ChatGPT-as-judge scoring Gemini-generated outputs under implicit triggers.
 \end{sloppypar}
 For this fixed set of 8 preserved outputs:
 \begin{itemize}[leftmargin=1.2em, itemsep=2pt, topsep=2pt]
@@ -264,7 +263,7 @@ For this fixed set of 8 preserved outputs:
 \end{itemize}
 All values are computed from preserved evaluation records for each judge version; no generator inference is re-run.
 Figure~\ref{fig:judge_pair} further summarizes judge-version sensitivity.
-In the fixed snapshot, v1/v2 are available for two overlapping judge bundles---\texttt{judge\allowbreak\_chatgpt\allowbreak\_bundle\allowbreak\_gemini} and \texttt{judge\allowbreak\_gemini\allowbreak\_bundle\allowbreak\_chatgpt}---while other bundles appear only under v0.
+In the fixed snapshot, v1/v2 are available for two overlapping judge/model slices: ChatGPT-as-judge on Gemini outputs and Gemini-as-judge on ChatGPT outputs, while the remaining slices are available only under v0.
 
   \begin{figure}[t]
   \centering
