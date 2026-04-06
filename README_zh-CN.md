@@ -1,3 +1,5 @@
+This is the official implementation of the CAO @ ICLR 2026 paper: Prompt-Level Drift as an Operational Monitoring Problem: Schema Failure Cliffs and Judge-Version Risk in Artifact-Grounded Evaluation ([OpenReview](https://openreview.net/forum?id=PGoKUAy8XW#discussion)).
+
 <div align="center">
 
 # Prompt Drift Lab
