@@ -1,16 +1,13 @@
-This is the official implementation of the CAO @ ICLR 2026 paper: Prompt-Level Drift as an Operational Monitoring Problem: Schema Failure Cliffs and Judge-Version Risk in Artifact-Grounded Evaluation ([OpenReview](https://openreview.net/forum?id=PGoKUAy8XW#discussion)).
-
 <div align="center">
 
 # Prompt Drift Lab
-
-**Catch, Adapt, and Operate: Monitoring ML Models Under Drift Workshop**
+**Catch, Adapt, and Operate: Monitoring ML Models Under Drift (ICLR 2026 Workshop)**
 
 <p align="center">
   <a href="https://creativecommons.org/licenses/by/4.0/"><img src="https://img.shields.io/badge/License-CC%20BY%204.0-yellow?style=flat-square" alt="License: CC BY 4.0" /></a>
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="License: MIT" /></a>
   <img src="https://img.shields.io/badge/Status-Artifact%20Bundle-blue?style=flat-square" alt="Status: Artifact Bundle" />
-  <img src="https://img.shields.io/badge/Paper-ICLR%202026%20Workshop-red?style=flat-square&logo=arXiv" alt="Paper" />
+  <a href="https://openreview.net/forum?id=PGoKUAy8XW#discussion"><img src="https://img.shields.io/badge/Paper-OpenReview-red?style=flat-square&logo=arXiv" alt="Paper" /></a>
 </p>
 
 <p align="center">
@@ -20,187 +17,83 @@ This is the official implementation of the CAO @ ICLR 2026 paper: Prompt-Level D
   </strong>
 </p>
 
-</div>
-
 > **"Is single-prompt evaluation really reliable?"**
 >
-> Our audit reveals that harmless prompt variations can swing model scores dramatically—from 9.31 to 0.50.
+> Our systematic audit reveals that harmless prompt variations can swing model scores dramatically—acting like a rollercoaster from 9.31 down to 0.50.
+
+</div>
 
 ---
 
-## 🧭 What Problem Are We Solving?
+> 💡 This is the official repository for the ICLR 2026 paper:
+> **Prompt-Level Drift as an Operational Monitoring Problem: Schema Failure Cliffs and Judge-Version Risk in Artifact-Grounded Evaluation**.
 
-### The Real-World Dilemma
+We approach LLM evaluation stability through **audit-driven operational monitoring**. Whether you're an **Academic Researcher** (probing foundation model boundaries) or an **Industry Practitioner** (building robust pipelines and monitoring prompt drift in production), this artifact bundle serves as both a methodological benchmark and a practical engineering toolkit.
 
-In LLM evaluation, we commonly follow this workflow:
+## 🌟 Why This Matters: Bridges between Academia & Industry
 
-1. Pick a single prompt
-2. Let the model run
-3. Declare "Model A is better" or "Model B passes"
+### 1. Breaking the "Single-Prompt" Illusion
+In standard LLM evaluations, we rely on one prompt, run the model, and declare a winner. However, **the prompt is an inherent part of the evaluation protocol**. The same task, rephrased, can yield totally inverted conclusions. We don't propose "magic" prompt hacks; instead, we **audit** this exact evaluation brittleness.
 
-But here's the issue: **the prompt is part of the evaluation protocol**. The same task, phrased differently, can yield vastly different results.
+### 2. The Production Nightmare: "Implicit Compliance" is Fragile
+- **The Schema Failure Cliff**: We found that top models like Gemini drop from an excellent `9.31` average to `0.50` when the prompt stops explicitly spelling out structural constraints. Models' abilities to read "between the lines" remain highly unreliable for enterprise deployments.
+- **Failures are First-Class Citizens**: Traditional pipelines silently drop invalid outputs (bad JSON, missed steps). We categorize them (e.g., schema breaking, instruction drift) because these failures are **hard evidence of protocol brittleness**.
 
-### Our Stance
-
-We don't propose new prompting tricks. Instead, we ask directly:
-
-> **If tasks and decoding parameters stay fixed, can tiny prompt changes (rephrasing, adding constraints, rewording) completely flip evaluation conclusions?**
-
-That's exactly what **Prompt Drift Lab** is about—**auditing** evaluation stability.
+### 3. Artifact-Scope Reproducibility
+- Every reported metric, graph, and table is traceable directly back to the raw generated logs (`.json` and `.pdf`). This repository enforces strict transparency via artifact bundle audits.
 
 ---
 
-## 🔬 Experimental Design & Key Findings
+## 🔬 Experimental Setup & Shocking Discoveries
 
-### 1. How Was the Experiment Set Up?
+| Setup Dimension | Configuration |
+|-----------------|---------------|
+| **Generators** | OpenAI GPT-5.2 (Extended), Google Gemini 3 Pro, Anthropic Claude Sonnet 4.5 |
+| **Prompt Variants** | 4 types: `Baseline` / `Weak` / `Long` / `Conflict` |
+| **Instruction Style**| `Explicit` (structural contract strictly defined) vs `Implicit` (soft constraints) |
 
-| Dimension | Setting |
-|-----------|---------|
-| **Question Split** | 4 fixed questions total: Q1-Q2 for prompt iteration and sanity checks, Q3-Q4 as the held-out evaluation set |
-| **Reported Tasks** | 2 structured output tasks (Q3, Q4) |
-| **Generator Models** | OpenAI GPT-5.2 with extended thinking, Google Gemini 3 Pro, and Anthropic Claude Sonnet 4.5 with extended thinking |
-| **Prompt Variants** | 4 types: baseline / weak / long / conflict |
-| **Instruction Explicitness** | 2 conditions: explicit (direct structure signaling) / implicit (indirect or softer structure signaling) |
-| **Total Runs** | 16 outputs per model (4 variants × 2 explicitness) |
-| **Judging** | Cross-model (Model A judges Model B) + self-judge validation |
+### 🚨 Finding F1: Rephrasing completely flips the leaderboard
+Looking at Q3 mean scores (task held strictly constant!):
 
-Question IDs come from the four-question benchmark defined under `reproducibility/01_experiment_design/`. The authoritative semantics are stored in `eval_questions_ZH.jsonl`, with `eval_questions_EN.jsonl` provided as a reviewer-facing translation. Q1-Q2 were used only for prompt iteration and sanity checks, while all reported numbers in this repository are derived from the held-out pair Q3-Q4.
+| LLM Model | Baseline → Conflict | Shift |
+|-----------|---------------------|-------|
+| ChatGPT | 7.50 → 9.75 | 🚀 **+3.25** |
+| Claude  | 4.25 → 4.50 | 📈 +0.25 |
+| Gemini  | 4.00 → 4.75 | 📈 +0.75 |
 
-Preserved generator outputs are archived under `reproducibility/04_results/01_raw_model_outputs/` as `openai_gpt-5.2_extended-thinking`, `google_gemini-3-pro`, and `anthropic_claude-sonnet-4.5_extended-thinking`. The initial `v0_baseline_judge` condition includes all three generators. Later bundles, `v1_paraphrase_judge` and `v2_schema_strict_judge`, intentionally retain only GPT-5.2 and Gemini 3 Pro because Claude underperformed sharply in this task family during `v0` (`24/32` zero-score cases in the canonical table) and was dropped from the follow-up comparison by design.
+> **Takeaway:** Merely changing the prompt style can turn a mediocre evaluation into a state-of-the-art result. A single screenshot snapshot is heavily misleading. 
 
-Below, `ChatGPT`, `Gemini`, and `Claude` are shorthand labels for these three preserved generator snapshots. Judge-version shorthand is also fixed: `v0` = baseline judge prompt, `v1` = paraphrased judge prompt, and `v2` = schema-strict judge prompt.
+### 🚨 Finding F2: Models collapse without explicit architecture
+Comparing the `Explicit` vs `Implicit` condition logic across exactly the same task goals:
 
-In this repository, `explicit` means the prompt directly names the required three-section output contract and ordering, while `implicit` keeps the same task and target structure but signals it more indirectly through softer or less literal constraint wording. This distinction comes from the prompt-design layer in `reproducibility/02_prompt_variants/` and is tracked as `trigger_type` throughout the raw and processed artifacts.
-
-### 2. Key Findings
-
-#### Finding F1: Explicitness Dominates Stability
-
-Same model, stark difference between explicit and implicit conditions:
-
-| Model | Explicit Avg | Implicit Avg |
-|-------|--------------|--------------|
+| LLM Model | Explicit Avg | Implicit Avg |
+|-----------|--------------|--------------|
 | Gemini | **9.31** | **0.50** |
 | Claude | 4.38 | **0.00** |
-| ChatGPT | 9.38 | 7.75 |
+| ChatGPT| 9.38 | 7.75 |
 
-> Gemini under implicit instructions drops from 9.31 to 0.50—basically failing.
-
-This shows **"implicit compliance" is a distinct and fragile capability**. Models don't understand hints as reliably as we thought.
-
-#### Finding F2: Rephrasing Changes Conclusions
-
-Looking at Q3 mean scores (task held constant):
-
-| Model | Baseline → Conflict | Change |
-|-------|---------------------|--------|
-| ChatGPT | 7.50 → 9.75 | **+3.25** |
-| Claude | 4.25 → 4.50 | +0.25 |
-| Gemini | 4.00 → 4.75 | +0.75 |
-
-Just changing prompt style can turn "this model is mediocre" into "this model is excellent".
-
-#### Finding F3: Single-Prompt Evaluation Misleads
-
-A single snapshot can pick a "good" or "bad" framing, overstating (or understating) reliability.
-
-The audit's value: **making these flips traceable and auditable**, not just post-hoc storytelling.
-
-### 3. Why We Track "Invalid" Cases
-
-Traditional evaluation: record low scores, silently drop cases where judges couldn't evaluate.
-
-Our approach: **treat failures as first-class citizens**.
-
-**Common Failure Types:**
-
-| Type | Description |
-|------|-------------|
-| 📦 Schema/Format Break | Missing JSON fields, wrong structure |
-| 🚪 Instruction Drift | Ignoring format requirements |
-| 💬 Evaluation Pollution | Judge discusses rubric instead of scoring |
-| 📉 Robustness Failure | Self-judge vs. cross-judge mismatch |
-
-Failures aren't "noise"—they're **evidence of protocol brittleness**.
+> **Takeaway:** Explicit constraints dominate stability. We shouldn't trust ML pipelines that bank heavily on "implicit" instruction following.
 
 ---
 
-## 📁 Repository Structure
+## 🚀 Quickstart: Rebuilding & Auditing
 
-``` 
-prompt-drift-lab/
-├── ANONYMIZATION_CHECKLIST.md          # anonymization and release checklist
-├── README.md
-├── README_zh-CN.md
-├── README_FOR_REVIEWERS.md
-├── paper_anon_submission/              # anonymized paper package and frozen figures
-├── final-version/                      # camera-ready package and published figures
-└── reproducibility/
-    ├── 01_experiment_design/           # tasks, protocol YAML, schemas, and design notes
-    ├── 02_prompt_variants/             # baseline / weak / long / conflict prompt files
-    ├── 03_evaluation_rules/            # authoritative protocol and validity rules
-    ├── 04_results/                     # raw evidence + canonical processed outputs
-    ├── 05_methodological_addenda_and_controls/  # rationale and methodological notes
-    ├── TECHNICAL_MAP.md                # engineering-facing artifact map
-    └── tools/                          # offline rebuild, audit, and figure scripts
-```
-
-Notes:
-
-- `reproducibility/04_results/03_processed_evaluations/` is the canonical processed layer used by the paper and figures.
-- `reproducibility/04_results/03_processed_evaluations_rebuilt/` is a local rebuild target and is intentionally excluded from the main artifact map.
-- Cache files such as `.DS_Store` and `__pycache__/` are non-artifact noise and should be ignored.
-
-Recommended entry points:
-
-- `README_FOR_REVIEWERS.md` for review flow
-- `reproducibility/TECHNICAL_MAP.md` for pipeline, counts, and contracts
-- `reproducibility/01_experiment_design/` for task design and experiment setup
-- `reproducibility/02_prompt_variants/` for the actual prompt variants under test
-- `reproducibility/03_evaluation_rules/eval_protocol.md` for normative protocol
-- `reproducibility/04_results/03_processed_evaluations/<judge_version>/summary_tables/` for paper-citable numbers
-
----
-
-## ⚡ Quickstart: Verification and Rebuild
-
-### Setup
+With standard Python installed, our `tools/` suite covers the end-to-end trace context:
 
 ```bash
-cd prompt-drift-lab
+# 1. Install dependencies
 python -m pip install -r reproducibility/tools/requirements.txt
-```
 
-Standard Python dependencies: NumPy, Pandas, Matplotlib, Seaborn.
-
-### One-command artifact audit
-
-```bash
+# 2. Strict Artifact Audit
+# Checks counts, contracts, and canonical judge-version invariants
 python reproducibility/tools/audit_reproducibility_bundle.py --strict
-```
 
-This command:
-
-- checks bundle and table counts against the shipped snapshot
-- validates canonical record / summary-table structure
-- confirms judge-version invariants without assuming synchronized figure directories
-
-### Full offline rebuild from preserved judge bundles
-
-```bash
+# 3. Offline Data Rebuild
+# Re-compiles valid canonical records from the raw judge bundles
 python reproducibility/tools/reproduce_valid_evaluations.py --from_raw --overwrite_records
-```
 
-Outputs:
-
-- `valid_evaluations/main_method_cross_model/record_*.json`
-- `scores_long.csv`
-- `scores_grouped.csv`
-- `run_meta.json`
-
-### Regenerate figures
-
-```bash
+# 4. Generate Paper Figures
+# Generates all plot artifacts securely to a target output path
 OUT_DIR=/tmp/prompt_drift_figures
 mkdir -p "$OUT_DIR"
 for f in reproducibility/tools/figures/make_fig*.py; do
@@ -208,75 +101,26 @@ for f in reproducibility/tools/figures/make_fig*.py; do
 done
 ```
 
-Use a scratch directory by default. `paper_anon_submission/figures/` preserves the anonymized-paper snapshot, while `final-version/figures/` preserves the current camera-ready figure set.
+> **📚 Where to explore next?**
+> - For a review walkthrough: `README_FOR_REVIEWERS.md`
+> - To check experimental setup: `reproducibility/01_experiment_design/`
+> - To view the valid interpretation rules: `reproducibility/03_evaluation_rules/eval_protocol.md`
 
 ---
 
-## 🔗 Data Provenance: From Numbers to Evidence
+## 📌 Operational Takeaways
 
-Every reported value is traceable through a fixed artifact chain:
+1. **Always Check Prompt Sensitivity**: Try 2-3 semantically identical variations before setting your benchmark protocol.
+2. **Track the Exclusivity Rate**: Keep a dedicated log for `invaild_evaluation` cases alongside the raw score stats. 
+3. **Audit Your Artifacts**: Adopt a strict structural script test locally before handing over ML datasets or running analysis.
 
-```text
-scores_grouped.csv
-→ scores_long.csv
-→ valid_evaluations/main_method_cross_model/record_*.json
-→ 01_raw_model_outputs/*.pdf
-```
-
-Authoritative interpretation rules:
-
-- Protocol and validity criteria: `reproducibility/03_evaluation_rules/eval_protocol.md`
-- Numeric authority: `reproducibility/04_results/03_processed_evaluations/<judge_version>/summary_tables/`
-- Do not merge results across different judge versions (`v0`, `v1`, `v2`)
-
----
-
-## ✅ Artifact Status
-
-| Capability | Status | Notes |
-|------------|--------|-------|
-| Bundle audit | ✅ Verified | `audit_reproducibility_bundle.py --strict` checks counts, contracts, and judge-version invariants |
-| Offline artifact rebuild | ✅ Verified | preserved judge bundles → canonical records → summary tables |
-| Figure regeneration | ✅ Verified | `scores_long.csv` → PDF figures in a scratch directory or explicit target |
-| Figure-directory synchronization | Not assumed | `paper_anon_submission/figures/` preserves the anonymized-paper snapshot; `final-version/figures/` preserves the current camera-ready figure set |
-| Live API replay | Out of scope by design | no vendor API keys or live judging scripts are shipped |
-
-This repository supports **artifact-scope reproducibility**. It does not claim replayability against changing external model APIs.
-
----
-
-## 🎯 Why This Artifact Matters
-
-1. **Workshop-facing story**
-   Prompt drift is not cosmetic. Small wording changes can flip evaluation conclusions under otherwise fixed conditions.
-
-2. **Industry-facing traceability**
-   The bundle is structured like an audit package: raw evidence, normalized records, authoritative tables, and audit entry points are all separated by contract.
-
-3. **Operational lesson**
-   A low score and an invalid evaluation are different events. This repository preserves both, instead of collapsing them into a single failure bucket.
-
-4. **Snapshot discipline**
-   The repository preserves separate figure snapshots for anonymized-paper and camera-ready contexts instead of assuming they must remain byte-identical.
-
----
-
-## 📋 Practical Recommendations
-
-Based on this audit, we recommend:
-
-| Recommendation | Action |
-|----------------|--------|
-| Prompt sensitivity check | Test with 2-3 semantically equivalent prompt phrasings |
-| Invalid-rate reporting | Track exclusion causes separately from low scores |
-| Artifact contracts | Make every reported number traceable to raw evidence |
-| Artifact audit | Add a strict structural audit command before publication or handoff |
+This work serves as an essential "landmine map" regardless if you are aiming for high-impact AI research submissions or engineering large-language architectures inside a startup.
 
 ---
 
 ## 📖 Citation
 
-If this work aids your research, please cite:
+If this insight or infrastructure helped you, please use the citation below:
 
 ```bibtex
 @misc{promptdriftlab2026,
@@ -287,22 +131,10 @@ If this work aids your research, please cite:
 }
 ```
 
----
+#### 📄 License
+- 🛠️ Engine & Tools (`reproducibility/tools/*`): MIT License
+- 📦 Data & Responses (`reproducibility/04_results/*`): CC-BY 4.0
 
-## 📄 License
-
-| Content | License |
-|---------|---------|
-| 🛠️ Tool Code | MIT License |
-| 📦 Data Artifacts | CC-BY 4.0 |
-
----
-
-## 👤 Author
-
-**Yuchen Zhu(朱宇晨)**
-
+**Yuchen Zhu**
 - 🏠 GitHub: [@yuchenzhu-research](https://github.com/yuchenzhu-research)
-- 🌍 Project: [iclr2026-cao-prompt-drift-lab](https://github.com/yuchenzhu-research/iclr2026-cao-prompt-drift-lab)
-
-Questions or suggestions? Feel free to open an issue!
+- 💼 Let me know your thoughts or feedback! [Feel free to drop an Issue](https://github.com/yuchenzhu-research/iclr2026-cao-prompt-drift-lab/issues).
