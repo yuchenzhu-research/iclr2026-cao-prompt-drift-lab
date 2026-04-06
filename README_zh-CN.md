@@ -26,7 +26,7 @@
 ---
 
 > 💡 本项目是 ICLR 2026 论文的官方实现：
-> **Prompt-Level Drift as an Operational Monitoring Problem: Schema Failure Cliffs and Judge-Version Risk in Artifact-Grounded Evaluation**。
+> **Prompt-Level Drift as an Operational Monitoring Problem: Schema Failure Cliffs and Judge-Version Risk in Artifact-Grounded Evaluation** ([OpenReview](https://openreview.net/forum?id=PGoKUAy8XW#discussion))。
 
 我们在本项目中提出了通过**审计式监测**来解决 LLM 评估稳定性的问题。无论你是**学术界研究员**（探索模型能力边界与评估方法论）还是**工业界专家**（构建生产级 LLM 应用、监控线上 Prompt 漂移），本项目都为你提供了极具参考价值的数据工件和一站式审计工具。
 

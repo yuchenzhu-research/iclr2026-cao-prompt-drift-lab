@@ -26,7 +26,7 @@
 ---
 
 > 💡 This is the official repository for the ICLR 2026 paper:
-> **Prompt-Level Drift as an Operational Monitoring Problem: Schema Failure Cliffs and Judge-Version Risk in Artifact-Grounded Evaluation**.
+> **Prompt-Level Drift as an Operational Monitoring Problem: Schema Failure Cliffs and Judge-Version Risk in Artifact-Grounded Evaluation** ([OpenReview](https://openreview.net/forum?id=PGoKUAy8XW#discussion)).
 
 We approach LLM evaluation stability through **audit-driven operational monitoring**. Whether you're an **Academic Researcher** (probing foundation model boundaries) or an **Industry Practitioner** (building robust pipelines and monitoring prompt drift in production), this artifact bundle serves as both a methodological benchmark and a practical engineering toolkit.
 
