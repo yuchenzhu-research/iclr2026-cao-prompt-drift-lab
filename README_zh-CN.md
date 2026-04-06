@@ -82,19 +82,19 @@
 
 ```bash
 # 1. 准备依赖
-python -m pip install -r reproducibility/tools/requirements.txt
+python3 -m pip install -r reproducibility/tools/requirements.txt
 
 # 2. 一键工件审计（校验结构、契约和数据不变量）
-python reproducibility/tools/audit_reproducibility_bundle.py --strict
+python3 reproducibility/tools/audit_reproducibility_bundle.py --strict
 
 # 3. 离线全量重建（从 judge bundles 一路算出规范化结果与表格）
-python reproducibility/tools/reproduce_valid_evaluations.py --from_raw --overwrite_records
+python3 reproducibility/tools/reproduce_valid_evaluations.py --from_raw --overwrite_records
 
 # 4. 论文图表重绘（支持输出到任何目录）
 OUT_DIR=/tmp/prompt_drift_figures
 mkdir -p "$OUT_DIR"
 for f in reproducibility/tools/figures/make_fig*.py; do
-  python "$f" --out_dir "$OUT_DIR"
+  python3 "$f" --out_dir "$OUT_DIR"
 done
 ```
 
@@ -125,7 +125,7 @@ done
   author       = {Yuchen Zhu},
   title        = {{PROMPT-LEVEL DRIFT AS AN OPERATIONAL MONITORING PROBLEM: SCHEMA FAILURE CLIFFS AND JUDGE-VERSION RISK IN ARTIFACT-GROUNDED EVALUATION}},
   year         = {2026},
-  howpublished = {\url{https://github.com/yuchenzhu-research/iclr2026-cao-prompt-drift-lab}},
+  howpublished = {\url{https://openreview.net/forum?id=PGoKUAy8XW}},
 }
 ```
 
