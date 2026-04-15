@@ -57,7 +57,7 @@ In standard LLM evaluations, we rely on one prompt, run the model, and declare a
 
 ### Evaluation Questions
 
-The fixed output contract requires exactly three top-level sections, in order: `[事实快照]`, `[ChatGPT 联网搜索指令]`, and `[Gemini 深度挖掘指令]`.
+The fixed output contract requires exactly three top-level sections, in order: `fact snapshot`, `ChatGPT web search instructions`, and `Gemini deep research instructions`.
 
 All experimental execution was conducted on the original Chinese questions. The English text below is a semantic translation provided for readability only.
 
