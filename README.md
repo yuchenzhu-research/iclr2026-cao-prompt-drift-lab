@@ -49,7 +49,7 @@ In standard LLM evaluations, we rely on one prompt, run the model, and declare a
 | Setup Dimension | Configuration |
 |-----------------|---------------|
 | **Question Split** | `Q1-Q2`: development-only slices for prompt/judge iteration and sanity checks; `Q3-Q4`: held-out evaluation slices used for all reported analyses |
-| **Generators** | OpenAI GPT-5.2 (Extended), Google Gemini 3 Pro, Anthropic Claude Sonnet 4.5 |
+| **Generators** | OpenAI GPT-5.2 Thinking (Extended), Google Gemini 3 Pro (dynamic thinking, high by default), Anthropic Claude Sonnet 4.5 (extended thinking) |
 | **Prompt Variants** | 4 types: `Baseline` / `Weak` / `Long` / `Conflict` |
 | **Instruction Style**| `Explicit` (structural contract strictly defined) vs `Implicit` (soft constraints) |
 
