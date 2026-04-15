@@ -49,7 +49,7 @@
 
 **实验版图：**
 - **题目划分**：`Q1-Q2` 仅用于提示词 / judge 迭代与 sanity check；`Q3-Q4` 才是所有正式分析、图表和表格使用的 held-out evaluation set。
-- **多模型碰撞**：OpenAI GPT-5.2 Thinking（Extended）, Google Gemini 3 Pro（dynamic thinking，默认 high）, Anthropic Claude Sonnet 4.5（extended thinking）
+- **多模型碰撞**：OpenAI GPT-5.2 Thinking（Extended）, Google Gemini 3 Pro, Anthropic Claude Sonnet 4.5（extended thinking）
 - **精细化控制变量**：4种变体 × 2种清晰度（Explicit 直接点明 vs Implicit 间接表述）。
 - **裁判机制**：多维交叉评判（模型A评模型B）与自举验证。
 
