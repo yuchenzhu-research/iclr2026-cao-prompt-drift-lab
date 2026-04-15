@@ -25,7 +25,7 @@
 
 ---
 
-> 💡 This is the official repository for the ICLR 2026 paper:
+> 💡 This is the official artifact repository for the ICLR 2026 paper:
 > **Prompt-Level Drift as an Operational Monitoring Problem: Schema Failure Cliffs and Judge-Version Risk in Artifact-Grounded Evaluation** ([OpenReview](https://openreview.net/forum?id=PGoKUAy8XW#discussion)).
 
 We approach LLM evaluation stability through **audit-driven operational monitoring**. Whether you're an **Academic Researcher** (probing foundation model boundaries) or an **Industry Practitioner** (building robust pipelines and monitoring prompt drift in production), this artifact bundle serves as both a methodological benchmark and a practical engineering toolkit.
@@ -48,9 +48,35 @@ In standard LLM evaluations, we rely on one prompt, run the model, and declare a
 
 | Setup Dimension | Configuration |
 |-----------------|---------------|
+| **Question Split** | `Q1-Q2`: development-only slices for prompt/judge iteration and sanity checks; `Q3-Q4`: held-out evaluation slices used for all reported analyses |
 | **Generators** | OpenAI GPT-5.2 (Extended), Google Gemini 3 Pro, Anthropic Claude Sonnet 4.5 |
 | **Prompt Variants** | 4 types: `Baseline` / `Weak` / `Long` / `Conflict` |
 | **Instruction Style**| `Explicit` (structural contract strictly defined) vs `Implicit` (soft constraints) |
+
+> **Boundary note:** `Q1-Q2` are not part of the scored benchmark. They were used only during development to iterate prompts/judge setup and are excluded from all quantitative summaries, tables, and figures.
+
+### Evaluation Questions
+
+The fixed output contract requires exactly three top-level sections, in order: `[事实快照]`, `[ChatGPT 联网搜索指令]`, and `[Gemini 深度挖掘指令]`.
+
+All experimental execution was conducted on the original Chinese questions. The English text below is a semantic translation provided for readability only.
+
+| ID | Role | Question |
+|----|------|----------|
+| `Q1` | Development only | What has the weather been like in Shanghai over the past three days? |
+| `Q2` | Development only | When doing street photography on a rainy day, how is ISO typically set? |
+| `Q3` | Held-out evaluation | I tried many times to make the model follow a required output format, but it kept failing and became very frustrating. Why does this happen? |
+| `Q4` | Held-out evaluation | Some people claim that as long as a prompt is sufficiently long, the model will always follow instructions. What is your view? |
+
+Authoritative source: `reproducibility/01_experiment_design/eval_questions_ZH.jsonl`
+
+### Design Intuition Behind the Question Set
+
+- `Q1` was selected as a direct everyday factual query that strongly tempts the model to answer immediately, instead of switching into the required prompt-generator protocol.
+- `Q2` served as a relatively cleaner control-style question during development: it is concrete, bounded, and easier to compress into a short factual snapshot plus two downstream research prompts.
+- `Q3` was intentionally affect-laden and meta-evaluative. It tends to trigger diagnosis, reassurance, unsolicited advice, or full direct answering, all of which compete with the required three-section structure.
+- `Q4` probes a different but related failure mode: opinionated argumentation about prompting. In the frozen `Q3-Q4` evaluation slices, `Q4` was not easier than `Q3`; it also remained highly failure-prone under weak / implicit structural signaling.
+- The public artifact preserves only `Q3-Q4` evaluation outputs. The discussion of `Q1-Q2` here records the development-stage design rationale rather than a scored empirical claim.
 
 ### 🚨 Finding F1: Rephrasing completely flips the leaderboard
 Looking at Q3 mean scores (task held strictly constant!):
@@ -61,9 +87,9 @@ Looking at Q3 mean scores (task held strictly constant!):
 | Claude  | 4.25 → 4.50 | 📈 +0.25 |
 | Gemini  | 4.00 → 4.75 | 📈 +0.75 |
 
-> **Takeaway:** Merely changing the prompt style can turn a mediocre evaluation into a state-of-the-art result. A single screenshot snapshot is heavily misleading. 
+> **Takeaway:** Merely changing the prompt style can turn a mediocre evaluation into a state-of-the-art result. A single snapshot can be deeply misleading.
 
-### 🚨 Finding F2: Models collapse without explicit architecture
+### 🚨 Finding F2: Models collapse without explicit structural guidance
 Comparing the `Explicit` vs `Implicit` condition logic across exactly the same task goals:
 
 | LLM Model | Explicit Avg | Implicit Avg |
@@ -88,8 +114,9 @@ python3 -m pip install -r reproducibility/tools/requirements.txt
 # Checks counts, contracts, and canonical judge-version invariants
 python3 reproducibility/tools/audit_reproducibility_bundle.py --strict
 
-# 3. Offline Data Rebuild
-# Re-compiles valid canonical records from the raw judge bundles
+# 3. Optional Offline Data Rebuild
+# Re-compiles canonical records/tables from preserved raw judge bundles
+# Warning: this rewrites tracked JSON/CSV artifacts under reproducibility/04_results/03_processed_evaluations/
 python3 reproducibility/tools/reproduce_valid_evaluations.py --from_raw --overwrite_records
 
 # 4. Generate Paper Figures
@@ -111,10 +138,10 @@ done
 ## 📌 Operational Takeaways
 
 1. **Always Check Prompt Sensitivity**: Try 2-3 semantically identical variations before setting your benchmark protocol.
-2. **Track the Exclusivity Rate**: Keep a dedicated log for `invaild_evaluation` cases alongside the raw score stats. 
+2. **Track Invalid Evaluations Separately**: Keep `invalid evaluations` and exclusions separate from valid low-score cases; `total = 0` can still be a valid judged outcome.
 3. **Audit Your Artifacts**: Adopt a strict structural script test locally before handing over ML datasets or running analysis.
 
-This work serves as an essential "landmine map" regardless if you are aiming for high-impact AI research submissions or engineering large-language architectures inside a startup.
+This work serves as an essential "landmine map" whether you are aiming for a high-impact AI research submission or engineering a production LLM workflow inside a startup.
 
 ---
 

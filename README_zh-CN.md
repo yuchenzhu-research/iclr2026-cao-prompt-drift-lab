@@ -25,7 +25,7 @@
 
 ---
 
-> 💡 本项目是 ICLR 2026 论文的官方实现：
+> 💡 本项目是 ICLR 2026 论文的官方仓库：
 > **Prompt-Level Drift as an Operational Monitoring Problem: Schema Failure Cliffs and Judge-Version Risk in Artifact-Grounded Evaluation** ([OpenReview](https://openreview.net/forum?id=PGoKUAy8XW#discussion))。
 
 我们在本项目中提出了通过**审计式监测**来解决 LLM 评估稳定性的问题。无论你是**学术界研究员**（探索模型能力边界与评估方法论）还是**工业界专家**（构建生产级 LLM 应用、监控线上 Prompt 漂移），本项目都为你提供了极具参考价值的数据工件和一站式审计工具。
@@ -48,9 +48,35 @@
 ## 🔬 实验打法与震撼发现
 
 **实验版图：**
+- **题目划分**：`Q1-Q2` 仅用于提示词 / judge 迭代与 sanity check；`Q3-Q4` 才是所有正式分析、图表和表格使用的 held-out evaluation set。
 - **多模型碰撞**：OpenAI GPT-5.2 (Extended), Google Gemini 3 Pro, Anthropic Claude Sonnet 4.5
 - **精细化控制变量**：4种变体 × 2种清晰度（Explicit 直接点明 vs Implicit 间接表述）。
 - **裁判机制**：多维交叉评判（模型A评模型B）与自举验证。
+
+> **边界说明：** `Q1-Q2` 不属于正式计分 benchmark，只用于开发阶段迭代提示词与 judge 设置；所有定量汇总、图表与结论均仅基于 `Q3-Q4`。
+
+### 评测问题
+
+固定输出契约要求模型严格按顺序生成三个顶层区块：`[事实快照]`、`[ChatGPT 联网搜索指令]`、`[Gemini 深度挖掘指令]`。
+
+实验执行与评测均基于中文原题；英文版本仅为便于 reviewer 阅读而提供的语义翻译。
+
+| ID | 用途 | 问题 |
+|----|------|------|
+| `Q1` | 仅开发阶段 | 上海最近三天天气如何？ |
+| `Q2` | 仅开发阶段 | 雨天街拍时，ISO 一般会怎么设置？ |
+| `Q3` | 正式评测 | 我为了让模型按格式输出试了很多次都失败了，真的很烦。为什么会这样？ |
+| `Q4` | 正式评测 | 有人说只要提示词写得足够长，模型就一定会听话。你怎么看？ |
+
+权威题目来源：`reproducibility/01_experiment_design/eval_questions_ZH.jsonl`
+
+### 题目设计直觉
+
+- `Q1` 被选作一种很容易触发“直接回答冲动”的日常事实型问题：模型往往会先回答天气，而不是切换到你要求的提示词生成协议。
+- `Q2` 在开发阶段更像一个相对干净的对照问题：它具体、边界清楚，更容易被压缩成短事实快照以及后续两段研究指令。
+- `Q3` 是刻意带有情绪和元评测色彩的问题。它很容易诱发诊断、安慰、额外建议，甚至直接“认真回答”，从而和三段式输出发生竞争。
+- `Q4` 则测试另一类相关失效：围绕 prompting 观点展开论证或说理。冻结的 `Q3-Q4` 正式评测结果显示，`Q4` 实际上并不比 `Q3` 更容易，在弱 / 隐式结构约束下同样高度脆弱。
+- 公开工件只保留了 `Q3-Q4` 的正式评测输出；这里关于 `Q1-Q2` 的描述属于开发阶段的设计记录，而不是正式计分结论。
 
 ### 📉 发现一：换一种说法，烂模型也能霸榜
 仅看 Q3 任务的平均分波动（模型与任务均不变）：
@@ -87,7 +113,8 @@ python3 -m pip install -r reproducibility/tools/requirements.txt
 # 2. 一键工件审计（校验结构、契约和数据不变量）
 python3 reproducibility/tools/audit_reproducibility_bundle.py --strict
 
-# 3. 离线全量重建（从 judge bundles 一路算出规范化结果与表格）
+# 3. 可选：离线全量重建（从 judge bundles 一路算出规范化结果与表格）
+# 注意：该命令会重写 reproducibility/04_results/03_processed_evaluations/ 下的受版本控制 JSON/CSV 工件
 python3 reproducibility/tools/reproduce_valid_evaluations.py --from_raw --overwrite_records
 
 # 4. 论文图表重绘（支持输出到任何目录）
@@ -109,7 +136,7 @@ done
 
 通过这个项目，我们能够明确地告诉社区：
 1. **上线前必测鲁棒性**：跑评测前，用 2-3 个语义等价的不同 Prompt 试试水深。
-2. **正确记录“系统报错”**：在评估时，将 `invalid evaluation`（格式不对等情况）单独追踪统计，而不是一股脑归入低分。
+2. **将无效评估与低分样本分开统计**：单独追踪 `invalid evaluations` 与 exclusion；`total = 0` 也可能是协议下的有效结果，不能直接当成无效样本。
 3. **数据资产的极致溯源链**：交付或发布前引入严格的 Structural Audit 流程，确保数据说服力。
 
 无论你是在卷下一个顶会，还是在优化公司业务大模型的 Prompt 工程，这个研究都是极佳的“避坑指南”。
