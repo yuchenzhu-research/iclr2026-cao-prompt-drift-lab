@@ -1,7 +1,6 @@
 \documentclass{article}
 
-\usepackage{iclr2026_conference}
-\usepackage{times}
+\usepackage{iclr2026_conference,times}
 
 \usepackage{graphicx}
 \usepackage{booktabs}
@@ -11,6 +10,8 @@
 \usepackage{placeins}
 \usepackage{xurl}
 \usepackage{needspace}
+\usepackage{hyperref}
+\usepackage{url}
 
 \hbadness=10000
 \hfuzz=20pt
@@ -30,16 +31,28 @@ Schema Failure Cliffs and Judge-Version Risk in Artifact-Grounded Evaluation}
 Shanghai University \\
 \texttt{zyc20070222@gmail.com}
 }
-\iclrfinalcopy
+
+% Authors must not appear in the submitted version. They should be hidden
+% as long as the \iclrfinalcopy macro remains commented out below.
+% Non-anonymous submissions will be rejected without review.
+
+\iclrfinalcopy % Uncomment for camera-ready version, but NOT for submission.
+
+\begin{document}
+
+\maketitle
+
+% Fix for the workshop header on the first page and subsequent pages
+\makeatletter
+\fancyhead[L]{Published as a conference paper at CAO Workshop at ICLR 2026}
+\thispagestyle{fancy}
+\makeatother
+
 \newcommand{\Astruct}{A\_structure}
 \newcommand{\Bsnap}{B\_snapshot\_constraint}
 \newcommand{\Cact}{C\_actionability}
 \newcommand{\Dcomp}{D\_completeness}
 \newcommand{\Edrift}{E\_drift\_failure}
-
-\begin{document}
-\flushbottom
-\maketitle
 
 \begin{abstract}
 Prompt templates are routinely edited in deployed LLM systems and evaluation pipelines, often treated as ``non-functional'' refactors.
@@ -73,6 +86,7 @@ This one-way evidence chain makes prompt-drift incidents auditable without re-ru
 \label{fig:pipeline_overview}
 \end{figure*}
 
+\newpage
 \paragraph{Contributions.}
 \begin{itemize}[leftmargin=1.2em, itemsep=2pt, topsep=2pt]
   \item \textbf{Operational framing of prompt drift.} We treat prompt edits as configuration drift and define incident-level outcomes (schema hard-breaks, dimension-level degradation, judge-version sensitivity).
@@ -166,7 +180,7 @@ A CAO workflow should treat normative rules as change-controlled configuration, 
 
 \section{Results}
 \label{sec:results}
-\noindent\textbf{Numeric source.} Unless stated otherwise, results are computed from processed summaries{} under the baseline judge version v0.
+\noindent\textbf{Numeric source.} Unless stated otherwise, results are computed from processed summaries under the baseline judge version v0.
 We report both counts (for hard-breaks) and means (for total and dimension scores), and we do not pool across judge versions.
 The underlying evidence corresponds to a single-pass factorial sweep over preserved conditions (provider $\times$ question $\times$ variant $\times$ trigger), not repeated i.i.d.\ samples; denominators such as ``48'' indicate preserved evaluation records per trigger type (here: 6 judge/model slices $\times$ 8 preserved outputs), not repeated sampling.
 Accordingly, we avoid sampling-controlled significance claims and emphasize descriptive effect sizes, worst-slice behavior, and directional consistency across matched conditions.
